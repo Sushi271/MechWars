@@ -1,0 +1,104 @@
+﻿using UnityEngine;
+
+namespace MechWars.Utils
+{
+    public struct IVector2
+    {
+        public int X { get; private set; }
+        public int Y { get; private set; }
+
+        public float Length { get { return Mathf.Sqrt(X * X + Y * Y); } }
+
+        public IVector2(int x, int y)
+            : this()
+        {
+            X = x;
+            Y = y;
+        }
+
+        public float Dot(IVector2 v)
+        {
+            return X * v.X + Y * v.Y;
+        }
+
+        public float Cross(IVector2 v)
+        {
+            return X * v.Y - Y * v.X;
+        }
+
+        public static IVector2 operator +(IVector2 v)
+        {
+            return v;
+        }
+
+        public static IVector2 operator -(IVector2 v)
+        {
+            return new IVector2(-v.X, -v.Y);
+        }
+        
+        public static IVector2 operator +(IVector2 v1, IVector2 v2)
+        {
+            return new IVector2(v1.X + v2.X, v1.Y + v2.Y);
+        }
+
+        public static IVector2 operator -(IVector2 v1, IVector2 v2)
+        {
+            return v1 + (-v2);
+        }
+
+        public static IVector2 operator *(IVector2 v, int a)
+        {
+            return new IVector2(v.X * a, v.Y * a);
+        }
+
+        public static IVector2 operator *(int a, IVector2 v)
+        {
+            return v * a;
+        }
+
+        public static Vector2 operator *(IVector2 v, float a)
+        {
+            return new Vector2(v.X * a, v.Y * a);
+        }
+
+        public static Vector2 operator *(float a, IVector2 v)
+        {
+            return v * a;
+        }
+
+        public static Vector2 operator /(IVector2 v, float a)
+        {
+            return v * (1 / a);
+        }
+
+        public static float operator *(IVector2 v1, IVector2 v2)
+        {
+            return v1.Dot(v2);
+        }
+
+        public static implicit operator Vector2(IVector2 v)
+        {
+            return new Vector2(v.X, v.Y);
+        }
+
+        public static explicit operator IVector2(Vector2 v)
+        {
+            return new IVector2((int)v.x, (int)v.y);
+        }
+
+        public static bool operator ==(IVector2 v1, IVector2 v2)
+        {
+            return v1.X == v2.X && v1.Y == v2.Y;
+        }
+
+        public static bool operator !=(IVector2 v1, IVector2 v2)
+        {
+            return !(v1 == v2);
+        }
+
+        public static float Distance(IVector2 v1, IVector2 v2)
+        {
+            return (v2 - v1).Length;
+        }
+    }
+}
