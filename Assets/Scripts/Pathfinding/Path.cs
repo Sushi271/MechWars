@@ -33,6 +33,7 @@ namespace MechWars.Pathfinding
         public void Pop()
         {
             wayPoints.RemoveAt(Count - 1);
+            // TODO: Error check, update Length!
         }
 
         public IEnumerator<WayPoint> GetEnumerator()

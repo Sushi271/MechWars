@@ -23,7 +23,7 @@ namespace MechWars
             foreach (var a in mapElements)
             {
                 var unit = a.GetComponent<Unit>();
-                if (unit != null)
+                if (unit != null && unit.army == this)
                     Units.Add(unit);
             }
             
