@@ -18,5 +18,12 @@ namespace MechWars.Utils
                 Mathf.Abs(thisBounds.center.y - other.center.y) < thisBounds.extents.y + other.extents.y &&
                 Mathf.Abs(thisBounds.center.z - other.center.z) < thisBounds.extents.z + other.extents.z;
         }
+
+        public static GameObject CreateFieldCollider()
+        {
+            var fieldCollider = GameObject.Instantiate<GameObject>(Globals.Instance.fieldCollider);
+            fieldCollider.name = "_FieldCollider";
+            return fieldCollider;
+        }
     }
 }
