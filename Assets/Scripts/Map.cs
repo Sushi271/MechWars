@@ -41,7 +41,7 @@ namespace MechWars
                     AABB = a.GetComponent<Collider>().bounds
                 };
 
-            var fieldColliderObject = CreateCubeCollider();
+            var fieldColliderObject = UnityExtensions.CreateFieldCollider();
             var fieldCollider = fieldColliderObject.GetComponent<BoxCollider>();
 
             for (int x = 0; x < Width; x++)
@@ -53,13 +53,6 @@ namespace MechWars
                 }
 
             GameObject.DestroyImmediate(fieldCollider);
-        }
-
-        static GameObject CreateCubeCollider()
-        {
-            var fieldCollider = GameObject.Instantiate<GameObject>(Globals.Instance.fieldCollider);
-            fieldCollider.name = "_FieldCollider";
-            return fieldCollider;
         }
     }
 }

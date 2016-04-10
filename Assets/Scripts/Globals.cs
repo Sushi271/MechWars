@@ -105,7 +105,7 @@ namespace MechWars
             {
                 var gameObjects = string.Join(", ", notPlayers.Select(np => string.Format("\"{0}\"", np.name)).ToArray());
                 throw new System.Exception(string.Format(
-                    "GameObject with Player Tag must have Player sctipt attached (GameObjects: {0}).", gameObjects));
+                    "GameObject with Player Tag must have Player script attached (GameObjects: {0}).", gameObjects));
             }
 
             for (int i = 0; i < sortedPlayers.Count; i++)

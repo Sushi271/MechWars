@@ -4,6 +4,9 @@ namespace MechWars.Utils
 {
     public struct IVector2
     {
+        const int prime1 = 2147483647;
+        const int prime2 = 16777619;
+
         public int X { get; private set; }
         public int Y { get; private set; }
 
@@ -99,6 +102,24 @@ namespace MechWars.Utils
         public static float Distance(IVector2 v1, IVector2 v2)
         {
             return (v2 - v1).Length;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = prime1;
+                hash = (hash * prime2) ^ X.GetHashCode();
+                hash = (hash * prime2) ^ Y.GetHashCode();
+                return hash;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is IVector2)) return false;
+            var v = (IVector2)obj;
+            return v.X == X && v.Y == Y;
         }
     }
 }
