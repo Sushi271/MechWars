@@ -20,8 +20,6 @@ namespace MechWars.Editors
             EditorGUILayout.Separator();
 
             EditorGUILayout.LabelField("Map parameters:");
-            globals.mapObject = (GameObject)EditorGUILayout.ObjectField(
-                "Object", globals.mapObject, typeof(GameObject), true);
             globals.mapWidth = EditorGUILayout.IntField("Width", globals.mapWidth);
             globals.mapHeight = EditorGUILayout.IntField("Height", globals.mapHeight);
             EditorGUILayout.Separator();

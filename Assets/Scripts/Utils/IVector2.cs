@@ -121,5 +121,10 @@ namespace MechWars.Utils
             var v = (IVector2)obj;
             return v.X == X && v.Y == Y;
         }
+
+        public override string ToString()
+        {
+            return string.Format("({0}, {1})", X, Y);
+        }
     }
 }

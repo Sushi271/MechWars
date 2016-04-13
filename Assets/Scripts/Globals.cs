@@ -29,7 +29,6 @@ namespace MechWars
 
         public int mapWidth = 64;
         public int mapHeight = 64;
-        public GameObject mapObject;
 
         public List<GameObject> sortedPlayers;
         public List<GameObject> sortedArmies;
@@ -63,9 +62,6 @@ namespace MechWars
         public static GameObject MainCameraObject { get { return GameObject.FindGameObjectWithTag(Tag.MainCamera); } }
         public static Camera MainCamera { get { return MainCameraObject.GetComponent<Camera>(); } }
 
-        public GameObject MapObject { get { return mapObject; } }
-        public Map Map { get { return MapObject.GetComponent<Map>(); } }
-
         public static GLRenderer GLRenderer
         {
             get
@@ -73,6 +69,15 @@ namespace MechWars
                 if (MainCameraObject == null)
                     throw new System.Exception(string.Format("No object with tag \"{0}\" found.", Tag.MainCamera));
                 return MainCameraObject.GetComponent<GLRenderer>();
+            }
+        }
+
+        static FieldReservationMap fieldReservationMap;
+        public static FieldReservationMap FieldReservationMap
+        {
+            get
+            {
+                return TryLazyGetGlobalsComponent<FieldReservationMap>(ref fieldReservationMap);
             }
         }
 

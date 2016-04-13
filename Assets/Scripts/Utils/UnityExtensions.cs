@@ -7,7 +7,7 @@ namespace MechWars.Utils
         public static Vector2 VX(this Vector2 v) { return new Vector2(v.x, 0); }
         public static Vector2 VY(this Vector2 v) { return new Vector2(0, v.y); }
 
-        public static IVector2 Floor(this Vector2 v) { return (IVector2)v; }
+        public static IVector2 Floor(this Vector2 v) { return new IVector2((int)System.Math.Floor(v.x), (int)System.Math.Floor(v.y)); }
         public static IVector2 Round(this Vector2 v) { return (IVector2)new Vector2(v.x + 0.5f, v.y + 0.5f); }
         public static IVector2 Ceiling(this Vector2 v) { return (IVector2)new Vector2(v.x + 1, v.y + 1); }
         

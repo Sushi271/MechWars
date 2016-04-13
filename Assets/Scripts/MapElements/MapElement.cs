@@ -1,11 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MechWars.Utils;
+using System.Collections.Generic;
 
 namespace MechWars.MapElements
 {
     public class MapElement : MonoBehaviour
     {
+        static int LastId = 1;
+        static int NewId
+        {
+            get
+            {
+                return LastId++;
+            }
+        }
+
         public string mapElementName;
+        public int id;
         public bool selectable;
 
         bool hovered;
@@ -66,6 +78,25 @@ namespace MechWars.MapElements
             }
         }
 
+        public Vector2 SnappedCoords
+        {
+            get
+            {
+                var x = Coords.x;
+                var hw = Shape.Width * 0.5f;
+                var snapX = Mathf.Round(x - hw + 0.5f) - 0.5f + hw;
+
+                var y = Coords.y;
+                var hh = Shape.Height * 0.5f;
+                var snapY = Mathf.Round(y - hh + 0.5f) - 0.5f + hh;
+
+                return new Vector2(snapX, snapY);
+            }
+        }
+
+        public TextAsset shapeFile;
+        public MapElementShape Shape { get; private set; }
+
         protected virtual void OnHoveredChanged()
         {
             UpdateView();
@@ -94,6 +125,43 @@ namespace MechWars.MapElements
 
         protected virtual void OnStart()
         {
+            id = NewId;
+
+            if (shapeFile == null)
+                Shape = MapElementShape.DefaultShape;
+            else Shape = MapElementShape.FromString(shapeFile.text);
+
+            InitializeReservation();
+        }
+
+        void InitializeReservation()
+        {
+            var occupiedFields = CalculateOccupiedFields();
+            foreach (var coord in occupiedFields)
+            {
+                Globals.FieldReservationMap.MakeReservation(this, coord);
+            }
+        }
+
+        List<IVector2> CalculateOccupiedFields()
+        {
+            var snappedCoords = SnappedCoords;
+
+            var x = snappedCoords.x;
+            var hw = Shape.Width * 0.5;
+            var minX = x - hw + 0.5;
+            
+            var y = snappedCoords.y;
+            var hh = Shape.Height * 0.5;
+            var minY = y - hh + 0.5;
+
+            var occupiedFields = new List<IVector2>();
+            for (int i = 0; i < Shape.Width; i++)
+                for (int j = 0; j < Shape.Height; j++)
+                    if (Shape[i, j])
+                        occupiedFields.Add(new IVector2((int)minX + i, (int)minY + j));
+
+            return occupiedFields;
         }
 
         void Update()
@@ -103,6 +171,11 @@ namespace MechWars.MapElements
 
         protected virtual void OnUpdate()
         {
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", mapElementName ?? "", id);
         }
     }
 }
