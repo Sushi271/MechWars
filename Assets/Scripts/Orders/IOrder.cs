@@ -6,7 +6,7 @@ namespace MechWars.Orders
     public interface IOrder
     {
         string Name { get; }
-        List<Unit> OrderedUnits { get; }
+        Unit Unit { get; }
         bool Stopping { get; }
         bool Stopped { get; }
     }

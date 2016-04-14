@@ -6,29 +6,29 @@ namespace MechWars.Orders
     public abstract class Order : IOrder
     {
         public string Name { get; private set; }
-        public List<Unit> OrderedUnits { get; private set; }
+        public Unit Unit { get; private set; }
         public bool Stopping { get; private set; }
         public bool Stopped { get; private set; }
 
-        protected Order(string name, List<Unit> orderedUnits)
+        protected Order(string name, Unit orderedUnit)
         {
             Name = name;
-            OrderedUnits = orderedUnits;
+            Unit = orderedUnit;
         }
 
-        public void Update(Unit unit)
+        public void Update()
         {
             if (Stopped) return;
             if (Stopping)
             {
-                Stopped = StoppingUpdate(unit);
+                Stopped = StoppingUpdate();
                 if (Stopped) Stopping = false;
             }
-            else Stopped = RegularUpdate(unit);
+            else Stopped = RegularUpdate();
         }
 
-        protected abstract bool RegularUpdate(Unit unit);
-        protected abstract bool StoppingUpdate(Unit unit);
+        protected abstract bool RegularUpdate();
+        protected abstract bool StoppingUpdate();
 
         public void Stop()
         {

@@ -32,10 +32,9 @@ namespace MechWars.Human
                     where u != null && u.army != null && u.army.Player == player
                     select u;
 
-                var moveOrder = new Move(thisPlayersUnits.ToList(), dest);
                 foreach (var u in thisPlayersUnits)
                 {
-                    u.GiveOrder(moveOrder);
+                    u.GiveOrder(new Move(u, dest));
                 }
             }
         }

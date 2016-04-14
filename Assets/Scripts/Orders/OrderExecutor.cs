@@ -30,7 +30,7 @@ namespace MechWars.Orders
         {
             if (CurrentOrder != null)
             {
-                CurrentOrder.Update(Unit);
+                CurrentOrder.Update();
                 if (CurrentOrder.Stopped)
                 {
                     CurrentOrder = nextOrder;

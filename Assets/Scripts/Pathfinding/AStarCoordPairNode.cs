@@ -1,4 +1,6 @@
-﻿namespace MechWars.Pathfinding
+﻿using System.Collections.Generic;
+
+namespace MechWars.Pathfinding
 {
     public class AStarCoordPairNode : CoordPairNode<float>
     {

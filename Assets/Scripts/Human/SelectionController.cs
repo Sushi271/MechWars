@@ -40,7 +40,7 @@ namespace MechWars.Human
                 var go = hit.collider.gameObject;
                 if (go != null)
                 {
-                    var mapElement = go.GetComponent<MapElement>();
+                    var mapElement = go.GetComponentInParent<MapElement>();
                     if (mapElement != null && mapElement.selectable)
                         singleHoveredMapElement = mapElement;
                 }
