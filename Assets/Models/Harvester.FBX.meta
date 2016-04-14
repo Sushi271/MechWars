@@ -387,6 +387,82 @@ ModelImporter:
     4300146: Cylinder089
     4300148: Cylinder090
     4300150: Cylinder091
+    6400000: Box009
+    6400002: Box010
+    6400004: Box011
+    6400006: Box012
+    6400008: Box013
+    6400010: Box014
+    6400012: Box015
+    6400014: Box016
+    6400016: Cylinder001
+    6400018: Cylinder002
+    6400020: Cylinder003
+    6400022: Cylinder007
+    6400024: Cylinder009
+    6400026: Cylinder010
+    6400028: Cylinder011
+    6400030: Cylinder012
+    6400032: Cylinder013
+    6400034: Cylinder014
+    6400036: Cylinder015
+    6400038: Cylinder016
+    6400040: Cylinder017
+    6400042: Cylinder018
+    6400044: Cylinder036
+    6400046: Cylinder039
+    6400048: Cylinder040
+    6400050: Cylinder041
+    6400052: Cylinder042
+    6400054: Cylinder043
+    6400056: Cylinder044
+    6400058: Cylinder045
+    6400060: Cylinder046
+    6400062: Cylinder047
+    6400064: Cylinder048
+    6400066: Cylinder049
+    6400068: Cylinder050
+    6400070: Cylinder051
+    6400072: Cylinder052
+    6400074: Cylinder053
+    6400076: Cylinder054
+    6400078: Cylinder055
+    6400080: Cylinder056
+    6400082: Cylinder057
+    6400084: Cylinder058
+    6400086: Cylinder059
+    6400088: Cylinder060
+    6400090: Cylinder061
+    6400092: Cylinder062
+    6400094: Cylinder063
+    6400096: Cylinder064
+    6400098: Cylinder065
+    6400100: Cylinder066
+    6400102: Cylinder067
+    6400104: Cylinder068
+    6400106: Cylinder069
+    6400108: Cylinder070
+    6400110: Cylinder071
+    6400112: Cylinder072
+    6400114: Cylinder073
+    6400116: Cylinder074
+    6400118: Cylinder075
+    6400120: Cylinder076
+    6400122: Cylinder077
+    6400124: Cylinder078
+    6400126: Cylinder079
+    6400128: Cylinder080
+    6400130: Cylinder081
+    6400132: Cylinder082
+    6400134: Cylinder083
+    6400136: Cylinder084
+    6400138: Cylinder085
+    6400140: Cylinder086
+    6400142: Cylinder087
+    6400144: Cylinder088
+    6400146: Cylinder089
+    6400148: Cylinder090
+    6400150: Cylinder091
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -413,7 +489,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
