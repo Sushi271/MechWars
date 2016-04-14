@@ -110,11 +110,13 @@ namespace MechWars.Human
             var units = selectableMapElements.Where(me => me is Unit).Cast<Unit>();
             var thisPlayersUnits = units.Where(u => u.army != null && u.army.Player == player);
 
+
             if (thisPlayersUnits.Count() > 0)
             {
                 foreach (var u in thisPlayersUnits)
                     hoveredMapElements.Add(u);
             }
+            // TODO: buildings as well
             else if (units.Count() > 0)
                 hoveredMapElements.Add(units.First());
             else if (selectableMapElements.Count() > 0)
