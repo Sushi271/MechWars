@@ -30,6 +30,14 @@ public class MainMenuScript : MonoBehaviour
             {
 
             }
+			if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "Options"))
+            {
+
+            }
+			if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "Exit"))
+            {
+
+            }
         }
     }
 }
