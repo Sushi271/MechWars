@@ -3,7 +3,7 @@ guid: 4bdadde207833dc449dba7219c7a433b
 timeCreated: 1460654602
 licenseType: Free
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: Arc001
     100002: Arc003
@@ -460,6 +460,85 @@ ModelImporter:
     4300152: Arc001
     4300154: Cylinder027
     4300156: Arc007
+    6400000: Arc001
+    6400002: Arc003
+    6400004: Arc004
+    6400006: Arc005
+    6400008: Arc006
+    6400010: Arc007
+    6400012: Box001
+    6400014: Box002
+    6400016: Box003
+    6400018: Box006
+    6400020: Box007
+    6400022: Box008
+    6400024: Box009
+    6400026: Box010
+    6400028: Box013
+    6400030: Box014
+    6400032: Box015
+    6400034: Box016
+    6400036: Box017
+    6400038: Box018
+    6400040: Box019
+    6400042: Box020
+    6400044: Box021
+    6400046: Box022
+    6400048: Box024
+    6400050: Box025
+    6400052: Box026
+    6400054: Cylinder001
+    6400056: Cylinder002
+    6400058: Cylinder004
+    6400060: Cylinder005
+    6400062: Cylinder006
+    6400064: Cylinder007
+    6400066: Cylinder008
+    6400068: Cylinder015
+    6400070: Cylinder026
+    6400072: Cylinder027
+    6400074: Cylinder028
+    6400076: Cylinder030
+    6400078: Cylinder032
+    6400080: Cylinder033
+    6400082: Cylinder034
+    6400084: Cylinder036
+    6400086: Cylinder037
+    6400088: Cylinder038
+    6400090: Cylinder039
+    6400092: Cylinder040
+    6400094: Cylinder041
+    6400096: Cylinder042
+    6400098: Cylinder043
+    6400100: Cylinder044
+    6400102: Cylinder045
+    6400104: Cylinder046
+    6400106: Cylinder056
+    6400108: Cylinder057
+    6400110: Cylinder062
+    6400112: Cylinder063
+    6400114: Cylinder064
+    6400116: Cylinder065
+    6400118: Cylinder066
+    6400120: Cylinder067
+    6400122: Cylinder068
+    6400124: Cylinder069
+    6400126: Cylinder070
+    6400128: Cylinder071
+    6400130: Cylinder072
+    6400132: Cylinder073
+    6400134: Cylinder074
+    6400136: Cylinder075
+    6400138: Cylinder076
+    6400140: Cylinder077
+    6400142: Cylinder078
+    6400144: Cylinder079
+    6400146: Cylinder080
+    6400148: Cylinder081
+    6400150: Cylinder082
+    6400152: Cylinder083
+    6400154: Cylinder084
+    6400156: Cylinder085
     7400000: MechMachinegun_walking
     9500000: //RootNode
   materials:
@@ -469,7 +548,6 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -477,9 +555,9 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: 0.5
-    animationPositionError: 0.5
-    animationScaleError: 0.5
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
@@ -493,7 +571,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -728,13 +805,12 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 30
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -749,6 +825,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
@@ -756,12 +833,12 @@ ModelImporter:
   humanDescription:
     human: []
     skeleton: []
-    armTwist: 0.5
-    foreArmTwist: 0.5
-    upperLegTwist: 0.5
-    legTwist: 0.5
-    armStretch: 0.05
-    legStretch: 0.05
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
