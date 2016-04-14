@@ -149,6 +149,21 @@ namespace MechWars
                         "Globals.sortedArmies List contains a the same Army object {0} times (Army GameObject: \"{1}\").",
                         samePlayers.Count, army.name));
             }
+
+            prevTime = System.DateTime.Now;
+        }
+
+        System.DateTime prevTime;
+        void Update()
+        {
+            var time = System.DateTime.Now;
+            var dt = time - prevTime;
+            if (dt.TotalSeconds > 5)
+            {
+                Time.timeScale = 0;
+                Debug.LogError("Game stopped, because last Update() was more than 5 seconds ago.");
+            }
+            prevTime = time;
         }
 
         static T TryLazyGetGlobalsComponent<T>(ref T field)

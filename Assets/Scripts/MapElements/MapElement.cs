@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-using MechWars.Utils;
 using System.Collections.Generic;
+using System.Linq;
+using MechWars.Utils;
 
 namespace MechWars.MapElements
 {
@@ -109,13 +110,15 @@ namespace MechWars.MapElements
 
         protected virtual void UpdateView()
         {
-            var mat = gameObject.GetComponent<Renderer>().material;
+            var materials =
+                from r in gameObject.GetComponentsInChildren<Renderer>()
+                select r.material;
 
             Color color = Color.white;
             if (Hovered && Selected) color = new Color(1, 0.5f, 0);
             else if (Hovered) color = new Color(1, 1, 0);
             else if (Selected) color = new Color(1, 0, 0);
-            mat.color = color;
+            foreach (var m in materials) m.color = color;
         }
 
         void Start()

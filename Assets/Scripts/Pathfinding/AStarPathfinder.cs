@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Timers;
 using MechWars.Utils;
 using UnityEngine;
@@ -69,7 +69,7 @@ namespace MechWars.Pathfinding
 
             if (p == null) 
             {
-                var alternateTargetCoords = DesignateAlternateTarget();
+                var alternateTargetCoords = DesignateAlternateTarget(target);
                 var alternateTarget = evaluated[alternateTargetCoords];
                 p = ReconstructPath(alternateTarget);
             }   
@@ -98,9 +98,57 @@ namespace MechWars.Pathfinding
             return path;
         }
 
-        CoordPair DesignateAlternateTarget()
+        CoordPair DesignateAlternateTarget(CoordPair originalTarget)
         {
-            throw new NotImplementedException();
+            var evaluated2 = new HashSet<CoordPair>();
+            var priorityQueue2 = new BinaryHeap<float, CoordPairNode<float>>();
+            
+            bool found = false;
+            float dist = 0;
+
+            var node = new CoordPairNode<float>(originalTarget);
+            priorityQueue2.Insert(node);
+
+            var closestNodes = new HashSet<AStarCoordPairNode>();
+
+            while (!priorityQueue2.Empty)
+            {
+                var current = priorityQueue2.Extract();
+                if (found && current.Distance > dist) continue;
+
+                AStarCoordPairNode alt;
+                bool success = evaluated.TryGetValue(current.CoordPair, out alt);
+                if (success)
+                {
+                    if (!found)
+                    {
+                        found = true;
+                        dist = alt.Distance;
+                    }
+                    closestNodes.Add(alt);
+                }
+                
+                evaluated2.Add(current.CoordPair);
+
+                foreach (var n in current.CoordPair.Neighbours)
+                {
+                    if (evaluated2.Contains(n)) continue;
+
+                    var newDistance = CoordPair.Distance(n, originalTarget);
+                    if (found && newDistance > dist) continue;
+                    
+                    node = new CoordPairNode<float>(n);
+                    node.Distance = newDistance;
+                    priorityQueue2.Insert(node);
+                }
+            }
+
+            if (!found)
+                throw new System.Exception(string.Format(
+                    "Cannot find alternate target for CoordPair {0}.", originalTarget.ToString()));
+
+            var alternate = closestNodes.Aggregate((n1, n2) => n1.Distance < n2.Distance ? n1 : n2);
+            return alternate.CoordPair;
         }
     }
 }
