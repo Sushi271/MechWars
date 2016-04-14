@@ -30,7 +30,7 @@ namespace MechWars.Orders
                 path.Pop();
                 if (IsDestinationReached(unit))
                     return true;
-                //pathNeedsUpdate = true;
+                pathNeedsUpdate = true;
             }
             return false;
         }
@@ -56,7 +56,23 @@ namespace MechWars.Orders
             if (path.First.Next == null) return true;
             var coords = path.First.Next.Coords;
 
-            return unit.MoveStepTo(coords.X, coords.Y);
+            var frm = Globals.FieldReservationMap;
+            var vec = coords.Vector;
+            var occupier = frm[vec];
+
+            if (occupier != unit)
+            {
+                if (occupier != null)
+                    throw new System.Exception(string.Format("Unit {0} cannot move to field {1} - it's occupied.",
+                        unit.ToString(), vec.ToString()));
+
+                frm.MakeReservation(unit, vec);
+                frm.ReleaseReservation(unit, (IVector2)unit.Coords);
+            }
+            
+            bool finished;
+            unit.MoveStepTo(coords.X, coords.Y, out finished);
+            return finished;
         }
 
         bool IsDestinationReached(Unit unit)

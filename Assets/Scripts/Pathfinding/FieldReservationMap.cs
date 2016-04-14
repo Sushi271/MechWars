@@ -48,25 +48,23 @@ namespace MechWars
             reservationTable = new MapElement[Width, Height];
         }
 
-        //bool first = true;
-        //void Update()
-        //{
-        //    if (first)
-        //    {
-        //        first = false;
-        //        var sb = new StringBuilder();
-        //        for (int i = 0; i < Height; i++)
-        //        {
-        //            for (int j = 0; j < Width; j++)
-        //            {
-        //                if (this[j, i] == null) sb.Append('.');
-        //                else sb.Append(this[j, i].id);
-        //            }
-        //            sb.AppendLine();
-        //        }
-        //        Debug.Log(sb.ToString());
-        //    }
-        //}
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F3))
+            {
+                var sb = new StringBuilder();
+                for (int i = 0; i < Height; i++)
+                {
+                    for (int j = 0; j < Width; j++)
+                    {
+                        if (this[j, i] == null) sb.Append('.');
+                        else sb.Append(this[j, i].id);
+                    }
+                    sb.AppendLine();
+                }
+                Debug.Log(sb.ToString());
+            }
+        }
 
         public void MakeReservation(MapElement mapElement, IVector2 coords)
         {
@@ -106,6 +104,7 @@ namespace MechWars
             reservations.Remove(coords);
             if (reservations.Count == 0)
                 reservationDictionary.Remove(mapElement);
+            this[coords] = null;
         }
     }
 }

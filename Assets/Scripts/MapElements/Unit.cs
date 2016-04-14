@@ -24,9 +24,8 @@ namespace MechWars.MapElements
             orderExecutor.Update();
         }
 
-        public bool MoveStepTo(int x, int y)
+        public void MoveStepTo(int x, int y, out bool finished)
         {
-            // TODO: check whether space is occupied
             float dx = x - X;
             float dy = y - Y;
             float dist = Mathf.Sqrt(dx * dx + dy * dy);
@@ -36,12 +35,13 @@ namespace MechWars.MapElements
             {
                 X = x;
                 Y = y;
-                return true;
+                finished = true;
+                return;
             }
 
             var dPos = new Vector3(dx, 0, dy).normalized * deltaDist;
             transform.position += dPos;
-            return false;
+            finished = false;
         }
 
         public void GiveOrder(Order order)

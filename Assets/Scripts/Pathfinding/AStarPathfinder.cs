@@ -24,7 +24,7 @@ namespace MechWars.Pathfinding
             
             Path p = null;
 
-            DateTime dt = DateTime.Now;
+            //DateTime dt = DateTime.Now;
 
             while (!priorityQueue.Empty)
             {
@@ -41,6 +41,8 @@ namespace MechWars.Pathfinding
                 foreach (var n in current.CoordPair.Neighbours)
                 {
                     if (evaluated.ContainsKey(n)) continue;
+                    if (Globals.FieldReservationMap[n.Vector] != null) continue;
+
                     var deltaDist = CoordPair.Distance(current.CoordPair, n);
                     var newDistance = current.Distance + deltaDist;
                     
@@ -62,11 +64,16 @@ namespace MechWars.Pathfinding
                 }
             }
 
-            TimeSpan ts = DateTime.Now - dt;
-            Debug.Log(ts);
+            //TimeSpan ts = DateTime.Now - dt;
+            //Debug.Log(ts);
 
-            if (p != null) return p;
-            throw new Exception("No path could be found!");
+            if (p == null) 
+            {
+                var alternateTargetCoords = DesignateAlternateTarget();
+                var alternateTarget = evaluated[alternateTargetCoords];
+                p = ReconstructPath(alternateTarget);
+            }   
+            return p;
         }
 
         void AddNode(AStarCoordPairNode node)
@@ -89,6 +96,11 @@ namespace MechWars.Pathfinding
                 current = current.CameFrom;
             }
             return path;
+        }
+
+        CoordPair DesignateAlternateTarget()
+        {
+            throw new NotImplementedException();
         }
     }
 }
