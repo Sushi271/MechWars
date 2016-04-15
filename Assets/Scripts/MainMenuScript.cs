@@ -6,8 +6,9 @@ namespace MechWars
     public class MainMenuScript : MonoBehaviour
     {
         private bool _isFirstMenu = true;
-        private bool _isLevelSelectMenu = false;
         private bool _isOptionMenu = false;
+		
+		public string gameTitle = "";
 
         // Use this for initialization
         void Start()
@@ -21,7 +22,20 @@ namespace MechWars
 
         void OnGUI()
         {
+			GUI.Label(new Rect(30,75,300,25), gameTitle);
+			
             FirstMenu();
+			OptionsMenu();
+			
+			if(_isOptionMenu==true)
+			{
+				if (GUI.Button(new Rect(10, Screen.height -35, 150, 25), "Back"))
+				{
+					_isOptionMenu=false;
+					
+					_isFirstMenu=true;
+				}
+			}
         }
 
         void FirstMenu()
@@ -30,17 +44,27 @@ namespace MechWars
             {
                 if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "New Game"))
                 {
+					Application.LoadLevel("Test");
 
                 }
-            }
-			if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "Options"))
-            {
+				if (GUI.Button(new Rect(10, Screen.height / 2 - 65, 150, 25), "Options"))
+				{
+					_isFirstMenu=false;
+					_isOptionMenu=true;
+				}
+				if (GUI.Button(new Rect(10, Screen.height / 2 - 30, 150, 25), "Exit"))
+				{
+				Application.Quit();
 
-            }
-			if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "Exit"))
-            {
-
-            }
+				}
+			}
         }
+		void OptionsMenu()
+		{
+			if (_isOptionMenu)
+			{
+				
+			}
+		}
     }
 }
