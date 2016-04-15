@@ -2,6 +2,6 @@
 {
     public interface IPathfinder
     {
-        Path FindPath(CoordPair start, CoordPair target);
+        Path FindPath(CoordPair start, CoordPair target, MechWars.MapElements.Unit unit);
     }
 }

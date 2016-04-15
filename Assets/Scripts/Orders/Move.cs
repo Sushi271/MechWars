@@ -43,9 +43,12 @@ namespace MechWars.Orders
 
         void CalculatePath()
         {
+            var time = System.DateTime.Now;
             path = new AStarPathfinder().FindPath(
                 new CoordPair(Unit.Coords.Round()),
-                new CoordPair(Destination));
+                new CoordPair(Destination),
+                Unit);
+            Debug.Log(string.Format("Unit {0} DesignateAlternateTarget(), t = {1}", Unit, System.DateTime.Now - time));
             pathNeedsUpdate = false;
         }
 
@@ -73,11 +76,6 @@ namespace MechWars.Orders
             Unit.MoveStepTo(coords.X, coords.Y, out finished);
             return finished;
         }
-
-        //bool IsDestinationReached()
-        //{
-        //    return Unit.Coords == Destination;
-        //}
 
         public override string ToString()
         {

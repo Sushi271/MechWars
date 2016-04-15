@@ -32,7 +32,7 @@ namespace MechWars.Editors
 
         void DictionaryGuiLayout()
         {
-            bool changed = true;
+            bool changed = false;
                 
             var sp = globals.sortedPlayers;
             var sa = globals.sortedArmies;
@@ -55,7 +55,7 @@ namespace MechWars.Editors
                     if (key == null)
                     {
                         EditorUtility.DisplayDialog("Key is NULL!",
-                            string.Format("Given key cannot be NULL.", key), "OK");
+                            string.Format("Given key cannot be NULL."), "OK");
                         continue;
                     }
                     if (sp.Contains(key))

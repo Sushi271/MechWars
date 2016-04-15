@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MechWars
 {
+    [System.Serializable]
     public class Army : MonoBehaviour
     {
         public string armyName;

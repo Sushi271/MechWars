@@ -12,7 +12,7 @@ namespace MechWars.Pathfinding
         Dictionary<CoordPair, AStarCoordPairNode> toEvaluate;
         BinaryHeap<float, AStarCoordPairNode> priorityQueue;
 
-        public Path FindPath(CoordPair start, CoordPair target)
+        public Path FindPath(CoordPair start, CoordPair target, MechWars.MapElements.Unit unit)
         {
             evaluated = new Dictionary<CoordPair, AStarCoordPairNode>();
             toEvaluate = new Dictionary<CoordPair, AStarCoordPairNode>();
@@ -67,12 +67,13 @@ namespace MechWars.Pathfinding
             //TimeSpan ts = DateTime.Now - dt;
             //Debug.Log(ts);
 
-            if (p == null) 
+            if (p == null)
             {
+                var time = System.DateTime.Now;
                 var alternateTargetCoords = DesignateAlternateTarget(target);
                 var alternateTarget = evaluated[alternateTargetCoords];
                 p = ReconstructPath(alternateTarget);
-            }   
+            }
             return p;
         }
 
