@@ -81,9 +81,5 @@ namespace MechWars.Orders
         {
             return string.Format("Move [ {0}, {1} ]", Destination.X, Destination.Y);
         }
-
-        class MoveDetails
-        {
-        }
     }
 }

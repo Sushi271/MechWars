@@ -9,6 +9,8 @@ namespace MechWars.MapElements
         OrderExecutor orderExecutor;
         public IOrder CurrentOrder { get { return orderExecutor.CurrentOrder; } }
 
+        public override bool Interactible { get { return true; } }
+
         public Unit()
         {
             selectable = true;
@@ -19,16 +21,6 @@ namespace MechWars.MapElements
         {
             base.OnUpdate();
             orderExecutor.Update();
-
-            //DEBUG
-            if (Selected)
-            {
-                var hitPoints = Stats[StatNames.HitPoints];
-                if (Input.GetKeyDown(KeyCode.KeypadPlus))
-                    hitPoints.Value += 10;
-                if (Input.GetKeyDown(KeyCode.KeypadMinus))
-                    hitPoints.Value -= 10;
-            }
         }
 
         public void MoveStepTo(int x, int y, out bool finished)
@@ -58,6 +50,7 @@ namespace MechWars.MapElements
         public void GiveOrder(Order order)
         {
             // TODO: provide control over order type
+            // TODO: What the fuck is this TODO above about?!
             orderExecutor.Give(order);
         }
     }

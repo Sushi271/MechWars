@@ -87,6 +87,8 @@ namespace MechWars.MapElements
 
         public MapElementShape Shape { get; private set; }
 
+        public virtual bool Interactible { get { return false; } }
+
         public MapElement()
         {
             Stats = new Stats();
@@ -174,6 +176,19 @@ namespace MechWars.MapElements
         protected virtual void OnUpdate()
         {
             statusDisplay.Draw();
+            
+            //DEBUG
+            if (Selected)
+            {
+                var hitPoints = Stats[StatNames.HitPoints];
+                if (hitPoints != null)
+                {
+                    if (Input.GetKeyDown(KeyCode.KeypadPlus))
+                        hitPoints.Value += 10;
+                    if (Input.GetKeyDown(KeyCode.KeypadMinus))
+                        hitPoints.Value -= 10;
+                }
+            }
         }
 
         private void StatusDisplayAction(int centerX, int centerY, int displayWidth, int displayHeight, float distance)
