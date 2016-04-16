@@ -17,6 +17,8 @@ namespace MechWars.Editors
                 "Ground Material", globals.groundMaterial, typeof(Material), false);
             globals.fieldCollider = (GameObject)EditorGUILayout.ObjectField(
                 "Field Collider", globals.fieldCollider, typeof(GameObject), false);
+            globals.debugStatusDisplays = EditorGUILayout.Toggle(
+                "Debug StatusDisplays", globals.debugStatusDisplays);
             EditorGUILayout.Separator();
 
             EditorGUILayout.LabelField("Map parameters:");
@@ -25,6 +27,8 @@ namespace MechWars.Editors
             EditorGUILayout.Separator();
 
             DictionaryGuiLayout();
+            
+            EditorUtility.SetDirty(globals);
         }
 
         GameObject newPlayer;
@@ -32,8 +36,6 @@ namespace MechWars.Editors
 
         void DictionaryGuiLayout()
         {
-            bool changed = false;
-                
             var sp = globals.sortedPlayers;
             var sa = globals.sortedArmies;
 
@@ -65,18 +67,13 @@ namespace MechWars.Editors
                         continue;
                     }
                     sp[i] = key;
-                    changed = true;
                 }
                 if (value != sa[i])
-                {
                     sa[i] = value;
-                    changed = true;
-                }
                 if (remove)
                 {
                     sp.RemoveAt(i);
                     sa.RemoveAt(i);
-                    changed = true;
                 }
             }
 
@@ -98,7 +95,6 @@ namespace MechWars.Editors
                 {
                     sp.Add(newPlayer);
                     sa.Add(newArmy);
-                    changed = true;
                 }
                 
                 newPlayer = null;
@@ -109,11 +105,7 @@ namespace MechWars.Editors
             {
                 globals.sortedPlayers.Clear();
                 globals.sortedArmies.Clear();
-                changed = true;
             }
-
-            if (changed)
-                EditorUtility.SetDirty(globals);
         }
     }
 }

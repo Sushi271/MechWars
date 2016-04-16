@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.MapElements;
 using MechWars.MapElements;
 using UnityEditor;
 using UnityEngine;

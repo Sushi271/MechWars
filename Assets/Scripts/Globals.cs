@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MechWars.GLRendering;
+using MechWars.Pathfinding;
 using UnityEngine;
 
 namespace MechWars
@@ -29,6 +30,8 @@ namespace MechWars
 
         public int mapWidth = 64;
         public int mapHeight = 64;
+
+        public bool debugStatusDisplays;
 
         public List<GameObject> sortedPlayers;
         public List<GameObject> sortedArmies;

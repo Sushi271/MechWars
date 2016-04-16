@@ -27,8 +27,7 @@ namespace MechWars.GLRendering
             glMaterial.SetPass(0);
 
             GL.PushMatrix();
-            GL.LoadOrtho();
-
+            GL.LoadPixelMatrix();
             while (tasks.Count > 0)
                 tasks.Dequeue().Render();
 

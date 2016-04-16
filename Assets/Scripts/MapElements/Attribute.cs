@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.MapElements
+﻿namespace MechWars.MapElements
 {
     public class Attribute
     {

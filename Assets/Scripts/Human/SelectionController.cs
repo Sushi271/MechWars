@@ -107,20 +107,43 @@ namespace MechWars.Human
             var hoveredMapElements = new HashSet<MapElement>();
 
             var selectableMapElements = mapElements.Where(me => me.selectable);
-            var units = selectableMapElements.Where(me => me is Unit).Cast<Unit>();
-            var thisPlayersUnits = units.Where(u => u.army != null && u.army.Player == player);
+            if (selectableMapElements.Count() == 0)
+                return hoveredMapElements;
 
-
-            if (thisPlayersUnits.Count() > 0)
+            var armyMapElements = selectableMapElements.Where(me => me.army == player.Army);
+            bool thisArmy = armyMapElements.Count() > 0;
+            if (!thisArmy)
             {
-                foreach (var u in thisPlayersUnits)
-                    hoveredMapElements.Add(u);
+                var firstMapElementWithArmy = selectableMapElements.FirstOrDefault(me => me.army != null);
+                if (firstMapElementWithArmy != null) armyMapElements = selectableMapElements.Where(me => me.army == firstMapElementWithArmy.army);
+                else armyMapElements = selectableMapElements.Where(me => me.army == null);
             }
-            // TODO: buildings as well
-            else if (units.Count() > 0)
-                hoveredMapElements.Add(units.First());
-            else if (selectableMapElements.Count() > 0)
-                hoveredMapElements.Add(selectableMapElements.First());
+
+            var units = armyMapElements.Where(me => me is Unit).Cast<Unit>();
+            var buildings = armyMapElements.Where(me => me is Building).Cast<Building>();
+
+            if (thisArmy)
+            {
+                if (units.Count() > 0)
+                    foreach (var u in units)
+                        hoveredMapElements.Add(u);
+                else if (buildings.Count() > 0)
+                {
+                    string name = buildings.First().mapElementName;
+                    var namedBuildings = buildings.Where(b => b.mapElementName == name);
+                    foreach (var b in namedBuildings)
+                        hoveredMapElements.Add(b);
+                }
+                else hoveredMapElements.Add(armyMapElements.First());
+            }
+            else
+            {
+                if (units.Count() > 0)
+                    hoveredMapElements.Add(units.First());
+                else if (buildings.Count() > 0)
+                    hoveredMapElements.Add(buildings.First());
+                else hoveredMapElements.Add(armyMapElements.First());
+            }
 
             return hoveredMapElements;
         }
@@ -130,7 +153,10 @@ namespace MechWars.Human
             foreach (var me in HoveredMapElements)
             {
                 if (!newHoveredMapElements.Contains(me))
+                {
                     me.Hovered = false;
+                    me.InSelectionBox = false;
+                }
             }
             HoveredMapElements.RemoveWhere(me => !me.Hovered);
             foreach (var me in newHoveredMapElements)
@@ -138,6 +164,7 @@ namespace MechWars.Human
                 if (!HoveredMapElements.Contains(me))
                 {
                     me.Hovered = true;
+                    if (MultiSelection) me.InSelectionBox = true;
                     HoveredMapElements.Add(me);
                 }
             }
