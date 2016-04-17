@@ -10,12 +10,26 @@ namespace MechWars
         private bool _isFirstMenu = true;
         private bool _isOptionMenu = false;
 		private bool _isPlayMenu = false;
+		private bool _isGraphicsOptions = false;
+		private bool _isAudioOptions = false;
+		
+		private float _gameVolume = 0.6f;
+		private float _gameFOV = 65.0f;
 		
 		public string gameTitle = "";
 
         // Use this for initialization
         void Start()
         {
+			_gameVolume = PlayerPrefs.GetFloat("Game Volume", _gameVolume);
+			if (PlayerPrefs.HasKey("Game Volume"))
+			{
+				AudioListener.volume = PlayerPrefs.GetFloat("Game Volume", _gameVolume);
+			}
+			else
+			{
+				PlayerPrefs.SetFloat("Game Volume", _gameVolume);
+			}
         }
 
         // Update is called once per frame
@@ -32,23 +46,19 @@ namespace MechWars
             FirstMenu();
 			OptionsMenu();
 			PlayMenu();
+			AudioOptionsDisplay();
+			GraphicOptionsDisplay();
 			
-			if(_isPlayMenu==true)
+			
+			if(_isPlayMenu==true || _isOptionMenu == true)
 			{
 				if (GUI.Button(new Rect(10, Screen.height -35, 150, 25), "Back"))
 				{
 					_isOptionMenu=false;
 					_isPlayMenu = false;
 					_isFirstMenu=true;
-				}
-			}
-			if(_isOptionMenu==true)
-			{
-				if (GUI.Button(new Rect(10, Screen.height -35, 150, 25), "Back"))
-				{
-					_isOptionMenu=false;
-					_isPlayMenu = false;
-					_isFirstMenu=true;
+					_isAudioOptions = false;
+					_isGraphicsOptions=false;
 				}
 			}
         }
@@ -96,14 +106,31 @@ namespace MechWars
 		{
 			if (_isOptionMenu)
 			{
+				
 				if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "Audio"))
 				{
-					
+					_isAudioOptions = true;
+					_isGraphicsOptions = false;
 				}
 				if (GUI.Button(new Rect(10, Screen.height / 2 - 65, 150, 25), "Fullscreen"))
 				{
-					
+					_isAudioOptions = false;
+					_isGraphicsOptions = true;
 				}
+			}
+		}
+		public void AudioOptionsDisplay()
+		{
+			if (_isAudioOptions)
+			{
+			
+			}
+		}
+		public void GraphicOptionsDisplay()
+		{
+			if (_isGraphicsOptions)
+			{
+				
 			}
 		}
     }
