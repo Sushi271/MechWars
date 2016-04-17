@@ -14,6 +14,9 @@ namespace MechWars.Pathfinding
 
         public Path FindPath(CoordPair start, CoordPair target, MechWars.MapElements.Unit unit)
         {
+            //if (Globals.FieldReservationMap[target.Vector] != null)
+            //    target = DesignateAlternateTarget(target);
+
             evaluated = new Dictionary<CoordPair, AStarCoordPairNode>();
             toEvaluate = new Dictionary<CoordPair, AStarCoordPairNode>();
             priorityQueue = new BinaryHeap<float, AStarCoordPairNode>();
@@ -63,7 +66,7 @@ namespace MechWars.Pathfinding
                     priorityQueue.Correct(node);
                 }
             }
-
+            
             //TimeSpan ts = DateTime.Now - dt;
             //Debug.Log(ts);
 
@@ -102,6 +105,7 @@ namespace MechWars.Pathfinding
         CoordPair DesignateAlternateTarget(CoordPair originalTarget)
         {
             var evaluated2 = new HashSet<CoordPair>();
+            var toEvaluate2 = new HashSet<CoordPair>();
             var priorityQueue2 = new BinaryHeap<float, CoordPairNode<float>>();
             
             bool found = false;
@@ -109,12 +113,14 @@ namespace MechWars.Pathfinding
 
             var node = new CoordPairNode<float>(originalTarget);
             priorityQueue2.Insert(node);
+            toEvaluate2.Add(node.CoordPair);
 
             var closestNodes = new HashSet<AStarCoordPairNode>();
 
             while (!priorityQueue2.Empty)
             {
                 var current = priorityQueue2.Extract();
+
                 if (found && current.Distance > dist) continue;
 
                 AStarCoordPairNode alt;
@@ -130,10 +136,10 @@ namespace MechWars.Pathfinding
                 }
                 
                 evaluated2.Add(current.CoordPair);
-
+                toEvaluate2.Remove(current.CoordPair);
                 foreach (var n in current.CoordPair.Neighbours)
                 {
-                    if (evaluated2.Contains(n)) continue;
+                    if (evaluated2.Contains(n) || toEvaluate2.Contains(n)) continue;
 
                     var newDistance = CoordPair.Distance(n, originalTarget);
                     if (found && newDistance > dist) continue;
@@ -141,6 +147,7 @@ namespace MechWars.Pathfinding
                     node = new CoordPairNode<float>(n);
                     node.Distance = newDistance;
                     priorityQueue2.Insert(node);
+                    toEvaluate2.Add(node.CoordPair);
                 }
             }
 

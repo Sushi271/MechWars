@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace MechWars.Orders
 {
-    public class Escort : Order
+    public class EscortOrder : Order
     {
         public MapElement Target { get; private set; }
 
-        public Escort(Unit orderedUnit, MapElement target)
+        public EscortOrder(Unit orderedUnit, MapElement target)
             : base("Escort", orderedUnit)
         {
             Target = target;

@@ -19,10 +19,10 @@ namespace MechWars.Human
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            bool mapElementHit = Physics.Raycast(ray, out hit, LayerMask.GetMask(Layer.MapElements));
+            bool mapElementHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements));
             bool terrainHit;
             if (mapElementHit) terrainHit = false;
-            terrainHit = Physics.Raycast(ray, out hit, LayerMask.GetMask(Layer.Terrain));
+            else terrainHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain));
 
             if (Input.GetMouseButtonDown(1))
             {
@@ -31,27 +31,27 @@ namespace MechWars.Human
                     let u = a as Unit
                     where u != null && u.army != null && u.army == player.Army
                     select u;
-                if (terrainHit)
-                {
-                    var dest = new Vector2(hit.point.x, hit.point.z).Round();
-                    foreach (var u in thisPlayersUnits)
-                        u.GiveOrder(new Move(u, dest));
-                }
-                else if (mapElementHit)
+                if (mapElementHit)
                 {
                     var go = hit.collider.gameObject;
-                    var mapElement = go.GetComponent<MapElement>();
+                    var mapElement = go.GetComponentInParent<MapElement>();
                     if (mapElement == null)
                         throw new System.Exception("Non-MapElement GameObject is in MapElements layer.");
                     if (mapElement.Interactible)
                     {
                         if (mapElement.army == player.Army)
                             foreach (var u in thisPlayersUnits)
-                                u.GiveOrder(new Escort(u, mapElement));
-                        else 
+                                u.GiveOrder(new EscortOrder(u, mapElement));
+                        else
                             foreach (var u in thisPlayersUnits)
-                                u.GiveOrder(new Attack(u, mapElement));
+                                u.GiveOrder(new FollowAttackOrder(u, mapElement));
                     }
+                }
+                if (terrainHit)
+                {
+                    var dest = new Vector2(hit.point.x, hit.point.z).Round();
+                    foreach (var u in thisPlayersUnits)
+                        u.GiveOrder(new MoveOrder(u, dest));
                 }
             }
 
