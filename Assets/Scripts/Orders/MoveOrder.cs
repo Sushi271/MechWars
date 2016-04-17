@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
-using MechWars.MapElements;
+﻿using MechWars.MapElements;
 using MechWars.Pathfinding;
 using MechWars.Utils;
 using UnityEngine;
 
 namespace MechWars.Orders
 {
-    public class Move : Order
+    public class MoveOrder : Order
     {
-        public IVector2 Destination { get; private set; }
-
         Path path;
         bool pathNeedsUpdate;
 
-        public Move(Unit orderedUnit, IVector2 destination)
+        public IVector2 Destination { get; set; }
+        public bool SingleMoveInProgress { get; private set; }
+
+        public event System.Action OnSingleMoveFinished;
+
+        public MoveOrder(Unit orderedUnit, IVector2 destination)
             : base("Move", orderedUnit)
         {
             Destination = destination;
@@ -27,6 +29,9 @@ namespace MechWars.Orders
                 CalculatePath();
             if (SingleMove())
             {
+                SingleMoveInProgress = false;
+                if (OnSingleMoveFinished != null)
+                    OnSingleMoveFinished();
                 path.Pop();
                 if (path.Length == 0) return true;
                 pathNeedsUpdate = true;
@@ -48,12 +53,14 @@ namespace MechWars.Orders
                 new CoordPair(Unit.Coords.Round()),
                 new CoordPair(Destination),
                 Unit);
-            Debug.Log(string.Format("Unit {0} DesignateAlternateTarget(), t = {1}", Unit, System.DateTime.Now - time));
+            //Debug.Log(string.Format("Unit {0} AStarPathfinder.FindPath(), t = {1}", Unit, System.DateTime.Now - time));
             pathNeedsUpdate = false;
         }
 
         bool SingleMove()
         {
+            SingleMoveInProgress = true;
+
             if (path.First == null) return true;
             if (path.First.Next == null) return true;
             var coords = path.First.Next.Coords;

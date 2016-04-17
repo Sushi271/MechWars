@@ -89,6 +89,8 @@ namespace MechWars.MapElements
 
         public virtual bool Interactible { get { return false; } }
 
+        public bool Alive { get; private set; }
+
         public MapElement()
         {
             Stats = new Stats();
@@ -109,6 +111,9 @@ namespace MechWars.MapElements
             else Shape = MapElementShape.FromString(shapeFile.text);
 
             ReadStats();
+
+            Alive = true;
+            UpdateAlive();
 
             InitializeReservation();
         }
@@ -176,7 +181,8 @@ namespace MechWars.MapElements
         protected virtual void OnUpdate()
         {
             statusDisplay.Draw();
-            
+            UpdateAlive();
+
             //DEBUG
             if (Selected)
             {
@@ -191,7 +197,17 @@ namespace MechWars.MapElements
             }
         }
 
-        private void StatusDisplayAction(int centerX, int centerY, int displayWidth, int displayHeight, float distance)
+        void UpdateAlive()
+        {
+            if (Alive)
+            {
+                var hitPoints = Stats[StatNames.HitPoints];
+                if (hitPoints != null && hitPoints.Value <= 0)
+                    Alive = false;
+            }
+        }
+
+        void StatusDisplayAction(int centerX, int centerY, int displayWidth, int displayHeight, float distance)
         {
             Vector2 location = new Vector2(centerX - displayWidth * 0.5f, centerY - displayHeight * 0.5f);
             Vector2 size = new Vector2(displayWidth, displayHeight);

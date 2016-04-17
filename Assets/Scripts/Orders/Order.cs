@@ -34,5 +34,9 @@ namespace MechWars.Orders
         {
             Stopping = true;
         }
+
+        protected virtual void OnStopCalled()
+        {
+        }
     }
 }

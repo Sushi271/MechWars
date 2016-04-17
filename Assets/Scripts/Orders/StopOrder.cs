@@ -3,9 +3,9 @@ using MechWars.MapElements;
 
 namespace MechWars.Orders
 {
-    public class Stop : Order
+    public class StopOrder : Order
     {
-        public Stop(Unit orderedUnit)
+        public StopOrder(Unit orderedUnit)
             : base("Stop", orderedUnit)
         {
         }
