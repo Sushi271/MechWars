@@ -20,8 +20,7 @@ namespace MechWars.Human
 
         public void Draw()
         {
-            Globals.GLRenderer.Schedule(new CustomRenderTask(() => GL.LoadPixelMatrix()));
-            Globals.GLRenderer.Schedule(new RectangleRenderTask(Position, Size, Color.black));
+            Globals.GLRenderer.Schedule(new RectangleRenderTask(Color.black, Position, Size));
         }
 
         public void Update()

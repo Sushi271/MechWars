@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using MechWars.MapElements;
 using MechWars.Utils;
 using UnityEngine;
 
-namespace MechWars
+namespace MechWars.Pathfinding
 {
     public class FieldReservationMap : MonoBehaviour
     {

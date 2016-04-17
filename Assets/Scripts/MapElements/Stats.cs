@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.MapElements;
 using UnityEngine;
 
 namespace MechWars.MapElements

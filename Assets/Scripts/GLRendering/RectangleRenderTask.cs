@@ -6,16 +6,16 @@ namespace MechWars.GLRendering
 {
     public class RectangleRenderTask : ComplexRenderTask
     {
+        public Color Color { get; private set; }
         public Vector2 Location { get; private set; }
         public Vector2 Size { get; private set; }
-        public Color Color { get; private set; }
 
-        public RectangleRenderTask(Vector2 location, Vector2 size, Color color)
+        public RectangleRenderTask(Color color, Vector2 location, Vector2 size, float distance = 0.9f)
             : base(
-                new LineRenderTask(location, location + size.VX(), color),
-                new LineRenderTask(location + size.VX(), location + size, color),
-                new LineRenderTask(location + size, location + size.VY(), color),
-                new LineRenderTask(location + size.VY(), location, color))
+                new LineRenderTask(color, location, location + size.VX(), distance),
+                new LineRenderTask(color, location + size.VX(), location + size, distance),
+                new LineRenderTask(color, location + size, location + size.VY(), distance),
+                new LineRenderTask(color, location + size.VY(), location, distance))
         {
             Location = location;
             Size = size;
