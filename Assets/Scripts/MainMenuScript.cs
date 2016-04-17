@@ -14,7 +14,6 @@ namespace MechWars
 		private bool _isAudioOptions = false;
 		
 		private float _gameVolume = 0.6f;
-		private float _gameFOV = 65.0f;
 		
 		public string gameTitle = "";
 
@@ -41,7 +40,7 @@ namespace MechWars
         {
 			GUI.skin=GameSkin;
 			
-			GUI.Label(new Rect(30,75,300,25), gameTitle, "Menu Title");
+			GUI.Label(new Rect(Screen.width / 2 - 50,35,300,25), gameTitle, "Menu Title");
 			
             FirstMenu();
 			OptionsMenu();
@@ -52,7 +51,7 @@ namespace MechWars
 			
 			if(_isPlayMenu==true || _isOptionMenu == true)
 			{
-				if (GUI.Button(new Rect(10, Screen.height -35, 150, 25), "Back"))
+				if (GUI.Button(new Rect(50, Screen.height - 65, 181, 48), "Back"))
 				{
 					_isOptionMenu=false;
 					_isPlayMenu = false;
@@ -67,7 +66,7 @@ namespace MechWars
         {
             if (_isFirstMenu)
             {
-                if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "Play"))
+                if (GUI.Button(new Rect(50, Screen.height / 2 - 100, 181, 48), "", "Play Button Style"))
                 {
 					_isFirstMenu=false;
 					_isPlayMenu=true;
@@ -75,13 +74,13 @@ namespace MechWars
 					
 
                 }
-				if (GUI.Button(new Rect(10, Screen.height / 2 - 65, 150, 25), "Options"))
+				if (GUI.Button(new Rect(50, Screen.height / 2, 181, 48), "", "Options Button Style"))
 				{
 					_isFirstMenu=false;
 					_isPlayMenu=false;
 					_isOptionMenu=true;
 				}
-				if (GUI.Button(new Rect(10, Screen.height / 2 - 30, 150, 25), "Exit"))
+				if (GUI.Button(new Rect(50, Screen.height / 2 + 100, 181, 48), "", "Exit Button Style"))
 				{
 				Application.Quit();
 
@@ -92,11 +91,11 @@ namespace MechWars
 		{
 			if (_isPlayMenu)
 			{
-				if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "AI vs AI"))
+				if (GUI.Button(new Rect(50, Screen.height / 2 - 100, 229, 48), "", "AI Button Style"))
 				{
 					//Application.LoadLevel("Test");
 				}
-				if (GUI.Button(new Rect(10, Screen.height / 2 - 65, 150, 25), "Player vs AI"))
+				if (GUI.Button(new Rect(50, Screen.height / 2, 229, 48), "", "Player Button Style"))
 				{
 					//Application.LoadLevel("Test");
 				}
@@ -107,12 +106,12 @@ namespace MechWars
 			if (_isOptionMenu)
 			{
 				
-				if (GUI.Button(new Rect(10, Screen.height / 2 - 100, 150, 25), "Audio"))
+				if (GUI.Button(new Rect(50, Screen.height / 2 - 100, 229, 48), "", "Audio Button Style"))
 				{
 					_isAudioOptions = true;
 					_isGraphicsOptions = false;
 				}
-				if (GUI.Button(new Rect(10, Screen.height / 2 - 65, 150, 25), "Fullscreen"))
+				if (GUI.Button(new Rect(50, Screen.height / 2, 229, 48), "", "Fullscreen Button Style"))
 				{
 					_isAudioOptions = false;
 					_isGraphicsOptions = true;
