@@ -16,6 +16,8 @@ namespace MechWars
 		private float _gameVolume = 0.6f;
 		
 		public string gameTitle = "";
+		
+		public Camera gameCamera;
 
         // Use this for initialization
         void Start()
@@ -29,6 +31,7 @@ namespace MechWars
 			{
 				PlayerPrefs.SetFloat("Game Volume", _gameVolume);
 			}
+			
         }
 
         // Update is called once per frame
@@ -130,7 +133,10 @@ namespace MechWars
 			if (_isGraphicsOptions)
 			{
 				
+				
+				}
+				
 			}
 		}
     }
-}
+
