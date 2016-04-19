@@ -28,8 +28,9 @@ namespace MechWars.Human
             Size = (Vector2)Input.mousePosition - Position;
 
             var mapElements = GameObject.FindGameObjectsWithTag(Tag.MapElement).Select(go => go.GetComponent<MapElement>());
+            var aaa = mapElements.Where(a => a == null);
             if (mapElements.Any(a => a == null))
-                throw new System.Exception(string.Format("Object with tag \"{0}\" doesn't have MapElement script", Tag.MapElement));
+                throw new System.Exception(string.Format("Object with tag \"{0}\" doesn't have MapElement script [{1}]", Tag.MapElement, aaa.Count()));
 
             var mapElementsScreenPos = mapElements.Select(a => new
                 {
