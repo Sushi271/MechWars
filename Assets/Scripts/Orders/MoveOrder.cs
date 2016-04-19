@@ -31,7 +31,7 @@ namespace MechWars.Orders
             {
                 SingleMoveInProgress = false;
                 if (OnSingleMoveFinished != null)
-                    OnSingleMoveFinished();
+                    OnSingleMoveFinished.Invoke();
                 path.Pop();
                 if (path.Length == 0) return true;
                 pathNeedsUpdate = true;
@@ -77,6 +77,10 @@ namespace MechWars.Orders
 
                 frm.MakeReservation(Unit, vec);
                 frm.ReleaseReservation(Unit, Unit.Coords.Round());
+
+                var direction = (vec - Unit.Coords).normalized;
+                var direction3 = new Vector3(direction.x, 0, direction.y);
+                Unit.transform.localRotation = Quaternion.LookRotation(direction3);
             }
             
             bool finished;

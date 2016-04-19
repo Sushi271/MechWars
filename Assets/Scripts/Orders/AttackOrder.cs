@@ -82,6 +82,10 @@ namespace MechWars.Orders
             }
             if (attack != null)
             {
+                var direction = (Target.Coords - Unit.Coords).normalized;
+                var direction3 = new Vector3(direction.x, 0, direction.y);
+                Unit.transform.localRotation = Quaternion.LookRotation(direction3);
+
                 attack.ExecuteStep();
                 if (attack.Finished)
                 {
