@@ -19,12 +19,11 @@ namespace MechWars
 		
 		public string gameTitle = "";
 		
-		public Camera gameCamera;
 
         // Use this for initialization
         void Start()
         {
-			_gameVolume = PlayerPrefs.GetFloat("Game Volume", _gameVolume);
+            _gameVolume = PlayerPrefs.GetFloat("Game Volume", _gameVolume);
 			if (PlayerPrefs.HasKey("Game Volume"))
 			{
 				AudioListener.volume = PlayerPrefs.GetFloat("Game Volume", _gameVolume);
@@ -60,17 +59,29 @@ namespace MechWars
             {
                 if (GUI.Button(new Rect(50, Screen.height / 2 - 100, 181, 48), "", "Play Button Style"))
                 {
-					//_isFirstMenu=false;
-					_isPlayMenu=true;
-					_isOptionMenu=false;
-					
-
+                    if (_isPlayMenu == false)
+                    {
+                        //_isFirstMenu=false;
+                        _isPlayMenu = true;
+                        _isOptionMenu = false;
+                    }
+                    else
+                    {
+                        _isPlayMenu = false;
+                    }
                 }
 				if (GUI.Button(new Rect(50, Screen.height / 2, 181, 48), "", "Options Button Style"))
 				{
-					//_isFirstMenu=false;
-					_isPlayMenu=false;
-					_isOptionMenu=true;
+                    if (_isOptionMenu == false)
+                    {
+                        //_isFirstMenu=false;
+                        _isPlayMenu = false;
+                        _isOptionMenu = true;
+                    }
+                    else
+                    {
+                        _isOptionMenu = false;
+                    }
 				}
 				if (GUI.Button(new Rect(50, Screen.height / 2 + 100, 181, 48), "", "Exit Button Style"))
 				{
@@ -81,20 +92,22 @@ namespace MechWars
         }
 		void PlayMenu()
 		{
-			if (_isPlayMenu)
-			{
-				GUI.Button(new Rect(235, Screen.height / 2 - 76, 50, 56), "", "Link Button Style");
-				if (GUI.Button(new Rect(289, Screen.height / 2 - 100, 229, 48), "", "AI Button Style"))
-				{
-					//Application.LoadLevel("Test");
-				}
-				if (GUI.Button(new Rect(289, Screen.height / 2 - 44, 229, 48), "", "Player Button Style"))
-				{
-					//Application.LoadLevel("Test");
-				}
-			}
+            if (_isPlayMenu)
+            {
+                GUI.Button(new Rect(235, Screen.height / 2 - 76, 50, 56), "", "Link Button Style");
+                if (GUI.Button(new Rect(289, Screen.height / 2 - 100, 229, 48), "", "AI Button Style"))
+                {
+                    //Application.LoadLevel("Test");
+                }
+                if (GUI.Button(new Rect(289, Screen.height / 2 - 44, 229, 48), "", "Player Button Style"))
+                {
+                    //Application.LoadLevel("Test");
+                }
+
+            }
             
-		}
+
+        }
 		void OptionsMenu()
 		{
 			if (_isOptionMenu)
@@ -106,6 +119,7 @@ namespace MechWars
 					_isAudioON = !_isAudioON;
 					_isAudioOptions = true;
 					_isGraphicsOptions = false;
+                    AudioOFF();
 				}
 				string fullscreenButtonStyle = _isFullscreenON ? "FullscreenON Button Style" : "FullscreenOFF Button Style";
 				if (GUI.Button(new Rect(289, Screen.height / 2 + 56, 229, 48), "", fullscreenButtonStyle))
@@ -138,6 +152,11 @@ namespace MechWars
 		{
 			Screen.fullScreen = !Screen.fullScreen;
 		}
+
+        public void AudioOFF()
+        {
+
+        }
 	}
     }
 
