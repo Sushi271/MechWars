@@ -25,6 +25,8 @@ namespace MechWars
 
         //=====================================================================================
 
+        public bool isGameplay;
+
         public Material groundMaterial;
         public GameObject fieldCollider;
 
@@ -35,6 +37,8 @@ namespace MechWars
 
         public List<GameObject> sortedPlayers;
         public List<GameObject> sortedArmies;
+
+        public float dayAndNightCycleTime;
 
         public Globals()
         {
@@ -97,16 +101,17 @@ namespace MechWars
             if (idx == -1) return null;
             return Globals.Instance.sortedPlayers[idx].GetComponent<Player>();
         }
-        
+
         //===== PRIVATE =======================================================================
 
         void Start()
         {
-            CheckPlayerArmyAssignmentCorrectness();
+            if (isGameplay)
+                CheckPlayerArmyAssignmentCorrectness();
         }
 
         void CheckPlayerArmyAssignmentCorrectness()
-        {            
+        {
             var players = GameObject.FindGameObjectsWithTag(Tag.Player);
             var notPlayers = players.Where(p => p.GetComponent<Player>() == null);
             if (notPlayers.Count() > 0)
@@ -120,7 +125,7 @@ namespace MechWars
             {
                 var player = sortedPlayers[i];
                 var army = sortedArmies[i];
-                
+
                 if (player == null)
                     throw new System.Exception("Globals.sortedPlayers List contains a NULL-Player.");
                 if (!players.Contains(player))

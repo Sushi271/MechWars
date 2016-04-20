@@ -12,15 +12,20 @@ namespace MechWars.Editors
         public override void OnInspectorGUI()
         {
             globals = (Globals)target;
+            
+            globals.isGameplay = EditorGUILayout.Toggle(
+                "Is Gameplay?", globals.isGameplay);
 
             globals.groundMaterial = (Material)EditorGUILayout.ObjectField(
                 "Ground Material", globals.groundMaterial, typeof(Material), false);
             globals.fieldCollider = (GameObject)EditorGUILayout.ObjectField(
                 "Field Collider", globals.fieldCollider, typeof(GameObject), false);
+            globals.dayAndNightCycleTime = EditorGUILayout.FloatField("Day & night cycle time (minutes)", globals.dayAndNightCycleTime);
+
             globals.debugStatusDisplays = EditorGUILayout.Toggle(
                 "Debug StatusDisplays", globals.debugStatusDisplays);
-            EditorGUILayout.Separator();
 
+            EditorGUILayout.Separator();
             EditorGUILayout.LabelField("Map parameters:");
             globals.mapWidth = EditorGUILayout.IntField("Width", globals.mapWidth);
             globals.mapHeight = EditorGUILayout.IntField("Height", globals.mapHeight);
