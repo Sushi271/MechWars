@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Xml;
 using MechWars.GLRendering;
 using MechWars.Utils;
@@ -17,8 +16,6 @@ namespace MechWars.MapElements
         public TextAsset statsFile;
         public float displaySize = 1;
         public float displayYOffset = 0;
-
-        StatusDisplay statusDisplay;
 
         public Stats Stats { get; private set; }
 
@@ -91,10 +88,11 @@ namespace MechWars.MapElements
 
         public bool Alive { get; private set; }
 
+        bool ShouldDrawStatusDisplay { get { return Hovered || Selected || InSelectionBox; } }
+
         public MapElement()
         {
             Stats = new Stats();
-            statusDisplay = new StatusDisplay(this, StatusDisplayAction);
         }
 
         void Start()
@@ -180,7 +178,8 @@ namespace MechWars.MapElements
 
         protected virtual void OnUpdate()
         {
-            statusDisplay.Draw();
+            if (ShouldDrawStatusDisplay)
+                Globals.StatusDisplayer.DisplayStatusFor(this);
             UpdateAlive();
 
             //DEBUG
@@ -207,35 +206,34 @@ namespace MechWars.MapElements
             }
         }
 
-        void StatusDisplayAction(int centerX, int centerY, int displayWidth, int displayHeight, float distance)
+        public void DrawStatusDisplay(StatusDisplay statusDisplay)
         {
-            Vector2 location = new Vector2(centerX - displayWidth * 0.5f, centerY - displayHeight * 0.5f);
-            Vector2 size = new Vector2(displayWidth, displayHeight);
-            
-            float glDistance = 0.9f - (distance / 100.0f);
-
-            DrawBorder(centerX, centerY, displayWidth, displayHeight, glDistance, location, size);
-            DrawHealthBar(centerX, centerY, displayWidth, displayHeight, glDistance, location, size);
+            DrawBorder(statusDisplay);
+            DrawHealthBar(statusDisplay);
         }
 
-        void DrawBorder(int centerX, int centerY, int displayWidth, int displayHeight, float distance, Vector2 location, Vector2 size)
+        void DrawBorder(StatusDisplay statusDisplay)
         {
+            var location = statusDisplay.Location;
+            var size = statusDisplay.Size;
+            var distance = statusDisplay.Near;
+
             if (InSelectionBox)
                 Globals.GLRenderer.Schedule(new RectangleRenderTask(Color.black, location, size));
 
             if (Globals.Instance.debugStatusDisplays)
             {
                 Vector2 v00 = location;
-                Vector2 v01 = location + Vector2.up * displayHeight;
-                Vector2 v10 = location + Vector2.right * displayWidth;
-                Vector2 v11 = v10 + Vector2.up * displayHeight;
+                Vector2 v01 = location + Vector2.up * size.y;
+                Vector2 v10 = location + Vector2.right * size.x;
+                Vector2 v11 = v10 + Vector2.up * size.y;
 
                 float lineLength = 0.2f;
 
-                Vector2 u = Vector2.up * displayHeight * lineLength;
-                Vector2 d = Vector2.down * displayHeight * lineLength;
-                Vector2 r = Vector2.right * displayWidth * lineLength;
-                Vector2 l = Vector2.left * displayWidth * lineLength;
+                Vector2 u = Vector2.up * size.y * lineLength;
+                Vector2 d = Vector2.down * size.y * lineLength;
+                Vector2 r = Vector2.right * size.x * lineLength;
+                Vector2 l = Vector2.left * size.x * lineLength;
 
                 if (!InSelectionBox && (Hovered || Selected))
                 {
@@ -262,8 +260,12 @@ namespace MechWars.MapElements
             }
         }
 
-        void DrawHealthBar(int centerX, int centerY, int displayWidth, int displayHeight, float distance, Vector2 location, Vector2 size)
+        void DrawHealthBar(StatusDisplay statusDisplay)
         {
+            var location = statusDisplay.Location;
+            var size = statusDisplay.Size;
+            var distance = statusDisplay.Near;
+
             var hitPoints = Stats[StatNames.HitPoints];
             if (hitPoints == null) return;
 
@@ -290,10 +292,10 @@ namespace MechWars.MapElements
                     ratio > 0.666 ? Color.green :
                     ratio > 0.333 ? Color.yellow :
                     Color.red;
-
+                
                 Globals.GLRenderer.Schedule(new FillRectangleRenderTask(color, barLocation, colorBarSize, distance));
                 if (blackBarWidth > 0)
-                    Globals.GLRenderer.Schedule(new FillRectangleRenderTask(Color.black, blackBarLocation , blackBarSize, distance));
+                    Globals.GLRenderer.Schedule(new FillRectangleRenderTask(Color.black, blackBarLocation, blackBarSize, distance));
 
                 if (Hovered)
                 {

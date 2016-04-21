@@ -10,7 +10,7 @@ namespace MechWars.GLRendering
         public Vector2 Location { get; private set; }
         public Vector2 Size { get; private set; }
 
-        public RectangleRenderTask(Color color, Vector2 location, Vector2 size, float distance = 0.9f)
+        public RectangleRenderTask(Color color, Vector2 location, Vector2 size, float distance = 0)
             : base(
                 new LineRenderTask(color, location, location + size.VX(), distance),
                 new LineRenderTask(color, location + size.VX(), location + size, distance),

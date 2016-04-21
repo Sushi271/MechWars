@@ -26,15 +26,11 @@ namespace MechWars
         //=====================================================================================
 
         public bool isGameplay;
-
-        public Material groundMaterial;
-        public GameObject fieldCollider;
+        public bool debugStatusDisplays;
 
         public int mapWidth = 64;
         public int mapHeight = 64;
-
-        public bool debugStatusDisplays;
-
+        
         public List<GameObject> sortedPlayers;
         public List<GameObject> sortedArmies;
 
@@ -67,15 +63,16 @@ namespace MechWars
         }
 
         public static GameObject MainCameraObject { get { return GameObject.FindGameObjectWithTag(Tag.MainCamera); } }
+        public static GameObject GUICameraObject { get { return GameObject.FindGameObjectWithTag(Tag.GUICamera); } }
         public static Camera MainCamera { get { return MainCameraObject.GetComponent<Camera>(); } }
 
         public static GLRenderer GLRenderer
         {
             get
             {
-                if (MainCameraObject == null)
-                    throw new System.Exception(string.Format("No object with tag \"{0}\" found.", Tag.MainCamera));
-                return MainCameraObject.GetComponent<GLRenderer>();
+                if (GUICameraObject == null)
+                    throw new System.Exception(string.Format("No object with tag \"{0}\" found.", Tag.GUICamera));
+                return GUICameraObject.GetComponent<GLRenderer>();
             }
         }
 
@@ -84,7 +81,25 @@ namespace MechWars
         {
             get
             {
-                return TryLazyGetGlobalsComponent<FieldReservationMap>(ref fieldReservationMap);
+                return TryLazyGetGlobalsComponent(ref fieldReservationMap);
+            }
+        }
+
+        static Materials materials;
+        public static Materials Materials
+        {
+            get
+            {
+                return TryLazyGetGlobalsComponent(ref materials);
+            }
+        }
+
+        static StatusDisplayer statusDisplayer;
+        public static StatusDisplayer StatusDisplayer
+        {
+            get
+            {
+                return TryLazyGetGlobalsComponent(ref statusDisplayer);
             }
         }
 

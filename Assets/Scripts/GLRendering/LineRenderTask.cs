@@ -9,7 +9,7 @@ namespace MechWars.GLRendering
         public Vector2 End { get; private set; }
         public float Distance { get; private set; }
 
-        public LineRenderTask(Color color, Vector2 start, Vector2 end, float distance = 0.9f)
+        public LineRenderTask(Color color, Vector2 start, Vector2 end, float distance = 0)
         {
             Color = color;
             Start = start;

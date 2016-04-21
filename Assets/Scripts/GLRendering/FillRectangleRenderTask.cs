@@ -11,7 +11,7 @@ namespace MechWars.GLRendering
         public Vector2 Size { get; private set; }
         public float Distance { get; private set; }
 
-        public FillRectangleRenderTask(Color color, Vector2 location, Vector2 size, float distance = 0.9f)
+        public FillRectangleRenderTask(Color color, Vector2 location, Vector2 size, float distance = 0)
         {
             Location = location;
             Size = size;

@@ -4,6 +4,7 @@
     {
         public const string Globals = "Globals";
         public const string MainCamera = "MainCamera";
+        public const string GUICamera = "GUICamera";
         public const string Terrain = "Terrain";
         public const string Player = "Player";
         public const string MapElement = "MapElement";
