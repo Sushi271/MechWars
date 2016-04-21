@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MechWars.MapElements;
+using UnityEngine;
 
 namespace MechWars.Orders
 {
@@ -33,6 +34,7 @@ namespace MechWars.Orders
         public void Stop()
         {
             Stopping = true;
+            OnStopCalled();
         }
 
         protected virtual void OnStopCalled()

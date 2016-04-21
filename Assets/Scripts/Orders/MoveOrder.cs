@@ -33,7 +33,8 @@ namespace MechWars.Orders
                 if (OnSingleMoveFinished != null)
                     OnSingleMoveFinished.Invoke();
                 path.Pop();
-                if (path.Length == 0) return true;
+                if (path.Length == 0 || Unit.Coords == path.Last.Coords.Vector)
+                    return true;
                 pathNeedsUpdate = true;
             }
             return false;
@@ -53,7 +54,6 @@ namespace MechWars.Orders
                 new CoordPair(Unit.Coords.Round()),
                 new CoordPair(Destination),
                 Unit);
-            //Debug.Log(string.Format("Unit {0} AStarPathfinder.FindPath(), t = {1}", Unit, System.DateTime.Now - time));
             pathNeedsUpdate = false;
         }
 

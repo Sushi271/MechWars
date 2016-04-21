@@ -11,7 +11,8 @@ namespace MechWars.Pathfinding
         public int Count { get { return wayPoints.Count; } }
         public float Length { get; private set; }
 
-        public WayPoint First { get { return Count == 0 ? null : wayPoints[Count - 1]; } }
+        public WayPoint First { get { return Count == 0 ? null : wayPoints.Last(); } }
+        public WayPoint Last { get { return Count == 0 ? null : wayPoints.First(); } }
 
         public Path()
         {

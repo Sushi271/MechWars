@@ -1,21 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
 using MechWars.Utils;
+using MechWars.MapElements;
 using UnityEngine;
 
 namespace MechWars.Pathfinding
 {
     public class AStarPathfinder : IPathfinder
     {
+        CoordPair start;
+        CoordPair target;
+        Unit orderedUnit;
+
         Dictionary<CoordPair, AStarCoordPairNode> evaluated;
         Dictionary<CoordPair, AStarCoordPairNode> toEvaluate;
         BinaryHeap<float, AStarCoordPairNode> priorityQueue;
 
-        public Path FindPath(CoordPair start, CoordPair target, MechWars.MapElements.Unit unit)
+
+        public Path FindPath(CoordPair start, CoordPair target, Unit orderedUnit)
         {
-            //if (Globals.FieldReservationMap[target.Vector] != null)
-            //    target = DesignateAlternateTarget(target);
+            this.start = start;
+            this.target = target;
+            this.orderedUnit = orderedUnit;
+
+            var reservation = Globals.FieldReservationMap[target.Vector];
+            if (reservation != null && reservation != orderedUnit)
+                target = DesignateAlternateTarget(false);
 
             evaluated = new Dictionary<CoordPair, AStarCoordPairNode>();
             toEvaluate = new Dictionary<CoordPair, AStarCoordPairNode>();
@@ -26,8 +36,6 @@ namespace MechWars.Pathfinding
             AddNode(node);
             
             Path p = null;
-
-            //DateTime dt = DateTime.Now;
 
             while (!priorityQueue.Empty)
             {
@@ -66,14 +74,11 @@ namespace MechWars.Pathfinding
                     priorityQueue.Correct(node);
                 }
             }
-            
-            //TimeSpan ts = DateTime.Now - dt;
-            //Debug.Log(ts);
 
             if (p == null)
             {
                 var time = System.DateTime.Now;
-                var alternateTargetCoords = DesignateAlternateTarget(target);
+                var alternateTargetCoords = DesignateAlternateTarget();
                 var alternateTarget = evaluated[alternateTargetCoords];
                 p = ReconstructPath(alternateTarget);
             }
@@ -102,37 +107,49 @@ namespace MechWars.Pathfinding
             return path;
         }
 
-        CoordPair DesignateAlternateTarget(CoordPair originalTarget)
+        CoordPair DesignateAlternateTarget(bool baseOnGraph = true)
         {
             var evaluated2 = new HashSet<CoordPair>();
             var toEvaluate2 = new HashSet<CoordPair>();
             var priorityQueue2 = new BinaryHeap<float, CoordPairNode<float>>();
             
             bool found = false;
-            float dist = 0;
+            float distToOriginal = 0;
 
-            var node = new CoordPairNode<float>(originalTarget);
+            var node = new CoordPairNode<float>(target);
             priorityQueue2.Insert(node);
             toEvaluate2.Add(node.CoordPair);
 
-            var closestNodes = new HashSet<AStarCoordPairNode>();
+            var closestGraphNodes = new HashSet<CoordPairNode<float>>();
 
             while (!priorityQueue2.Empty)
             {
                 var current = priorityQueue2.Extract();
 
-                if (found && current.Distance > dist) continue;
+                if (found && current.Distance > distToOriginal) continue;
 
-                AStarCoordPairNode alt;
-                bool success = evaluated.TryGetValue(current.CoordPair, out alt);
-                if (success)
+                CoordPairNode<float> alt;
+                bool fieldAccessible;
+                if (baseOnGraph)
+                {
+                    AStarCoordPairNode alt2;
+                    fieldAccessible = evaluated.TryGetValue(current.CoordPair, out alt2); // if it's in the graph - it's accessible
+                    alt = alt2;
+                }
+                else
+                {
+                    fieldAccessible = Globals.FieldReservationMap[current.CoordPair.Vector] == null;
+                    alt = new CoordPairNode<float>(current.CoordPair) { Distance = CoordPair.Distance(start, current.CoordPair) };
+                }
+
+                if (fieldAccessible)
                 {
                     if (!found)
                     {
                         found = true;
-                        dist = alt.Distance;
+                        distToOriginal = current.Distance;
                     }
-                    closestNodes.Add(alt);
+                    closestGraphNodes.Add(alt);
                 }
                 
                 evaluated2.Add(current.CoordPair);
@@ -141,21 +158,21 @@ namespace MechWars.Pathfinding
                 {
                     if (evaluated2.Contains(n) || toEvaluate2.Contains(n)) continue;
 
-                    var newDistance = CoordPair.Distance(n, originalTarget);
-                    if (found && newDistance > dist) continue;
+                    var newDistance = CoordPair.Distance(n, target);
+                    if (found && newDistance > distToOriginal) continue;
                     
                     node = new CoordPairNode<float>(n);
                     node.Distance = newDistance;
                     priorityQueue2.Insert(node);
-                    toEvaluate2.Add(node.CoordPair);
+                    toEvaluate2.Add(n);
                 }
             }
 
             if (!found)
                 throw new System.Exception(string.Format(
-                    "Cannot find alternate target for CoordPair {0}.", originalTarget.ToString()));
+                    "Cannot find alternate target for CoordPair {0}.", target.ToString()));
 
-            var alternate = closestNodes.Aggregate((n1, n2) => n1.Distance < n2.Distance ? n1 : n2);
+            var alternate = closestGraphNodes.Aggregate((n1, n2) => n1.Distance < n2.Distance ? n1 : n2);
             return alternate.CoordPair;
         }
     }

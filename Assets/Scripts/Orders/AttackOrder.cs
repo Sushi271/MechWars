@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using MechWars.MapElements;
+﻿using MechWars.MapElements;
 using MechWars.MapElements.Attacks;
-using MechWars.Pathfinding;
-using MechWars.Utils;
 using UnityEngine;
 
 namespace MechWars.Orders
@@ -19,7 +16,7 @@ namespace MechWars.Orders
             get
             {
                 var dr = Target.Coords - Unit.Coords;
-                if (Mathf.Abs(dr.x) == 1 || Mathf.Abs(dr.y) == 1) return true;
+                if (Mathf.Abs(dr.x) <= 1 && Mathf.Abs(dr.y) <= 1) return true;
                 var range = Unit.Stats[StatNames.Range];
                 if (range == null) return false;
                 var dist = dr.magnitude;
