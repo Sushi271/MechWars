@@ -56,7 +56,8 @@ namespace MechWars.Orders
 
         void OnSingleMoveFinished()
         {
-            move.Destination = Target.Coords.Round();
+            if (Target.Alive)
+                move.Destination = Target.Coords.Round();
         }
 
         protected override void OnStopCalled()

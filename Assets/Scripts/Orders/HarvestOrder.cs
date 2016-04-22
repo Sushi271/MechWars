@@ -14,6 +14,8 @@ namespace MechWars.Orders
 
         HarvestMode mode;
 
+        bool reloadMove;
+
         public Resource Resource { get; private set; }
         public Building Refinery { get; private set; }
 
@@ -45,25 +47,18 @@ namespace MechWars.Orders
             : base("Harvest", orderedUnit)
         {
             Resource = resource;
-            mode = HarvestMode.None;
+            mode = HarvestMode.Collect;
         }
-
-
+        
         protected override bool RegularUpdate()
         {
-            if (!DecideMode()) return true;
+            if (!DecideMode()) Stop();
             ExecuteMode();
             return false;
         }
 
         bool DecideMode()
         {
-            if (mode == HarvestMode.None)
-            {
-                if (TankFull) mode = HarvestMode.Deposit;
-                else mode = HarvestMode.Collect;
-            }
-
             if (mode == HarvestMode.Collect)
             {
                 if (TankFull || Resource == null && PickResource() == null)
@@ -98,6 +93,7 @@ namespace MechWars.Orders
                 r1 : r2);
             if (collect != null)
                 collect.Resource = Resource;
+            reloadMove = true;
             return Resource;
         }
 
@@ -114,6 +110,9 @@ namespace MechWars.Orders
                 Vector2.Distance(r1.Coords, Unit.Coords) <
                 Vector2.Distance(r2.Coords, Unit.Coords) ?
                 r1 : r2);
+            if (deposit != null)
+                deposit.Refinery = Refinery;
+            reloadMove = true;
             return Refinery;
         }
 
@@ -121,28 +120,33 @@ namespace MechWars.Orders
         {
             if (mode == HarvestMode.Collect)
             {
-                if (collect == null)
-                    collect = new CollectOrder(Unit, Resource);
-                
                 if (move != null && move.SingleMoveInProgress)
                     move.Update();
                 else
                 {
-                    if (!collect.InRange)
+                    if (Resource != null)
                     {
-                        if (move == null)
-                            move = new MoveOrder(Unit, Resource.Coords.Round());
-                        move.Update();
-                    }
-                    else
-                    {
-                        move = null;
-                        collect.Update();
-                        if (collect.Stopped)
+                        if (collect == null)
+                            collect = new CollectOrder(Unit, Resource);
+                        if (!collect.InRange)
                         {
-                            if (!Resource.Alive || Resource.value == 0)
-                                Resource = null;
-                            collect = null;
+                            if (move == null || reloadMove)
+                            {
+                                move = new MoveOrder(Unit, Resource.Coords.Round());
+                                reloadMove = false;
+                            }
+                            move.Update();
+                        }
+                        else
+                        {
+                            move = null;
+                            collect.Update();
+                            if (collect.Stopped)
+                            {
+                                if (!Resource.Alive || Resource.value == 0)
+                                    Resource = null;
+                                collect = null;
+                            }
                         }
                     }
                 }
@@ -154,20 +158,26 @@ namespace MechWars.Orders
 
                 if (move != null && move.SingleMoveInProgress)
                     move.Update();
-                if (!deposit.InRange)
-                {
-                    if (move == null)
-                        move = new MoveOrder(Unit, Refinery.Coords.Round());
-                    move.Update();
-                }
                 else
                 {
-                    move = null;
-                    deposit.Update();
-                    if (deposit.Stopped)
+                    if (!deposit.InRange)
                     {
-                        Refinery = null;
-                        deposit = null;
+                        if (move == null || reloadMove)
+                        {
+                            move = new MoveOrder(Unit, Refinery.Coords.Round());
+                            reloadMove = false;
+                        }
+                        move.Update();
+                    }
+                    else
+                    {
+                        move = null;
+                        deposit.Update();
+                        if (deposit.Stopped)
+                        {
+                            Refinery = null;
+                            deposit = null;
+                        }
                     }
                 }
             }
@@ -175,12 +185,13 @@ namespace MechWars.Orders
 
         protected override bool StoppingUpdate()
         {
-            if (Resource == null || move == null) return true;
+            if (move == null) return true;
             if (move.SingleMoveInProgress)
             {
                 move.Update();
                 if (move.Stopped) return true;
             }
+            else if (Resource == null) return true;
             else if (mode == HarvestMode.Collect)
             {
                 if (collect == null) return true;
@@ -226,7 +237,6 @@ namespace MechWars.Orders
 
         enum HarvestMode
         {
-            None,
             Collect,
             Deposit
         }

@@ -7,7 +7,7 @@ namespace MechWars.Orders
 {
     public class DepositOrder : Order
     {
-        public Building Refinery { get; private set; }
+        public Building Refinery { get; set; }
 
         float depositProgress;
 
