@@ -39,12 +39,19 @@ namespace MechWars.Human
                         throw new System.Exception("Non-MapElement GameObject is in MapElements layer.");
                     if (mapElement.Interactible)
                     {
-                        if (mapElement.army == player.Army)
+                        if (mapElement is Resource)
+                            foreach (var u in thisPlayersUnits)
+                            {
+                                if (u.canCollectResources)
+                                    u.GiveOrder(new HarvestOrder(u, (Resource)mapElement));
+                            }
+                        else if (mapElement.army == player.Army)
                             foreach (var u in thisPlayersUnits)
                                 u.GiveOrder(new EscortOrder(u, mapElement));
                         else
                             foreach (var u in thisPlayersUnits)
-                                u.GiveOrder(new FollowAttackOrder(u, mapElement));
+                                if (u.canAttack)
+                                    u.GiveOrder(new FollowAttackOrder(u, mapElement));
                     }
                 }
                 if (terrainHit)

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using MechWars.Orders;
+using MechWars.MapElements.Statistics;
+using System.Linq;
 
 namespace MechWars.MapElements
 {
@@ -10,6 +11,9 @@ namespace MechWars.MapElements
         public IOrder CurrentOrder { get { return orderExecutor.CurrentOrder; } }
 
         public override bool Interactible { get { return true; } }
+
+        public bool canAttack;
+        public bool canCollectResources;
 
         public Unit()
         {
@@ -30,7 +34,7 @@ namespace MechWars.MapElements
             float dist = Mathf.Sqrt(dx * dx + dy * dy);
             var speed = Stats[StatNames.Speed];
             if (speed == null)
-                throw new System.Exception(string.Format("Missing {0} attribute in Unit's Stats! (Unit {1})",
+                throw new System.Exception(string.Format("Missing {0} Stat in Unit's Stats! (Unit {1})",
                     StatNames.Speed, this));
             float deltaDist = speed.Value * Time.deltaTime;
 
@@ -49,9 +53,33 @@ namespace MechWars.MapElements
 
         public void GiveOrder(Order order)
         {
-            // TODO: provide control over order type
-            // TODO: What the fuck is this TODO above about?!
             orderExecutor.Give(order);
+        }
+
+        protected override void OnLifeEnd()
+        {
+            base.OnLifeEnd();
+
+            if (!Globals.Destroyed)
+            {
+                var costStat = Stats[StatNames.Cost];
+                if (costStat == null || costStat.Value == 0) return;
+                var cost = (int)costStat.Value;
+
+                var value = new System.Random().Next(cost / 4, cost / 2);
+                if (value == 0) value = 1;
+
+                var noArmy = GameObject.FindGameObjectsWithTag(Tag.Army)
+                    .Where(a => a.GetComponent<Army>() == null).First();
+
+                var resPrefab = Globals.Prefabs.RandomResourcePrefab;
+                var gameObject = Instantiate(resPrefab);
+                gameObject.transform.parent = noArmy.transform;
+                gameObject.transform.position = transform.position;
+                gameObject.name = resPrefab.name;
+                var resource = gameObject.GetComponent<Resource>();
+                resource.value = value;
+            }
         }
     }
 }

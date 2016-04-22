@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using MechWars.MapElements;
-using UnityEngine;
+﻿using MechWars.MapElements;
 
 namespace MechWars.Orders
 {

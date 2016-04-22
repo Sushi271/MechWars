@@ -20,6 +20,11 @@ namespace MechWars.MapElements
             }
         }
 
+        public float DeltaXNeg { get { return (1 - Width) * 0.5f; } }
+        public float DeltaXPos { get { return (Width - 1) * 0.5f; } }
+        public float DeltaYNeg { get { return (1 - Height) * 0.5f; } }
+        public float DeltaYPos { get { return (Height - 1) * 0.5f; } }
+
         public int Width { get; private set; }
         public int Height { get; private set; }
         public IVector2 Size { get { return new IVector2(Width, Height); } }

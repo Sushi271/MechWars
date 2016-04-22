@@ -1,5 +1,4 @@
 ﻿using MechWars.MapElements;
-using MechWars.Utils;
 using UnityEngine;
 
 namespace MechWars
@@ -28,7 +27,12 @@ namespace MechWars
         public StatusDisplay(MapElement mapElement)
         {
             this.mapElement = mapElement;
+        }
 
+        public bool Canceled { get { return !mapElement.Alive; } }
+
+        public void CalculateDimensions()
+        {
             var cam = Camera.main;
             Vector3 camPos = cam.transform.position;
             Quaternion camRot = cam.transform.rotation;
@@ -66,7 +70,7 @@ namespace MechWars
 
         public void Draw()
         {
-            mapElement.DrawStatusDisplay(this);
+             mapElement.DrawStatusDisplay(this);
         }
     }
 }

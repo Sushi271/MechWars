@@ -12,7 +12,7 @@ namespace MechWars.Orders
         public MapElement Target { get; private set; }
         
         public FollowAttackOrder(Unit orderedUnit, MapElement target)
-            : base("Attack", orderedUnit)
+            : base("FollowAttack", orderedUnit)
         {
             Target = target;
             
@@ -23,7 +23,10 @@ namespace MechWars.Orders
 
         protected override bool RegularUpdate()
         {
-            if (move.SingleMoveInProgress || !attack.InRange)
+            if (move.SingleMoveInProgress)
+                move.Update();
+            else if (!Target.Alive) return true;
+            else if (!attack.InRange)
                 move.Update();
             else
             {
@@ -41,7 +44,7 @@ namespace MechWars.Orders
                 move.Update();
                 if (move.Stopped) return true;
             }
-            else if (!attack.InRange) return true;
+            else if (!Target.Alive || !attack.InRange) return true;
             else
             {
                 attack.Update();

@@ -3,6 +3,8 @@ using System.Xml;
 using MechWars.GLRendering;
 using MechWars.Utils;
 using UnityEngine;
+using MechWars.MapElements.Statistics;
+using System;
 
 namespace MechWars.MapElements
 {
@@ -28,9 +30,26 @@ namespace MechWars.MapElements
             }
         }
 
-        public bool InSelectionBox { get; set; }
-        public bool Hovered { get; set; }
-        public bool Selected { get; set; }
+        bool inSelectionBox;
+        public bool InSelectionBox
+        {
+            get { return inSelectionBox; }
+            set { if (alive) inSelectionBox = value; }
+        }
+
+        bool hovered;
+        public bool Hovered
+        {
+            get { return hovered; }
+            set { if (alive) hovered = value; }
+        }
+
+        bool selected;
+        public bool Selected
+        {
+            get { return selected; }
+            set { if (alive) selected = value; }
+        }
 
         public float X
         {
@@ -66,6 +85,27 @@ namespace MechWars.MapElements
             }
         }
 
+        public IEnumerable<IVector2> AllCoords
+        {
+            get
+            {
+                var list = new List<IVector2>();
+                if (Shape == null) list.Add(Coords.Round());
+                else
+                {
+                    int xFrom = Mathf.RoundToInt(Coords.x + Shape.DeltaXNeg);
+                    int xTo = Mathf.RoundToInt(Coords.x + Shape.DeltaXPos);
+                    int yFrom = Mathf.RoundToInt(Coords.y + Shape.DeltaYNeg);
+                    int yTo = Mathf.RoundToInt(Coords.y + Shape.DeltaYPos);
+                    for (int x = xFrom, i = 0; x <= xTo; x++, i++)
+                        for (int y = yFrom, j = 0; y <= yTo; y++, j++)
+                            if (Shape[i, j])
+                                list.Add(new IVector2(x, y));
+                }
+                return list;
+            }
+        }
+
         public Vector2 SnappedCoords
         {
             get
@@ -86,7 +126,17 @@ namespace MechWars.MapElements
 
         public virtual bool Interactible { get { return false; } }
 
-        public bool Alive { get; private set; }
+        bool alive;
+        public bool Alive
+        {
+            get { return alive; }
+            protected set
+            {
+                if (!alive) return;
+                alive = value;
+                if (!alive) OnLifeEnd();
+            }
+        }
 
         bool ShouldDrawStatusDisplay { get { return Hovered || Selected || InSelectionBox; } }
 
@@ -104,13 +154,15 @@ namespace MechWars.MapElements
         {
             id = NewId;
 
+            Globals.MapElementsDatabase.Insert(this);
+
             if (shapeFile == null)
                 Shape = MapElementShape.DefaultShape;
             else Shape = MapElementShape.FromString(shapeFile.text);
 
             ReadStats();
 
-            Alive = true;
+            alive = true;
             UpdateAlive();
 
             InitializeReservation();
@@ -133,7 +185,7 @@ namespace MechWars.MapElements
                 var limited = e.HasAttribute("max_value");
                 float maxValue = 0;
                 if (limited) maxValue = float.Parse(e.GetAttribute("max_value"));
-                Attribute attribute = new Attribute(name);
+                Stat attribute = new Stat(name);
                 attribute.MaxValue = maxValue;
                 attribute.Value = value;
                 attribute.Limited = limited;
@@ -196,7 +248,7 @@ namespace MechWars.MapElements
             }
         }
 
-        void UpdateAlive()
+        protected virtual void UpdateAlive()
         {
             if (Alive)
             {
@@ -204,6 +256,25 @@ namespace MechWars.MapElements
                 if (hitPoints != null && hitPoints.Value <= 0)
                     Alive = false;
             }
+        }
+
+        protected virtual void OnLifeEnd()
+        {
+            selected = hovered = inSelectionBox = false;
+            if (!Globals.Destroyed)
+            {
+                Globals.FieldReservationMap.ReleaseReservations(this);
+                Globals.MapElementsDatabase.Delete(this);
+            }
+            if (!suspendDestroy) Destroy(gameObject);
+        }
+
+        bool suspendDestroy;
+        void OnDestroy()
+        {
+            suspendDestroy = true;
+            if (Alive) Alive = false;
+            suspendDestroy = false;
         }
 
         public void DrawStatusDisplay(StatusDisplay statusDisplay)

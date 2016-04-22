@@ -21,7 +21,12 @@ namespace MechWars
 
         void OnGUI()
         {
+            displays.RemoveWhere(sd => sd.Canceled);
             if (displays.Count == 0) return;
+            foreach (var d in displays)
+            {
+                d.CalculateDimensions();
+            }
 
             var displayList = displays.ToList();
             displayList.Sort((d1, d2) => d2.Distance.CompareTo(d1.Distance));

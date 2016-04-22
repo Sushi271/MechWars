@@ -1,6 +1,6 @@
-﻿namespace MechWars.MapElements
+﻿namespace MechWars.MapElements.Statistics
 {
-    public class Attribute
+    public class Stat
     {
         public string Name { get; set; }
 
@@ -38,7 +38,7 @@
             }
         }
 
-        public Attribute(string name)
+        public Stat(string name)
         {
             Name = name;
         }

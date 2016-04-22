@@ -105,5 +105,13 @@ namespace MechWars.Pathfinding
                 reservationDictionary.Remove(mapElement);
             this[coords] = null;
         }
+
+        public void ReleaseReservations(MapElement mapElement)
+        {
+            var reservations = this[mapElement];
+            foreach (var r in reservations)
+                this[r] = null;
+            reservationDictionary.Remove(mapElement);
+        }
     }
 }

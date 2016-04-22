@@ -13,6 +13,8 @@ namespace MechWars
 
         public List<Unit> Units { get; private set; }
 
+        public int resources;
+
         public Army()
         {
             Units = new List<Unit>();

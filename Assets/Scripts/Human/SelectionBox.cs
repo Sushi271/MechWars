@@ -3,6 +3,7 @@ using System.Linq;
 using MechWars.GLRendering;
 using MechWars.MapElements;
 using UnityEngine;
+using MechWars.Utils;
 
 namespace MechWars.Human
 {
@@ -27,10 +28,14 @@ namespace MechWars.Human
         {
             Size = (Vector2)Input.mousePosition - Position;
 
-            var mapElements = GameObject.FindGameObjectsWithTag(Tag.MapElement).Select(go => go.GetComponent<MapElement>());
-            var aaa = mapElements.Where(a => a == null);
-            if (mapElements.Any(a => a == null))
-                throw new System.Exception(string.Format("Object with tag \"{0}\" doesn't have MapElement script [{1}]", Tag.MapElement, aaa.Count()));
+            var mapElementObjects = GameObject.FindGameObjectsWithTag(Tag.MapElement);
+            var mapElements = mapElementObjects.Select(go => go.GetComponent<MapElement>());
+            var nullMapElements = mapElementObjects.Where(me => me.GetComponent<MapElement>() == null);
+            if (nullMapElements.Count() > 0)
+            {
+                throw new System.Exception(string.Format("Object with tag \"{0}\" doesn't have MapElement script {1}, {2}",
+                    Tag.MapElement, nullMapElements.ToDebugMessage(), mapElements.ToDebugMessage()));
+            }
 
             var mapElementsScreenPos = mapElements.Select(a => new
                 {

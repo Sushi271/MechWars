@@ -77,6 +77,20 @@ ModelImporter:
     4300022: Torus Knot005
     4300024: Torus Knot004
     4300026: Torus Knot003
+    6400000: Base
+    6400002: Hose002
+    6400004: Hose003
+    6400006: Hose004
+    6400008: pret
+    6400010: Torus Knot002
+    6400012: Torus Knot003
+    6400014: Torus Knot004
+    6400016: Torus Knot005
+    6400018: Tube002
+    6400020: Tube003
+    6400022: Tube004
+    6400024: Tube005
+    6400026: Tube006
   materials:
     importMaterials: 1
     materialName: 0
@@ -103,7 +117,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

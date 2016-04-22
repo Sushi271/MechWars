@@ -1,5 +1,6 @@
 ﻿using MechWars.MapElements;
 using MechWars.MapElements.Attacks;
+using MechWars.MapElements.Statistics;
 using UnityEngine;
 
 namespace MechWars.Orders
@@ -33,16 +34,24 @@ namespace MechWars.Orders
         protected override bool RegularUpdate()
         {
             if (!Target.Alive) return true;
-            if (InRange) MakeAttack();
-            return false;
+            if (InRange)
+            {
+                MakeAttack();
+                return false;
+            }
+            else throw new System.Exception(string.Format("Order {0} called, when not in range.", Name));
         }
 
         protected override bool StoppingUpdate()
         {
             if (!Target.Alive) return true;
             if (!AttackingInProgress) return true;
-            if (InRange) MakeAttack();
-            return false;
+            if (InRange)
+            {
+                MakeAttack();
+                return false;
+            }
+            else throw new System.Exception(string.Format("Order {0} called, when not in range.", Name));
         }
 
         float cooldown = 0;

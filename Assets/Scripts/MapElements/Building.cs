@@ -6,6 +6,8 @@ namespace MechWars.MapElements
     {
         public override bool Interactible { get { return true; } }
 
+        public bool isResourceDeposit;
+
         public Building()
         {
             selectable = true;

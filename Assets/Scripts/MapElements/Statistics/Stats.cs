@@ -1,20 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace MechWars.MapElements
+namespace MechWars.MapElements.Statistics
 {
-    public class Stats : IEnumerable<KeyValuePair<string, Attribute>>
+    public class Stats : IEnumerable<KeyValuePair<string, Stat>>
     {
-        Dictionary<string, Attribute> attributes;
+        Dictionary<string, Stat> attributes;
 
         public int Count { get { return attributes.Count; } }
 
-        public Attribute this[string name]
+        public Stat this[string name]
         {
             get
             {
-                Attribute a;
+                Stat a;
                 bool success = attributes.TryGetValue(name, out a);
                 if (!success) return null;
                 return a;
@@ -32,15 +31,15 @@ namespace MechWars.MapElements
 
         public Stats()
         {
-            attributes = new Dictionary<string, Attribute>();
+            attributes = new Dictionary<string, Stat>();
         }
 
         public Stats(Stats stats)
         {
-            attributes = new Dictionary<string, Attribute>(stats.attributes);
+            attributes = new Dictionary<string, Stat>(stats.attributes);
         }
 
-        public void Add(Attribute attribute)
+        public void Add(Stat attribute)
         {
             attributes.Add(attribute.Name, attribute);
         }
@@ -60,7 +59,7 @@ namespace MechWars.MapElements
             attributes.Clear();
         }
 
-        public IEnumerator<KeyValuePair<string, Attribute>> GetEnumerator()
+        public IEnumerator<KeyValuePair<string, Stat>> GetEnumerator()
         {
             return attributes.GetEnumerator();
         }

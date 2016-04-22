@@ -8,11 +8,18 @@ namespace MechWars
 {
     public class Globals : MonoBehaviour
     {
+        public static bool Destroyed { get; private set; }
+
         static Globals instance;
         public static Globals Instance
         {
             get
             {
+                if (Destroyed)
+                {
+                    instance = null;
+                    return null;
+                }
                 if (instance == null)
                 {
                     var gameObject = GameObject.FindGameObjectWithTag("Globals");
@@ -40,6 +47,8 @@ namespace MechWars
         {
             sortedPlayers = new List<GameObject>();
             sortedArmies = new List<GameObject>();
+
+            mapElementsDatabase = new MapElementsDatabase();
         }
 
         public int MapWidth
@@ -103,19 +112,31 @@ namespace MechWars
             }
         }
 
+        static Prefabs prefabs;
+        public static Prefabs Prefabs
+        {
+            get
+            {
+                return TryLazyGetGlobalsComponent(ref prefabs);
+            }
+        }
+
         public static Army GetArmyForPlayer(Player player)
         {
-            int idx = Globals.Instance.sortedPlayers.IndexOf(player.gameObject);
+            int idx = Instance.sortedPlayers.IndexOf(player.gameObject);
             if (idx == -1) return null;
-            return Globals.Instance.sortedArmies[idx].GetComponent<Army>();
+            return Instance.sortedArmies[idx].GetComponent<Army>();
         }
 
         public static Player GetPlayerForArmy(Army army)
         {
-            int idx = Globals.Instance.sortedArmies.IndexOf(army.gameObject);
+            int idx = Instance.sortedArmies.IndexOf(army.gameObject);
             if (idx == -1) return null;
-            return Globals.Instance.sortedPlayers[idx].GetComponent<Player>();
+            return Instance.sortedPlayers[idx].GetComponent<Player>();
         }
+
+        MapElementsDatabase mapElementsDatabase;
+        public static MapElementsDatabase MapElementsDatabase { get { return Instance.mapElementsDatabase; } }
 
         //===== PRIVATE =======================================================================
 
@@ -123,6 +144,11 @@ namespace MechWars
         {
             if (isGameplay)
                 CheckPlayerArmyAssignmentCorrectness();
+        }
+
+        void OnDestroy()
+        {
+            Destroyed = true;
         }
 
         void CheckPlayerArmyAssignmentCorrectness()
@@ -175,6 +201,7 @@ namespace MechWars
         }
 
         static T TryLazyGetGlobalsComponent<T>(ref T field)
+            where T : class
         {
             if (field == null)
             {

@@ -4,4 +4,5 @@
     <Stat name="Firepower" value="2" />
     <Stat name="Attack speed" value="10" />
     <Stat name="Range" value="4" />
+    <Stat name="Cost" value="65" />
 </Stats>
