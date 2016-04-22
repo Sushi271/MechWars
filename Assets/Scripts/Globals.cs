@@ -94,21 +94,12 @@ namespace MechWars
             }
         }
 
-        static Materials materials;
-        public static Materials Materials
+        static Textures materials;
+        public static Textures Textures
         {
             get
             {
                 return TryLazyGetGlobalsComponent(ref materials);
-            }
-        }
-
-        static StatusDisplayer statusDisplayer;
-        public static StatusDisplayer StatusDisplayer
-        {
-            get
-            {
-                return TryLazyGetGlobalsComponent(ref statusDisplayer);
             }
         }
 

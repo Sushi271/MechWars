@@ -230,22 +230,7 @@ namespace MechWars.MapElements
 
         protected virtual void OnUpdate()
         {
-            if (ShouldDrawStatusDisplay)
-                Globals.StatusDisplayer.DisplayStatusFor(this);
             UpdateAlive();
-
-            //DEBUG
-            if (Selected)
-            {
-                var hitPoints = Stats[StatNames.HitPoints];
-                if (hitPoints != null)
-                {
-                    if (Input.GetKeyDown(KeyCode.KeypadPlus))
-                        hitPoints.Value += 10;
-                    if (Input.GetKeyDown(KeyCode.KeypadMinus))
-                        hitPoints.Value -= 10;
-                }
-            }
         }
 
         protected virtual void UpdateAlive()
@@ -277,17 +262,27 @@ namespace MechWars.MapElements
             suspendDestroy = false;
         }
 
-        public void DrawStatusDisplay(StatusDisplay statusDisplay)
+        void OnGUI()
+        {
+            if (ShouldDrawStatusDisplay)
+            {
+                var statusDisplay = new StatusDisplayInfo(this);
+                DrawBorder(statusDisplay);
+                DrawHealthBar(statusDisplay);
+            }
+        }
+
+        public void DrawStatusDisplay(StatusDisplayInfo statusDisplay)
         {
             DrawBorder(statusDisplay);
             DrawHealthBar(statusDisplay);
         }
 
-        void DrawBorder(StatusDisplay statusDisplay)
+        void DrawBorder(StatusDisplayInfo statusDisplay)
         {
-            var location = statusDisplay.Location;
+            var location = new Vector2(statusDisplay.Left, Screen.height - statusDisplay.Top);
             var size = statusDisplay.Size;
-            var distance = statusDisplay.Near;
+            var distance = 0.5f;
 
             if (InSelectionBox)
                 Globals.GLRenderer.Schedule(new RectangleRenderTask(Color.black, location, size));
@@ -297,7 +292,7 @@ namespace MechWars.MapElements
                 Vector2 v00 = location;
                 Vector2 v01 = location + Vector2.up * size.y;
                 Vector2 v10 = location + Vector2.right * size.x;
-                Vector2 v11 = v10 + Vector2.up * size.y;
+                Vector2 v11 = location + Vector2.right * size.x + Vector2.up * size.y;
 
                 float lineLength = 0.2f;
 
@@ -331,60 +326,52 @@ namespace MechWars.MapElements
             }
         }
 
-        void DrawHealthBar(StatusDisplay statusDisplay)
+        void DrawHealthBar(StatusDisplayInfo statusDisplay)
         {
-            var location = statusDisplay.Location;
-            var size = statusDisplay.Size;
-            var distance = statusDisplay.Near;
-
             var hitPoints = Stats[StatNames.HitPoints];
             if (hitPoints == null) return;
 
             if (Selected || Hovered)
             {
-                float distFromBounds = 0.1f;
-                float barThickness = 0.07f;
+                GUI.depth = (int)(statusDisplay.Distance * 10);
+                GUI.BeginGroup(new Rect(statusDisplay.Location, statusDisplay.Size));
 
-                Vector2 barLocation = location + size.VY() +
-                    Vector2.right * size.x * distFromBounds +
-                    Vector2.down * size.y * (distFromBounds + barThickness);
-                float barHeight = barThickness * size.y;
-                float barWidth = (1 - 2 * distFromBounds) * size.x;
+                var w = statusDisplay.Width;
+                var h = statusDisplay.Height;
+
+                var mainTexture = army.hpBarMain;
+                var sideTexture = army.hpBarSide;
+                var barAspectRatio = (float)mainTexture.height / (mainTexture.width + 2 * sideTexture.width);
+                var sideAspectRatio = (float)sideTexture.height / sideTexture.width;
+
+                float distFromBounds = 0.1f;
+
+                Vector2 barLocation = distFromBounds * statusDisplay.Size;
+                float barWidth = (1 - 2 * distFromBounds) * w;
+                float barHeight = barWidth * barAspectRatio;
+                float sideWidth = barHeight / sideAspectRatio;
 
                 float ratio = hitPoints.Value / hitPoints.MaxValue;
-                float colorBarWidth = ratio * barWidth;
-                float blackBarWidth = barWidth - colorBarWidth;
+                float contentBarWidth = ratio * barWidth;
+                float mainWidth = contentBarWidth - 2 * sideWidth;
+                Vector2 mainLocation = barLocation + Vector2.right * sideWidth;
+                Vector2 rightSideLocation = mainLocation + Vector2.right * mainWidth;
+
+                Vector2 barSize = new Vector2(barWidth, barHeight);
+                Vector2 sideSize = new Vector2(sideWidth, barHeight);
+                Vector2 mainSize = new Vector2(mainWidth, barHeight);
+                Vector2 leftSideSize = sideSize;
+                float sideToFullRatio = sideWidth / barWidth;
+                if (ratio < sideToFullRatio)
+                    leftSideSize = new Vector2(ratio * barWidth, barHeight);
                 
-                Vector2 colorBarSize = new Vector2(colorBarWidth, barHeight);
-                Vector2 blackBarSize = new Vector2(blackBarWidth, barHeight);
-                Vector2 blackBarLocation = barLocation + colorBarSize.VX();
-
-                Color color =
-                    ratio > 0.666 ? Color.green :
-                    ratio > 0.333 ? Color.yellow :
-                    Color.red;
-                
-                Globals.GLRenderer.Schedule(new FillRectangleRenderTask(color, barLocation, colorBarSize, distance));
-                if (blackBarWidth > 0)
-                    Globals.GLRenderer.Schedule(new FillRectangleRenderTask(Color.black, blackBarLocation, blackBarSize, distance));
-
-                if (Hovered)
-                {
-                    float borderOffset = 0.03f * size.x;
-
-                    Vector2 locHorBot = barLocation - Vector2.one * borderOffset;
-                    Vector2 locHorTop = barLocation + new Vector2(-borderOffset, barHeight);
-                    Vector2 sizeHor = new Vector2(barWidth + 2 * borderOffset, borderOffset);
-
-                    Vector2 locVerLft = barLocation + Vector2.left * borderOffset;
-                    Vector2 locVerRgt = barLocation + Vector2.right * barWidth;
-                    Vector2 sizeVer = new Vector2(borderOffset, barHeight);
-
-                    Globals.GLRenderer.Schedule(new FillRectangleRenderTask(Color.black, locHorBot, sizeHor, distance));
-                    Globals.GLRenderer.Schedule(new FillRectangleRenderTask(Color.black, locHorTop, sizeHor, distance));
-                    Globals.GLRenderer.Schedule(new FillRectangleRenderTask(Color.black, locVerLft, sizeVer, distance));
-                    Globals.GLRenderer.Schedule(new FillRectangleRenderTask(Color.black, locVerRgt, sizeVer, distance));
-                }
+                GUI.DrawTexture(new Rect(barLocation, barSize), Globals.Textures.hpBarBackground);
+                GUI.DrawTexture(new Rect(barLocation, leftSideSize), sideTexture);
+                if (mainWidth > 0)
+                    GUI.DrawTexture(new Rect(mainLocation, mainSize), mainTexture);
+                if (rightSideLocation.x > barLocation.x)
+                    GUI.DrawTexture(new Rect(rightSideLocation, sideSize), sideTexture);
+                GUI.EndGroup();
             }
         }
 

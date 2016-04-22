@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MechWars
 {
-    public class StatusDisplay
+    public class StatusDisplayInfo
     {
         MapElement mapElement;
 
@@ -21,18 +21,10 @@ namespace MechWars
 
         public float Distance { get; private set; }
 
-        public float Near { get; set; }
-        public float Depth { get; set; }
-
-        public StatusDisplay(MapElement mapElement)
+        public StatusDisplayInfo(MapElement mapElement)
         {
             this.mapElement = mapElement;
-        }
 
-        public bool Canceled { get { return !mapElement.Alive; } }
-
-        public void CalculateDimensions()
-        {
             var cam = Camera.main;
             Vector3 camPos = cam.transform.position;
             Quaternion camRot = cam.transform.rotation;
@@ -52,8 +44,8 @@ namespace MechWars
             Vector3 left = mapElementPos - vx * r;
             Vector3 right = mapElementPos + vx * r;
 
-            Top = cam.WorldToScreenPoint(bottom).y;
-            Bottom = cam.WorldToScreenPoint(top).y;
+            Top = Screen.height - cam.WorldToScreenPoint(top).y;
+            Bottom = Screen.height - cam.WorldToScreenPoint(bottom).y;
             Left = cam.WorldToScreenPoint(left).x;
             Right = cam.WorldToScreenPoint(right).x;
             Width = Right - Left;
@@ -66,11 +58,6 @@ namespace MechWars
 
             Vector3 camToMapElement = mapElementPos - camPos;
             Distance = camToMapElement.magnitude;
-        }
-
-        public void Draw()
-        {
-             mapElement.DrawStatusDisplay(this);
         }
     }
 }

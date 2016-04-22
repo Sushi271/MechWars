@@ -15,6 +15,9 @@ namespace MechWars
 
         public int resources;
 
+        public Texture hpBarMain;
+        public Texture hpBarSide;
+
         public Army()
         {
             Units = new List<Unit>();
