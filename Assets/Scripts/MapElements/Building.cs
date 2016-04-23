@@ -8,6 +8,10 @@ namespace MechWars.MapElements
 {
     public class Building : MapElement
     {
+        // <DEBUG>
+
+        // </DEBUG>
+
         public bool isResourceDeposit;
         public List<UnitProductionOption> unitProductionOptions;
 

@@ -7,17 +7,18 @@ namespace MechWars.MapElements.Orders.Products
     {
         public Unit Unit { get; private set; }
 
-        public UnitProduct(Unit unit)
+        public UnitProduct(Building producer, Unit unit)
         {
             Unit = unit;
             Unit.ReadStats();
 
-            var costStat = unit.Stats[StatNames.Cost];
-            var prodTimeStat = unit.Stats[StatNames.ProductionTime];
+            var prodOp = producer.unitProductionOptions.Find(po => po.unit == unit);
+            if (prodOp == null)
+                throw new System.Exception(string.Format("Building {0} cannot produce Unit {1}", producer, Unit));
 
             Name = unit.mapElementName;
-            Cost = costStat == null ? 0 : (int)costStat.Value;
-            ProductionTime = prodTimeStat == null ? 0 : prodTimeStat.Value;
+            Cost = prodOp.cost;
+            ProductionTime = prodOp.productionTime;
         }
 
         public override string ToString()

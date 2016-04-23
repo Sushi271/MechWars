@@ -62,11 +62,7 @@ namespace MechWars.MapElements
 
             if (!Globals.Destroyed)
             {
-                var costStat = Stats[StatNames.Cost];
-                if (costStat == null || costStat.Value == 0) return;
-                var cost = (int)costStat.Value;
-
-                var value = new System.Random().Next(cost / 4, cost / 2);
+                var value = new System.Random().Next(resourceValue / 4, resourceValue / 2);
                 if (value == 0) value = 1;
 
                 var noArmy = GameObject.FindGameObjectsWithTag(Tag.Army)

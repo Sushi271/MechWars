@@ -10,7 +10,5 @@
         public static string CollectRate = "Collect rate";
         public static string DepositRate = "Deposit rate";
         public static string CarriedResource = "Carried resource";
-        public static string Cost = "Cost";
-        public static string ProductionTime = "Production time";
     }
 }

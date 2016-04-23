@@ -19,6 +19,8 @@ namespace MechWars.MapElements
         public float displaySize = 1;
         public float displayYOffset = 0;
 
+        public int resourceValue;
+
         public Stats Stats { get; private set; }
 
         static int LastId = 1;

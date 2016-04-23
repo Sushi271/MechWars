@@ -19,7 +19,7 @@ namespace MechWars.MapElements.Orders
         {
             Building = orderedBuilding;
             Unit = producedUnit;
-            productionOrder = new ProductionOrder(Building, new UnitProduct(Unit));
+            productionOrder = new ProductionOrder(Building, new UnitProduct(Building, Unit));
         }
 
         protected override bool RegularUpdate()
@@ -62,6 +62,10 @@ namespace MechWars.MapElements.Orders
                         "Unit {0} production complete, but no room for it near Building {1}", Unit, Building));
                 }
                 return false;
+            }
+            else
+            {
+                newUnit.resourceValue = productionOrder.Product.Cost;
             }
             return true;
         }
