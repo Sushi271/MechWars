@@ -3,14 +3,14 @@
     public class Product
     {
         public string Name { get; protected set; }
-        public float Cost { get; protected set; }
+        public int Cost { get; protected set; }
         public float ProductionTime { get; protected set; }
 
         protected Product()
         {
         }
 
-        public Product(string name, float cost, float productionTime)
+        public Product(string name, int cost, float productionTime)
         {
             Name = name;
             Cost = cost;

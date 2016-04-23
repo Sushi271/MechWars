@@ -13,7 +13,7 @@ namespace MechWars
 
         public List<Unit> Units { get; private set; }
 
-        public float resources;
+        public int resources;
 
         public Texture hpBarMain;
         public Texture hpBarSide;

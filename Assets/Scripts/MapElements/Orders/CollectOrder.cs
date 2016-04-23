@@ -5,6 +5,8 @@ namespace MechWars.MapElements.Orders
 {
     public class CollectOrder : Order<Unit>
     {
+        float progress;
+
         public Unit Unit { get; private set; }
         public Resource Resource { get; set; }
 
@@ -50,23 +52,28 @@ namespace MechWars.MapElements.Orders
                     Unit, StatNames.CollectRate, StatNames.CarriedResource));
 
             var collectRate = collectRateStat.Value;
-            var carriedResource = carriedResourceStat.Value;
-            var tankCapacity = carriedResourceStat.MaxValue;
+            var carriedResource = (int)carriedResourceStat.Value;
+            var tankCapacity = (int)carriedResourceStat.MaxValue;
             var tankRoomLeft = tankCapacity - carriedResource;
             
-            var dCollect = collectRate * Time.deltaTime;
+            var dProgress = collectRate * Time.deltaTime;
+            progress += dProgress;
+            int intProgress = (int)progress;
 
             bool finished = false;
-            float limit = Mathf.Min(tankRoomLeft, Resource.value);
-            if (dCollect >= limit)
+            if (intProgress > 0)
             {
-                dCollect = limit;
-                finished = true;
+                progress -= intProgress;
+                int limit = Mathf.Min(tankRoomLeft, Resource.value);
+                if (intProgress >= limit)
+                {
+                    intProgress = limit;
+                    finished = true;
+                }
+
+                Resource.value -= intProgress;
+                carriedResourceStat.Value += intProgress;
             }
-
-            Resource.value -= dCollect;
-            carriedResourceStat.Value += dCollect;
-
             return finished;
         }
         

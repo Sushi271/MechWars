@@ -5,14 +5,13 @@ namespace MechWars.MapElements.Orders
 {
     public class ProductionOrder : Order<Building>
     {
+        int paid;
         float progress;
-        float paid;
 
         bool resourcesDepleted;
 
         public Building Building { get; private set; }
         public Product Product { get; private set; }
-        //public string ProductName { get { return ProductPrefab.GetComponent<MapElement>().name; } }
 
         public bool Done { get; private set; }
 
@@ -25,55 +24,88 @@ namespace MechWars.MapElements.Orders
 
         protected override bool RegularUpdate()
         {
+
             if (!Done)
             {
-                float time = Product.ProductionTime;
-                float cost = Product.Cost;
-
-                float dProgress;
-                if (time > 0)
+                if (resourcesDepleted)
                 {
-                    float dt = Time.deltaTime;
-                    dProgress = dt / time;
-                }
-                else dProgress = 1;
-
-                float dCost = dProgress * cost;
-
-                if (progress + dProgress > 1)
-                {
-                    dProgress = 1 - progress;
-                    dCost = cost - paid;
-                }
-
-                float resources = Building.army.resources;
-                if (dCost > resources)
-                {
-                    dProgress *= resources / dCost;
-                    dCost = resources;
-
-                    if (!resourcesDepleted)
-                    {
-                        resourcesDepleted = true;
-                        Debug.Log(string.Format(
-                            "Resources depleted! Production of {0} in {1} on hold.", Product, Building));
-                    }
-                }
-                else
-                {
-                    if (resourcesDepleted)
+                    if (Building.army.resources > 0)
                     {
                         resourcesDepleted = false;
                         Debug.Log(string.Format("Production of {0} in {1} resumed.", Product, Building));
                     }
-
-                    Building.army.resources -= dCost;
-                    paid += dCost;
-                    progress += dProgress;
-
-                    if (progress == 1)
-                        Done = true;
+                    else return false;
                 }
+
+                float time = Product.ProductionTime;
+                int cost = Product.Cost;
+                var costLeft = cost - paid;
+
+                float dTotal;
+                if (time > 0)
+                {
+                    float dt = Time.deltaTime;
+                    dTotal = dt / time;
+                }
+                else dTotal = 1;
+                if (dTotal > 1) dTotal = 1;
+
+                float dProgress = dTotal * cost;
+                progress += dProgress;
+                int intProgress = (int)progress;
+
+                if (intProgress > 0 || cost == 0)
+                {
+                    progress -= intProgress;
+                    if (intProgress >= costLeft)
+                    {
+                        intProgress = costLeft;
+                        Done = true;
+                    }
+                    int resources = Building.army.resources;
+                    if (intProgress >= resources)
+                    {
+                        intProgress = resources;
+                        if (!resourcesDepleted)
+                        {
+                            resourcesDepleted = true;
+                            Debug.Log(string.Format("Resources depleted! Production of {0} in {1} on hold.", Product, Building));
+                        }
+                    }
+
+                    Building.army.resources -= intProgress;
+                    paid += intProgress;
+                }
+
+
+                //float resources = Building.army.resources;
+                //if (dCost > resources)
+                //{
+                //    dProgress *= resources / dCost;
+                //    dCost = resources;
+
+                //    if (!resourcesDepleted)
+                //    {
+                //        resourcesDepleted = true;
+                //        Debug.Log(string.Format(
+                //            "Resources depleted! Production of {0} in {1} on hold.", Product, Building));
+                //    }
+                //}
+                //else
+                //{
+                //    if (resourcesDepleted)
+                //    {
+                //        resourcesDepleted = false;
+                //        Debug.Log(string.Format("Production of {0} in {1} resumed.", Product, Building));
+                //    }
+
+                //    Building.army.resources -= dCost;
+                //    __paid += dCost;
+                //    __progress += dProgress;
+
+                //    if (__progress == 1)
+                //        Done = true;
+                //}
             }
 
             return Done;

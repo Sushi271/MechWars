@@ -16,7 +16,7 @@ namespace MechWars.MapElements.Orders.Products
             var prodTimeStat = unit.Stats[StatNames.ProductionTime];
 
             Name = unit.mapElementName;
-            Cost = costStat == null ? 0 : costStat.Value;
+            Cost = costStat == null ? 0 : (int)costStat.Value;
             ProductionTime = prodTimeStat == null ? 0 : prodTimeStat.Value;
         }
 
