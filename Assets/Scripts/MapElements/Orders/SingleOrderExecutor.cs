@@ -1,17 +1,10 @@
 ﻿namespace MechWars.MapElements.Orders
 {
-    public class OrderExecutor
+    public class SingleOrderExecutor
     {
-        public Unit Unit { get; private set; }
-
         public IOrder CurrentOrder { get; private set; }
 
         IOrder nextOrder;
-
-        public OrderExecutor(Unit unit)
-        {
-            Unit = unit;
-        }
 
         public void Give(IOrder order)
         {
