@@ -168,9 +168,11 @@ namespace MechWars.MapElements
             InitializeReservation();
         }
 
-        void ReadStats()
+        public void ReadStats()
         {
             if (statsFile == null) return;
+
+            Stats.Clear();
 
             var xml = new XmlDocument();
             xml.LoadXml(statsFile.text);

@@ -1,4 +1,5 @@
 ﻿using MechWars.MapElements.Statistics;
+using UnityEngine;
 
 namespace MechWars.MapElements.Orders.Products
 {
@@ -9,6 +10,7 @@ namespace MechWars.MapElements.Orders.Products
         public UnitProduct(Unit unit)
         {
             Unit = unit;
+            Unit.ReadStats();
 
             var costStat = unit.Stats[StatNames.Cost];
             var prodTimeStat = unit.Stats[StatNames.ProductionTime];

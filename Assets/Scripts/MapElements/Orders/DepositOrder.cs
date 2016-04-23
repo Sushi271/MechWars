@@ -8,7 +8,7 @@ namespace MechWars.MapElements.Orders
     {
         public Unit Unit { get; private set; }
         public Building Refinery { get; set; }
-        
+
         public bool InRange
         {
             get
@@ -53,10 +53,10 @@ namespace MechWars.MapElements.Orders
                     Unit, StatNames.DepositRate, StatNames.CarriedResource));
 
             var depositRate = depositRateStat.Value;
-            var carriedResource = (int)carriedResourceStat.Value;
+            var carriedResource = carriedResourceStat.Value;
 
             var dProgress = depositRate * Time.deltaTime;
-            
+
             bool finished = false;
             if (dProgress >= carriedResource)
             {
@@ -66,7 +66,7 @@ namespace MechWars.MapElements.Orders
 
             Unit.army.resources += dProgress;
             carriedResourceStat.Value -= dProgress;
-            
+
             return finished;
         }
 

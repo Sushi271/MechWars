@@ -9,6 +9,7 @@ namespace MechWars.MapElements
     public class Building : MapElement
     {
         public bool isResourceDeposit;
+        public List<UnitProductionOption> unitProductionOptions;
 
         public QueueOrderExecutor OrderExecutor { get; private set; }
         public override bool Interactible { get { return true; } }
@@ -39,6 +40,12 @@ namespace MechWars.MapElements
                         Globals.FieldReservationMap[field] != this)
                         allNeighbourFields.Add(field);
                 }
+        }
+
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            OrderExecutor.Update();
         }
 
         public Unit Spawn(Unit unit)
