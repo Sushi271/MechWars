@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿//#define DEBUG_SELECTION_BOX
+
+using System.Collections.Generic;
 using System.Linq;
 using MechWars.GLRendering;
 using MechWars.MapElements;
@@ -24,18 +26,25 @@ namespace MechWars.Human
             Globals.GLRenderer.Schedule(new RectangleRenderTask(Color.black, Position, Size));
         }
 
+
         public void Update()
         {
             Size = (Vector2)Input.mousePosition - Position;
 
             var mapElementObjects = GameObject.FindGameObjectsWithTag(Tag.MapElement);
             var mapElements = mapElementObjects.Select(go => go.GetComponent<MapElement>());
+
+            // TODO: WTF why this exception is sometimes randomly unpredictably being thrown?!
+#if DEBUG_SELECTION_BOX
             var nullMapElements = mapElementObjects.Where(me => me.GetComponent<MapElement>() == null);
             if (nullMapElements.Count() > 0)
             {
                 throw new System.Exception(string.Format("Object with tag \"{0}\" doesn't have MapElement script {1}, {2}",
                     Tag.MapElement, nullMapElements.ToDebugMessage(), mapElements.ToDebugMessage()));
             }
+#else
+            mapElements = mapElements.Where(me => me.GetComponent<MapElement>() != null);
+#endif
 
             var mapElementsScreenPos = mapElements.Select(a => new
                 {

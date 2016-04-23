@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Xml;
-using MechWars.GLRendering;
-using MechWars.Utils;
-using UnityEngine;
+﻿using MechWars.GLRendering;
 using MechWars.MapElements.Statistics;
+using MechWars.Utils;
+using System.Collections.Generic;
+using System.Xml;
+using UnityEngine;
 
 namespace MechWars.MapElements
 {
@@ -197,32 +197,11 @@ namespace MechWars.MapElements
 
         void InitializeReservation()
         {
-            var occupiedFields = CalculateOccupiedFields(); // TODO: use AllCoords instead?
+            var occupiedFields = AllCoords;
             foreach (var coord in occupiedFields)
             {
                 Globals.FieldReservationMap.MakeReservation(this, coord);
             }
-        }
-
-        List<IVector2> CalculateOccupiedFields()
-        {
-            var snappedCoords = SnappedCoords;
-
-            var x = snappedCoords.x;
-            var hw = Shape.Width * 0.5;
-            var minX = x - hw + 0.5;
-
-            var y = snappedCoords.y;
-            var hh = Shape.Height * 0.5;
-            var minY = y - hh + 0.5;
-
-            var occupiedFields = new List<IVector2>();
-            for (int i = 0; i < Shape.Width; i++)
-                for (int j = 0; j < Shape.Height; j++)
-                    if (Shape[i, j])
-                        occupiedFields.Add(new IVector2((int)minX + i, (int)minY + j));
-
-            return occupiedFields;
         }
 
         void Update()
