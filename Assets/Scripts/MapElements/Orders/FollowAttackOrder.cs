@@ -1,8 +1,6 @@
-﻿using MechWars.MapElements;
-using MechWars.Utils;
-using UnityEngine;
+﻿using MechWars.Utils;
 
-namespace MechWars.Orders
+namespace MechWars.MapElements.Orders
 {
     public class FollowAttackOrder : Order
     {

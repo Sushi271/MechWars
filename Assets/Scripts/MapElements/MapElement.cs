@@ -4,7 +4,6 @@ using MechWars.GLRendering;
 using MechWars.Utils;
 using UnityEngine;
 using MechWars.MapElements.Statistics;
-using System;
 
 namespace MechWars.MapElements
 {

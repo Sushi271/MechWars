@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using MechWars.Orders;
+﻿using MechWars.MapElements.Orders;
 using MechWars.MapElements.Statistics;
 using System.Linq;
+using UnityEngine;
 
 namespace MechWars.MapElements
 {
@@ -70,15 +70,18 @@ namespace MechWars.MapElements
                 if (value == 0) value = 1;
 
                 var noArmy = GameObject.FindGameObjectsWithTag(Tag.Army)
-                    .Where(a => a.GetComponent<Army>() == null).First();
+                    .Where(a => a.GetComponent<Army>() == null).FirstOrDefault();
 
-                var resPrefab = Globals.Prefabs.RandomResourcePrefab;
-                var gameObject = Instantiate(resPrefab);
-                gameObject.transform.parent = noArmy.transform;
-                gameObject.transform.position = transform.position;
-                gameObject.name = resPrefab.name;
-                var resource = gameObject.GetComponent<Resource>();
-                resource.value = value;
+                if (noArmy != null)
+                {
+                    var resPrefab = Globals.Prefabs.RandomResourcePrefab;
+                    var gameObject = Instantiate(resPrefab);
+                    gameObject.transform.parent = noArmy.transform;
+                    gameObject.transform.position = transform.position;
+                    gameObject.name = resPrefab.name;
+                    var resource = gameObject.GetComponent<Resource>();
+                    resource.value = value;
+                }
             }
         }
     }

@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using MechWars.MapElements;
-using MechWars.Pathfinding;
-using MechWars.Utils;
-using UnityEngine;
-
-namespace MechWars.Orders
+﻿namespace MechWars.MapElements.Orders
 {
     public class EscortOrder : Order
     {

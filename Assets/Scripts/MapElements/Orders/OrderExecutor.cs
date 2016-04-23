@@ -1,6 +1,4 @@
-﻿using MechWars.MapElements;
-
-namespace MechWars.Orders
+﻿namespace MechWars.MapElements.Orders
 {
     public class OrderExecutor
     {

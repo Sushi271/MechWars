@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using MechWars.MapElements;
-using MechWars.Orders;
+﻿using MechWars.MapElements;
+using MechWars.MapElements.Orders;
 using MechWars.Utils;
+using System.Linq;
 using UnityEngine;
 
 namespace MechWars.Human

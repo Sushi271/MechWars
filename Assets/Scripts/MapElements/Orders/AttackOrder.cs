@@ -1,9 +1,8 @@
-﻿using MechWars.MapElements;
-using MechWars.MapElements.Attacks;
+﻿using MechWars.MapElements.Attacks;
 using MechWars.MapElements.Statistics;
 using UnityEngine;
 
-namespace MechWars.Orders
+namespace MechWars.MapElements.Orders
 {
     public class AttackOrder : Order
     {

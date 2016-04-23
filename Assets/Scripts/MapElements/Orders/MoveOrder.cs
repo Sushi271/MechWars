@@ -1,9 +1,8 @@
-﻿using MechWars.MapElements;
-using MechWars.Pathfinding;
+﻿using MechWars.Pathfinding;
 using MechWars.Utils;
 using UnityEngine;
 
-namespace MechWars.Orders
+namespace MechWars.MapElements.Orders
 {
     public class MoveOrder : Order
     {

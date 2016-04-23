@@ -1,10 +1,9 @@
-﻿using MechWars.MapElements;
-using MechWars.MapElements.Statistics;
+﻿using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Linq;
 using UnityEngine;
 
-namespace MechWars.Orders
+namespace MechWars.MapElements.Orders
 {
     public class HarvestOrder : Order
     {

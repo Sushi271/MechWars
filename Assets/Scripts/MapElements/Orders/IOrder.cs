@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using MechWars.MapElements;
-
-namespace MechWars.Orders
+﻿namespace MechWars.MapElements.Orders
 {
     public interface IOrder
     {
