@@ -17,7 +17,7 @@ namespace MechWars.Human
         public HashSet<MapElement> HoveredMapElements { get; private set; }
         public HashSet<MapElement> SelectedMapElements { get; private set; }
 
-        bool MultiSelection { get { return selectionBox != null; } }
+        bool multiSelection;
 
         public SelectionController(HumanPlayer player)
         {
@@ -41,24 +41,28 @@ namespace MechWars.Human
                 if (go != null)
                 {
                     var mapElement = go.GetComponentInParent<MapElement>();
+                    if (mapElement == null && go.tag == Tag.Terrain)
+                    {
+                        var dest = new Vector2(hit.point.x, hit.point.z).Round();
+                        mapElement = Globals.FieldReservationMap[dest];
+                    }
                     if (mapElement != null && mapElement.selectable)
                         singleHoveredMapElement = mapElement;
                 }
             }
 
-            if (!MultiSelection)
+            if (!multiSelection)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
                     singleSelectionCandidate = singleHoveredMapElement;
-                    if (singleSelectionCandidate == null)
+                    selectionBox = new SelectionBox
                     {
-                        selectionBox = new SelectionBox
-                        {
-                            Position = Input.mousePosition,
-                            Size = Vector2.zero
-                        };
-                    }
+                        Position = Input.mousePosition,
+                        Size = Vector2.zero
+                    };
+                    if (singleSelectionCandidate == null)
+                        multiSelection = true;
                 }
             }
 
@@ -66,11 +70,16 @@ namespace MechWars.Human
             if (singleHoveredMapElement != null)
                 candidates = candidates.Concat(singleHoveredMapElement.AsEnumerable());
 
-            if (MultiSelection)
+            if (selectionBox != null)
             {
                 selectionBox.Update();
-                selectionBox.Draw();
-                candidates = candidates.Concat(selectionBox.MapElementsInside);
+                if (!multiSelection && selectionBox.Size != Vector2.zero)
+                    multiSelection = true;
+                if (multiSelection)
+                {
+                    selectionBox.Draw();
+                    candidates = candidates.Concat(selectionBox.MapElementsInside);
+                }
             }
 
             var newHoveredMapElements = FilterCandidates(candidates);
@@ -80,7 +89,7 @@ namespace MechWars.Human
             {
                 if (!toggleSelection) DeselectAllMapElements();
 
-                if (!MultiSelection)
+                if (!multiSelection)
                 {
                     if (HoveredMapElements.Count() > 0 &&
                         singleSelectionCandidate == HoveredMapElements.Single())
@@ -97,8 +106,9 @@ namespace MechWars.Human
                         DeselectMapElements(HoveredMapElements);
                     else SelectMapElements(HoveredMapElements);
 
-                    selectionBox = null;
+                    multiSelection = false;
                 }
+                selectionBox = null;
             }
         }
 
@@ -164,7 +174,7 @@ namespace MechWars.Human
                 if (!HoveredMapElements.Contains(me))
                 {
                     me.Hovered = true;
-                    if (MultiSelection) me.InSelectionBox = true;
+                    if (multiSelection) me.InSelectionBox = true;
                     HoveredMapElements.Add(me);
                 }
             }

@@ -31,12 +31,22 @@ namespace MechWars.Human
                     let u = a as Unit
                     where u != null && u.army != null && u.army == player.Army
                     select u;
+                MapElement mapElement = null;
+                IVector2? dest = null;
                 if (mapElementHit)
                 {
                     var go = hit.collider.gameObject;
-                    var mapElement = go.GetComponentInParent<MapElement>();
+                    mapElement = go.GetComponentInParent<MapElement>();
                     if (mapElement == null)
                         throw new System.Exception("Non-MapElement GameObject is in MapElements layer.");
+                }
+                else if (terrainHit)
+                {
+                    dest = new Vector2(hit.point.x, hit.point.z).Round();
+                    mapElement = Globals.FieldReservationMap[dest.Value];
+                }
+                if (mapElement != null)
+                {
                     if (mapElement.Interactible)
                     {
                         if (mapElement is Resource)
@@ -54,11 +64,10 @@ namespace MechWars.Human
                                     u.GiveOrder(new FollowAttackOrder(u, mapElement));
                     }
                 }
-                if (terrainHit)
+                else if (dest != null)
                 {
-                    var dest = new Vector2(hit.point.x, hit.point.z).Round();
                     foreach (var u in thisPlayersUnits)
-                        u.GiveOrder(new MoveOrder(u, dest));
+                        u.GiveOrder(new MoveOrder(u, dest.Value));
                 }
             }
 
