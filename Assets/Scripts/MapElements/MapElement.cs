@@ -338,7 +338,12 @@ namespace MechWars.MapElements
                 
                 var mainTexture = army.hpBarMain;
                 var sideTexture = army.hpBarSide;
-                var barAspectRatio = (float)mainTexture.height / (mainTexture.width + 2 * sideTexture.width);
+                var topTexture = army.hpBarTop;
+
+                var baseWidth = topTexture.width + 2 * sideTexture.width;
+                var baseHeight = sideTexture.height;
+
+                var barAspectRatio = (float)baseHeight / baseWidth;
                 var sideAspectRatio = (float)sideTexture.height / sideTexture.width;
 
                 float distFromBounds = 0.1f;
@@ -346,26 +351,35 @@ namespace MechWars.MapElements
                 Vector2 barLocation = distFromBounds * statusDisplay.Size;
                 float barWidth = (1 - 2 * distFromBounds) * statusDisplay.Width;
                 float barHeight = barWidth * barAspectRatio;
-                float sideWidth = barHeight / sideAspectRatio;
+                float borderThickness = barHeight / sideAspectRatio;
 
                 float ratio = hitPoints.Value / hitPoints.MaxValue;
                 float contentBarWidth = ratio * barWidth;
-                float mainWidth = contentBarWidth - 2 * sideWidth;
-                Vector2 mainLocation = barLocation + Vector2.right * sideWidth;
-                Vector2 rightSideLocation = mainLocation + Vector2.right * mainWidth;
+                float mainWidth = contentBarWidth - 2 * borderThickness;
+                float mainHeight = barHeight - 2 * borderThickness;
+
+                Vector2 topLocation = barLocation + Vector2.right * borderThickness;
+                Vector2 mainLocation = topLocation + Vector2.up * borderThickness;
+                Vector2 bottomLocation = mainLocation + Vector2.up * mainHeight;
+                Vector2 rightSideLocation = topLocation + Vector2.right * mainWidth;
 
                 Vector2 barSize = new Vector2(barWidth, barHeight);
-                Vector2 sideSize = new Vector2(sideWidth, barHeight);
-                Vector2 mainSize = new Vector2(mainWidth, barHeight);
+                Vector2 sideSize = new Vector2(borderThickness, barHeight);
+                Vector2 topSize = new Vector2(mainWidth, borderThickness);
+                Vector2 mainSize = new Vector2(mainWidth, mainHeight);
                 Vector2 leftSideSize = sideSize;
-                float sideToFullRatio = sideWidth / barWidth;
+                float sideToFullRatio = borderThickness / barWidth;
                 if (ratio < sideToFullRatio)
                     leftSideSize = new Vector2(ratio * barWidth, barHeight);
                 
                 GUI.DrawTexture(new Rect(barLocation, barSize), Globals.Textures.hpBarBackground);
                 GUI.DrawTexture(new Rect(barLocation, leftSideSize), sideTexture);
                 if (mainWidth > 0)
+                {
+                    GUI.DrawTexture(new Rect(topLocation, topSize), topTexture);
                     GUI.DrawTexture(new Rect(mainLocation, mainSize), mainTexture);
+                    GUI.DrawTexture(new Rect(bottomLocation, topSize), topTexture);
+                }
                 if (rightSideLocation.x > barLocation.x)
                     GUI.DrawTexture(new Rect(rightSideLocation, sideSize), sideTexture);
                 GUI.EndGroup();

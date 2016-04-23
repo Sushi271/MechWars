@@ -17,6 +17,7 @@ namespace MechWars
 
         public Texture hpBarMain;
         public Texture hpBarSide;
+        public Texture hpBarTop;
 
         public Army()
         {
