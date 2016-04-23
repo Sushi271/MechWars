@@ -9,7 +9,36 @@ namespace MechWars.MapElements
     public class Building : MapElement
     {
         // <DEBUG>
-
+        int TEMP_selectedProductionOptionIndex = -1;
+        public void TEMP_InitSelectedProductionOption()
+        {
+            if (unitProductionOptions.Count > 0)
+                TEMP_selectedProductionOptionIndex = 0;
+            TEMP_UpdateSelectedProductionOption();
+        }
+        public void TEMP_NextProductionOption()
+        {
+            if (unitProductionOptions.Count == 0) return;
+            TEMP_selectedProductionOptionIndex++;
+            if (TEMP_selectedProductionOptionIndex >= unitProductionOptions.Count)
+                TEMP_selectedProductionOptionIndex = 0;
+            TEMP_UpdateSelectedProductionOption();
+        }
+        public void TEMP_PreviousProductionOption()
+        {
+            if (unitProductionOptions.Count == 0) return;
+            TEMP_selectedProductionOptionIndex--;
+            if (TEMP_selectedProductionOptionIndex < 0)
+                TEMP_selectedProductionOptionIndex = unitProductionOptions.Count - 1;
+            TEMP_UpdateSelectedProductionOption();
+        }
+        public void TEMP_UpdateSelectedProductionOption()
+        {
+            if (0 <= TEMP_selectedProductionOptionIndex && TEMP_selectedProductionOptionIndex < unitProductionOptions.Count)
+                TEMP_selectedProductionOption = unitProductionOptions[TEMP_selectedProductionOptionIndex];
+            else TEMP_selectedProductionOption = null;
+        }
+        public UnitProductionOption TEMP_selectedProductionOption;
         // </DEBUG>
 
         public bool isResourceDeposit;
@@ -31,6 +60,7 @@ namespace MechWars.MapElements
         {
             base.OnStart();
             InitializeNeighbourFields();
+            TEMP_InitSelectedProductionOption();
         }
 
         void InitializeNeighbourFields()

@@ -62,23 +62,27 @@ namespace MechWars.Human
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.P))
+            var thisPlayersBuildings =
+                from a in player.SelectionController.SelectedMapElements
+                let b = a as Building
+                where b != null && b.army != null && b.army == player.Army
+                select b;
+            var building = thisPlayersBuildings.FirstOrDefault();
+            if (building != null)
             {
-                var thisPlayersBuildings =
-                    from a in player.SelectionController.SelectedMapElements
-                    let b = a as Building
-                    where b != null && b.army != null && b.army == player.Army
-                    select b;
-                var building = thisPlayersBuildings.FirstOrDefault();
-                if (building != null)
+                if (Input.GetKeyDown(KeyCode.P))
                 {
-                    var prodOpt = building.unitProductionOptions.FirstOrDefault();
+                    var prodOpt = building.TEMP_selectedProductionOption;
                     if (prodOpt != null)
                     {
                         var unit = prodOpt.unit;
                         building.GiveOrder(new UnitProductionOrder(building, unit));
                     }
                 }
+                if (Input.GetKeyDown(KeyCode.KeypadPlus))
+                    building.TEMP_NextProductionOption();
+                if (Input.GetKeyDown(KeyCode.KeypadMinus))
+                    building.TEMP_PreviousProductionOption();
             }
         }
     }
