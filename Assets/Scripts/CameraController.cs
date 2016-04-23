@@ -46,7 +46,6 @@ namespace MechWars
                 var newZoom = zoom * expDZoom;
                 if (newZoom > maxZoom) newZoom = maxZoom;
                 if (newZoom < minZoom) newZoom = minZoom;
-                var realExpDZoom = newZoom / zoom;
                 zoom = newZoom;
 
                 handle.transform.localScale = Vector3.one * zoom;

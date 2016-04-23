@@ -52,7 +52,6 @@ namespace MechWars.MapElements.Orders
 
         void CalculatePath()
         {
-            var time = System.DateTime.Now;
             path = new AStarPathfinder().FindPath(
                 new CoordPair(Unit.Coords.Round()),
                 new CoordPair(Destination),

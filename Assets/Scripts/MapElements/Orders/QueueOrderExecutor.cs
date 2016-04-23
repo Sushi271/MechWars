@@ -40,6 +40,14 @@ namespace MechWars.MapElements.Orders
                     "QueueOrderExecutor does not contain {0} order to cancel.", order), "order");
         }
 
+        public void CancelAll()
+        {
+            if (Count == 0) return;
+            while (Count > 1)
+                orderQueue.RemoveAt(Count - 1);
+            Cancel(0);
+        }
+
         public void Update()
         {
             if (CurrentOrder != null)

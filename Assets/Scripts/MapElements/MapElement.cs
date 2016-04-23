@@ -335,10 +335,7 @@ namespace MechWars.MapElements
             {
                 GUI.depth = (int)(statusDisplay.Distance * 10);
                 GUI.BeginGroup(new Rect(statusDisplay.Location, statusDisplay.Size));
-
-                var w = statusDisplay.Width;
-                var h = statusDisplay.Height;
-
+                
                 var mainTexture = army.hpBarMain;
                 var sideTexture = army.hpBarSide;
                 var barAspectRatio = (float)mainTexture.height / (mainTexture.width + 2 * sideTexture.width);
@@ -347,7 +344,7 @@ namespace MechWars.MapElements
                 float distFromBounds = 0.1f;
 
                 Vector2 barLocation = distFromBounds * statusDisplay.Size;
-                float barWidth = (1 - 2 * distFromBounds) * w;
+                float barWidth = (1 - 2 * distFromBounds) * statusDisplay.Width;
                 float barHeight = barWidth * barAspectRatio;
                 float sideWidth = barHeight / sideAspectRatio;
 

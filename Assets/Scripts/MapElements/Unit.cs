@@ -9,21 +9,19 @@ namespace MechWars.MapElements
     {
         public bool canCollectResources;
 
-        SingleOrderExecutor orderExecutor;
-        public IOrder CurrentOrder { get { return orderExecutor.CurrentOrder; } }
-
+        public SingleOrderExecutor OrderExecutor { get; private set; }
         public override bool Interactible { get { return true; } }
 
         public Unit()
         {
             selectable = true;
-            orderExecutor = new SingleOrderExecutor();
+            OrderExecutor = new SingleOrderExecutor();
         }
 
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            orderExecutor.Update();
+            OrderExecutor.Update();
         }
 
         public void MoveStepTo(int x, int y, out bool finished)
@@ -53,7 +51,7 @@ namespace MechWars.MapElements
         public void GiveOrder(IOrder order)
         {
             if (order is Order<Unit> || order is Order<MapElement>)
-                orderExecutor.Give(order);
+                OrderExecutor.Give(order);
             else throw new System.Exception(string.Format(
                 "Order {0} not suitable for MapElement {1}.", order, this));
         }

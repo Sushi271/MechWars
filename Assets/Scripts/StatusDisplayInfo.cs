@@ -5,8 +5,6 @@ namespace MechWars
 {
     public class StatusDisplayInfo
     {
-        MapElement mapElement;
-
         public Vector2 Center { get; private set; }
         public Vector2 Size { get; private set; }
         public Vector2 Location { get; private set; }
@@ -23,8 +21,6 @@ namespace MechWars
 
         public StatusDisplayInfo(MapElement mapElement)
         {
-            this.mapElement = mapElement;
-
             var cam = Camera.main;
             Vector3 camPos = cam.transform.position;
             Quaternion camRot = cam.transform.rotation;

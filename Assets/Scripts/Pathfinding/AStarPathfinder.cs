@@ -3,6 +3,7 @@ using System.Linq;
 using MechWars.Utils;
 using MechWars.MapElements;
 using UnityEngine;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MechWars.Pathfinding
 {
@@ -77,7 +78,6 @@ namespace MechWars.Pathfinding
 
             if (p == null)
             {
-                var time = System.DateTime.Now;
                 var alternateTargetCoords = DesignateAlternateTarget();
                 var alternateTarget = evaluated[alternateTargetCoords];
                 p = ReconstructPath(alternateTarget);
