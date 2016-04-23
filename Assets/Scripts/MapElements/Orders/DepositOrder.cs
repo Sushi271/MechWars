@@ -7,11 +7,8 @@ namespace MechWars.MapElements.Orders
     public class DepositOrder : Order<Unit>
     {
         public Unit Unit { get; private set; }
-
         public Building Refinery { get; set; }
-
-        float depositProgress;
-
+        
         public bool InRange
         {
             get
@@ -59,22 +56,17 @@ namespace MechWars.MapElements.Orders
             var carriedResource = (int)carriedResourceStat.Value;
 
             var dProgress = depositRate * Time.deltaTime;
-            depositProgress += dProgress;
-            int wholeRPDeposited = (int)depositProgress;
             
             bool finished = false;
-            if (wholeRPDeposited > 0)
+            if (dProgress >= carriedResource)
             {
-                depositProgress -= wholeRPDeposited;
-                if (wholeRPDeposited >= carriedResource)
-                {
-                    wholeRPDeposited = carriedResource;
-                    finished = true;
-                }
-
-                Unit.army.resources += wholeRPDeposited;
-                carriedResourceStat.Value -= wholeRPDeposited;
+                dProgress = carriedResource;
+                finished = true;
             }
+
+            Unit.army.resources += dProgress;
+            carriedResourceStat.Value -= dProgress;
+            
             return finished;
         }
 

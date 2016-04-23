@@ -6,10 +6,10 @@ namespace MechWars.MapElements
     {
         public override bool Interactible { get { return true; } }
 
-        public int value;
-        int startValue;
+        public float value;
+        float startValue;
 
-        public float Size {  get { return (float)value / startValue; } }
+        public float Size {  get { return value / startValue; } }
 
         public Resource()
         {

@@ -5,4 +5,5 @@
     <Stat name="Deposit rate" value="66.666" />
     <Stat name="Carried resource" value="0" max_value="100" />
     <Stat name="Cost" value="130" />
+    <Stat name="Production time" value="10" />
 </Stats>

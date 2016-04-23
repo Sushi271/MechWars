@@ -5,4 +5,5 @@
     <Stat name="Attack speed" value="10" />
     <Stat name="Range" value="4" />
     <Stat name="Cost" value="65" />
+    <Stat name="Production time" value="5" />
 </Stats>
