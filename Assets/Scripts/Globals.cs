@@ -3,6 +3,7 @@ using System.Linq;
 using MechWars.GLRendering;
 using MechWars.Pathfinding;
 using UnityEngine;
+using MechWars.MapElements;
 
 namespace MechWars
 {

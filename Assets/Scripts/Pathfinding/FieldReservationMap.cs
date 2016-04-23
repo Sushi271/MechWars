@@ -38,6 +38,13 @@ namespace MechWars.Pathfinding
             private set { this[coords.X, coords.Y] = value; }
         }
 
+        public bool CoordsInside(IVector2 coords)
+        {
+            return
+                0 <= coords.X && coords.X < Width &&
+                0 <= coords.Y && coords.Y < Height;
+        }
+
         void Start()
         {
             reservationDictionary = new Dictionary<MapElement, List<IVector2>>();

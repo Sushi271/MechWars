@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MechWars.MapElements.Orders.Products;
+using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
@@ -29,10 +30,14 @@ namespace MechWars.MapElements.Orders
                 float time = Product.ProductionTime;
                 float cost = Product.Cost;
 
-                if (time == 0)
-                    throw new System.Exception("Production time must be > 0.");
-                float dt = Time.deltaTime;
-                float dProgress = dt / time;
+                float dProgress;
+                if (time > 0)
+                {
+                    float dt = Time.deltaTime;
+                    dProgress = dt / time;
+                }
+                else dProgress = 1;
+
                 float dCost = dProgress * cost;
 
                 if (progress + dProgress > 1)
@@ -76,11 +81,16 @@ namespace MechWars.MapElements.Orders
 
         protected override bool StoppingUpdate()
         {
-            if (!Done)
-            {
-                Building.army.resources += paid;
-            }
+            if (!Done) Revert();
             return true;
+        }
+
+        public void Revert()
+        {
+            Building.army.resources += paid;
+            paid = 0;
+            progress = 0;
+            Done = false;
         }
 
         public override string ToString()

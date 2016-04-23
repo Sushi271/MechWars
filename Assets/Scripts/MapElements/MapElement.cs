@@ -195,7 +195,7 @@ namespace MechWars.MapElements
 
         void InitializeReservation()
         {
-            var occupiedFields = CalculateOccupiedFields();
+            var occupiedFields = CalculateOccupiedFields(); // TODO: use AllCoords instead?
             foreach (var coord in occupiedFields)
             {
                 Globals.FieldReservationMap.MakeReservation(this, coord);

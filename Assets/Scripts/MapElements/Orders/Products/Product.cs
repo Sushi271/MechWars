@@ -1,10 +1,14 @@
-﻿namespace MechWars.MapElements.Orders
+﻿namespace MechWars.MapElements.Orders.Products
 {
     public class Product
     {
-        public string Name { get; private set; }
-        public float Cost { get; private set; }
-        public float ProductionTime { get; private set; }
+        public string Name { get; protected set; }
+        public float Cost { get; protected set; }
+        public float ProductionTime { get; protected set; }
+
+        protected Product()
+        {
+        }
 
         public Product(string name, float cost, float productionTime)
         {

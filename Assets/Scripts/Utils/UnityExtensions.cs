@@ -1,9 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace MechWars.Utils
 {
     public static class UnityExtensions
     {
+        static readonly IVector2[] neighbourDeltas =
+        {
+            new IVector2(-1, -1),
+            new IVector2(-1, 0),
+            new IVector2(-1, 1),
+            new IVector2(0, -1),
+            new IVector2(0, 1),
+            new IVector2(1, -1),
+            new IVector2(1, 0),
+            new IVector2(1, 1)
+        };
+        public static IEnumerable<IVector2> NeighbourDeltas { get { return neighbourDeltas; } }
+
         public static Vector2 VX(this Vector2 v) { return new Vector2(v.x, 0); }
         public static Vector2 VY(this Vector2 v) { return new Vector2(0, v.y); }
 

@@ -7,17 +7,9 @@ namespace MechWars.Pathfinding
 {
     public struct CoordPair
     {
-        static readonly CoordPair[] neighbourDeltas = 
-        {
-            new CoordPair(-1, -1),
-            new CoordPair(-1, 0),
-            new CoordPair(-1, 1),
-            new CoordPair(0, -1),
-            new CoordPair(0, 1),
-            new CoordPair(1, -1),
-            new CoordPair(1, 0),
-            new CoordPair(1, 1)
-        };
+        static IEnumerable<CoordPair> neighbourDeltas =
+            from v in UnityExtensions.NeighbourDeltas
+            select new CoordPair(v);
 
         public IVector2 Vector { get; private set; }
         public int X { get { return Vector.X; } }
