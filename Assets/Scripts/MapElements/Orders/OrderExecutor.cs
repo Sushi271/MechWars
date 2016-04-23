@@ -4,16 +4,16 @@
     {
         public Unit Unit { get; private set; }
 
-        public Order CurrentOrder { get; private set; }
+        public IOrder CurrentOrder { get; private set; }
 
-        Order nextOrder;
+        IOrder nextOrder;
 
         public OrderExecutor(Unit unit)
         {
             Unit = unit;
         }
 
-        public void Give(Order order)
+        public void Give(IOrder order)
         {
             if (CurrentOrder != null)
             {

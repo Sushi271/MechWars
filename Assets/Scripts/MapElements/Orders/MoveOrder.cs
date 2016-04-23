@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class MoveOrder : Order
+    public class MoveOrder : Order<Unit>
     {
         Path path;
         bool pathNeedsUpdate;
+
+        public Unit Unit { get; private set; }
 
         public IVector2 Destination { get; set; }
         public bool SingleMoveInProgress { get; private set; }
@@ -17,6 +19,8 @@ namespace MechWars.MapElements.Orders
         public MoveOrder(Unit orderedUnit, IVector2 destination)
             : base("Move", orderedUnit)
         {
+            Unit = (Unit)MapElement;
+
             Destination = destination;
             path = null;
             pathNeedsUpdate = true;

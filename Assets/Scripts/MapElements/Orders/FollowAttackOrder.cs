@@ -2,16 +2,18 @@
 
 namespace MechWars.MapElements.Orders
 {
-    public class FollowAttackOrder : Order
+    public class FollowAttackOrder : Order<Unit>
     {
         MoveOrder move;
         AttackOrder attack;
 
+        public Unit Unit { get; private set; }
         public MapElement Target { get; private set; }
         
         public FollowAttackOrder(Unit orderedUnit, MapElement target)
             : base("FollowAttack", orderedUnit)
         {
+            Unit = (Unit)MapElement;
             Target = target;
             
             move = new MoveOrder(Unit, target.Coords.Round());

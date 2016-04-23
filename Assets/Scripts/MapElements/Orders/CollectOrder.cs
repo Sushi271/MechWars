@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class CollectOrder : Order
+    public class CollectOrder : Order<Unit>
     {
+        public Unit Unit { get; private set; }
+
         public Resource Resource { get; set; }
 
         float collectProgress;
@@ -21,6 +23,7 @@ namespace MechWars.MapElements.Orders
         public CollectOrder(Unit orderedUnit, Resource resource)
             : base("Collect", orderedUnit)
         {
+            Unit = (Unit)MapElement;
             Resource = resource;
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class AttackOrder : Order
+    public class AttackOrder : Order<MapElement>
     {
         Attack attack;
 
@@ -15,9 +15,9 @@ namespace MechWars.MapElements.Orders
         {
             get
             {
-                var dr = Target.Coords - Unit.Coords;
+                var dr = Target.Coords - MapElement.Coords;
                 if (Mathf.Abs(dr.x) <= 1 && Mathf.Abs(dr.y) <= 1) return true;
-                var range = Unit.Stats[StatNames.Range];
+                var range = MapElement.Stats[StatNames.Range];
                 if (range == null) return false;
                 var dist = dr.magnitude;
                 return dist <= range.Value;
@@ -30,8 +30,17 @@ namespace MechWars.MapElements.Orders
             Target = target;
         }
 
+        public AttackOrder(Building orderedBuilding, MapElement target)
+            : base("Attack", orderedBuilding)
+        {
+            Target = target;
+        }
+
         protected override bool RegularUpdate()
         {
+            if (!MapElement.canAttack)
+                throw new System.Exception(string.Format(
+                    "Order {0} called for MapElement {1}, but it cannot attack.", Name, MapElement));
             if (!Target.Alive) return true;
             if (InRange)
             {
@@ -43,6 +52,9 @@ namespace MechWars.MapElements.Orders
 
         protected override bool StoppingUpdate()
         {
+            if (!MapElement.canAttack)
+                throw new System.Exception(string.Format(
+                    "Order {0} called for MapElement {1}, but it cannot attack.", Name, MapElement));
             if (!Target.Alive) return true;
             if (!AttackingInProgress) return true;
             if (InRange)
@@ -63,7 +75,7 @@ namespace MechWars.MapElements.Orders
             {
                 if (attack == null)
                 {
-                    var attackSpeedStat = Unit.Stats[StatNames.AttackSpeed];
+                    var attackSpeedStat = MapElement.Stats[StatNames.AttackSpeed];
                     float attackSpeed = 1;
                     if (attackSpeedStat != null && attackSpeedStat.Value > 0)
                         attackSpeed = attackSpeedStat.Value;
@@ -73,7 +85,7 @@ namespace MechWars.MapElements.Orders
                     attack = PickAttack();
                     if (attack != null)
                     {
-                        attack.Initialize(Unit, Target);
+                        attack.Initialize(MapElement, Target);
                         AttackingInProgress = true;
                     }
                 }
@@ -82,14 +94,14 @@ namespace MechWars.MapElements.Orders
                     attack = null;
                     AttackingInProgress = false;
                     throw new System.Exception(string.Format("Attack.ExecuteStep is taking too long " +
-                        "(time exceeds Unit's [ {0} ] 'Attack speed' attribute value).", Unit));
+                        "(time exceeds MapElement's [ {0} ] 'Attack speed' attribute value).", MapElement));
                 }
             }
             if (attack != null)
             {
-                var direction = (Target.Coords - Unit.Coords).normalized;
+                var direction = (Target.Coords - MapElement.Coords).normalized;
                 var direction3 = new Vector3(direction.x, 0, direction.y);
-                Unit.transform.localRotation = Quaternion.LookRotation(direction3);
+                MapElement.transform.localRotation = Quaternion.LookRotation(direction3);
 
                 attack.ExecuteStep();
                 if (attack.Finished)
@@ -102,10 +114,10 @@ namespace MechWars.MapElements.Orders
 
         Attack PickAttack()
         {
-            var attacks = Unit.GetComponents<Attack>();
+            var attacks = MapElement.GetComponents<Attack>();
             if (attacks.Length == 0)
             {
-                Debug.LogWarning(string.Format("Unit {0} has no Attacks.", Unit));
+                Debug.LogWarning(string.Format("MapElement {0} has no Attacks.", MapElement));
                 return null;
             }
             int idx = Random.Range(0, attacks.Length);

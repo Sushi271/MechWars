@@ -11,10 +11,11 @@ namespace MechWars.MapElements
     {
         public string mapElementName;
         public int id;
-        public bool selectable;
         public Army army;
         public TextAsset shapeFile;
         public TextAsset statsFile;
+        public bool selectable;
+        public bool canAttack;
         public float displaySize = 1;
         public float displayYOffset = 0;
 

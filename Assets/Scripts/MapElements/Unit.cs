@@ -7,13 +7,12 @@ namespace MechWars.MapElements
 {
     public class Unit : MapElement
     {
+        public bool canCollectResources;
+
         OrderExecutor orderExecutor;
         public IOrder CurrentOrder { get { return orderExecutor.CurrentOrder; } }
 
         public override bool Interactible { get { return true; } }
-
-        public bool canAttack;
-        public bool canCollectResources;
 
         public Unit()
         {
@@ -51,7 +50,7 @@ namespace MechWars.MapElements
             finished = false;
         }
 
-        public void GiveOrder(Order order)
+        public void GiveOrder(Order<Unit> order)
         {
             orderExecutor.Give(order);
         }

@@ -1,6 +1,6 @@
 ﻿namespace MechWars.MapElements.Orders
 {
-    public class EscortOrder : Order
+    public class EscortOrder : Order<Unit>
     {
         public MapElement Target { get; private set; }
 

@@ -4,15 +4,15 @@ namespace MechWars.MapElements.Attacks
 {
     public class Attack : MonoBehaviour
     {
-        public Unit AttackingUnit { get; private set; }
+        public MapElement AttackingMapElement { get; private set; }
         public MapElement Target { get; private set; }
 
         public bool Finished { get; protected set; }
 
-        public void Initialize(Unit attackingUnit, MapElement target)
+        public void Initialize(MapElement attackingMapElement, MapElement target)
         {
             Finished = false;
-            AttackingUnit = attackingUnit;
+            AttackingMapElement = attackingMapElement;
             Target = target;
         }
 

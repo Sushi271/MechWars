@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class DepositOrder : Order
+    public class DepositOrder : Order<Unit>
     {
+        public Unit Unit { get; private set; }
+
         public Building Refinery { get; set; }
 
         float depositProgress;
@@ -26,6 +28,7 @@ namespace MechWars.MapElements.Orders
         public DepositOrder(Unit orderedUnit, Building refinery)
             : base("Deposit", orderedUnit)
         {
+            Unit = (Unit)MapElement;
             Refinery = refinery;
         }
 

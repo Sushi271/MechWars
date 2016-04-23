@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class HarvestOrder : Order
+    public class HarvestOrder : Order<Unit>
     {
         MoveOrder move;
         CollectOrder collect;
@@ -15,6 +15,7 @@ namespace MechWars.MapElements.Orders
 
         bool reloadMove;
 
+        public Unit Unit { get; private set; }
         public Resource Resource { get; private set; }
         public Building Refinery { get; private set; }
 
@@ -45,6 +46,7 @@ namespace MechWars.MapElements.Orders
         public HarvestOrder(Unit orderedUnit, Resource resource)
             : base("Harvest", orderedUnit)
         {
+            Unit = (Unit)MapElement;
             Resource = resource;
             mode = HarvestMode.Collect;
         }

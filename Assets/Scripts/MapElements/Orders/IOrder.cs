@@ -3,8 +3,11 @@
     public interface IOrder
     {
         string Name { get; }
-        Unit Unit { get; }
+        MapElement MapElement { get; }
         bool Stopping { get; }
         bool Stopped { get; }
+
+        void Stop();
+        void Update();
     }
 }
