@@ -54,6 +54,10 @@ namespace MechWars.MapElements.Orders
             return false;
         }
 
+        protected override void TerminateCore()
+        {
+        }
+
         void OnSingleMoveFinished()
         {
             if (Target.Alive)

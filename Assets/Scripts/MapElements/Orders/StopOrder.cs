@@ -1,4 +1,6 @@
-﻿namespace MechWars.MapElements.Orders
+﻿using System;
+
+namespace MechWars.MapElements.Orders
 {
     public class StopOrder : Order<MapElement>
     {
@@ -15,6 +17,10 @@
         protected override bool StoppingUpdate()
         {
             return true;
+        }
+
+        protected override void TerminateCore()
+        {
         }
     }
 }

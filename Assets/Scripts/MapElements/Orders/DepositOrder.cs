@@ -42,6 +42,10 @@ namespace MechWars.MapElements.Orders
             return true;
         }
 
+        protected override void TerminateCore()
+        {
+        }
+
         bool MakeDeposit()
         {
             if (!Unit.canCollectResources)
@@ -73,6 +77,7 @@ namespace MechWars.MapElements.Orders
 
                 Unit.army.resources += intProgress;
                 carriedResourceStat.Value -= intProgress;
+                Unit.additionalResourceValue -= intProgress;
             }
             return finished;
         }

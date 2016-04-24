@@ -17,6 +17,9 @@ namespace MechWars
         
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Z))
+                scrollingEnabled = !scrollingEnabled;
+
             if (scrollingEnabled)
             {
                 var w = Screen.width;

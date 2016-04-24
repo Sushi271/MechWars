@@ -1,11 +1,12 @@
-﻿using MechWars.MapElements.Orders.Products;
+﻿using System;
+using MechWars.MapElements.Orders.Products;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
     public class ProductionOrder : Order<Building>
     {
-        int paid;
+        public int Paid { get; private set; }
         float progress;
 
         bool resourcesDepleted;
@@ -15,21 +16,22 @@ namespace MechWars.MapElements.Orders
 
         public bool Done { get; private set; }
 
-        public ProductionOrder(Building orderedBuilding, Product product)
+        public ProductionOrder(Building orderedBuilding, Product product, int paid = 0)
             : base("Production", orderedBuilding)
         {
+            this.Paid = paid;
             Building = orderedBuilding;
             Product = product;
         }
 
         protected override bool RegularUpdate()
         {
-
             if (!Done)
             {
+                var army = Building.army;
                 if (resourcesDepleted)
                 {
-                    if (Building.army.resources > 0)
+                    if (army.resources > 0)
                     {
                         resourcesDepleted = false;
                         Debug.Log(string.Format("Production of {0} in {1} resumed.", Product, Building));
@@ -39,7 +41,7 @@ namespace MechWars.MapElements.Orders
 
                 float time = Product.ProductionTime;
                 int cost = Product.Cost;
-                var costLeft = cost - paid;
+                var costLeft = cost - Paid;
 
                 float dTotal;
                 if (time > 0)
@@ -62,7 +64,7 @@ namespace MechWars.MapElements.Orders
                         intProgress = costLeft;
                         Done = true;
                     }
-                    int resources = Building.army.resources;
+                    int resources = army.resources;
                     if (intProgress >= resources)
                     {
                         intProgress = resources;
@@ -73,39 +75,9 @@ namespace MechWars.MapElements.Orders
                         }
                     }
 
-                    Building.army.resources -= intProgress;
-                    paid += intProgress;
+                    army.resources -= intProgress;
+                    Paid += intProgress;
                 }
-
-
-                //float resources = Building.army.resources;
-                //if (dCost > resources)
-                //{
-                //    dProgress *= resources / dCost;
-                //    dCost = resources;
-
-                //    if (!resourcesDepleted)
-                //    {
-                //        resourcesDepleted = true;
-                //        Debug.Log(string.Format(
-                //            "Resources depleted! Production of {0} in {1} on hold.", Product, Building));
-                //    }
-                //}
-                //else
-                //{
-                //    if (resourcesDepleted)
-                //    {
-                //        resourcesDepleted = false;
-                //        Debug.Log(string.Format("Production of {0} in {1} resumed.", Product, Building));
-                //    }
-
-                //    Building.army.resources -= dCost;
-                //    __paid += dCost;
-                //    __progress += dProgress;
-
-                //    if (__progress == 1)
-                //        Done = true;
-                //}
             }
 
             return Done;
@@ -119,10 +91,15 @@ namespace MechWars.MapElements.Orders
 
         public void Revert()
         {
-            Building.army.resources += paid;
-            paid = 0;
+            Building.army.resources += Paid;
+            Paid = 0;
             progress = 0;
             Done = false;
+        }
+
+        protected override void TerminateCore()
+        {
+            Revert();
         }
 
         public override string ToString()

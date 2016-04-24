@@ -1,4 +1,5 @@
-﻿using MechWars.MapElements.Statistics;
+﻿using System;
+using MechWars.MapElements.Statistics;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
@@ -39,6 +40,10 @@ namespace MechWars.MapElements.Orders
             return true;
         }
 
+        protected override void TerminateCore()
+        {
+        }
+
         bool MakeCollect()
         {
             if (!Unit.canCollectResources)
@@ -73,6 +78,7 @@ namespace MechWars.MapElements.Orders
 
                 Resource.value -= intProgress;
                 carriedResourceStat.Value += intProgress;
+                Unit.additionalResourceValue += intProgress;
             }
             return finished;
         }

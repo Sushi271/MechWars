@@ -1,4 +1,5 @@
-﻿using MechWars.MapElements.Orders.Products;
+﻿using System;
+using MechWars.MapElements.Orders.Products;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
@@ -25,6 +26,7 @@ namespace MechWars.MapElements.Orders
         protected override bool RegularUpdate()
         {
             productionOrder.Update();
+            Building.additionalResourceValue = productionOrder.Paid;
             if (productionOrder.Done)
                 return Spawn();
             return false;
@@ -33,6 +35,7 @@ namespace MechWars.MapElements.Orders
         protected override bool StoppingUpdate()
         {
             productionOrder.Update();
+            Building.additionalResourceValue = productionOrder.Paid;
             if (productionOrder.Stopped)
             {
                 if (productionOrder.Done)
@@ -44,9 +47,19 @@ namespace MechWars.MapElements.Orders
                         return true;
                     }
                 }
-                else return true;
+                else
+                {
+                    productionOrder.Revert();
+                    return true;
+                }
             }
             else return false;
+        }
+
+        protected override void TerminateCore()
+        {
+            productionOrder.Revert();
+            Building.additionalResourceValue = productionOrder.Paid;
         }
 
         bool Spawn()

@@ -10,7 +10,6 @@ namespace MechWars.MapElements.Orders.Products
         public UnitProduct(Building producer, Unit unit)
         {
             Unit = unit;
-            Unit.ReadStats();
 
             var prodOp = producer.unitProductionOptions.Find(po => po.unit == unit);
             if (prodOp == null)

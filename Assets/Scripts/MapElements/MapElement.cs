@@ -2,6 +2,7 @@
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using UnityEngine;
 
@@ -20,8 +21,13 @@ namespace MechWars.MapElements
         public float displayYOffset = 0;
 
         public int resourceValue;
+        public int additionalResourceValue;
+
+        bool reservationInitialized;
 
         public Stats Stats { get; private set; }
+        bool statsRead;
+        bool shapeRead;
 
         static int LastId = 1;
         static int NewId
@@ -158,9 +164,6 @@ namespace MechWars.MapElements
 
             Globals.MapElementsDatabase.Insert(this);
 
-            if (shapeFile == null)
-                Shape = MapElementShape.DefaultShape;
-            else Shape = MapElementShape.FromString(shapeFile.text);
 
             ReadStats();
 
@@ -170,9 +173,24 @@ namespace MechWars.MapElements
             InitializeReservation();
         }
 
-        public void ReadStats()
+        public void ReadShape(bool force = false)
+        {
+            if (!force && shapeRead) return;
+            if (shapeFile == null)
+                Shape = MapElementShape.DefaultShape;
+            else
+            {
+                shapeRead = true;
+                Shape = MapElementShape.FromString(shapeFile.text);
+            }
+
+        }
+
+        public void ReadStats(bool force = false)
         {
             if (statsFile == null) return;
+            if (!force && statsRead) return;
+            statsRead = true;
 
             Stats.Clear();
 
@@ -197,13 +215,16 @@ namespace MechWars.MapElements
             }
         }
 
-        void InitializeReservation()
+        public void InitializeReservation()
         {
+            if (reservationInitialized) return;
+
             var occupiedFields = AllCoords;
             foreach (var coord in occupiedFields)
             {
                 Globals.FieldReservationMap.MakeReservation(this, coord);
             }
+            reservationInitialized = true;
         }
 
         void Update()
@@ -235,6 +256,62 @@ namespace MechWars.MapElements
                 Globals.MapElementsDatabase.Delete(this);
             }
             if (!suspendDestroy) Destroy(gameObject);
+
+            TurnIntoResource();
+        }
+
+        void TurnIntoResource()
+        {
+            if (Globals.Destroyed) return;
+
+            int resVal = resourceValue + additionalResourceValue;
+            if (resVal == 0) return;
+
+            var noArmy = GameObject.FindGameObjectsWithTag(Tag.Army)
+                .Where(a => a.GetComponent<Army>() == null).FirstOrDefault();
+            if (noArmy == null) return;
+
+            var r = new System.Random();
+            var value = r.Next(resVal / 4, resVal / 2);
+            if (value == 0) return;
+
+            var allCoords = AllCoords.ToList();
+            var proportions = new List<float>();
+            float sum = 0;
+            for (int i = 0; i < allCoords.Count; i++)
+            {
+                float a = (float)r.NextDouble();
+                sum += a;
+                proportions.Add(a);
+            }
+            for (int i = 0; i < allCoords.Count; i++)
+                proportions[i] = proportions[i] / sum * value;
+            int iSum = 0;
+            float overflow = 0;
+            var values = new List<int>();
+            for (int i = 0; i < allCoords.Count - 1; i++)
+            {
+                int intOverflow = (int)overflow;
+                overflow -= intOverflow;
+                values.Add((int)proportions[i]);
+                overflow += proportions[i] - values[i];
+                iSum += values[i];
+            }
+            values.Add(value - iSum);
+
+            for (int i = 0; i < allCoords.Count; i++)
+            {
+                if (values[i] == 0) continue;
+
+                var resPrefab = Globals.Prefabs.RandomResourcePrefab;
+                var gameObject = Instantiate(resPrefab);
+                gameObject.transform.parent = noArmy.transform;
+                gameObject.name = resPrefab.name;
+                var resource = gameObject.GetComponent<Resource>();
+                resource.Coords = allCoords[i];
+                resource.value = values[i];
+                resource.InitializeReservation();
+            }
         }
 
         bool suspendDestroy;
@@ -318,10 +395,23 @@ namespace MechWars.MapElements
             {
                 GUI.depth = (int)(statusDisplay.Distance * 10);
                 GUI.BeginGroup(new Rect(statusDisplay.Location, statusDisplay.Size));
-                
-                var mainTexture = army.hpBarMain;
-                var sideTexture = army.hpBarSide;
-                var topTexture = army.hpBarTop;
+
+                Texture mainTexture;
+                Texture sideTexture;
+                Texture topTexture;
+                if (army != null)
+                {
+                    mainTexture = army.hpBarMain;
+                    sideTexture = army.hpBarSide;
+                    topTexture = army.hpBarTop;
+                }
+                else
+                {
+                    mainTexture = Globals.Textures.hpBarNoArmy;
+                    sideTexture = Globals.Textures.hpBarNoArmySide;
+                    topTexture = Globals.Textures.hpBarNoArmyTop;
+                }
+
 
                 var baseWidth = topTexture.width + 2 * sideTexture.width;
                 var baseHeight = sideTexture.height;
@@ -354,7 +444,7 @@ namespace MechWars.MapElements
                 float sideToFullRatio = borderThickness / barWidth;
                 if (ratio < sideToFullRatio)
                     leftSideSize = new Vector2(ratio * barWidth, barHeight);
-                
+
                 GUI.DrawTexture(new Rect(barLocation, barSize), Globals.Textures.hpBarBackground);
                 GUI.DrawTexture(new Rect(barLocation, leftSideSize), sideTexture);
                 if (mainWidth > 0)

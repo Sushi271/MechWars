@@ -50,6 +50,10 @@ namespace MechWars.MapElements.Orders
             return false;
         }
 
+        protected override void TerminateCore()
+        {
+        }
+
         void CalculatePath()
         {
             path = new AStarPathfinder().FindPath(

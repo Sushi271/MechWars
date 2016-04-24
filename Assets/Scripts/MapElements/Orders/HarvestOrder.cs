@@ -58,6 +58,42 @@ namespace MechWars.MapElements.Orders
             return false;
         }
 
+        protected override bool StoppingUpdate()
+        {
+            if (move == null) return true;
+            if (move.SingleMoveInProgress)
+            {
+                move.Update();
+                if (move.Stopped) return true;
+            }
+            else if (Resource == null) return true;
+            else if (mode == HarvestMode.Collect)
+            {
+                if (collect == null) return true;
+                else if (!collect.InRange) return true;
+                else
+                {
+                    collect.Update();
+                    if (collect.Stopped) return true;
+                }
+            }
+            else if (mode == HarvestMode.Deposit)
+            {
+                if (deposit == null) return true;
+                else if (!deposit.InRange) return true;
+                else
+                {
+                    deposit.Update();
+                    if (deposit.Stopped) return true;
+                }
+            }
+            return false;
+        }
+
+        protected override void TerminateCore()
+        {
+        }
+
         bool DecideMode()
         {
             if (mode == HarvestMode.Collect)
@@ -101,7 +137,7 @@ namespace MechWars.MapElements.Orders
         Building PickRefinery()
         {
             var buildings = Globals.MapElementsDatabase.Buildings;
-            var refineries = buildings.Where(b => b.army == Unit.army && b.isResourceDeposit);
+            var refineries = buildings.Where(b => b.army == Unit.army && b.isResourceDeposit && !b.UnderConstruction);
             if (refineries.Count() == 0)
             {
                 Debug.Log(Unit + ": No refineries!"); // TODO: play message "No refineries!"
@@ -182,38 +218,6 @@ namespace MechWars.MapElements.Orders
                     }
                 }
             }
-        }
-
-        protected override bool StoppingUpdate()
-        {
-            if (move == null) return true;
-            if (move.SingleMoveInProgress)
-            {
-                move.Update();
-                if (move.Stopped) return true;
-            }
-            else if (Resource == null) return true;
-            else if (mode == HarvestMode.Collect)
-            {
-                if (collect == null) return true;
-                else if (!collect.InRange) return true;
-                else
-                {
-                    collect.Update();
-                    if (collect.Stopped) return true;
-                }
-            }
-            else if (mode == HarvestMode.Deposit)
-            {
-                if (deposit == null) return true;
-                else if (!deposit.InRange) return true;
-                else
-                {
-                    deposit.Update();
-                    if (deposit.Stopped) return true;
-                }
-            }
-            return false;
         }
 
         void OnSingleMoveFinished()

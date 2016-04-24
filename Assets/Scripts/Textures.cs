@@ -6,12 +6,8 @@ namespace MechWars
     {
         public Texture hpBarBackground;
 
-        public Texture hpBarBlue;
-        public Texture hpBarBlueSide;
-        public Texture hpBarBlueTop;
-
-        public Texture hpBarRed;
-        public Texture hpBarRedSide;
-        public Texture hpBarRedTop;
+        public Texture hpBarNoArmy;
+        public Texture hpBarNoArmySide;
+        public Texture hpBarNoArmyTop;
     }
 }

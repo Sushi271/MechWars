@@ -20,6 +20,10 @@
             return true;
         }
 
+        protected override void TerminateCore()
+        {
+        }
+
         public override string ToString()
         {
             return string.Format("Escort [ {0} ]", Target);

@@ -27,7 +27,10 @@ namespace MechWars.MapElements.Orders
                 throw new System.IndexOutOfRangeException(
                     "Parameter idx must be between 0 (inclusive) and Count (exclusive).");
             if (idx > 0)
+            {
+                orderQueue[idx].Terminate();
                 orderQueue.RemoveAt(idx);
+            }
             else if (!CurrentOrder.Stopped && !CurrentOrder.Stopping)
                 CurrentOrder.Stop();
         }
@@ -38,13 +41,17 @@ namespace MechWars.MapElements.Orders
             if (idx == -1)
                 throw new System.ArgumentException(string.Format(
                     "QueueOrderExecutor does not contain {0} order to cancel.", order), "order");
+            Cancel(idx);
         }
 
         public void CancelAll()
         {
             if (Count == 0) return;
             while (Count > 1)
+            {
+                orderQueue[Count - 1].Terminate();
                 orderQueue.RemoveAt(Count - 1);
+            }
             Cancel(0);
         }
 
@@ -56,6 +63,13 @@ namespace MechWars.MapElements.Orders
                 if (CurrentOrder.Stopped)
                     orderQueue.RemoveAt(0);
             }
+        }
+
+        public void Terminate()
+        {
+            foreach (var o in orderQueue)
+                o.Terminate();
+            orderQueue.Clear();
         }
     }
 }

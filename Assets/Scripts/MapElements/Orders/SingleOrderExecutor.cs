@@ -29,5 +29,15 @@
                 }                
             }
         }
+
+        public void Terminate()
+        {
+            nextOrder = null;
+            if (CurrentOrder != null)
+            {
+                CurrentOrder.Terminate();
+                CurrentOrder = null;
+            }
+        }
     }
 }

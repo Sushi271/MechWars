@@ -43,7 +43,7 @@ namespace MechWars.Human
                     Tag.MapElement, nullMapElements.ToDebugMessage(), mapElements.ToDebugMessage()));
             }
 #else
-            mapElements = mapElements.Where(me => me.GetComponent<MapElement>() != null);
+            mapElements = mapElements.Where(me => me != null && me.GetComponent<MapElement>() != null);
 #endif
 
             var mapElementsScreenPos = mapElements.Select(a => new

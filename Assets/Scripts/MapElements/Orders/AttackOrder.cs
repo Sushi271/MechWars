@@ -65,6 +65,10 @@ namespace MechWars.MapElements.Orders
             else throw new System.Exception(string.Format("Order {0} called, when not in range.", Name));
         }
 
+        protected override void TerminateCore()
+        {
+        }
+
         float cooldown = 0;
 
         void MakeAttack()

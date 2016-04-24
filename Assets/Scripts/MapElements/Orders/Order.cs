@@ -27,11 +27,18 @@
 
         protected abstract bool RegularUpdate();
         protected abstract bool StoppingUpdate();
+        protected abstract void TerminateCore();
 
         public void Stop()
         {
             Stopping = true;
             OnStopCalled();
+        }
+
+        public void Terminate()
+        {
+            TerminateCore();
+            Stopped = true;
         }
 
         protected virtual void OnStopCalled()

@@ -59,26 +59,7 @@ namespace MechWars.MapElements
         protected override void OnLifeEnd()
         {
             base.OnLifeEnd();
-
-            if (!Globals.Destroyed)
-            {
-                var value = new System.Random().Next(resourceValue / 4, resourceValue / 2);
-                if (value == 0) value = 1;
-
-                var noArmy = GameObject.FindGameObjectsWithTag(Tag.Army)
-                    .Where(a => a.GetComponent<Army>() == null).FirstOrDefault();
-
-                if (noArmy != null)
-                {
-                    var resPrefab = Globals.Prefabs.RandomResourcePrefab;
-                    var gameObject = Instantiate(resPrefab);
-                    gameObject.transform.parent = noArmy.transform;
-                    gameObject.transform.position = transform.position;
-                    gameObject.name = resPrefab.name;
-                    var resource = gameObject.GetComponent<Resource>();
-                    resource.value = value;
-                }
-            }
+            OrderExecutor.Terminate();
         }
     }
 }

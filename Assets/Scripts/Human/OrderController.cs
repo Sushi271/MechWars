@@ -79,19 +79,45 @@ namespace MechWars.Human
             var building = thisPlayersBuildings.FirstOrDefault();
             if (building != null)
             {
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    if (!building.UnderConstruction)
+                        building.CancelCurrentOrder();
+                }
+
                 if (Input.GetKeyDown(KeyCode.P))
                 {
-                    var prodOpt = building.TEMP_selectedProductionOption;
-                    if (prodOpt != null)
+                    if (!building.UnderConstruction)
                     {
-                        var unit = prodOpt.unit;
-                        building.GiveOrder(new UnitProductionOrder(building, unit));
+                        var prodOpt = building.TEMP_selectedProductionOption;
+                        if (prodOpt != null)
+                        {
+                            var unit = prodOpt.unit;
+                            building.GiveOrder(new UnitProductionOrder(building, unit));
+                        }
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.KeypadPlus))
+                if (Input.GetKeyDown(KeyCode.RightBracket))
                     building.TEMP_NextProductionOption();
-                if (Input.GetKeyDown(KeyCode.KeypadMinus))
+                if (Input.GetKeyDown(KeyCode.LeftBracket))
                     building.TEMP_PreviousProductionOption();
+
+                if (Input.GetKeyDown(KeyCode.L))
+                {
+                    if (!building.UnderConstruction)
+                    {
+                        var constOpt = building.TEMP_selectedConstructionOption;
+                        if (constOpt != null)
+                        {
+                            var buildingToConst = building.Construct(constOpt, building.TEMP_buildLocation);
+                            building.GiveOrder(new ConstructionOrder(building, buildingToConst));
+                        }
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.Semicolon))
+                    building.TEMP_NextConstructionOption();
+                if (Input.GetKeyDown(KeyCode.Quote))
+                    building.TEMP_PreviousConstructionOption();
             }
         }
     }

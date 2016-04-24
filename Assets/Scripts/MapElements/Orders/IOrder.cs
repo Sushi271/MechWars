@@ -7,7 +7,8 @@
         bool Stopping { get; }
         bool Stopped { get; }
 
-        void Stop();
         void Update();
+        void Stop();
+        void Terminate();
     }
 }
