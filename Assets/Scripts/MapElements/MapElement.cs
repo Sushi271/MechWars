@@ -130,7 +130,7 @@ namespace MechWars.MapElements
             }
         }
 
-        public MapElementShape Shape { get; private set; }
+        public MapElementShape Shape { get { return Globals.ShapeDatabase[this]; } }
 
         public virtual bool Interactible { get { return false; } }
 
@@ -163,8 +163,7 @@ namespace MechWars.MapElements
             id = NewId;
 
             Globals.MapElementsDatabase.Insert(this);
-
-
+            
             ReadStats();
 
             alive = true;
@@ -173,18 +172,7 @@ namespace MechWars.MapElements
             InitializeReservation();
         }
 
-        public void ReadShape(bool force = false)
-        {
-            if (!force && shapeRead) return;
-            if (shapeFile == null)
-                Shape = MapElementShape.DefaultShape;
-            else
-            {
-                shapeRead = true;
-                Shape = MapElementShape.FromString(shapeFile.text);
-            }
 
-        }
 
         public void ReadStats(bool force = false)
         {

@@ -15,6 +15,7 @@ namespace MechWars.MapElements.Orders
         public Product Product { get; private set; }
 
         public bool Done { get; private set; }
+        public bool DontRevert { get; set; }
 
         public ProductionOrder(Building orderedBuilding, Product product, int paid = 0)
             : base("Production", orderedBuilding)
@@ -91,6 +92,8 @@ namespace MechWars.MapElements.Orders
 
         public void Revert()
         {
+            if (DontRevert) return;
+
             Building.army.resources += Paid;
             Paid = 0;
             progress = 0;

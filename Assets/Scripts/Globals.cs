@@ -38,7 +38,7 @@ namespace MechWars
 
         public int mapWidth = 64;
         public int mapHeight = 64;
-        
+
         public List<GameObject> sortedPlayers;
         public List<GameObject> sortedArmies;
 
@@ -48,8 +48,6 @@ namespace MechWars
         {
             sortedPlayers = new List<GameObject>();
             sortedArmies = new List<GameObject>();
-
-            mapElementsDatabase = new MapElementsDatabase();
         }
 
         public int MapWidth
@@ -128,7 +126,12 @@ namespace MechWars
         }
 
         MapElementsDatabase mapElementsDatabase;
-        public static MapElementsDatabase MapElementsDatabase { get { return Instance.mapElementsDatabase; } }
+        public static MapElementsDatabase MapElementsDatabase { get { return LazyGetGlobalsField(
+            ref Instance.mapElementsDatabase, o => new MapElementsDatabase()); } }
+
+        ShapeDatabase shapeDatabase;
+        public static ShapeDatabase ShapeDatabase { get { return LazyGetGlobalsField(
+            ref Instance.shapeDatabase, o => new ShapeDatabase()); } }
 
         //===== PRIVATE =======================================================================
 
@@ -202,6 +205,13 @@ namespace MechWars
                 if (field == null)
                     throw new System.Exception("Globals object does not have " + typeof(T).Name + " component.");
             }
+            return field;
+        }
+
+        static T LazyGetGlobalsField<T>(ref T field, System.Func<object, T> ctor, object args = null)
+        {
+            if (field == null)
+                field = ctor(args);
             return field;
         }
     }

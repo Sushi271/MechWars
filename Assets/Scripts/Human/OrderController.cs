@@ -11,12 +11,10 @@ namespace MechWars.Human
     {
         HumanPlayer player;
         public MouseMode MouseMode { get; private set; }
-
-
+        
         BuildingConstructionOption constOpt;
         Building constructingBuilding;
-
-
+        
         public OrderController(HumanPlayer player)
         {
             this.player = player;
@@ -149,8 +147,6 @@ namespace MechWars.Human
                 return;
 
             var p = new Vector2(hit.point.x, hit.point.z);
-            constOpt.building.ReadShape();
-            throw new System.Exception(constOpt.building.Shape == null ? "NULL" : constOpt.building.ToString());
             var shape = constOpt.building.Shape;
             var W = shape.Width;
             var H = shape.Height;
@@ -195,7 +191,8 @@ namespace MechWars.Human
             bool isOccu = false;
             foreach (var c in allCoords) //dla każdego c we współrzędnych, które zajmie budynek
             {
-                if (Globals.FieldReservationMap[c] != null) //jeżeli jedno z pól jest zajete
+                if (!Globals.FieldReservationMap.CoordsInside(c) || // jeżeli jedno z pól jest poza mapą
+                    Globals.FieldReservationMap[c] != null) // lub jeżeli jedno z pól jest zajete
                 {
                     isOccu = true;
                     break;
@@ -203,23 +200,18 @@ namespace MechWars.Human
             }
 
             //wyświetlanie
-
-            if (isOccu)
-            {
-                Debug.Log(string.Format("Can't place building {0} in location {1} - it's occupied.", constOpt.building, p));
-                return;
-            }
-
+            
             if (Input.GetMouseButtonDown(0))
             {
-                var buildingToConst = constructingBuilding.Construct(constOpt, p);
-                constructingBuilding.GiveOrder(new ConstructionOrder(constructingBuilding, buildingToConst));
-                MouseMode = MouseMode.Default;
+                if (isOccu)
+                    Debug.Log(string.Format("Can't place building {0} in location {1} - it's occupied.", constOpt.building, p));
+                else
+                {
+                    var buildingToConst = constructingBuilding.Construct(constOpt, p);
+                    constructingBuilding.GiveOrder(new ConstructionOrder(constructingBuilding, buildingToConst));
+                    MouseMode = MouseMode.Default;
+                }
             }
-
-
-
-
         }
     }
 }

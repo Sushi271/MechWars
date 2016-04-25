@@ -69,7 +69,7 @@ namespace MechWars.MapElements.Orders
             ConstructedBuilding.resourceValue = constructionInfo.Paid;
             var hpStat = ConstructedBuilding.Stats[StatNames.HitPoints];
             if (hpStat == null)
-                throw new System.Exception(string.Format(
+                throw new Exception(string.Format(
                     "Building {0} doesn't have {1} Stat.", ConstructedBuilding, StatNames.HitPoints));
             hpStat.Value += dProgress * hpStat.MaxValue;
         }
@@ -82,6 +82,7 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnStopCalled()
         {
+            productionOrder.DontRevert = true;
             productionOrder.Stop();
         }
 
