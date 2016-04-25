@@ -1,6 +1,7 @@
 ﻿using MechWars.MapElements;
 using MechWars.MapElements.Orders;
 using MechWars.Utils;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,6 +10,12 @@ namespace MechWars.Human
     public class OrderController
     {
         HumanPlayer player;
+        public MouseMode MouseMode { get; private set; }
+
+
+        BuildingConstructionOption constOpt;
+        Building constructingBuilding;
+
 
         public OrderController(HumanPlayer player)
         {
@@ -16,6 +23,15 @@ namespace MechWars.Human
         }
 
         public void Update()
+        {
+            if (MouseMode == MouseMode.Default)
+                DefaultMouseMode();
+            else if (MouseMode == MouseMode.BuildingLocation)
+                BuildingLocationMouseMode();
+
+        }
+
+        void DefaultMouseMode()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -76,49 +92,134 @@ namespace MechWars.Human
                 let b = a as Building
                 where b != null && b.army != null && b.army == player.Army
                 select b;
-            var building = thisPlayersBuildings.FirstOrDefault();
-            if (building != null)
+            constructingBuilding = thisPlayersBuildings.FirstOrDefault();
+            if (constructingBuilding != null)
             {
                 if (Input.GetKeyDown(KeyCode.C))
                 {
-                    if (!building.UnderConstruction)
-                        building.CancelCurrentOrder();
+                    if (!constructingBuilding.UnderConstruction)
+                        constructingBuilding.CancelCurrentOrder();
                 }
 
                 if (Input.GetKeyDown(KeyCode.P))
                 {
-                    if (!building.UnderConstruction)
+                    if (!constructingBuilding.UnderConstruction)
                     {
-                        var prodOpt = building.TEMP_selectedProductionOption;
+                        var prodOpt = constructingBuilding.TEMP_selectedProductionOption;
                         if (prodOpt != null)
                         {
                             var unit = prodOpt.unit;
-                            building.GiveOrder(new UnitProductionOrder(building, unit));
+                            constructingBuilding.GiveOrder(new UnitProductionOrder(constructingBuilding, unit));
                         }
                     }
                 }
                 if (Input.GetKeyDown(KeyCode.RightBracket))
-                    building.TEMP_NextProductionOption();
+                    constructingBuilding.TEMP_NextProductionOption();
                 if (Input.GetKeyDown(KeyCode.LeftBracket))
-                    building.TEMP_PreviousProductionOption();
+                    constructingBuilding.TEMP_PreviousProductionOption();
 
                 if (Input.GetKeyDown(KeyCode.L))
                 {
-                    if (!building.UnderConstruction)
+                    if (!constructingBuilding.UnderConstruction)
                     {
-                        var constOpt = building.TEMP_selectedConstructionOption;
+                        constOpt = constructingBuilding.TEMP_selectedConstructionOption;
                         if (constOpt != null)
-                        {
-                            var buildingToConst = building.Construct(constOpt, building.TEMP_buildLocation);
-                            building.GiveOrder(new ConstructionOrder(building, buildingToConst));
-                        }
+                            MouseMode = MouseMode.BuildingLocation;
                     }
                 }
                 if (Input.GetKeyDown(KeyCode.Semicolon))
-                    building.TEMP_NextConstructionOption();
+                    constructingBuilding.TEMP_NextConstructionOption();
                 if (Input.GetKeyDown(KeyCode.Quote))
-                    building.TEMP_PreviousConstructionOption();
+                    constructingBuilding.TEMP_PreviousConstructionOption();
             }
+        }
+
+        void BuildingLocationMouseMode()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                MouseMode = MouseMode.Default;
+                return;
+            }
+
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            bool terrainHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain));
+            if (!terrainHit)
+                return;
+
+            var p = new Vector2(hit.point.x, hit.point.z);
+            constOpt.building.ReadShape();
+            throw new System.Exception(constOpt.building.Shape == null ? "NULL" : constOpt.building.ToString());
+            var shape = constOpt.building.Shape;
+            var W = shape.Width;
+            var H = shape.Height;
+            //punkty do snapowania siem
+            float xSnap1, xSnap2;
+            if (W % 2 == 0)
+            {
+                xSnap1 = Mathf.Floor(p.x - 0.5f) + 0.5f;
+                xSnap2 = Mathf.Ceil(p.x - 0.5f) + 0.5f;
+            }
+            else
+            {
+                xSnap1 = Mathf.Floor(p.x);
+                xSnap2 = Mathf.Ceil(p.x);
+            }
+            float ySnap1, ySnap2;
+            if (H % 2 == 0)
+            {
+                ySnap1 = Mathf.Floor(p.y - 0.5f) + 0.5f;
+                ySnap2 = Mathf.Ceil(p.y - 0.5f) + 0.5f;
+            }
+            else
+            {
+                ySnap1 = Mathf.Floor(p.y);
+                ySnap2 = Mathf.Ceil(p.y);
+            }
+
+            float x, y;
+            if (Mathf.Abs(p.x - xSnap1) > Mathf.Abs(p.x - xSnap2))
+                x = xSnap2;
+            else
+                x = xSnap1;
+            if (Mathf.Abs(p.y - ySnap1) > Mathf.Abs(p.y - ySnap2))
+                y = ySnap2;
+            else
+                y = ySnap1;
+
+            p = new Vector2(x, y);
+
+            constOpt.building.Coords = p; //ustawienie prefabowi snapowane współrzędne
+            var allCoords = constOpt.building.AllCoords.ToList();
+            bool isOccu = false;
+            foreach (var c in allCoords) //dla każdego c we współrzędnych, które zajmie budynek
+            {
+                if (Globals.FieldReservationMap[c] != null) //jeżeli jedno z pól jest zajete
+                {
+                    isOccu = true;
+                    break;
+                }
+            }
+
+            //wyświetlanie
+
+            if (isOccu)
+            {
+                Debug.Log(string.Format("Can't place building {0} in location {1} - it's occupied.", constOpt.building, p));
+                return;
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                var buildingToConst = constructingBuilding.Construct(constOpt, p);
+                constructingBuilding.GiveOrder(new ConstructionOrder(constructingBuilding, buildingToConst));
+                MouseMode = MouseMode.Default;
+            }
+
+
+
+
         }
     }
 }

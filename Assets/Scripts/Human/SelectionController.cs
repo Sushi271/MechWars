@@ -28,6 +28,11 @@ namespace MechWars.Human
 
         public void Update()
         {
+            if (player.OrderController.MouseMode != MouseMode.Default)
+            {
+                return;
+            }
+
             bool toggleSelection =
                 Input.GetKey(KeyCode.LeftShift) ||
                 Input.GetKey(KeyCode.RightShift);
