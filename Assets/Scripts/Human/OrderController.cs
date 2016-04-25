@@ -11,10 +11,12 @@ namespace MechWars.Human
     {
         HumanPlayer player;
         public MouseMode MouseMode { get; private set; }
-        
+
         BuildingConstructionOption constOpt;
         Building constructingBuilding;
-        
+
+        GameObject buildShadow;
+
         public OrderController(HumanPlayer player)
         {
             this.player = player;
@@ -122,7 +124,23 @@ namespace MechWars.Human
                     {
                         constOpt = constructingBuilding.TEMP_selectedConstructionOption;
                         if (constOpt != null)
+                        {
                             MouseMode = MouseMode.BuildingLocation;
+                            buildShadow = GameObject.Instantiate(constOpt.building.gameObject);
+                            buildShadow.name = constOpt.building.gameObject.name + " shadow";
+                            var b = buildShadow.GetComponent<Building>();
+                            b.generateResourcesOnDeath = false;
+                            b.isShadow = true;
+                            var rs = buildShadow.GetComponentsInChildren<Renderer>();
+                            foreach (var r in rs)
+                            {
+                                var m = r.material;
+                                var col = m.color;
+                                col.a = 0.5f;
+                                m.color = col;
+                            }
+                            
+                        }
                     }
                 }
                 if (Input.GetKeyDown(KeyCode.Semicolon))
@@ -136,7 +154,7 @@ namespace MechWars.Human
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                MouseMode = MouseMode.Default;
+                CancelBuild();
                 return;
             }
 
@@ -199,8 +217,9 @@ namespace MechWars.Human
                 }
             }
 
-            //wyświetlanie
-            
+            buildShadow.transform.position = new Vector3(p.x, 0, p.y);
+
+
             if (Input.GetMouseButtonDown(0))
             {
                 if (isOccu)
@@ -209,9 +228,16 @@ namespace MechWars.Human
                 {
                     var buildingToConst = constructingBuilding.Construct(constOpt, p);
                     constructingBuilding.GiveOrder(new ConstructionOrder(constructingBuilding, buildingToConst));
-                    MouseMode = MouseMode.Default;
+                    CancelBuild();
                 }
             }
+        }
+
+        void CancelBuild()
+        {
+            MouseMode = MouseMode.Default;
+            GameObject.Destroy(buildShadow);
+            buildShadow = null;
         }
     }
 }

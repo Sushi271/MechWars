@@ -108,7 +108,10 @@ namespace MechWars.MapElements
 
         protected override void OnStart()
         {
+
             base.OnStart();
+            if (isShadow) return;
+
             InitializeNeighbourFields();
 
             TEMP_InitSelectedProductionOption();
@@ -131,6 +134,7 @@ namespace MechWars.MapElements
         protected override void OnUpdate()
         {
             base.OnUpdate();
+            if (isShadow) return;
 
             if (UnderConstruction)
                 transform.localScale = new Vector3(1, ConstructionInfo.TotalProgress, 1);

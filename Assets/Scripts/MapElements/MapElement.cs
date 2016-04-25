@@ -22,6 +22,9 @@ namespace MechWars.MapElements
 
         public int resourceValue;
         public int additionalResourceValue;
+        public bool generateResourcesOnDeath = true;
+
+        public bool isShadow;
 
         bool reservationInitialized;
 
@@ -160,6 +163,8 @@ namespace MechWars.MapElements
 
         protected virtual void OnStart()
         {
+            if (isShadow) return;
+
             id = NewId;
 
             Globals.MapElementsDatabase.Insert(this);
@@ -222,6 +227,8 @@ namespace MechWars.MapElements
 
         protected virtual void OnUpdate()
         {
+            if (isShadow) return;
+
             UpdateAlive();
         }
 
@@ -250,7 +257,7 @@ namespace MechWars.MapElements
 
         void TurnIntoResource()
         {
-            if (Globals.Destroyed) return;
+            if (Globals.Destroyed || !generateResourcesOnDeath) return;
 
             int resVal = resourceValue + additionalResourceValue;
             if (resVal == 0) return;

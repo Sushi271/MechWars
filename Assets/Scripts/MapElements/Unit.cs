@@ -20,7 +20,10 @@ namespace MechWars.MapElements
 
         protected override void OnUpdate()
         {
+
             base.OnUpdate();
+            if (isShadow) return;
+
             OrderExecutor.Update();
         }
 
