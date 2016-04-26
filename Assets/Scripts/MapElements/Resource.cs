@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 
 namespace MechWars.MapElements
 {
@@ -9,15 +10,15 @@ namespace MechWars.MapElements
         public int value;
         int startValue;
 
-        public float Size {  get { return 1.0f * value / startValue; } }
+        public float Size { get { return 1.0f * value / startValue; } }
 
         public Resource()
         {
             selectable = true;
         }
-        
+
         protected override void OnStart()
-        {           
+        {
 
             base.OnStart();
             if (isShadow) return;
@@ -38,6 +39,12 @@ namespace MechWars.MapElements
         protected override void UpdateAlive()
         {
             if (Alive && value == 0) Alive = false;
+        }
+
+        public override StringBuilder TEMP_PrintStatus()
+        {
+            return base.TEMP_PrintStatus().AppendLine()
+                .Append(string.Format("Resources: {0} / {1} ({2:P1})", value, startValue, (float)value / startValue));
         }
     }
 }

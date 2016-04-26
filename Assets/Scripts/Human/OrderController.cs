@@ -1,7 +1,6 @@
 ﻿using MechWars.MapElements;
 using MechWars.MapElements.Orders;
 using MechWars.Utils;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -154,7 +153,7 @@ namespace MechWars.Human
 
         void BuildingLocationMouseMode()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || !constructingBuilding.Alive)
             {
                 QuitBuildingLocationMode();
                 return;
@@ -248,6 +247,21 @@ namespace MechWars.Human
             if (!result)
                 Debug.Log(string.Format("Not enough resources to start construction of building {0}.", constOpt.building));
             return result;
+        }
+
+        public void ProductionOrdered(Building orderingBuilding, UnitProductionOption productionOption)
+        {
+
+        }
+
+        public void ConstructionOrdered(Building orderingBuilding, BuildingConstructionOption constructionOption)
+        {
+
+        }
+
+        public void CancelOrder(Building building)
+        {
+            Debug.Log("CANCEL");
         }
     }
 }

@@ -31,7 +31,6 @@ namespace MechWars.MapElements
 
         public Stats Stats { get; private set; }
         bool statsRead;
-        bool shapeRead;
 
         static int LastId = 1;
         static int NewId
@@ -460,18 +459,31 @@ namespace MechWars.MapElements
             return string.Format("{0} ({1})", mapElementName ?? "", id);
         }
 
-        public virtual string TEMP_PrintStatus()
+        public virtual StringBuilder TEMP_PrintStatus()
         {
-            return new StringBuilder()
+            var sb = new StringBuilder()
                 .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
-                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
-                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
-                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
-                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
-                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
-                .Append(string.Format("{0} {1}", GetType().Name, ToString()))
-                .ToString();
-
+                .AppendLine(string.Format("Coords: {0}", Coords))
+                .AppendLine(string.Format("Army: {0}", army == null ? "NONE" : army.armyName))
+                .AppendLine(string.Format("Can attack: {0}", canAttack))
+                .AppendLine(string.Format("Resource value: {0} + {1}", resourceValue, additionalResourceValue))
+                .AppendLine(string.Format("Stats ({0}):", Stats.Count));
+            if (Stats.Count == 0)
+                sb.Append("    ---");
+            int i = 0;
+            foreach (var kv in Stats)
+            {
+                var stat = kv.Value;
+                string line;
+                if (stat.Limited)
+                    line = string.Format("    {0}: {1} / {2} ({3:P1})", stat.Name, stat.Value, stat.MaxValue, stat.Value / stat.MaxValue);
+                else line = string.Format("    {0}: {1}", stat.Name, stat.Value);
+                if (i < Stats.Count - 1)
+                    sb.AppendLine(line);
+                else sb.Append(line);
+                i++;
+            }
+            return sb;
         }
     }
 }

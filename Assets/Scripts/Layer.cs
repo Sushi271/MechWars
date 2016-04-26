@@ -4,5 +4,6 @@
     {
         public const string Terrain = "Terrain";
         public const string MapElements = "MapElements";
+        public const string UI = "UI";
     }
 }

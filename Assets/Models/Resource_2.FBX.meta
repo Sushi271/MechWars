@@ -46,6 +46,13 @@ ModelImporter:
     4300008: Hose006
     4300010: Box001
     4300012: Tube008
+    6400000: Base001
+    6400002: Box001
+    6400004: Hose005
+    6400006: Hose006
+    6400008: Torus Knot006
+    6400010: Tube007
+    6400012: Tube008
   materials:
     importMaterials: 1
     materialName: 0
@@ -72,7 +79,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

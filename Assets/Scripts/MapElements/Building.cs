@@ -3,6 +3,7 @@ using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace MechWars.MapElements
@@ -72,8 +73,6 @@ namespace MechWars.MapElements
             else TEMP_selectedConstructionOption = null;
         }
         public BuildingConstructionOption TEMP_selectedConstructionOption;
-
-        public Vector2 TEMP_buildLocation;
         #endregion
 
         public bool isResourceDeposit;
@@ -93,10 +92,10 @@ namespace MechWars.MapElements
             private set { orderExecutor = value; }
         }
         public override bool Interactible { get { return true; } }
-        
-        public bool UnderConstruction {  get { return ConstructionInfo != null; } }
+
+        public bool UnderConstruction { get { return ConstructionInfo != null; } }
         public BuildingConstructionInfo ConstructionInfo { get; set; }
-        
+
         HashSet<IVector2> allNeighbourFields;
 
         public Building()
@@ -153,8 +152,8 @@ namespace MechWars.MapElements
 
             var freeNeighbourFields =
                 (from n in allNeighbourFields
-                where Globals.FieldReservationMap[n] == null
-                select n).ToList();
+                 where Globals.FieldReservationMap[n] == null
+                 select n).ToList();
             if (freeNeighbourFields.Count == 0)
                 return null;
 
@@ -263,6 +262,34 @@ namespace MechWars.MapElements
             base.OnLifeEnd();
             if (!UnderConstruction)
                 OrderExecutor.Terminate();
+        }
+
+        public override StringBuilder TEMP_PrintStatus()
+        {
+            var sb = base.TEMP_PrintStatus().AppendLine()
+                .AppendLine(string.Format("Is resource deposit: {0}", isResourceDeposit))
+                .AppendLine(string.Format("Under construction: {0}", UnderConstruction));
+            if (UnderConstruction)
+            {
+                sb.AppendLine("Construction info:")
+                    .AppendLine(string.Format("    Paid/Cost: {0} / {1} ({2:P1})", ConstructionInfo.Paid, ConstructionInfo.Cost, ConstructionInfo.TotalProgress))
+                    .Append(string.Format("    Construction time: {0}", ConstructionInfo.ConstructionTime));
+            }
+            else
+            {
+                sb.AppendLine("Order queue:");
+                if (OrderExecutor.Count == 0)
+                    sb.Append("    ---");
+                else for (int i = 0; i < OrderExecutor.Count; i++)
+                    {
+                        string line = string.Format("{0}: {1}", i, OrderExecutor[i]);
+                        if (i < OrderExecutor.Count - 1)
+                            sb.AppendLine(line);
+                        else sb.Append(line);
+                    }
+            }
+
+            return sb;
         }
     }
 }

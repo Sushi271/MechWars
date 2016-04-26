@@ -1,6 +1,6 @@
 ﻿using MechWars.MapElements.Orders;
 using MechWars.MapElements.Statistics;
-using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace MechWars.MapElements
@@ -20,7 +20,6 @@ namespace MechWars.MapElements
 
         protected override void OnUpdate()
         {
-
             base.OnUpdate();
             if (isShadow) return;
 
@@ -63,6 +62,13 @@ namespace MechWars.MapElements
         {
             base.OnLifeEnd();
             OrderExecutor.Terminate();
+        }
+        
+        public override StringBuilder TEMP_PrintStatus()
+        {
+            return base.TEMP_PrintStatus().AppendLine()
+                .AppendLine(string.Format("Can collect resources: {0}", canCollectResources))
+                .Append(string.Format("Current order: {0}", OrderExecutor.CurrentOrder == null ? "NONE" : OrderExecutor.CurrentOrder.ToString()));
         }
     }
 }

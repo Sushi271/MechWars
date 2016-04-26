@@ -21,7 +21,7 @@ namespace MechWars.InGameGUI
                     text.text = string.Format("Selected {0} MapElements.", mapElements.Count);
                 else if (mapElements.Count == 0)
                     text.text = "No selection.";
-                else text.text = mapElements.First().TEMP_PrintStatus();
+                else text.text = mapElements.First().TEMP_PrintStatus().ToString();
             }
         }
     }

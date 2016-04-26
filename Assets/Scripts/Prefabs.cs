@@ -8,11 +8,15 @@ namespace MechWars
 {
     public class Prefabs : MonoBehaviour
     {
+        System.Random random = new System.Random();
+
         [PrefabType(PrefabType.Resource)]
         public GameObject resource1;
+        [PrefabType(PrefabType.Resource)]
+        public GameObject resource2;
 
         public List<GameObject> ResourcePrefabs { get { return GetPrefabByType(PrefabType.Resource); } }
-        public GameObject RandomResourcePrefab { get { return new System.Random().Choice(ResourcePrefabs); } }
+        public GameObject RandomResourcePrefab { get { return random.Choice(ResourcePrefabs); } }
 
         List<GameObject> GetPrefabByType(PrefabType prefabType)
         {
@@ -21,7 +25,9 @@ namespace MechWars
                     where
                         attrs.Count() > 0 &&
                         (attrs.First() as PrefabTypeAttribute).PrefabType == prefabType
-                    select f.GetValue(this) as GameObject)
+                    let v = f.GetValue(this)
+                    where v != null
+                    select v as GameObject)
                    .ToList();
         }
 

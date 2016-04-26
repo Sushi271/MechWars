@@ -28,6 +28,9 @@ namespace MechWars.Human
 
         public void Update()
         {
+            HoveredMapElements.RemoveWhere(me => !me.Alive);
+            SelectedMapElements.RemoveWhere(me => !me.Alive);
+
             if (player.OrderController.MouseMode != MouseMode.Default)
             {
                 return;
@@ -40,6 +43,9 @@ namespace MechWars.Human
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             singleHoveredMapElement = null;
+            //bool uiHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.UI));
+            //if (uiHit) return;
+
             if (Physics.Raycast(ray, out hit))
             {
                 var go = hit.collider.gameObject;
