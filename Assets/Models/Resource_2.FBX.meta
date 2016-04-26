@@ -1,5 +1,7 @@
 fileFormatVersion: 2
-guid: 5ec97a88da987f64990d3c5d6dd4760e
+guid: c44fb12cbb771844090e2f5396b292ec
+timeCreated: 1461662470
+licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -9,20 +11,20 @@ ModelImporter:
     100006: Hose005
     100008: Hose006
     100010: //RootNode
-    100012: Torus Knot006
-    100014: Tube007
-    100016: Tube008
-    100018: Resource_2
+    100012: Resource_2
+    100014: Torus Knot006
+    100016: Tube007
+    100018: Tube008
     400000: Base001
     400002: Box001
     400004: Group001
     400006: Hose005
     400008: Hose006
-    400010: //RootNode
-    400012: Torus Knot006
-    400014: Tube007
-    400016: Tube008
-    400018: Resource_2
+    400010: Resource_2
+    400012: //RootNode
+    400014: Torus Knot006
+    400016: Tube007
+    400018: Tube008
     2300000: Base001
     2300002: Box001
     2300004: Hose005
@@ -44,14 +46,6 @@ ModelImporter:
     4300008: Hose006
     4300010: Box001
     4300012: Tube008
-    6400000: Base001
-    6400002: Box001
-    6400004: Hose005
-    6400006: Hose006
-    6400008: Torus Knot006
-    6400010: Tube007
-    6400012: Tube008
-    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -76,9 +70,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0
+    globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -110,7 +104,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
