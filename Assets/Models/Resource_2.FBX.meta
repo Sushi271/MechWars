@@ -12,6 +12,7 @@ ModelImporter:
     100012: Torus Knot006
     100014: Tube007
     100016: Tube008
+    100018: Resource_2
     400000: Base001
     400002: Box001
     400004: Group001
@@ -21,6 +22,7 @@ ModelImporter:
     400012: Torus Knot006
     400014: Tube007
     400016: Tube008
+    400018: Resource_2
     2300000: Base001
     2300002: Box001
     2300004: Hose005
