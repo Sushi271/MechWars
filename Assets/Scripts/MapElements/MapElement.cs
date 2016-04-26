@@ -3,6 +3,7 @@ using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using UnityEngine;
 
@@ -457,6 +458,20 @@ namespace MechWars.MapElements
         public override string ToString()
         {
             return string.Format("{0} ({1})", mapElementName ?? "", id);
+        }
+
+        public virtual string TEMP_PrintStatus()
+        {
+            return new StringBuilder()
+                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
+                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
+                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
+                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
+                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
+                .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
+                .Append(string.Format("{0} {1}", GetType().Name, ToString()))
+                .ToString();
+
         }
     }
 }
