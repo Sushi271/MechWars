@@ -125,21 +125,23 @@ namespace MechWars.Human
                         constOpt = constructingBuilding.TEMP_selectedConstructionOption;
                         if (constOpt != null)
                         {
-                            MouseMode = MouseMode.BuildingLocation;
-                            buildShadow = GameObject.Instantiate(constOpt.building.gameObject);
-                            buildShadow.name = constOpt.building.gameObject.name + " shadow";
-                            var b = buildShadow.GetComponent<Building>();
-                            b.generateResourcesOnDeath = false;
-                            b.isShadow = true;
-                            var rs = buildShadow.GetComponentsInChildren<Renderer>();
-                            foreach (var r in rs)
+                            if (CheckResources(constOpt))
                             {
-                                var m = r.material;
-                                var col = m.color;
-                                col.a = 0.5f;
-                                m.color = col;
+                                MouseMode = MouseMode.BuildingLocation;
+                                buildShadow = Object.Instantiate(constOpt.building.gameObject);
+                                buildShadow.name = constOpt.building.gameObject.name + " shadow";
+                                var b = buildShadow.GetComponent<Building>();
+                                b.generateResourcesOnDeath = false;
+                                b.isShadow = true;
+                                var rs = buildShadow.GetComponentsInChildren<Renderer>();
+                                foreach (var r in rs)
+                                {
+                                    var m = r.material;
+                                    var col = m.color;
+                                    col.a = 0.5f;
+                                    m.color = col;
+                                }
                             }
-                            
                         }
                     }
                 }
@@ -154,7 +156,7 @@ namespace MechWars.Human
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                CancelBuild();
+                QuitBuildingLocationMode();
                 return;
             }
 
@@ -223,21 +225,29 @@ namespace MechWars.Human
             if (Input.GetMouseButtonDown(0))
             {
                 if (isOccu)
-                    Debug.Log(string.Format("Can't place building {0} in location {1} - it's occupied.", constOpt.building, p));
-                else
+                    Debug.Log(string.Format("Cannot place building {0} in location {1} - it's occupied.", constOpt.building, p));
+                else if (CheckResources(constOpt))
                 {
                     var buildingToConst = constructingBuilding.Construct(constOpt, p);
                     constructingBuilding.GiveOrder(new ConstructionOrder(constructingBuilding, buildingToConst));
-                    CancelBuild();
+                    QuitBuildingLocationMode();
                 }
             }
         }
 
-        void CancelBuild()
+        void QuitBuildingLocationMode()
         {
             MouseMode = MouseMode.Default;
-            GameObject.Destroy(buildShadow);
+            Object.Destroy(buildShadow);
             buildShadow = null;
+        }
+
+        bool CheckResources(BuildingConstructionOption constOpt)
+        {
+            bool result = constOpt.StartCost <= player.Army.resources;
+            if (!result)
+                Debug.Log(string.Format("Not enough resources to start construction of building {0}.", constOpt.building));
+            return result;
         }
     }
 }

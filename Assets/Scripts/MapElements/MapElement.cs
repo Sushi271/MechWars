@@ -154,6 +154,7 @@ namespace MechWars.MapElements
         public MapElement()
         {
             Stats = new Stats();
+            alive = true;
         }
 
         void Start()
@@ -171,7 +172,6 @@ namespace MechWars.MapElements
             
             ReadStats();
 
-            alive = true;
             UpdateAlive();
 
             InitializeReservation();

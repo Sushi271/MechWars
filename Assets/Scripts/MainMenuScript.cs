@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MechWars
 {
@@ -95,11 +96,11 @@ namespace MechWars
                 GUI.Button(new Rect(235, Screen.height / 2 - 76, 50, 56), "", "Link Button Style");
                 if (GUI.Button(new Rect(289, Screen.height / 2 - 100, 229, 48), "", "AI Button Style"))
                 {
-                    //Application.LoadLevel("Test");
+                    SceneManager.LoadScene("Test");
                 }
                 if (GUI.Button(new Rect(289, Screen.height / 2 - 44, 229, 48), "", "Player Button Style"))
                 {
-                    //Application.LoadLevel("Test");
+                    SceneManager.LoadScene("Test");
                 }
             }
         }

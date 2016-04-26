@@ -39,6 +39,8 @@ namespace MechWars
         public int mapWidth = 64;
         public int mapHeight = 64;
 
+        public float startingBuildingProgress = 0.1f;
+
         public List<GameObject> sortedPlayers;
         public List<GameObject> sortedArmies;
 

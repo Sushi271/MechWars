@@ -7,6 +7,9 @@ namespace MechWars.MapElements
         public Building building;
         public int cost;
         public float constructionTime;
+
+        public int StartCost { get { return Mathf.CeilToInt(cost * Globals.Instance.startingBuildingProgress); } }
+        
         // TODO: wymagania itepe
     }
 }
