@@ -85,6 +85,7 @@ namespace MechWars.InGameGUI
                         text.text = "Cancel";
                         button.onClick.AddListener(new UnityAction(
                             () => hp.OrderController.CancelOrder(building)));
+                        buttons.Add(button);
                     }
                 }
             }

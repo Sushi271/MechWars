@@ -10,71 +10,6 @@ namespace MechWars.MapElements
 {
     public class Building : MapElement
     {
-        #region TEMP
-
-        int TEMP_selectedProductionOptionIndex = -1;
-        public void TEMP_InitSelectedProductionOption()
-        {
-            if (unitProductionOptions.Count > 0)
-                TEMP_selectedProductionOptionIndex = 0;
-            TEMP_UpdateSelectedProductionOption();
-        }
-        public void TEMP_NextProductionOption()
-        {
-            if (unitProductionOptions.Count == 0) return;
-            TEMP_selectedProductionOptionIndex++;
-            if (TEMP_selectedProductionOptionIndex >= unitProductionOptions.Count)
-                TEMP_selectedProductionOptionIndex = 0;
-            TEMP_UpdateSelectedProductionOption();
-        }
-        public void TEMP_PreviousProductionOption()
-        {
-            if (unitProductionOptions.Count == 0) return;
-            TEMP_selectedProductionOptionIndex--;
-            if (TEMP_selectedProductionOptionIndex < 0)
-                TEMP_selectedProductionOptionIndex = unitProductionOptions.Count - 1;
-            TEMP_UpdateSelectedProductionOption();
-        }
-        public void TEMP_UpdateSelectedProductionOption()
-        {
-            if (0 <= TEMP_selectedProductionOptionIndex && TEMP_selectedProductionOptionIndex < unitProductionOptions.Count)
-                TEMP_selectedProductionOption = unitProductionOptions[TEMP_selectedProductionOptionIndex];
-            else TEMP_selectedProductionOption = null;
-        }
-        public UnitProductionOption TEMP_selectedProductionOption;
-
-        int TEMP_selectedConstructionOptionIndex = -1;
-        public void TEMP_InitSelectedConstructionOption()
-        {
-            if (buildingConstructionOptions.Count > 0)
-                TEMP_selectedConstructionOptionIndex = 0;
-            TEMP_UpdateSelectedConstructionOption();
-        }
-        public void TEMP_NextConstructionOption()
-        {
-            if (buildingConstructionOptions.Count == 0) return;
-            TEMP_selectedConstructionOptionIndex++;
-            if (TEMP_selectedConstructionOptionIndex >= buildingConstructionOptions.Count)
-                TEMP_selectedConstructionOptionIndex = 0;
-            TEMP_UpdateSelectedConstructionOption();
-        }
-        public void TEMP_PreviousConstructionOption()
-        {
-            if (buildingConstructionOptions.Count == 0) return;
-            TEMP_selectedConstructionOptionIndex--;
-            if (TEMP_selectedConstructionOptionIndex < 0)
-                TEMP_selectedConstructionOptionIndex = buildingConstructionOptions.Count - 1;
-            TEMP_UpdateSelectedConstructionOption();
-        }
-        public void TEMP_UpdateSelectedConstructionOption()
-        {
-            if (0 <= TEMP_selectedConstructionOptionIndex && TEMP_selectedConstructionOptionIndex < buildingConstructionOptions.Count)
-                TEMP_selectedConstructionOption = buildingConstructionOptions[TEMP_selectedConstructionOptionIndex];
-            else TEMP_selectedConstructionOption = null;
-        }
-        public BuildingConstructionOption TEMP_selectedConstructionOption;
-        #endregion
-
         public bool isResourceDeposit;
         public List<UnitProductionOption> unitProductionOptions;
         public List<BuildingConstructionOption> buildingConstructionOptions;
@@ -111,10 +46,7 @@ namespace MechWars.MapElements
             base.OnStart();
             if (isShadow) return;
 
-            InitializeNeighbourFields();
-
-            TEMP_InitSelectedProductionOption();
-            TEMP_InitSelectedConstructionOption();
+            InitializeNeighbourFields();            
         }
 
         void InitializeNeighbourFields()

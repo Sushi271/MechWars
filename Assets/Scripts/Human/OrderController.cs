@@ -85,70 +85,6 @@ namespace MechWars.Human
                         u.GiveOrder(new MoveOrder(u, dest.Value));
                 }
             }
-
-            var thisPlayersBuildings =
-                from a in player.SelectionController.SelectedMapElements
-                let b = a as Building
-                where b != null && b.army != null && b.army == player.Army
-                select b;
-            constructingBuilding = thisPlayersBuildings.FirstOrDefault();
-            if (constructingBuilding != null)
-            {
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    if (!constructingBuilding.UnderConstruction)
-                        constructingBuilding.CancelCurrentOrder();
-                }
-
-                if (Input.GetKeyDown(KeyCode.P))
-                {
-                    if (!constructingBuilding.UnderConstruction)
-                    {
-                        var prodOpt = constructingBuilding.TEMP_selectedProductionOption;
-                        if (prodOpt != null)
-                        {
-                            var unit = prodOpt.unit;
-                            constructingBuilding.GiveOrder(new UnitProductionOrder(constructingBuilding, unit));
-                        }
-                    }
-                }
-                if (Input.GetKeyDown(KeyCode.RightBracket))
-                    constructingBuilding.TEMP_NextProductionOption();
-                if (Input.GetKeyDown(KeyCode.LeftBracket))
-                    constructingBuilding.TEMP_PreviousProductionOption();
-
-                if (Input.GetKeyDown(KeyCode.L))
-                {
-                    if (!constructingBuilding.UnderConstruction)
-                    {
-                        constOpt = constructingBuilding.TEMP_selectedConstructionOption;
-                        if (constOpt != null)
-                        {
-                            if (CheckResources(constOpt))
-                            {
-                                MouseMode = MouseMode.BuildingLocation;
-                                buildShadow = Object.Instantiate(constOpt.building.gameObject);
-                                buildShadow.name = constOpt.building.gameObject.name + " shadow";
-                                var b = buildShadow.GetComponent<Building>();
-                                b.generateResourcesOnDeath = false;
-                                b.isShadow = true;
-                                var rs = buildShadow.GetComponentsInChildren<Renderer>();
-                                foreach (var r in rs)
-                                {
-                                    var m = r.material;
-                                    var col = m.color;
-                                    col.a = 0.5f;
-                                    m.color = col;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (Input.GetKeyDown(KeyCode.Semicolon))
-                    constructingBuilding.TEMP_NextConstructionOption();
-                if (Input.GetKeyDown(KeyCode.Quote))
-                    constructingBuilding.TEMP_PreviousConstructionOption();
-            }
         }
 
         void BuildingLocationMouseMode()
@@ -251,17 +187,34 @@ namespace MechWars.Human
 
         public void ProductionOrdered(Building orderingBuilding, UnitProductionOption productionOption)
         {
-
+            orderingBuilding.GiveOrder(new UnitProductionOrder(orderingBuilding, productionOption.unit));
         }
 
         public void ConstructionOrdered(Building orderingBuilding, BuildingConstructionOption constructionOption)
         {
-
+            if (CheckResources(constructionOption))
+            {
+                constructingBuilding = orderingBuilding;
+                constOpt = constructionOption;
+                MouseMode = MouseMode.BuildingLocation;
+                buildShadow = Object.Instantiate(constructionOption.building.gameObject);
+                buildShadow.name = constructionOption.building.gameObject.name + " shadow";
+                var b = buildShadow.GetComponent<Building>();
+                b.isShadow = true;
+                var rs = buildShadow.GetComponentsInChildren<Renderer>();
+                foreach (var r in rs)
+                {
+                    var m = r.material;
+                    var col = m.color;
+                    col.a = 0.5f;
+                    m.color = col;
+                }
+            }
         }
 
         public void CancelOrder(Building building)
         {
-            Debug.Log("CANCEL");
+            building.CancelCurrentOrder();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace MechWars.InGameGUI
         {
             var text = gameObject.GetComponent<Text>();
             var player = canvas.GetComponent<CanvasScript>().thisPlayer;
-            text.text = player.Army.resources.ToString();
+            text.text = string.Format("{0} RP", player.Army.resources);
         }
     }
 }

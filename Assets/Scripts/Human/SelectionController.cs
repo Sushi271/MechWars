@@ -3,6 +3,7 @@ using System.Linq;
 using MechWars.MapElements;
 using MechWars.Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace MechWars.Human
 {
@@ -31,7 +32,8 @@ namespace MechWars.Human
             HoveredMapElements.RemoveWhere(me => !me.Alive);
             SelectedMapElements.RemoveWhere(me => !me.Alive);
 
-            if (player.OrderController.MouseMode != MouseMode.Default)
+            if (player.OrderController.MouseMode != MouseMode.Default ||
+                EventSystem.current.IsPointerOverGameObject())
             {
                 return;
             }
@@ -43,8 +45,6 @@ namespace MechWars.Human
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             singleHoveredMapElement = null;
-            //bool uiHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.UI));
-            //if (uiHit) return;
 
             if (Physics.Raycast(ray, out hit))
             {

@@ -257,7 +257,7 @@ namespace MechWars.MapElements
 
         void TurnIntoResource()
         {
-            if (Globals.Destroyed || !generateResourcesOnDeath) return;
+            if (Globals.Destroyed || !generateResourcesOnDeath || isShadow) return;
 
             int resVal = resourceValue + additionalResourceValue;
             if (resVal == 0) return;
