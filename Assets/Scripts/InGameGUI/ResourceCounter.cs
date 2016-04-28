@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
@@ -11,6 +12,7 @@ namespace MechWars.InGameGUI
         {
             var text = gameObject.GetComponent<Text>();
             var player = canvas.GetComponent<CanvasScript>().thisPlayer;
+            
             text.text = string.Format("{0} RP", player.Army.resources);
         }
     }

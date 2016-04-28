@@ -78,7 +78,7 @@ namespace MechWars.InGameGUI
                     {
                         var button = Instantiate(buttonPrefab);
                         var rectTransform = button.GetComponent<RectTransform>();
-                        rectTransform.parent = transform;
+                        rectTransform.SetParent(transform);
                         rectTransform.position = new Vector3(x, margin, 0);
                         var text = button.GetComponent<ButtonScript>().innerText;
                         button.name = "Button Cancel";

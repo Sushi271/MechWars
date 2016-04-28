@@ -3,7 +3,7 @@ using System.Linq;
 using MechWars.GLRendering;
 using MechWars.Pathfinding;
 using UnityEngine;
-using MechWars.MapElements;
+using UnityEngine.SceneManagement;
 
 namespace MechWars
 {
@@ -139,6 +139,7 @@ namespace MechWars
 
         void Start()
         {
+            Destroyed = false;
             if (isGameplay)
                 CheckPlayerArmyAssignmentCorrectness();
         }
