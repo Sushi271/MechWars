@@ -19,6 +19,9 @@ namespace MechWars.Human
         public HashSet<MapElement> SelectedMapElements { get; private set; }
 
         bool multiSelection;
+        bool toggleSelection;
+
+        bool mouseDown;
 
         public SelectionController(HumanPlayer player)
         {
@@ -32,13 +35,11 @@ namespace MechWars.Human
             HoveredMapElements.RemoveWhere(me => !me.Alive);
             SelectedMapElements.RemoveWhere(me => !me.Alive);
 
-            if (player.OrderController.MouseMode != MouseMode.Default ||
+            if (player.MouseMode != MouseMode.Default ||
                 EventSystem.current.IsPointerOverGameObject())
-            {
                 return;
-            }
 
-            bool toggleSelection =
+            toggleSelection =
                 Input.GetKey(KeyCode.LeftShift) ||
                 Input.GetKey(KeyCode.RightShift);
 
@@ -66,6 +67,8 @@ namespace MechWars.Human
             {
                 if (Input.GetMouseButtonDown(0))
                 {
+                    mouseDown = true;
+
                     singleSelectionCandidate = singleHoveredMapElement;
                     selectionBox = new SelectionBox
                     {
@@ -84,7 +87,7 @@ namespace MechWars.Human
             if (selectionBox != null)
             {
                 selectionBox.Update();
-                if (!multiSelection && selectionBox.Size != Vector2.zero)
+                if (!multiSelection && selectionBox.Size.magnitude > 10)
                     multiSelection = true;
                 if (multiSelection)
                 {
@@ -96,8 +99,10 @@ namespace MechWars.Human
             var newHoveredMapElements = FilterCandidates(candidates);
             UpdateHoveredMapElements(newHoveredMapElements);
 
-            if (Input.GetMouseButtonUp(0))
+            if (mouseDown && Input.GetMouseButtonUp(0))
             {
+                mouseDown = false;
+
                 if (!toggleSelection) DeselectAllMapElements();
 
                 if (!multiSelection)

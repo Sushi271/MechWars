@@ -9,7 +9,6 @@ namespace MechWars.Human
     public class OrderController
     {
         HumanPlayer player;
-        public MouseMode MouseMode { get; private set; }
 
         BuildingConstructionOption constOpt;
         Building constructingBuilding;
@@ -23,14 +22,19 @@ namespace MechWars.Human
 
         public void Update()
         {
-            if (MouseMode == MouseMode.Default)
-                DefaultMouseMode();
-            else if (MouseMode == MouseMode.BuildingLocation)
-                BuildingLocationMouseMode();
+            switch (player.MouseMode)
+            {
+                case MouseMode.Default:
+                    OnDefaultMouseMode();
+                    break;
+                case MouseMode.BuildingLocation:
+                    OnBuildingLocationMouseMode();
+                    break;
+            }
 
         }
 
-        void DefaultMouseMode()
+        void OnDefaultMouseMode()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -87,7 +91,7 @@ namespace MechWars.Human
             }
         }
 
-        void BuildingLocationMouseMode()
+        void OnBuildingLocationMouseMode()
         {
             if (Input.GetKeyDown(KeyCode.Escape) || !constructingBuilding.Alive)
             {
@@ -172,7 +176,7 @@ namespace MechWars.Human
 
         void QuitBuildingLocationMode()
         {
-            MouseMode = MouseMode.Default;
+            player.MouseMode = MouseMode.Default;
             Object.Destroy(buildShadow);
             buildShadow = null;
         }
@@ -196,7 +200,7 @@ namespace MechWars.Human
             {
                 constructingBuilding = orderingBuilding;
                 constOpt = constructionOption;
-                MouseMode = MouseMode.BuildingLocation;
+                player.MouseMode = MouseMode.BuildingLocation;
                 buildShadow = Object.Instantiate(constructionOption.building.gameObject);
                 buildShadow.name = constructionOption.building.gameObject.name + " shadow";
                 var b = buildShadow.GetComponent<Building>();

@@ -15,7 +15,7 @@ namespace MechWars.MapElements
         public Unit()
         {
             selectable = true;
-            OrderExecutor = new SingleOrderExecutor();
+            OrderExecutor = new SingleOrderExecutor(() => new IdleOrder(this));
         }
 
         protected override void OnUpdate()

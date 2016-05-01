@@ -176,9 +176,7 @@ namespace MechWars.MapElements
 
             InitializeReservation();
         }
-
-
-
+        
         public void ReadStats(bool force = false)
         {
             if (statsFile == null) return;
@@ -218,6 +216,37 @@ namespace MechWars.MapElements
                 Globals.FieldReservationMap.MakeReservation(this, coord);
             }
             reservationInitialized = true;
+        }
+
+        public bool MapElementInRange(MapElement other)
+        {
+            Vector2 coords;
+            return MapElementInRange(other, out coords);
+        }
+
+        public bool MapElementInRange(MapElement other, out Vector2 outCoords)
+        {
+            outCoords = Vector2.zero;
+
+            var range = Stats[StatNames.Range];
+            if (range == null) return false;
+
+            float minDist = Mathf.Infinity;
+            bool inRange = false;
+
+            foreach (var c in other.AllCoords)
+            {
+                var dr = c - Coords;
+                if ((Mathf.Abs(dr.x) <= 1 && Mathf.Abs(dr.y) <= 1 ||
+                    dr.magnitude <= range.Value) && dr.magnitude < minDist)
+                {
+                    inRange = true;
+                    minDist = dr.magnitude;
+                    outCoords = c;
+                }
+            }
+
+            return inRange;
         }
 
         void Update()

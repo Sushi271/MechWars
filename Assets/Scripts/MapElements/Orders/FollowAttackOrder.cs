@@ -9,13 +9,13 @@ namespace MechWars.MapElements.Orders
 
         public Unit Unit { get; private set; }
         public MapElement Target { get; private set; }
-        
+
         public FollowAttackOrder(Unit orderedUnit, MapElement target)
             : base("FollowAttack", orderedUnit)
         {
             Unit = (Unit)MapElement;
             Target = target;
-            
+
             move = new MoveOrder(Unit, target.Coords.Round());
             move.OnSingleMoveFinished += OnSingleMoveFinished;
             attack = new AttackOrder(orderedUnit, target);
@@ -25,9 +25,12 @@ namespace MechWars.MapElements.Orders
         {
             if (move.SingleMoveInProgress)
                 move.Update();
-            else if (!Target.Alive) return true;
-            else if (!attack.InRange)
-                move.Update();
+            if (!attack.AttackingInProgress)
+            {
+                if (!Target.Alive) return true;
+                if (!MapElement.MapElementInRange(Target))
+                    move.Update();
+            }
             else
             {
                 attack.Update();
@@ -44,13 +47,13 @@ namespace MechWars.MapElements.Orders
                 move.Update();
                 if (move.Stopped) return true;
             }
-            else if (!Target.Alive || !attack.InRange) return true;
-            else
-            {
-                attack.Update();
-                if (attack.Stopped)
-                    return true;
-            }
+
+            if (!attack.AttackingInProgress) return true;
+
+            attack.Update();
+            if (attack.Stopped)
+                return true;
+
             return false;
         }
 

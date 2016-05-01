@@ -6,14 +6,20 @@ namespace MechWars.MapElements.Orders
     public class QueueOrderExecutor
     {
         List<IOrder> orderQueue;
+        System.Func<IOrder> defaultOrderCreator;
+
+        public IOrder DefaultOrder { get; private set; }
 
         public int Count { get { return orderQueue.Count; } }
         public IOrder CurrentOrder { get { return Count == 0 ? null : orderQueue.First(); } }
         public IOrder this[int i] { get { return orderQueue[i]; } }
 
-        public QueueOrderExecutor()
+        public QueueOrderExecutor(System.Func<IOrder> defaultOrderCreator = null)
         {
             orderQueue = new List<IOrder>();
+            if (defaultOrderCreator == null)
+                defaultOrderCreator = () => null;
+            this.defaultOrderCreator = defaultOrderCreator;
         }
         
         public void Give(IOrder order)
@@ -57,11 +63,29 @@ namespace MechWars.MapElements.Orders
 
         public void Update()
         {
-            if (CurrentOrder != null)
+            if (CurrentOrder == null)
             {
-                CurrentOrder.Update();
-                if (CurrentOrder.Stopped)
-                    orderQueue.RemoveAt(0);
+                if (DefaultOrder == null)
+                    DefaultOrder = defaultOrderCreator();
+                DefaultOrder.Update();
+            }
+            else
+            {
+                if (DefaultOrder != null)
+                {
+                    if (!DefaultOrder.Stopping)
+                        DefaultOrder.Stop();
+                    if (!DefaultOrder.Stopped)
+                        DefaultOrder.Update();
+                    if (DefaultOrder.Stopped)
+                        DefaultOrder = null;
+                }
+                else
+                {
+                    CurrentOrder.Update();
+                    if (CurrentOrder.Stopped)
+                        orderQueue.RemoveAt(0);
+                }
             }
         }
 

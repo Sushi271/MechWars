@@ -36,7 +36,7 @@ namespace MechWars.MapElements
         public Building()
         {
             selectable = true;
-            OrderExecutor = new QueueOrderExecutor();
+            OrderExecutor = new QueueOrderExecutor(() => new IdleOrder(this));
             allNeighbourFields = new HashSet<IVector2>();
         }
 

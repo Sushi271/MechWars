@@ -2,6 +2,8 @@
 {
     public class HumanPlayer : Player
     {
+        public MouseMode MouseMode { get; set; }
+
         public SelectionController SelectionController { get; private set; }
         public OrderController OrderController { get; private set; }
 

@@ -124,10 +124,7 @@ namespace MechWars.MapElements.Orders
                     Debug.Log(Unit + ": No more resources!"); // TODO: play message "No more resources!"
                 return null;
             }
-            Resource = resources.Aggregate((r1, r2) =>
-                Vector2.Distance(r1.Coords, Unit.Coords) <
-                Vector2.Distance(r2.Coords, Unit.Coords) ?
-                r1 : r2);
+            Resource = resources.SelectMin(r => Vector2.Distance(r.Coords, Unit.Coords));
             if (collect != null)
                 collect.Resource = Resource;
             reloadMove = true;
@@ -143,10 +140,7 @@ namespace MechWars.MapElements.Orders
                 Debug.Log(Unit + ": No refineries!"); // TODO: play message "No refineries!"
                 return null;
             }
-            Refinery = refineries.Aggregate((r1, r2) =>
-                Vector2.Distance(r1.Coords, Unit.Coords) <
-                Vector2.Distance(r2.Coords, Unit.Coords) ?
-                r1 : r2);
+            Refinery = refineries.SelectMin(r => Vector2.Distance(r.Coords, Unit.Coords));
             if (deposit != null)
                 deposit.Refinery = Refinery;
             reloadMove = true;

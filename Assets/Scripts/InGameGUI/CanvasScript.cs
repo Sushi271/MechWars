@@ -52,7 +52,7 @@ namespace MechWars.InGameGUI
                     {
                         var button = Instantiate(buttonPrefab);
                         var rectTransform = button.GetComponent<RectTransform>();
-                        rectTransform.parent = transform;
+                        rectTransform.SetParent(transform);
                         rectTransform.position = new Vector3(x, y, 0);
                         var text = button.GetComponent<ButtonScript>().innerText;
                         if (i < prodOpts.Count)
@@ -93,7 +93,7 @@ namespace MechWars.InGameGUI
             {
                 foreach (var b in buttons)
                 {
-                    b.enabled = hp.OrderController.MouseMode == MouseMode.Default;
+                    b.interactable = hp.MouseMode == MouseMode.Default;
                 }
             }
         }

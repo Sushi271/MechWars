@@ -2,9 +2,19 @@
 {
     public class SingleOrderExecutor
     {
+        System.Func<IOrder> defaultOrderCreator;
+        
         public IOrder CurrentOrder { get; private set; }
 
         IOrder nextOrder;
+
+        public SingleOrderExecutor(System.Func<IOrder> defaultOrderCreator = null)
+        {
+            if (defaultOrderCreator == null)
+                defaultOrderCreator = () => null;
+            this.defaultOrderCreator = defaultOrderCreator;
+            nextOrder = defaultOrderCreator();
+        }
 
         public void Give(IOrder order)
         {
@@ -25,9 +35,10 @@
                 if (CurrentOrder.Stopped)
                 {
                     CurrentOrder = nextOrder;
-                    nextOrder = null;
-                }                
+                    nextOrder = defaultOrderCreator();
+                }
             }
+            else CurrentOrder = defaultOrderCreator();
         }
 
         public void Terminate()

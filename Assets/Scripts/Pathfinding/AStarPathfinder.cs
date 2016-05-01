@@ -172,7 +172,7 @@ namespace MechWars.Pathfinding
                 throw new System.Exception(string.Format(
                     "Cannot find alternate target for CoordPair {0}.", target.ToString()));
 
-            var alternate = closestGraphNodes.Aggregate((n1, n2) => n1.Distance < n2.Distance ? n1 : n2);
+            var alternate = closestGraphNodes.SelectMin(n => n.Distance);
             return alternate.CoordPair;
         }
     }
