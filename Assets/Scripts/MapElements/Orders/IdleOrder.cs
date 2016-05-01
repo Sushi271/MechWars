@@ -11,10 +11,13 @@ namespace MechWars.MapElements.Orders
         AttackOrder attack;
         MapElement autoAttackTarget;
         bool targetLost;
-        
+
+        bool rotatesOverTime;
+
         public IdleOrder(Unit orderedUnit)
             : base("Idle", orderedUnit)
         {
+            rotatesOverTime = true;
         }
 
         public IdleOrder(Building orderedBuilding)
@@ -26,7 +29,7 @@ namespace MechWars.MapElements.Orders
         {
             if (MapElement.canAttack)
             {
-                if (autoAttackTarget == null)
+                if (attack == null)
                 {
                     autoAttackTarget = AcquireTarget();
                     if (autoAttackTarget != null)
@@ -36,22 +39,20 @@ namespace MechWars.MapElements.Orders
                         else if (MapElement is Building)
                             attack = new AttackOrder((Building)MapElement, autoAttackTarget);
                         else throw new System.Exception("MapElement is neither Unit nor Building.");
-                        
+
                         targetLost = false;
                     }
                 }
-                else
+                else if (targetLost || !autoAttackTarget.Alive
+                    || !MapElement.MapElementInRange(autoAttackTarget))
                 {
-                    if (targetLost || !autoAttackTarget.Alive
-                        || !MapElement.MapElementInRange(autoAttackTarget))
+                    targetLost = true;
+                    if (!attack.Stopping)
+                        attack.Stop();
+                    if (attack.Stopped)
                     {
-                        targetLost = true;
-                        if (!attack.Stopping) attack.Stop();
-                        if (attack.Stopped)
-                        {
-                            attack = null;
-                            autoAttackTarget = null;
-                        }
+                        attack = null;
+                        autoAttackTarget = null;
                     }
                 }
             }
@@ -102,10 +103,11 @@ namespace MechWars.MapElements.Orders
 
             var coords =
                 from c in CoordsInRangeSquare(range.Value)
-                where (c - MapElement.Coords).magnitude <= range.Value
+                where Vector2.Distance(c, MapElement.Coords) <= range.Value
                 where Globals.FieldReservationMap.CoordsInside(c)
                 let me = Globals.FieldReservationMap[c]
                 where me != null && me.army != null && me.army != MapElement.army
+                where MapElement.MapElementInRange(me)
                 select me;
             if (coords.Count() == 0) return null;
 
@@ -125,9 +127,53 @@ namespace MechWars.MapElements.Orders
                     yield return new IVector2(x, y);
         }
 
+
+        float minRotationTime = 5;
+        float maxRotationTime = 15;
+        float nextRotationTime = -1;
+        float timeToRotation = 0;
+
+        bool rotating;
+        float fullRotationDuration = 0.5f;
+        float rotationDuration;
+        float toRotate;
+        float rotationProgress;
+        float startRotation;
+
         void CasualIdleBehaviour()
         {
-            // rotate around from time to time or sth
+            if (rotatesOverTime)
+            {
+                if (!rotating)
+                {
+                    if (nextRotationTime == -1)
+                        nextRotationTime = Random.Range(minRotationTime, maxRotationTime);
+                    timeToRotation += Time.deltaTime;
+                    if (timeToRotation > nextRotationTime)
+                    {
+                        timeToRotation -= nextRotationTime;
+                        nextRotationTime = -1;
+                        toRotate = Random.Range(-180, 180);
+                        rotationDuration = fullRotationDuration * Mathf.Abs(toRotate) / 360;
+                        startRotation = MapElement.transform.rotation.eulerAngles.y;
+                        rotating = true;
+                        rotationProgress = 0;
+                    }
+                }
+                else
+                {
+
+                    var dProgress = Time.deltaTime / rotationDuration;
+                    rotationProgress += dProgress;
+                    if (rotationProgress > 1)
+                    {
+                        rotating = false;
+                        rotationProgress = 1;
+                    }
+                    var rotation = startRotation + rotationProgress * toRotate;
+                    MapElement.transform.localRotation = Quaternion.Euler(0, rotation, 0);
+                }
+            }
         }
 
         public override string ToString()

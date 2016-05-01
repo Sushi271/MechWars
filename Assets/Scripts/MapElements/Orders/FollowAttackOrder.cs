@@ -24,20 +24,23 @@ namespace MechWars.MapElements.Orders
         protected override bool RegularUpdate()
         {
             if (move.SingleMoveInProgress)
+            {
                 move.Update();
-            if (!attack.AttackingInProgress)
+                return false;
+            }
+            else if (attack.AttackingInProgress)
+            {
+                attack.Update();
+                return attack.Stopped;
+            }
+            else
             {
                 if (!Target.Alive) return true;
                 if (!MapElement.MapElementInRange(Target))
                     move.Update();
+                else attack.Update();
+                return false;
             }
-            else
-            {
-                attack.Update();
-                if (attack.Stopped)
-                    return true;
-            }
-            return false;
         }
 
         protected override bool StoppingUpdate()
@@ -45,16 +48,15 @@ namespace MechWars.MapElements.Orders
             if (move.SingleMoveInProgress)
             {
                 move.Update();
-                if (move.Stopped) return true;
+                return move.Stopped;
+
             }
-
-            if (!attack.AttackingInProgress) return true;
-
-            attack.Update();
-            if (attack.Stopped)
-                return true;
-
-            return false;
+            else if (attack.AttackingInProgress)
+            {
+                attack.Update();
+                return attack.Stopped;
+            }
+            else return true;
         }
 
         protected override void TerminateCore()

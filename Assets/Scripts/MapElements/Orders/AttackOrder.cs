@@ -39,6 +39,7 @@ namespace MechWars.MapElements.Orders
                 throw new System.Exception(string.Format(
                     "Order {0} called for MapElement {1}, but it cannot attack.", Name, MapElement));
             if (!AttackingInProgress) return true;
+            Debug.Log("" + MapElement);
             TryMakeAttack();
             return false;
         }
