@@ -28,19 +28,19 @@ namespace MechWars.MapElements.Orders
                 move.Update();
                 return false;
             }
-            else if (attack.AttackingInProgress)
+
+            if (attack.AttackingInProgress)
             {
                 attack.Update();
                 return attack.Stopped;
             }
-            else
-            {
-                if (!Target.Alive) return true;
-                if (!MapElement.MapElementInRange(Target))
-                    move.Update();
-                else attack.Update();
-                return false;
-            }
+            
+            if (!Target.Alive) return true;
+
+            if (!MapElement.MapElementInRange(Target))
+                move.Update();
+            else attack.Update();
+            return false;
         }
 
         protected override bool StoppingUpdate()
@@ -49,14 +49,15 @@ namespace MechWars.MapElements.Orders
             {
                 move.Update();
                 return move.Stopped;
-
             }
-            else if (attack.AttackingInProgress)
+
+            if (attack.AttackingInProgress)
             {
                 attack.Update();
                 return attack.Stopped;
             }
-            else return true;
+
+            return true;
         }
 
         protected override void TerminateCore()

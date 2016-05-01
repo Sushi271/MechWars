@@ -249,6 +249,37 @@ namespace MechWars.MapElements
             return inRange;
         }
 
+        public MapElement AcquireTarget()
+        {
+            var range = Stats[StatNames.Range];
+            if (range == null) return null;
+
+            var coords =
+                from c in CoordsInRangeSquare(range.Value)
+                where Vector2.Distance(c, Coords) <= range.Value
+                where Globals.FieldReservationMap.CoordsInside(c)
+                let me = Globals.FieldReservationMap[c]
+                where me != null && me.army != null && me.army != army
+                where MapElementInRange(me)
+                select me;
+            if (coords.Count() == 0) return null;
+
+            var target = coords.SelectMin(me => Vector2.Distance(me.Coords, Coords));
+            return target;
+        }
+
+        IEnumerable<IVector2> CoordsInRangeSquare(float range)
+        {
+            int xFrom = Mathf.CeilToInt(X - range);
+            int xTo = Mathf.FloorToInt(X + range);
+            int yFrom = Mathf.CeilToInt(Y - range);
+            int yTo = Mathf.FloorToInt(Y + range);
+
+            for (int y = yFrom; y <= yTo; y++)
+                for (int x = xFrom; x <= xTo; x++)
+                    yield return new IVector2(x, y);
+        }
+
         void Update()
         {
             OnUpdate();

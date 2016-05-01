@@ -43,6 +43,8 @@ namespace MechWars.Human
             if (mapElementHit) terrainHit = false;
             else terrainHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain));
 
+            bool attackMod = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+
             if (Input.GetMouseButtonDown(1))
             {
                 var thisPlayersUnits =
@@ -86,7 +88,12 @@ namespace MechWars.Human
                 else if (dest != null)
                 {
                     foreach (var u in thisPlayersUnits)
-                        u.GiveOrder(new MoveOrder(u, dest.Value));
+                    {
+                        var order = attackMod ?
+                            new AttackMoveOrder(u, dest.Value) as IOrder:
+                            new MoveOrder(u, dest.Value) as IOrder;
+                        u.GiveOrder(order);
+                    }
                 }
             }
         }

@@ -31,7 +31,7 @@ namespace MechWars.MapElements.Orders
             {
                 if (attack == null)
                 {
-                    autoAttackTarget = AcquireTarget();
+                    autoAttackTarget = MapElement.AcquireTarget();
                     if (autoAttackTarget != null)
                     {
                         if (MapElement is Unit)
@@ -95,38 +95,6 @@ namespace MechWars.MapElements.Orders
             if (attack != null)
                 attack.Stop();
         }
-
-        MapElement AcquireTarget()
-        {
-            var range = MapElement.Stats[StatNames.Range];
-            if (range == null) return null;
-
-            var coords =
-                from c in CoordsInRangeSquare(range.Value)
-                where Vector2.Distance(c, MapElement.Coords) <= range.Value
-                where Globals.FieldReservationMap.CoordsInside(c)
-                let me = Globals.FieldReservationMap[c]
-                where me != null && me.army != null && me.army != MapElement.army
-                where MapElement.MapElementInRange(me)
-                select me;
-            if (coords.Count() == 0) return null;
-
-            var target = coords.SelectMin(me => Vector2.Distance(me.Coords, MapElement.Coords));
-            return target;
-        }
-
-        IEnumerable<IVector2> CoordsInRangeSquare(float range)
-        {
-            int xFrom = Mathf.CeilToInt(MapElement.X - range);
-            int xTo = Mathf.FloorToInt(MapElement.X + range);
-            int yFrom = Mathf.CeilToInt(MapElement.Y - range);
-            int yTo = Mathf.FloorToInt(MapElement.Y + range);
-
-            for (int y = yFrom; y <= yTo; y++)
-                for (int x = xFrom; x <= xTo; x++)
-                    yield return new IVector2(x, y);
-        }
-
 
         float minRotationTime = 5;
         float maxRotationTime = 15;
