@@ -11,13 +11,10 @@ namespace MechWars.MapElements.Orders
         AttackOrder attack;
         MapElement autoAttackTarget;
         bool targetLost;
-
-        bool rotatesOverTime;
-
+        
         public IdleOrder(Unit orderedUnit)
             : base("Idle", orderedUnit)
         {
-            rotatesOverTime = true;
         }
 
         public IdleOrder(Building orderedBuilding)
@@ -110,7 +107,7 @@ namespace MechWars.MapElements.Orders
 
         void CasualIdleBehaviour()
         {
-            if (rotatesOverTime)
+            if (MapElement.canRotate)
             {
                 if (!rotating)
                 {

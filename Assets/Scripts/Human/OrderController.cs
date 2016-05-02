@@ -69,11 +69,15 @@ namespace MechWars.Human
 
             if (attackMode)
             {
-                var attackers = selected.Units.Where(u => u.canAttack);
+                var attackerUnits = selected.Units.Where(u => u.canAttack);
                 if (mapElement != null && mapElement.canBeAttacked)
-                    attackers.GiveOrder(u => new FollowAttackOrder(u, mapElement));
+                    attackerUnits.GiveOrder(u => new FollowAttackOrder(u, mapElement));
                 else if (dest.HasValue)
-                    attackers.GiveOrder(u => new AttackMoveOrder(u, dest.Value));
+                    attackerUnits.GiveOrder(u => new AttackMoveOrder(u, dest.Value));
+
+                var attackerBuildings = selected.Buildings.Where(b => b.canAttack);
+                if (mapElement != null && mapElement.canBeAttacked)
+                    attackerBuildings.GiveOrder(b => new StandAttackOrder(b, mapElement));
             }
             else if (escortMode)
             {

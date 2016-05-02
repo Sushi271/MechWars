@@ -23,5 +23,11 @@ namespace MechWars.MapElements
             foreach (var u in units)
                 u.GiveOrder(orderConstructor(u));
         }
+
+        public void GiveOrder(System.Func<Unit, Order<MapElement>> orderConstructor)
+        {
+            foreach (var u in units)
+                u.GiveOrder(orderConstructor(u));
+        }
     }
 }

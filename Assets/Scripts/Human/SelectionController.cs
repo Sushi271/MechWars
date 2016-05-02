@@ -147,12 +147,17 @@ namespace MechWars.Human
 
             var units = armyMapElements.Where(me => me is Unit).Cast<Unit>();
             var buildings = armyMapElements.Where(me => me is Building).Cast<Building>();
+            var attackingBuildings = buildings.Where(b => b.canAttack);
 
             if (thisArmy)
             {
-                if (units.Count() > 0)
+                if (units.Count() > 0 || attackingBuildings.Count() > 0)
+                {
                     foreach (var u in units)
                         hoveredMapElements.Add(u);
+                    foreach (var b in buildings)
+                        hoveredMapElements.Add(b);
+                }
                 else if (buildings.Count() > 0)
                 {
                     string name = buildings.First().mapElementName;

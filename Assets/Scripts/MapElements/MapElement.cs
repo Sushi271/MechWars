@@ -19,6 +19,8 @@ namespace MechWars.MapElements
         public bool selectable;
         public bool canAttack;
         public bool canBeAttacked;
+        public bool canRotate;
+        public float yToAim;
         public float displaySize = 1;
         public float displayYOffset = 0;
 

@@ -208,6 +208,10 @@ namespace MechWars.MapElements
             }
             else
             {
+                sb.AppendLine("Default order:");
+                sb.AppendLine(string.Format("    {0}", 
+                    OrderExecutor.DefaultOrder == null ? "---" : 
+                    OrderExecutor.DefaultOrder.ToString()));
                 sb.AppendLine("Order queue:");
                 if (OrderExecutor.Count == 0)
                     sb.Append("    ---");

@@ -8,11 +8,11 @@ namespace MechWars.MapElements.Attacks
         {
             // TODO: play attack animation or sth
 
-            var firepower = AttackingMapElement.Stats[StatNames.Firepower];
-            var hitPoint = Target.Stats[StatNames.HitPoints];
+            var firepower = Attacker.Stats[StatNames.Firepower];
+            var hitPoints = Target.Stats[StatNames.HitPoints];
 
-            if (hitPoint != null && firepower != null)
-                hitPoint.Value -= firepower.Value;
+            if (hitPoints != null && firepower != null)
+                hitPoints.Value -= firepower.Value;
 
             Finished = true;
         }

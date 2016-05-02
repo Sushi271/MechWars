@@ -8,6 +8,7 @@ namespace MechWars.MapElements
         IEnumerable<MapElement> mapElements;
         
         public UnitGroup Units {  get { return new UnitGroup(mapElements.Where(me => me is Unit).Cast<Unit>()); } }
+        public BuildingGroup Buildings { get { return new BuildingGroup(mapElements.Where(me => me is Building).Cast<Building>()); } }
 
         public MapElementGroup(IEnumerable<MapElement> mapElements)
         {
