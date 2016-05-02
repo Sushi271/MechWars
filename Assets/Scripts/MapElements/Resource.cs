@@ -6,8 +6,6 @@ namespace MechWars.MapElements
 {
     public class Resource : MapElement
     {
-        public override bool Interactible { get { return true; } }
-
         public int value;
         int startValue;
 

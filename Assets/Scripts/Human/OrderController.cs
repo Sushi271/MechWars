@@ -36,66 +36,72 @@ namespace MechWars.Human
 
         void OnDefaultMouseMode()
         {
+            bool rightMouseDown = Input.GetMouseButtonDown(1);
+            if (!rightMouseDown) return;
+
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             bool mapElementHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements));
-            bool terrainHit;
-            if (mapElementHit) terrainHit = false;
-            else terrainHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain));
+            bool terrainHit = !mapElementHit &&
+                Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain));
 
-            bool attackMod = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-            bool escortMod = !attackMod && Input.GetKey(KeyCode.LeftAlt);
+            bool attackMode = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+            bool escortMode = !attackMode && Input.GetKey(KeyCode.LeftAlt);
 
-            if (Input.GetMouseButtonDown(1))
+            var selected = new MapElementGroup(player.SelectionController.SelectedMapElements)
+                .Where(me => me.army == player.Army);
+
+            MapElement mapElement = null;
+            IVector2? dest = null;
+            if (mapElementHit)
             {
-                var thisPlayersUnits =
-                    from a in player.SelectionController.SelectedMapElements
-                    let u = a as Unit
-                    where u != null && u.army != null && u.army == player.Army
-                    select u;
-                MapElement mapElement = null;
-                IVector2? dest = null;
-                if (mapElementHit)
+                var go = hit.collider.gameObject;
+                mapElement = go.GetComponentInParent<MapElement>();
+                if (mapElement == null)
+                    throw new System.Exception("Non-MapElement GameObject is in MapElements layer.");
+                dest = mapElement.Coords.Round();
+            }
+            else if (terrainHit)
+            {
+                dest = new Vector2(hit.point.x, hit.point.z).Round();
+                mapElement = Globals.FieldReservationMap[dest.Value];
+            }
+
+            if (attackMode)
+            {
+                var attackers = selected.Units.Where(u => u.canAttack);
+                if (mapElement != null && mapElement.canBeAttacked)
+                    attackers.GiveOrder(u => new FollowAttackOrder(u, mapElement));
+                else if (dest.HasValue)
+                    attackers.GiveOrder(u => new AttackMoveOrder(u, dest.Value));
+            }
+            else if (escortMode)
+            {
+                var unit = mapElement as Unit;
+                if (unit != null && unit.army == player.Army)
+                    selected.Units.GiveOrder(u => new EscortOrder(u, unit));
+                else if (dest.HasValue)
+                    selected.Units.GiveOrder(u => new MoveOrder(u, dest.Value));
+            }
+            else
+            {
+                if (mapElement != null &&
+                    mapElement.army != null &&
+                    mapElement.army != player.Army &&
+                    mapElement.canBeAttacked)
+                    selected.Units.Where(u => u.canAttack).GiveOrder(u => new FollowAttackOrder(u, mapElement));
+                else if (mapElement != null && mapElement is Resource)
                 {
-                    var go = hit.collider.gameObject;
-                    mapElement = go.GetComponentInParent<MapElement>();
-                    if (mapElement == null)
-                        throw new System.Exception("Non-MapElement GameObject is in MapElements layer.");
+                    selected.Units.Where(u => u.canCollect).GiveOrder(u => new HarvestOrder(u, (Resource)mapElement));
+                    selected.Units.Where(u => !u.canCollect).GiveOrder(u => new MoveOrder(u, dest.Value));
                 }
-                else if (terrainHit)
+                else if (mapElement != null && mapElement is Building && (mapElement as Building).isResourceDeposit)
                 {
-                    dest = new Vector2(hit.point.x, hit.point.z).Round();
-                    mapElement = Globals.FieldReservationMap[dest.Value];
-                }
-                if (mapElement != null)
-                {
-                    if (mapElement.Interactible)
-                    {
-                        if (mapElement is Resource)
-                            foreach (var u in thisPlayersUnits)
-                            {
-                                if (u.canCollectResources)
-                                    u.GiveOrder(new HarvestOrder(u, (Resource)mapElement));
-                            }
-                        else if (mapElement.army == player.Army && mapElement is Unit && escortMod)
-                            foreach (var u in thisPlayersUnits)
-                                u.GiveOrder(new EscortOrder(u, (Unit)mapElement));
-                        else if (mapElement.army != player.Army && mapElement.army != null || attackMod)
-                            foreach (var u in thisPlayersUnits)
-                                if (u.canAttack)
-                                    u.GiveOrder(new FollowAttackOrder(u, mapElement));
-                    }
+                    selected.Units.Where(u => u.canCollect).GiveOrder(u => new HarvestOrder(u, (Building)mapElement));
+                    selected.Units.Where(u => !u.canCollect).GiveOrder(u => new MoveOrder(u, dest.Value));
                 }
                 else if (dest != null)
-                {
-                    foreach (var u in thisPlayersUnits)
-                    {
-                        var order = attackMod && u.canAttack ?
-                            new AttackMoveOrder(u, dest.Value) as IOrder:
-                            new MoveOrder(u, dest.Value) as IOrder;
-                        u.GiveOrder(order);
-                    }
-                }
+                    selected.Units.GiveOrder(u => new MoveOrder(u, dest.Value));
             }
         }
 

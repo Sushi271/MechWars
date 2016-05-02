@@ -50,12 +50,25 @@ namespace MechWars.MapElements.Orders
             Resource = resource;
             mode = HarvestMode.Collect;
         }
-        
+
+        public HarvestOrder(Unit orderedUnit, Building refinery)
+            : base("Harvest", orderedUnit)
+        {
+            Unit = (Unit)MapElement;
+            Refinery = refinery;
+            mode = HarvestMode.Deposit;
+        }
+
         protected override bool RegularUpdate()
         {
-            if (!DecideMode()) Stop();
-            ExecuteMode();
-            return false;
+            if (!Stopping && !Stopped)
+            {
+                bool decided = DecideMode();
+                if (!decided) Stop();
+                else ExecuteMode();
+                return false;
+            }
+            return true;
         }
 
         protected override bool StoppingUpdate()
@@ -231,7 +244,9 @@ namespace MechWars.MapElements.Orders
 
         public override string ToString()
         {
-            return string.Format("Harvest [ {0} ]", Resource);
+            return string.Format("Harvest [ {0} ]",
+                mode == HarvestMode.Collect ?
+                (MapElement)Resource : Refinery);
         }
 
         enum HarvestMode

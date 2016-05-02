@@ -7,10 +7,9 @@ namespace MechWars.MapElements
 {
     public class Unit : MapElement
     {
-        public bool canCollectResources;
+        public bool canCollect;
 
         public SingleOrderExecutor OrderExecutor { get; private set; }
-        public override bool Interactible { get { return true; } }
 
         public Unit()
         {
@@ -67,7 +66,7 @@ namespace MechWars.MapElements
         public override StringBuilder TEMP_PrintStatus()
         {
             return base.TEMP_PrintStatus().AppendLine()
-                .AppendLine(string.Format("Can collect resources: {0}", canCollectResources))
+                .AppendLine(string.Format("Can collect resources: {0}", canCollect))
                 .Append(string.Format("Current order: {0}", OrderExecutor.CurrentOrder == null ? "NONE" : OrderExecutor.CurrentOrder.ToString()));
         }
     }

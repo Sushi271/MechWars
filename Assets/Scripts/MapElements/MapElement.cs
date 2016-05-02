@@ -18,6 +18,7 @@ namespace MechWars.MapElements
         public TextAsset statsFile;
         public bool selectable;
         public bool canAttack;
+        public bool canBeAttacked;
         public float displaySize = 1;
         public float displayYOffset = 0;
 
@@ -134,8 +135,6 @@ namespace MechWars.MapElements
         }
 
         public MapElementShape Shape { get { return Globals.ShapeDatabase[this]; } }
-
-        public virtual bool Interactible { get { return false; } }
 
         bool alive;
         public bool Alive

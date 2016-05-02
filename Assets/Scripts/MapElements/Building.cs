@@ -26,7 +26,6 @@ namespace MechWars.MapElements
             }
             private set { orderExecutor = value; }
         }
-        public override bool Interactible { get { return true; } }
 
         public bool UnderConstruction { get { return ConstructionInfo != null; } }
         public BuildingConstructionInfo ConstructionInfo { get; set; }

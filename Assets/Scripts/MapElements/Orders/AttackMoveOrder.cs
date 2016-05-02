@@ -58,7 +58,7 @@ namespace MechWars.MapElements.Orders
                 return move.Stopped;
             }
 
-            if (!attack.Stopped)
+            if (attack != null && !attack.Stopped)
             {
                 attack.Update();
                 return attack.Stopped;

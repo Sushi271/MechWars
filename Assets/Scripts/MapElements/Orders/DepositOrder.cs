@@ -48,7 +48,7 @@ namespace MechWars.MapElements.Orders
 
         bool MakeDeposit()
         {
-            if (!Unit.canCollectResources)
+            if (!Unit.canCollect)
                 throw new System.Exception(string.Format("Unit {0} cannot collect/deposit resources.", Unit));
 
             var depositRateStat = Unit.Stats[StatNames.DepositRate];

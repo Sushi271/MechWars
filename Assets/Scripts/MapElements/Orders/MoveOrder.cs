@@ -53,8 +53,6 @@ namespace MechWars.MapElements.Orders
                     if (OnSingleMoveFinished != null)
                         OnSingleMoveFinished.Invoke();
                     path.Pop();
-                    if (Unit.id == 2)
-                        Debug.Log("L " + path.Length + ", LAST " + path.Last);
                     if (path.Length == 0 || Unit.Coords == path.Last.Coords.Vector)
                         return !dontStop;
                     pathNeedsUpdate = true;
@@ -76,8 +74,6 @@ namespace MechWars.MapElements.Orders
 
         void CalculatePath()
         {
-            if (Unit.id == 2)
-                Debug.Log("NEW PATH");
             path = new AStarPathfinder().FindPath(
                 new CoordPair(Unit.Coords.Round()),
                 new CoordPair(Destination),
