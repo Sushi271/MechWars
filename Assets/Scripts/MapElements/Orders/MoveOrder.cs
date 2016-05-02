@@ -9,19 +9,34 @@ namespace MechWars.MapElements.Orders
         Path path;
         bool pathNeedsUpdate;
 
+        bool dontStop;
+
         public Unit Unit { get; private set; }
 
-        public IVector2 Destination { get; set; }
+        IVector2 destination;
+        public IVector2 Destination
+        {
+            get { return destination; }
+            set
+            {
+                if (destination != value)
+                    pathNeedsUpdate = true;
+                destination = value;
+            }
+        }
+
         public bool SingleMoveInProgress { get; private set; }
 
         public event System.Action OnSingleMoveFinished;
 
-        public MoveOrder(Unit orderedUnit, IVector2 destination)
+        public MoveOrder(Unit orderedUnit, IVector2 destination, bool dontStop = false)
             : base("Move", orderedUnit)
         {
             Unit = (Unit)MapElement;
-
             Destination = destination;
+
+            this.dontStop = dontStop;
+
             path = null;
             pathNeedsUpdate = true;
         }
@@ -30,15 +45,20 @@ namespace MechWars.MapElements.Orders
         {
             if (pathNeedsUpdate)
                 CalculatePath();
-            if (SingleMove())
+            if (path.Count > 0)
             {
-                SingleMoveInProgress = false;
-                if (OnSingleMoveFinished != null)
-                    OnSingleMoveFinished.Invoke();
-                path.Pop();
-                if (path.Length == 0 || Unit.Coords == path.Last.Coords.Vector)
-                    return true;
-                pathNeedsUpdate = true;
+                if (SingleMove())
+                {
+                    SingleMoveInProgress = false;
+                    if (OnSingleMoveFinished != null)
+                        OnSingleMoveFinished.Invoke();
+                    path.Pop();
+                    if (Unit.id == 2)
+                        Debug.Log("L " + path.Length + ", LAST " + path.Last);
+                    if (path.Length == 0 || Unit.Coords == path.Last.Coords.Vector)
+                        return !dontStop;
+                    pathNeedsUpdate = true;
+                }
             }
             return false;
         }
@@ -56,6 +76,8 @@ namespace MechWars.MapElements.Orders
 
         void CalculatePath()
         {
+            if (Unit.id == 2)
+                Debug.Log("NEW PATH");
             path = new AStarPathfinder().FindPath(
                 new CoordPair(Unit.Coords.Round()),
                 new CoordPair(Destination),

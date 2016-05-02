@@ -98,7 +98,7 @@ namespace MechWars.Pathfinding
 
         Path ReconstructPath(AStarCoordPairNode current)
         {
-            var path = new Path();
+            var path = new Path(orderedUnit);
             while (current != null)
             {
                 path.Push(current.CoordPair);

@@ -44,6 +44,7 @@ namespace MechWars.Human
             else terrainHit = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain));
 
             bool attackMod = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+            bool escortMod = !attackMod && Input.GetKey(KeyCode.LeftAlt);
 
             if (Input.GetMouseButtonDown(1))
             {
@@ -76,10 +77,10 @@ namespace MechWars.Human
                                 if (u.canCollectResources)
                                     u.GiveOrder(new HarvestOrder(u, (Resource)mapElement));
                             }
-                        else if (mapElement.army == player.Army)
+                        else if (mapElement.army == player.Army && mapElement is Unit && escortMod)
                             foreach (var u in thisPlayersUnits)
-                                u.GiveOrder(new EscortOrder(u, mapElement));
-                        else
+                                u.GiveOrder(new EscortOrder(u, (Unit)mapElement));
+                        else if (mapElement.army != player.Army && mapElement.army != null || attackMod)
                             foreach (var u in thisPlayersUnits)
                                 if (u.canAttack)
                                     u.GiveOrder(new FollowAttackOrder(u, mapElement));
@@ -89,7 +90,7 @@ namespace MechWars.Human
                 {
                     foreach (var u in thisPlayersUnits)
                     {
-                        var order = attackMod ?
+                        var order = attackMod && u.canAttack ?
                             new AttackMoveOrder(u, dest.Value) as IOrder:
                             new MoveOrder(u, dest.Value) as IOrder;
                         u.GiveOrder(order);

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using MechWars.MapElements;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace MechWars.Pathfinding
 {
@@ -14,8 +16,11 @@ namespace MechWars.Pathfinding
         public WayPoint First { get { return Count == 0 ? null : wayPoints.Last(); } }
         public WayPoint Last { get { return Count == 0 ? null : wayPoints.First(); } }
 
-        public Path()
+        Unit TEMP_unit;
+
+        public Path(Unit TEMP_unit = null)
         {
+            this.TEMP_unit = TEMP_unit;
             wayPoints = new List<WayPoint>();
         }
 
@@ -27,14 +32,27 @@ namespace MechWars.Pathfinding
             if (Count > 1)
             {
                 var dist = CoordPair.Distance(first.Coords, wayPoint.Coords);
+                if (TEMP_unit != null && TEMP_unit.id == 2)
+                    Debug.Log("+" + dist);
                 Length += dist;
             }
         }
 
         public void Pop()
         {
+            if (wayPoints.Count == 0)
+                throw new System.Exception("Cannot pop - path is empty.");
+            if (wayPoints.Count > 1)
+            {
+                var dist = CoordPair.Distance(wayPoints[1].Coords, Last.Coords);
+                if (TEMP_unit != null && TEMP_unit.id == 2)
+                {
+                    Debug.Log("-" + dist);
+                    Debug.Log(this);
+                }
+                Length -= dist;
+            }
             wayPoints.RemoveAt(Count - 1);
-            // TODO: Error check, update Length!
         }
 
         public IEnumerator<WayPoint> GetEnumerator()
