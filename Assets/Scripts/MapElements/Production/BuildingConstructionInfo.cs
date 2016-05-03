@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MechWars.MapElements
+namespace MechWars.MapElements.Production
 {
     public class BuildingConstructionInfo
     {
@@ -15,7 +15,7 @@ namespace MechWars.MapElements
         {
             Building = constructionOption.building;
             Cost = constructionOption.cost;
-            ConstructionTime = constructionOption.constructionTime;
+            ConstructionTime = constructionOption.productionTime;
 
             TotalProgress = 0.1f;
         }

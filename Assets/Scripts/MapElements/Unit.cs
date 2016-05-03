@@ -11,6 +11,8 @@ namespace MechWars.MapElements
 
         public SingleOrderExecutor OrderExecutor { get; private set; }
 
+        protected override bool CanAddToArmy { get { return true; } }
+
         public Unit()
         {
             selectable = true;

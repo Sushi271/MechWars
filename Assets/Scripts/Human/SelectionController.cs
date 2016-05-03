@@ -155,7 +155,7 @@ namespace MechWars.Human
                 {
                     foreach (var u in units)
                         hoveredMapElements.Add(u);
-                    foreach (var b in buildings)
+                    foreach (var b in attackingBuildings)
                         hoveredMapElements.Add(b);
                 }
                 else if (buildings.Count() > 0)

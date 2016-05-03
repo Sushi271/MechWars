@@ -11,10 +11,12 @@
             var devOp = producer.technologyDevelopmentOptions.Find(@do => @do.technology == technology);
             if (devOp == null)
                 throw new System.Exception(string.Format("Building {0} cannot develop Technology {1}", producer, Technology));
+            if (!devOp.CheckRequirements(producer.army))
+                throw new System.Exception(string.Format("Building {0} is not meeting requirements to develop Technology {1}", producer, Technology));
 
             Name = technology.technologyName;
             Cost = devOp.cost;
-            ProductionTime = devOp.developmentTime;
+            ProductionTime = devOp.productionTime;
         }
 
         public override string ToString()

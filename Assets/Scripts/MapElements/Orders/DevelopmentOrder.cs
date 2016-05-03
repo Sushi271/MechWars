@@ -54,9 +54,9 @@ namespace MechWars.MapElements.Orders
 
         void Develop()
         {
-            Debug.Log("Dupa1");
             var technologyGO = Object.Instantiate(Technology.gameObject);
             Building.army.Technologies.FinishDeveloping(technologyGO.GetComponent<Technology>());
+            Building.additionalResourceValue = 0;
         }
 
         void Cancel()

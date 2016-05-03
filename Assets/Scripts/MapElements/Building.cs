@@ -1,4 +1,5 @@
 ﻿using MechWars.MapElements.Orders;
+using MechWars.MapElements.Production;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -32,6 +33,8 @@ namespace MechWars.MapElements
 
         public bool UnderConstruction { get { return ConstructionInfo != null; } }
         public BuildingConstructionInfo ConstructionInfo { get; private set; }
+        
+        protected override bool CanAddToArmy { get { return true; } }
 
         HashSet<IVector2> allNeighbourFields;
 
@@ -44,7 +47,6 @@ namespace MechWars.MapElements
 
         protected override void OnStart()
         {
-
             base.OnStart();
             if (isShadow) return;
 
@@ -112,6 +114,10 @@ namespace MechWars.MapElements
             if (!buildingConstructionOptions.Contains(buildingCO))
                 throw new System.Exception(string.Format(
                     "Building {0} cannot construct Building {1}", this, buildingCO.building));
+
+            if (!buildingCO.CheckRequirements(army))
+                throw new System.Exception(string.Format(
+                    "Building {0} is not meeting requirements to construct Building {1}", this, buildingCO.building));
 
             var building = buildingCO.building;
             var bci = new BuildingConstructionInfo(buildingCO);

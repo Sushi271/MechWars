@@ -6,11 +6,19 @@ namespace MechWars
 {
     public class Player : MonoBehaviour
     {
-        public Army Army { get; private set; }
+        Army army;
+        public Army Army
+        {
+            get
+            {
+                if (army == null)
+                    army = Globals.GetArmyForPlayer(this);
+                return army;
+            }
+        }
 
         void Start()
         {
-            Army = Globals.GetArmyForPlayer(this);
             OnStart();
         }
 

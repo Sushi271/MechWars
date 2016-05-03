@@ -19,6 +19,7 @@ namespace MechWars.MapElements.Orders
         {
             Building = orderedBuilding;
             Unit = producedUnit;
+
             productionOrder = new ProductionOrder(Building, new UnitProduct(Building, Unit));
         }
 
@@ -68,10 +69,9 @@ namespace MechWars.MapElements.Orders
                 }
                 return false;
             }
-            else
-            {
-                newUnit.resourceValue = productionOrder.Product.Cost;
-            }
+
+            newUnit.resourceValue = productionOrder.Product.Cost;
+            Building.additionalResourceValue = 0;
             return true;
         }
 

@@ -1,4 +1,6 @@
-﻿namespace MechWars.Human
+﻿using UnityEngine;
+
+namespace MechWars.Human
 {
     public class HumanPlayer : Player
     {
@@ -16,7 +18,7 @@
         protected override void OnUpdate()
         {
             base.OnUpdate();
-
+            
             SelectionController.Update();
             OrderController.Update();
         }

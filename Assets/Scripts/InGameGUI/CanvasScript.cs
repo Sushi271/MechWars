@@ -21,6 +21,7 @@ namespace MechWars.InGameGUI
         void Start()
         {
             buttons = new List<Button>();
+            thisPlayer.Army.OnBuildingConstructionFinished += InvokeRefreshBuildingGUI;
         }
 
         void Update()
@@ -46,10 +47,13 @@ namespace MechWars.InGameGUI
 
                 if (building != null && !building.UnderConstruction)
                 {
-                    var prodOpts = building.unitProductionOptions;
-                    var constOpts = building.buildingConstructionOptions;
+                    var prodOpts = building.unitProductionOptions
+                        .Where(po => po.CheckRequirements(building.army, true)).ToList();
+                    var constOpts = building.buildingConstructionOptions
+                        .Where(bo => bo.CheckRequirements(building.army)).ToList();
                     var devOpts = building.technologyDevelopmentOptions
-                        .Where(tdo => building.army.Technologies.CanDevelop(tdo.technology)).ToList();
+                        .Where(tdo => building.army.Technologies.CanDevelop(tdo.technology))
+                        .Where(tdo => tdo.CheckRequirements(building.army)).ToList();
                     var count = prodOpts.Count + constOpts.Count + devOpts.Count;
 
                     float margin = 4;
@@ -112,22 +116,22 @@ namespace MechWars.InGameGUI
             }
         }
 
+        void OnDestroy()
+        {
+            if (thisPlayer != null && thisPlayer.Army != null)
+                thisPlayer.Army.OnBuildingConstructionFinished -= InvokeRefreshBuildingGUI;
+        }
+
         void SubscribeEvents(Building building)
         {
             if (building != null)
-            {
-                building.OnConstructionFinished += InvokeRefreshBuildingGUI;
                 building.army.Technologies.OnTechnologyDevelopmentChanged += InvokeRefreshBuildingGUI;
-            }
         }
 
         void UnsubscribeEvents(Building building)
         {
             if (building != null)
-            {
-                building.OnConstructionFinished -= InvokeRefreshBuildingGUI;
                 building.army.Technologies.OnTechnologyDevelopmentChanged -= InvokeRefreshBuildingGUI;
-            }
         }
 
         void InvokeRefreshBuildingGUI()

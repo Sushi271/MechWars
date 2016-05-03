@@ -65,7 +65,6 @@ namespace MechWars
 
         public void FinishDeveloping(Technology technology)
         {
-            UnityEngine.Debug.Log("Dupa2");
             CancelDeveloping(technology);
             developedTechnologies.Add(technology);
         }

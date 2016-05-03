@@ -11,6 +11,8 @@ namespace MechWars.MapElements
 {
     public class MapElement : MonoBehaviour
     {
+        Army lastArmy;
+
         public string mapElementName;
         public int id;
         public Army army;
@@ -152,6 +154,8 @@ namespace MechWars.MapElements
 
         bool ShouldDrawStatusDisplay { get { return Hovered || Selected || InSelectionBox; } }
 
+        protected virtual bool CanAddToArmy { get { return false; } }
+
         public MapElement()
         {
             Stats = new Stats(this);
@@ -170,7 +174,9 @@ namespace MechWars.MapElements
             id = NewId;
 
             Globals.MapElementsDatabase.Insert(this);
-            
+            if (army != null && CanAddToArmy)
+                army.AddMapElement(this);
+
             ReadStats();
 
             UpdateAlive();
@@ -290,6 +296,18 @@ namespace MechWars.MapElements
         {
             if (isShadow) return;
 
+            if (lastArmy != army)
+            {
+                if (CanAddToArmy)
+                {
+                    if (lastArmy != null)
+                        lastArmy.RemoveMapElement(this);
+                    if (army != null)
+                        army.AddMapElement(this);
+                }
+                lastArmy = army;
+            }
+
             UpdateAlive();
         }
 
@@ -306,6 +324,10 @@ namespace MechWars.MapElements
         protected virtual void OnLifeEnd()
         {
             selected = hovered = inSelectionBox = false;
+
+            if (army != null && CanAddToArmy)
+                army.RemoveMapElement(this);
+
             if (!Globals.Destroyed)
             {
                 Globals.FieldReservationMap.ReleaseReservations(this);

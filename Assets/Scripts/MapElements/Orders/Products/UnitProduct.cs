@@ -14,6 +14,8 @@ namespace MechWars.MapElements.Orders.Products
             var prodOp = producer.unitProductionOptions.Find(po => po.unit == unit);
             if (prodOp == null)
                 throw new System.Exception(string.Format("Building {0} cannot produce Unit {1}", producer, Unit));
+            if (!prodOp.CheckRequirements(producer.army))
+                throw new System.Exception(string.Format("Building {0} is not meeting requirements to produce Unit {1}", producer, Unit));
 
             Name = unit.mapElementName;
             Cost = prodOp.cost;

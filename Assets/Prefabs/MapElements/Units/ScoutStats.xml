@@ -1,0 +1,4 @@
+<Stats>
+    <Stat name="Speed" value="5" />
+    <Stat name="Hit points" value="65" max_value="65" />
+</Stats>
