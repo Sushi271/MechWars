@@ -14,6 +14,7 @@ namespace MechWars.InGameGUI
         public Button buttonPrefab;
 
         Building building;
+        bool refreshBuildingGUI;
 
         List<Button> buttons;
 
@@ -28,9 +29,14 @@ namespace MechWars.InGameGUI
             if (hp == null) return;
 
             var selBuilding = hp.SelectionController.SelectedMapElements.FirstOrDefault() as Building;
-            if (selBuilding != building)
+            if (selBuilding != building || refreshBuildingGUI)
             {
+                refreshBuildingGUI = false;
+
+                UnsubscribeEvents(building);
                 building = selBuilding;
+                SubscribeEvents(building);
+
                 foreach (var b in buttons)
                 {
                     b.onClick.RemoveAllListeners();
@@ -42,7 +48,9 @@ namespace MechWars.InGameGUI
                 {
                     var prodOpts = building.unitProductionOptions;
                     var constOpts = building.buildingConstructionOptions;
-                    var count = prodOpts.Count + constOpts.Count;
+                    var devOpts = building.technologyDevelopmentOptions
+                        .Where(tdo => building.army.Technologies.CanDevelop(tdo.technology)).ToList();
+                    var count = prodOpts.Count + constOpts.Count + devOpts.Count;
 
                     float margin = 4;
                     float h = buttonPrefab.GetComponent<RectTransform>().sizeDelta.y;
@@ -63,7 +71,7 @@ namespace MechWars.InGameGUI
                             button.onClick.AddListener(new UnityAction(
                                 () => hp.OrderController.ProductionOrdered(building, prodOpt)));
                         }
-                        else
+                        else if (i < prodOpts.Count + constOpts.Count)
                         {
                             var constOpt = constOpts[i - prodOpts.Count];
                             button.name = string.Format("Button {0}", constOpt.building.mapElementName);
@@ -71,10 +79,17 @@ namespace MechWars.InGameGUI
                             button.onClick.AddListener(new UnityAction(
                                 () => hp.OrderController.ConstructionOrdered(building, constOpt)));
                         }
+                        else
+                        {
+                            var devOpt = devOpts[i - prodOpts.Count - constOpts.Count];
+                            button.name = string.Format("Button {0}", devOpt.technology.technologyName);
+                            text.text = string.Format("Develop {0} ({1} RP)", devOpt.technology.technologyName, devOpt.cost);
+                            button.onClick.AddListener(new UnityAction(() => hp.OrderController.DevelopmentOrdered(building, devOpt)));
+                        }
                         buttons.Add(button);
                     }
 
-                    if (count > 0)
+                    if (count > 0 || (!building.UnderConstruction && building.OrderExecutor.Count > 0))
                     {
                         var button = Instantiate(buttonPrefab);
                         var rectTransform = button.GetComponent<RectTransform>();
@@ -83,8 +98,7 @@ namespace MechWars.InGameGUI
                         var text = button.GetComponent<ButtonScript>().innerText;
                         button.name = "Button Cancel";
                         text.text = "Cancel";
-                        button.onClick.AddListener(new UnityAction(
-                            () => hp.OrderController.CancelOrder(building)));
+                        button.onClick.AddListener(new UnityAction(() => hp.OrderController.CancelOrder(building)));
                         buttons.Add(button);
                     }
                 }
@@ -96,6 +110,29 @@ namespace MechWars.InGameGUI
                     b.interactable = hp.MouseMode == MouseMode.Default;
                 }
             }
+        }
+
+        void SubscribeEvents(Building building)
+        {
+            if (building != null)
+            {
+                building.OnConstructionFinished += InvokeRefreshBuildingGUI;
+                building.army.Technologies.OnTechnologyDevelopmentChanged += InvokeRefreshBuildingGUI;
+            }
+        }
+
+        void UnsubscribeEvents(Building building)
+        {
+            if (building != null)
+            {
+                building.OnConstructionFinished -= InvokeRefreshBuildingGUI;
+                building.army.Technologies.OnTechnologyDevelopmentChanged -= InvokeRefreshBuildingGUI;
+            }
+        }
+
+        void InvokeRefreshBuildingGUI()
+        {
+            refreshBuildingGUI = true;
         }
     }
 }

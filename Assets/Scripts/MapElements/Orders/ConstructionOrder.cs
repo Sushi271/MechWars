@@ -76,7 +76,7 @@ namespace MechWars.MapElements.Orders
 
         void FinalizeConstruction()
         {
-            ConstructedBuilding.ConstructionInfo = null;
+            ConstructedBuilding.FinishConstruction();
             Debug.Log(string.Format("Construction of {0} complete.", ConstructedBuilding));
         }
 

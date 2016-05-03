@@ -1,5 +1,4 @@
-﻿using System;
-using MechWars.MapElements.Orders.Products;
+﻿using MechWars.MapElements.Orders.Products;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
@@ -13,7 +12,7 @@ namespace MechWars.MapElements.Orders
 
         public Building Building { get; private set; }
         public Unit Unit { get; private set; }
-        
+
 
         public UnitProductionOrder(Building orderedBuilding, Unit producedUnit)
             : base("UnitProduction", orderedBuilding)
@@ -38,15 +37,8 @@ namespace MechWars.MapElements.Orders
             Building.additionalResourceValue = productionOrder.Paid;
             if (productionOrder.Stopped)
             {
-                if (productionOrder.Done)
-                {
-                    if (spawning) return Spawn();
-                    else
-                    {
-                        productionOrder.Revert();
-                        return true;
-                    }
-                }
+                if (productionOrder.Done && spawning)
+                    return Spawn();
                 else
                 {
                     productionOrder.Revert();
@@ -59,7 +51,7 @@ namespace MechWars.MapElements.Orders
         protected override void TerminateCore()
         {
             productionOrder.Revert();
-            Building.additionalResourceValue = productionOrder.Paid;
+            Building.additionalResourceValue = 0;
         }
 
         bool Spawn()

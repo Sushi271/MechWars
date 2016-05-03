@@ -234,6 +234,11 @@ namespace MechWars.Human
             }
         }
 
+        public void DevelopmentOrdered(Building orderingBuilding, TechnologyDevelopmentOption developmentOption)
+        {
+            orderingBuilding.GiveOrder(new DevelopmentOrder(orderingBuilding, developmentOption.technology));
+        }
+
         public void CancelOrder(Building building)
         {
             building.CancelCurrentOrder();

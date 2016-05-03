@@ -4,7 +4,7 @@ namespace MechWars.MapElements.Statistics
 {
     // DONT DELETE THIS CLASS
     // ITS IMPORTANT FOR UNITY-EDITOR
-    public class StatsDisplay : MonoBehaviour
+    public class TechnologyControllerDisplay : MonoBehaviour
     {
     }
 }

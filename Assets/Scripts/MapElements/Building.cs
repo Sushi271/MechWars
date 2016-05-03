@@ -13,6 +13,9 @@ namespace MechWars.MapElements
         public bool isResourceDeposit;
         public List<UnitProductionOption> unitProductionOptions;
         public List<BuildingConstructionOption> buildingConstructionOptions;
+        public List<TechnologyDevelopmentOption> technologyDevelopmentOptions;
+
+        public event System.Action OnConstructionFinished;
 
         QueueOrderExecutor orderExecutor;
         public QueueOrderExecutor OrderExecutor
@@ -28,7 +31,7 @@ namespace MechWars.MapElements
         }
 
         public bool UnderConstruction { get { return ConstructionInfo != null; } }
-        public BuildingConstructionInfo ConstructionInfo { get; set; }
+        public BuildingConstructionInfo ConstructionInfo { get; private set; }
 
         HashSet<IVector2> allNeighbourFields;
 
@@ -45,7 +48,7 @@ namespace MechWars.MapElements
             base.OnStart();
             if (isShadow) return;
 
-            InitializeNeighbourFields();            
+            InitializeNeighbourFields();
         }
 
         void InitializeNeighbourFields()
@@ -122,11 +125,8 @@ namespace MechWars.MapElements
             building.Coords = location;
             if (building.AllCoords.Any(c => Globals.FieldReservationMap[c]))
             {
-                // TODO: go back to exception, once the SAFE control is on the level of mouse choosing
-                Debug.Log(string.Format(
-                //throw new System.Exception(string.Format(
-                "Cannot construct Building {0} in location {1} - it's occupied.", building, location));
-                return null;
+                throw new System.Exception(string.Format(
+                    "Cannot construct Building {0} in location {1} - it's occupied.", building, location));
             }
 
             army.resources -= startCost;
@@ -149,6 +149,13 @@ namespace MechWars.MapElements
             hpStat.Value = bci.TotalProgress * hpStat.MaxValue;
 
             return newBuilding;
+        }
+
+        public void FinishConstruction()
+        {
+            ConstructionInfo = null;
+            if (OnConstructionFinished != null)
+                OnConstructionFinished();
         }
 
         public void GiveOrder(IOrder order)
@@ -209,8 +216,8 @@ namespace MechWars.MapElements
             else
             {
                 sb.AppendLine("Default order:");
-                sb.AppendLine(string.Format("    {0}", 
-                    OrderExecutor.DefaultOrder == null ? "---" : 
+                sb.AppendLine(string.Format("    {0}",
+                    OrderExecutor.DefaultOrder == null ? "---" :
                     OrderExecutor.DefaultOrder.ToString()));
                 sb.AppendLine("Order queue:");
                 if (OrderExecutor.Count == 0)

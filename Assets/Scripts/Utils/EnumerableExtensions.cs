@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace MechWars.Utils
 {
@@ -21,6 +20,11 @@ namespace MechWars.Utils
             where TResult : System.IComparable
         {
             return collection.Aggregate((a, b) => selector(a).CompareTo(b) > 0 ? a : b);
+        }
+
+        public static bool None<T>(this IEnumerable<T> collection, System.Func<T, bool> predicate)
+        {
+            return !collection.Any(predicate);
         }
     }
 }
