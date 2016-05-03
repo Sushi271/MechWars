@@ -7,6 +7,7 @@ namespace MechWars.MapElements.Statistics
     {
         Dictionary<string, Stat> attributes;
 
+        public MapElement Owner { get; private set; }
         public int Count { get { return attributes.Count; } }
 
         public Stat this[string name]
@@ -29,9 +30,10 @@ namespace MechWars.MapElements.Statistics
             }
         }
 
-        public Stats()
+        public Stats(MapElement owner)
         {
             attributes = new Dictionary<string, Stat>();
+            Owner = owner;
         }
 
         public Stats(Stats stats)

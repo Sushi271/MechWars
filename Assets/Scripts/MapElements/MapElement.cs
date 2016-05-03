@@ -154,7 +154,7 @@ namespace MechWars.MapElements
 
         public MapElement()
         {
-            Stats = new Stats();
+            Stats = new Stats(this);
             alive = true;
         }
 
@@ -199,7 +199,7 @@ namespace MechWars.MapElements
                 var limited = e.HasAttribute("max_value");
                 float maxValue = 0;
                 if (limited) maxValue = float.Parse(e.GetAttribute("max_value"));
-                Stat attribute = new Stat(name);
+                Stat attribute = new Stat(name, this);
                 attribute.MaxValue = maxValue;
                 attribute.Value = value;
                 attribute.Limited = limited;

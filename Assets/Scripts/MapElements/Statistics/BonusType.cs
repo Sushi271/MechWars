@@ -2,7 +2,7 @@
 {
     public enum BonusType
     {
-        Add,
-        Multiply
+        Multiply = 0,
+        Add = 1
     }
 }

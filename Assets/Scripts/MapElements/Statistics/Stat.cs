@@ -1,13 +1,29 @@
-﻿namespace MechWars.MapElements.Statistics
+﻿using System.Linq;
+
+namespace MechWars.MapElements.Statistics
 {
     public class Stat
     {
-        public string Name { get; set; }
+        public string Name { get; private set; }
+        public MapElement Owner { get; private set; }
 
         float value;
         public float Value
         {
-            get { return value; }
+            get
+            {
+                var val = value;
+                if (limited || Owner.army == null) return value;
+
+                var bonuses =
+                    from b in Owner.army.Technologies.GetBonusesFor(Owner)
+                    where b.statName == Name
+                    orderby b.order, b.type
+                    select b;
+                foreach (var b in bonuses)
+                    val = b.ApplyTo(val);
+                return val;
+            }
             set
             {
                 this.value = value;
@@ -29,7 +45,20 @@
         float maxValue;
         public float MaxValue
         {
-            get { return maxValue; }
+            get
+            {
+                var val = maxValue;
+                if (!limited || Owner.army == null) return value;
+
+                var bonuses =
+                    from b in Owner.army.Technologies.GetBonusesFor(Owner)
+                    where b.statName == Name
+                    orderby b.order, b.type
+                    select b;
+                foreach (var b in bonuses)
+                    val = b.ApplyTo(val);
+                return val;
+            }
             set
             {
                 if (value < 0) maxValue = 0;
@@ -38,16 +67,17 @@
             }
         }
 
-        public Stat(string name)
+        public Stat(string name, MapElement owner)
         {
             Name = name;
+            Owner = owner;
         }
 
         void CorrectValue()
         {
             if (value < 0) value = 0;
             if (!limited) return;
-            if (value > maxValue) value = maxValue;
+            if (value > MaxValue) value = MaxValue;
         }
 
         public override string ToString()
