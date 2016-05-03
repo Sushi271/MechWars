@@ -20,14 +20,21 @@ namespace MechWars.MapElements.Attacks
             var dv = Vector3.up * Time.deltaTime * gravity;
             Velocity += dv;
             var dr = Time.deltaTime * Velocity;
+            var oldPos = transform.position;
             transform.position += dr;
+            
+            var ray = new Ray(oldPos, dr);
+            RaycastHit rcstHit;
+            bool success = Physics.Raycast(ray, out rcstHit, dr.magnitude);
+            if (success)
+                Hit(rcstHit.collider);
 
             currentLifetime += Time.deltaTime;
             if (currentLifetime > lifetime)
                 Destroy(gameObject);
         }
 
-        void OnTriggerEnter(Collider collider)
+        void Hit(Collider collider)
         {
             if (hit) return;
             hit = true;
@@ -36,7 +43,6 @@ namespace MechWars.MapElements.Attacks
             if (mapElement != null && mapElement.army != Army)
             {
                 var hitPoints = mapElement.Stats[StatNames.HitPoints];
-                Debug.Log(Firepower);
                 if (hitPoints != null)
                     hitPoints.Value -= Firepower;
             }
