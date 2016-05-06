@@ -12,7 +12,7 @@ namespace MechWars.MapElements.Production
         public List<Building> buildingRequirements;
         public List<Technology> technologyRequirements;
 
-        public bool CheckRequirements(Army army, bool debug = false)
+        public bool CheckRequirements(Army army)
         {
             var noBuildingRequirements = buildingRequirements.Count == 0;
             var buildingRequirementsMet = buildingRequirements
@@ -22,16 +22,6 @@ namespace MechWars.MapElements.Production
             var noTechnologyRequirements = technologyRequirements.Count == 0;
             var technologyRequirementsMet = army != null && technologyRequirements
                 .All(t => army.Technologies.DevelopedTechnologies.Any(t2 => t2.IsTheSameAs(t)));
-
-            var upo = this as UnitProductionOption;
-            if (upo != null && debug && upo.unit.mapElementName == "Harvester")
-            {
-                Debug.Log(noBuildingRequirements);
-                Debug.Log(buildingRequirementsMet);
-                Debug.Log(noTechnologyRequirements);
-                Debug.Log(technologyRequirementsMet);
-                Debug.Log("-----------");
-            }
 
             return
                 (noBuildingRequirements || buildingRequirementsMet) &&

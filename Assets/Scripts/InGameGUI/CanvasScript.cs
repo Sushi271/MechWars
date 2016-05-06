@@ -48,7 +48,7 @@ namespace MechWars.InGameGUI
                 if (building != null && !building.UnderConstruction)
                 {
                     var prodOpts = building.unitProductionOptions
-                        .Where(po => po.CheckRequirements(building.army, true)).ToList();
+                        .Where(po => po.CheckRequirements(building.army)).ToList();
                     var constOpts = building.buildingConstructionOptions
                         .Where(bo => bo.CheckRequirements(building.army)).ToList();
                     var devOpts = building.technologyDevelopmentOptions

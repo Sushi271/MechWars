@@ -46,13 +46,6 @@ namespace MechWars.MapElements
             }
         }
 
-        bool inSelectionBox;
-        public bool InSelectionBox
-        {
-            get { return inSelectionBox; }
-            set { if (alive) inSelectionBox = value; }
-        }
-
         bool hovered;
         public bool Hovered
         {
@@ -152,7 +145,7 @@ namespace MechWars.MapElements
             }
         }
 
-        bool ShouldDrawStatusDisplay { get { return Hovered || Selected || InSelectionBox; } }
+        bool ShouldDrawStatusDisplay { get { return Hovered || Selected; } }
 
         protected virtual bool CanAddToArmy { get { return false; } }
 
@@ -323,7 +316,7 @@ namespace MechWars.MapElements
 
         protected virtual void OnLifeEnd()
         {
-            selected = hovered = inSelectionBox = false;
+            selected = hovered = false;
 
             if (army != null && CanAddToArmy)
                 army.RemoveMapElement(this);
@@ -422,9 +415,6 @@ namespace MechWars.MapElements
             var size = statusDisplay.Size;
             var distance = 0.5f;
 
-            if (InSelectionBox)
-                Globals.GLRenderer.Schedule(new RectangleRenderTask(Color.black, location, size));
-
             if (Globals.Instance.debugStatusDisplays)
             {
                 Vector2 v00 = location;
@@ -439,7 +429,7 @@ namespace MechWars.MapElements
                 Vector2 r = Vector2.right * size.x * lineLength;
                 Vector2 l = Vector2.left * size.x * lineLength;
 
-                if (!InSelectionBox && (Hovered || Selected))
+                if (Hovered || Selected)
                 {
                     Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v00, v00 + r, distance));
                     Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v00, v00 + u, distance));
