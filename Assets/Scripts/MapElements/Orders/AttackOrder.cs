@@ -1,5 +1,7 @@
 ﻿using MechWars.MapElements.Attacks;
+using MechWars.MapElements.Jobs;
 using MechWars.MapElements.Statistics;
+using MechWars.Utils;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
@@ -61,11 +63,21 @@ namespace MechWars.MapElements.Orders
 
         void MakeAttack(Vector2 coords)
         {
-            cooldown -= Time.deltaTime;
+            if (!MapElement.JobQueue.Empty) return;
 
-            if (cooldown <= 0)
+            if (attack != null)
             {
-                if (attack == null && Target.Alive && !Stopping && !Stopped)
+                attack.ExecuteStep();
+                if (attack.Finished)
+                {
+                    attack = null;
+                    AttackingInProgress = false;
+                }
+            }
+            else if (Target.Alive && !Stopping && !Stopped)
+            {
+                cooldown -= Time.deltaTime;
+                if (cooldown <= 0)
                 {
                     var attackSpeedStat = MapElement.Stats[StatNames.AttackSpeed];
                     float attackSpeed = 1;
@@ -78,28 +90,11 @@ namespace MechWars.MapElements.Orders
                     if (attack != null)
                     {
                         attack.Initialize(MapElement, Target);
+                        var direction = coords - MapElement.Coords;
+                        var angle = -UnityExtensions.AngleFromTo(Vector2.up, direction);
+                        MapElement.JobQueue.Add(new RotateJob(MapElement, angle));
                         AttackingInProgress = true;
                     }
-                }
-                else
-                {
-                    attack = null;
-                    AttackingInProgress = false;
-                    throw new System.Exception(string.Format("Attack.ExecuteStep is taking too long " +
-                        "(time exceeds MapElement's [ {0} ] 'Attack speed' attribute value).", MapElement));
-                }
-            }
-            if (attack != null)
-            {
-                var direction = (coords - MapElement.Coords).normalized;
-                var direction3 = new Vector3(direction.x, 0, direction.y);
-                MapElement.transform.localRotation = Quaternion.LookRotation(direction3);
-
-                attack.ExecuteStep();
-                if (attack.Finished)
-                {
-                    attack = null;
-                    AttackingInProgress = false;
                 }
             }
         }
