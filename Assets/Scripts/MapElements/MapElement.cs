@@ -134,6 +134,17 @@ namespace MechWars.MapElements
             }
         }
 
+        public float Rotation
+        {
+            get { return transform.rotation.eulerAngles.y; }
+            set
+            {
+                var ea = transform.rotation.eulerAngles;
+                ea.y = value;
+                transform.rotation = Quaternion.Euler(ea);
+            }
+        }
+
         public MapElementShape Shape { get { return Globals.ShapeDatabase[this]; } }
 
         public virtual float? LifeValue

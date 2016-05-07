@@ -19,7 +19,7 @@
             OnUpdate();
         }
 
-        public abstract void OnUpdate();
+        protected abstract void OnUpdate();
 
         protected void SetDone()
         {

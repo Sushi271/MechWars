@@ -1,4 +1,5 @@
-﻿using MechWars.MapElements.Statistics;
+﻿using MechWars.MapElements.Jobs;
+using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace MechWars.MapElements.Orders
         AttackOrder attack;
         MapElement autoAttackTarget;
         bool targetLost;
-        
+
         public IdleOrder(Unit orderedUnit)
             : base("Idle", orderedUnit)
         {
@@ -98,45 +99,21 @@ namespace MechWars.MapElements.Orders
         float nextRotationTime = -1;
         float timeToRotation = 0;
 
-        bool rotating;
-        float fullRotationDuration = 0.5f;
-        float rotationDuration;
-        float toRotate;
-        float rotationProgress;
-        float startRotation;
-
         void CasualIdleBehaviour()
         {
-            if (MapElement.canRotate)
+            if (MapElement.canRotate &&
+                MapElement.JobQueue.Empty)
             {
-                if (!rotating)
+                if (nextRotationTime == -1)
+                    nextRotationTime = Random.Range(minRotationTime, maxRotationTime);
+                timeToRotation += Time.deltaTime;
+                if (timeToRotation > nextRotationTime)
                 {
-                    if (nextRotationTime == -1)
-                        nextRotationTime = Random.Range(minRotationTime, maxRotationTime);
-                    timeToRotation += Time.deltaTime;
-                    if (timeToRotation > nextRotationTime)
-                    {
-                        timeToRotation -= nextRotationTime;
-                        nextRotationTime = -1;
-                        toRotate = Random.Range(-180, 180);
-                        rotationDuration = fullRotationDuration * Mathf.Abs(toRotate) / 360;
-                        startRotation = MapElement.transform.rotation.eulerAngles.y;
-                        rotating = true;
-                        rotationProgress = 0;
-                    }
-                }
-                else
-                {
-
-                    var dProgress = Time.deltaTime / rotationDuration;
-                    rotationProgress += dProgress;
-                    if (rotationProgress > 1)
-                    {
-                        rotating = false;
-                        rotationProgress = 1;
-                    }
-                    var rotation = startRotation + rotationProgress * toRotate;
-                    MapElement.transform.localRotation = Quaternion.Euler(0, rotation, 0);
+                    timeToRotation -= nextRotationTime;
+                    nextRotationTime = -1;
+                    var angleToRotate = Random.Range(-180, 180);
+                    var targetRotation = MapElement.Rotation + angleToRotate;
+                    MapElement.JobQueue.Add(new RotateJob(MapElement, targetRotation));
                 }
             }
         }

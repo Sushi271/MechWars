@@ -1,4 +1,5 @@
-﻿using MechWars.Pathfinding;
+﻿using MechWars.MapElements.Jobs;
+using MechWars.Pathfinding;
 using MechWars.Utils;
 using UnityEngine;
 
@@ -101,15 +102,15 @@ namespace MechWars.MapElements.Orders
 
                 frm.MakeReservation(Unit, vec);
                 frm.ReleaseReservation(Unit, Unit.Coords.Round());
+                
+                var delta = vec - Unit.Coords.Round();
+                var angle = -UnityExtensions.AngleFromTo(Vector2.up, delta);                
 
-                var direction = (vec - Unit.Coords).normalized;
-                var direction3 = new Vector3(direction.x, 0, direction.y);
-                Unit.transform.localRotation = Quaternion.LookRotation(direction3);
+                Unit.JobQueue.Add(new RotateJob(Unit, angle));
+                Unit.JobQueue.Add(new MoveJob(Unit, delta));
             }
-            
-            bool finished;
-            Unit.MoveStepTo(coords.X, coords.Y, out finished);
-            return finished;
+
+            return Unit.JobQueue.Empty;
         }
 
         public override string ToString()

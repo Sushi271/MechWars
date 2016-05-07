@@ -27,30 +27,6 @@ namespace MechWars.MapElements
             OrderExecutor.Update();
         }
 
-        public void MoveStepTo(int x, int y, out bool finished)
-        {
-            float dx = x - X;
-            float dy = y - Y;
-            float dist = Mathf.Sqrt(dx * dx + dy * dy);
-            var speed = Stats[StatNames.Speed];
-            if (speed == null)
-                throw new System.Exception(string.Format("Missing {0} Stat in Unit's Stats! (Unit {1})",
-                    StatNames.Speed, this));
-            float deltaDist = speed.Value * Time.deltaTime;
-
-            if (deltaDist >= dist)
-            {
-                X = x;
-                Y = y;
-                finished = true;
-                return;
-            }
-
-            var dPos = new Vector3(dx, 0, dy).normalized * deltaDist;
-            transform.position += dPos;
-            finished = false;
-        }
-
         public void GiveOrder(IOrder order)
         {
             if (order is Order<Unit> || order is Order<MapElement>)

@@ -27,8 +27,16 @@ namespace MechWars.Utils
 
         public static Vector2 AsHorizontalVector2(this Vector3 v) { return new Vector2(v.x, v.z); }
         public static Vector3 AsHorizontalVector3(this Vector2 v) { return new Vector3(v.x, 0, v.y); }
+        public static Vector3 AsHorizontalVector3(this IVector2 v) { return new Vector3(v.X, 0, v.Y); }
 
         public static IVector2 Sign(this IVector2 v) { return new IVector2(System.Math.Sign(v.X), System.Math.Sign(v.Y)); }
+
+        public static float AngleFromTo(Vector2 from, Vector2 to)
+        {
+            var angleValue = Vector2.Angle(from, to);
+            var angleSign = Mathf.Sign(from.x * to.y - from.y * to.x);
+            return angleValue * angleSign;
+        }
 
         public static bool IntersectsStrictly(this Bounds thisBounds, Bounds other)
         {

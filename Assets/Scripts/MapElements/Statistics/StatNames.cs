@@ -2,7 +2,8 @@
 {
     public static class StatNames
     {
-        public static string Speed = "Speed";
+        public static string MovementSpeed = "Movement speed";
+        public static string RotationSpeed = "Rotation speed";
         public static string HitPoints = "Hit points";
         public static string Firepower = "Firepower";
         public static string AttackSpeed = "Attack speed";

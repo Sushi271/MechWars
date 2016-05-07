@@ -1,5 +1,6 @@
 <Stats>
     <Stat name="Hit points" value="200" max_value="200" />
+    <Stat name="Rotation speed" value="2" />
     <Stat name="Firepower" value="20" />
     <Stat name="Attack speed" value="0.666" />
     <Stat name="Range" value="7" />

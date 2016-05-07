@@ -10,20 +10,20 @@ namespace MechWars.MapElements.Jobs
         public IVector2 Delta { get; private set; }
         public IVector2 Destination { get; private set; }
 
-        public MoveJob(Unit unit, IVector2 direction)
+        public MoveJob(Unit unit, IVector2 delta)
             : base(unit)
         {
             Unit = unit;
-            Delta = direction.Sign();
+            Delta = delta.Sign();
             Destination = unit.Coords.Round() + Delta;
         }
 
-        public override void OnUpdate()
+        protected override void OnUpdate()
         {
-            var speed = Unit.Stats[StatNames.Speed];
+            var speed = Unit.Stats[StatNames.MovementSpeed];
             if (speed == null)
                 throw new System.Exception(string.Format("Missing {0} Stat in Unit's Stats! (Unit {1})",
-                    StatNames.Speed, Unit));
+                    StatNames.MovementSpeed, Unit));
 
             var toDest = Destination - Unit.Coords;
             float dDist = speed.Value * Time.deltaTime;

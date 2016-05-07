@@ -1,4 +1,5 @@
 <Stats>
-    <Stat name="Speed" value="5" />
+    <Stat name="Movement speed" value="5" />
+    <Stat name="Rotation speed" value="4" />
     <Stat name="Hit points" value="65" max_value="65" />
 </Stats>
