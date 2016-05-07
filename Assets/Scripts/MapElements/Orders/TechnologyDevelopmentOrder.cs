@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class DevelopmentOrder : Order<Building>
+    public class TechnologyDevelopmentOrder : Order<Building>
     {
         ProductionOrder productionOrder;
 
         public Building Building { get; private set; }
         public Technology Technology { get; private set; }
        
-        public DevelopmentOrder(Building orderedBuilding, Technology developedTechnology)
+        public TechnologyDevelopmentOrder(Building orderedBuilding, Technology developedTechnology)
             : base("Development", orderedBuilding)
         {
             Building = orderedBuilding;

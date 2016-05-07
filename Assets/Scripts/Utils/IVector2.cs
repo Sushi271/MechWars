@@ -11,6 +11,7 @@ namespace MechWars.Utils
         public int Y { get; private set; }
 
         public float Length { get { return Mathf.Sqrt(X * X + Y * Y); } }
+        public Vector2 Normalized { get { return this / Length; } }
 
         public IVector2(int x, int y)
             : this()

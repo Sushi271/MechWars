@@ -186,7 +186,6 @@ namespace MechWars.Human
                 if (!newHoveredMapElements.Contains(me))
                 {
                     me.Hovered = false;
-                    me.InSelectionBox = false;
                 }
             }
             HoveredMapElements.RemoveWhere(me => !me.Hovered);
@@ -195,7 +194,6 @@ namespace MechWars.Human
                 if (!HoveredMapElements.Contains(me))
                 {
                     me.Hovered = true;
-                    if (multiSelection) me.InSelectionBox = true;
                     HoveredMapElements.Add(me);
                 }
             }

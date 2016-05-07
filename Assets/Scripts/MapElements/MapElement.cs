@@ -1,4 +1,5 @@
 ﻿using MechWars.GLRendering;
+using MechWars.MapElements.Jobs;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ namespace MechWars.MapElements
         public bool isShadow;
 
         bool reservationInitialized;
+
+        public JobQueue JobQueue { get; private set; }
 
         public Stats Stats { get; private set; }
         bool statsRead;
@@ -133,6 +136,18 @@ namespace MechWars.MapElements
 
         public MapElementShape Shape { get { return Globals.ShapeDatabase[this]; } }
 
+        public virtual float? LifeValue
+        {
+            get
+            {
+                var hp = Stats[StatNames.HitPoints];
+                if (hp != null) return hp.Value;
+                else return null;
+            }
+        }
+
+        public bool Dying { get; private set; }
+
         bool alive;
         public bool Alive
         {
@@ -151,6 +166,7 @@ namespace MechWars.MapElements
 
         public MapElement()
         {
+            JobQueue = new JobQueue(this);
             Stats = new Stats(this);
             alive = true;
         }
@@ -172,11 +188,12 @@ namespace MechWars.MapElements
 
             ReadStats();
 
+            UpdateDying();
             UpdateAlive();
 
             InitializeReservation();
         }
-        
+
         public void ReadStats(bool force = false)
         {
             if (statsFile == null) return;
@@ -301,17 +318,24 @@ namespace MechWars.MapElements
                 lastArmy = army;
             }
 
+            UpdateDying();
+            JobQueue.Update();
             UpdateAlive();
+        }
+
+        protected void UpdateDying()
+        {
+            if (!Dying && LifeValue == 0)
+            {
+                JobQueue.Clear();
+                Dying = true;
+            }
         }
 
         protected virtual void UpdateAlive()
         {
-            if (Alive)
-            {
-                var hitPoints = Stats[StatNames.HitPoints];
-                if (hitPoints != null && hitPoints.Value <= 0)
-                    Alive = false;
-            }
+            if (!Dying || !Alive) return;
+            Alive = !JobQueue.Empty;
         }
 
         protected virtual void OnLifeEnd()
@@ -389,6 +413,11 @@ namespace MechWars.MapElements
         void OnDestroy()
         {
             suspendDestroy = true;
+            if (!Dying)
+            {
+                JobQueue.TotalClear();
+                Dying = true;
+            }
             if (Alive) Alive = false;
             suspendDestroy = false;
         }

@@ -10,6 +10,7 @@ namespace MechWars.MapElements
         int startValue;
 
         public float Size { get { return 1.0f * value / startValue; } }
+        public override float? LifeValue { get { return value; } }
 
         public Resource()
         {
@@ -33,11 +34,6 @@ namespace MechWars.MapElements
 
             var scale = Mathf.Pow(Size, 1 / 3f);
             transform.localScale = new Vector3(scale, scale, scale);
-        }
-
-        protected override void UpdateAlive()
-        {
-            if (Alive && value == 0) Alive = false;
         }
 
         public override StringBuilder TEMP_PrintStatus()

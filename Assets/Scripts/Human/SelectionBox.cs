@@ -25,8 +25,7 @@ namespace MechWars.Human
         {
             Globals.GLRenderer.Schedule(new RectangleRenderTask(Color.black, Position, Size));
         }
-
-
+        
         public void Update()
         {
             Size = (Vector2)Input.mousePosition - Position;

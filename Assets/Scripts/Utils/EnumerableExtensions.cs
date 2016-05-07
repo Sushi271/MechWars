@@ -26,5 +26,19 @@ namespace MechWars.Utils
         {
             return !collection.Any(predicate);
         }
+
+        public static void RemoveFirst<T>(this IList<T> list)
+        {
+            list.RemoveAt(0);
+        }
+
+        public static void RemoveFirst<T>(this IList<T> list, System.Func<T, bool> predicate)
+        {
+            int i = 0;
+            for (i = 0; i < list.Count; i++)
+                if (predicate(list[i]))
+                    break;
+            list.RemoveAt(i);
+        }
     }
 }

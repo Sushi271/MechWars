@@ -187,7 +187,7 @@ namespace MechWars.Human
                 else if (CheckResources(constOpt))
                 {
                     var buildingToConst = constructingBuilding.Construct(constOpt, p);
-                    constructingBuilding.GiveOrder(new ConstructionOrder(constructingBuilding, buildingToConst));
+                    constructingBuilding.GiveOrder(new BuildingConstructionOrder(constructingBuilding, buildingToConst));
                     QuitBuildingLocationMode();
                 }
             }
@@ -237,7 +237,7 @@ namespace MechWars.Human
 
         public void DevelopmentOrdered(Building orderingBuilding, TechnologyDevelopmentOption developmentOption)
         {
-            orderingBuilding.GiveOrder(new DevelopmentOrder(orderingBuilding, developmentOption.technology));
+            orderingBuilding.GiveOrder(new TechnologyDevelopmentOrder(orderingBuilding, developmentOption.technology));
         }
 
         public void CancelOrder(Building building)

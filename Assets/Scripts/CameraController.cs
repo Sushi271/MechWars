@@ -6,7 +6,7 @@ namespace MechWars
     {
         public GameObject handle;
 
-        public int scrollMargin = 15;
+        public int scrollMargin = 10;
         public float scrollSpeed = 10;
         public bool scrollingEnabled = true;
 
