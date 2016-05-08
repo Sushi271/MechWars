@@ -6,6 +6,8 @@
         public bool Started { get; private set; }
         public bool Done { get; private set; }
 
+        public event System.Action OnJobDone;
+
         public Job(MapElement mapElement)
         {
             MapElement = mapElement;
@@ -23,7 +25,12 @@
 
         protected void SetDone()
         {
-            Done = true;
+            if (!Done)
+            {
+                Done = true;
+                if (OnJobDone != null)
+                    OnJobDone();
+            }
         }
     }
 }

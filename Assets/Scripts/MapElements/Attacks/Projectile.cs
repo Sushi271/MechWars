@@ -5,44 +5,33 @@ namespace MechWars.MapElements.Attacks
 {
     public class Projectile : MonoBehaviour
     {
-        public float gravity;
-        public float lifetime;
-
         bool hit;
         float currentLifetime;
         
-        public Army Army { get; set; }
+        public MapElement Target { get; set; }
         public Vector3 Velocity { get; set; }
         public float Firepower { get; set; }
+        public float Lifetime { get; set; }
 
         void Update()
         {
-            var dv = Vector3.up * Time.deltaTime * gravity;
-            Velocity += dv;
             var dr = Time.deltaTime * Velocity;
             var oldPos = transform.position;
             transform.position += dr;
-            
-            var ray = new Ray(oldPos, dr);
-            RaycastHit rcstHit;
-            bool success = Physics.Raycast(ray, out rcstHit, dr.magnitude);
-            if (success)
-                Hit(rcstHit.collider);
 
             currentLifetime += Time.deltaTime;
-            if (currentLifetime > lifetime)
-                Destroy(gameObject);
+            if (currentLifetime > Lifetime)
+                Hit();
         }
 
-        void Hit(Collider collider)
+        void Hit()
         {
             if (hit) return;
             hit = true;
 
-            var mapElement = collider.gameObject.GetComponentInParent<MapElement>();
-            if (mapElement != null && mapElement.army != Army)
+            if (Target.Alive)
             {
-                var hitPoints = mapElement.Stats[StatNames.HitPoints];
+                var hitPoints = Target.Stats[StatNames.HitPoints];
                 if (hitPoints != null)
                     hitPoints.Value -= Firepower;
             }

@@ -1,24 +1,20 @@
-﻿using UnityEngine;
+﻿using MechWars.Utils;
+using UnityEngine;
 
 namespace MechWars.MapElements.Attacks
 {
     public class Attack : MonoBehaviour
     {
-        public MapElement Attacker { get; private set; }
-        public MapElement Target { get; private set; }
+        public float animationDuration;
+        public float animationExecuteTime;
 
-        public bool Finished { get; protected set; }
-
-        public void Initialize(MapElement attacker, MapElement target)
+        public virtual Vector2 GetDirection(MapElement attacker, MapElement target, Vector2 aim)
         {
-            Finished = false;
-            Attacker = attacker;
-            Target = target;
+            return aim - attacker.Coords;
         }
 
-        public virtual void ExecuteStep()
+        public virtual void Execute(MapElement attacker, MapElement target, Vector2 aim)
         {
-            Finished = true;
         }
     }
 }

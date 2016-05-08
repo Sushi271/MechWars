@@ -248,33 +248,36 @@ namespace MechWars.MapElements
 
         public bool MapElementInRange(MapElement other)
         {
-            Vector2 coords;
-            return MapElementInRange(other, out coords);
+            var position = other.GetClosestFieldTo(Coords);
+            return PositionInRange(position);
         }
 
-        public bool MapElementInRange(MapElement other, out Vector2 outCoords)
+        public Vector2 GetClosestFieldTo(Vector2 position)
         {
-            outCoords = Vector2.zero;
+            float drLen = Mathf.Infinity;
+            Vector2? target = null;
+            foreach (var c in AllCoords)
+            {
+                var dr = position - c;
+                var len = dr.magnitude;
+                if (len < drLen)
+                    drLen = len;
+                target = c;
+            }
+            if (target == null)
+                throw new System.Exception(string.Format(
+                    "Cannot get closest aim target - AllCoords returns empty list ({0}).", this));
+            return target.Value;
+        }
 
+        public bool PositionInRange(Vector2 position)
+        {
             var range = Stats[StatNames.Range];
             if (range == null) return false;
 
-            float minDist = Mathf.Infinity;
-            bool inRange = false;
-
-            foreach (var c in other.AllCoords)
-            {
-                var dr = c - Coords;
-                if ((Mathf.Abs(dr.x) <= 1 && Mathf.Abs(dr.y) <= 1 ||
-                    dr.magnitude <= range.Value) && dr.magnitude < minDist)
-                {
-                    inRange = true;
-                    minDist = dr.magnitude;
-                    outCoords = c;
-                }
-            }
-
-            return inRange;
+            var dr = position - Coords;
+            return Mathf.Abs(dr.x) <= 1 && Mathf.Abs(dr.y) <= 1 ||
+                dr.magnitude <= range.Value;
         }
 
         public MapElement AcquireTarget()
