@@ -90,8 +90,7 @@ namespace MechWars.MapElements.Orders
                 MapElement.JobQueue.Add(attackJob);
             }
         }
-
-
+        
         private void RotateJob_OnJobDone()
         {
             bool cancel = !Target.Alive;
