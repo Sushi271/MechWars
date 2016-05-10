@@ -44,5 +44,18 @@
         protected virtual void OnStopCalled()
         {
         }
+
+        protected virtual string SpecificsToString()
+        {
+            return string.Empty;
+        }
+
+        public override string ToString()
+        {
+            var specifics = SpecificsToString();
+            return string.Format("{0}{1}", Name, 
+                specifics != string.Empty ?
+                " [ {1} ]" : string.Empty);
+        }
     }
 }

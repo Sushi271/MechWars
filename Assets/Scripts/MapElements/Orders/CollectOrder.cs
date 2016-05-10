@@ -82,10 +82,10 @@ namespace MechWars.MapElements.Orders
             }
             return finished;
         }
-        
-        public override string ToString()
+
+        protected override string SpecificsToString()
         {
-            return string.Format("Collect [ {0} ]", Resource);
+            return string.Format("{0}", Resource);
         }
     }
 }

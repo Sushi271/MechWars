@@ -87,9 +87,9 @@ namespace MechWars.MapElements.Orders
             productionOrder.Stop();
         }
 
-        public override string ToString()
+        protected override string SpecificsToString()
         {
-            return string.Format("Construction [ {0} ]", ConstructedBuilding);
+            return string.Format("{0}", ConstructedBuilding);
         }
     }
 }

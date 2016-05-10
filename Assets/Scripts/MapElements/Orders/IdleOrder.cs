@@ -117,10 +117,5 @@ namespace MechWars.MapElements.Orders
                 }
             }
         }
-
-        public override string ToString()
-        {
-            return string.Format("Idle");
-        }
     }
 }

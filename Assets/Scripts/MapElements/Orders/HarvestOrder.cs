@@ -242,9 +242,10 @@ namespace MechWars.MapElements.Orders
             if (deposit != null) deposit.Stop();
         }
 
-        public override string ToString()
+
+        protected override string SpecificsToString()
         {
-            return string.Format("Harvest [ {0} ]",
+            return string.Format("{0}", 
                 mode == HarvestMode.Collect ?
                 (MapElement)Resource : Refinery);
         }

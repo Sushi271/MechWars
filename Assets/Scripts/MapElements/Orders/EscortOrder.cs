@@ -99,9 +99,9 @@ namespace MechWars.MapElements.Orders
                 move.Destination = Target.Coords.Round();
         }
 
-        public override string ToString()
+        protected override string SpecificsToString()
         {
-            return string.Format("Escort [ {0} ]", Target);
+            return string.Format("{0}", Target);
         }
     }
 }

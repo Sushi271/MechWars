@@ -82,9 +82,9 @@ namespace MechWars.MapElements.Orders
             return finished;
         }
 
-        public override string ToString()
+        protected override string SpecificsToString()
         {
-            return string.Format("Deposit [ {0} ]", Refinery);
+            return string.Format("{0}", Refinery);
         }
     }
 }

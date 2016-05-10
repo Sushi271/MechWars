@@ -78,9 +78,10 @@ namespace MechWars.MapElements.Orders
                 attack.Stop();
         }
 
-        public override string ToString()
+
+        protected override string SpecificsToString()
         {
-            return string.Format("AttackMove [ {0} ]", Destination);
+            return string.Format("{0}", Destination);
         }
     }
 }

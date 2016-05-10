@@ -80,9 +80,9 @@ namespace MechWars.MapElements.Orders
             productionOrder.Stop();
         }
 
-        public override string ToString()
+        protected override string SpecificsToString()
         {
-            return string.Format("UnitProduction [ {0} ]", Unit);
+            return string.Format("{0}", Unit);
         }
     }
 }

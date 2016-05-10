@@ -105,9 +105,9 @@ namespace MechWars.MapElements.Orders
             Revert();
         }
 
-        public override string ToString()
+        protected override string SpecificsToString()
         {
-            return string.Format("Production [ {0} ]", Product);
+            return string.Format("{0}", Product);
         }
     }
 }

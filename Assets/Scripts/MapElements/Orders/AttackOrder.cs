@@ -133,9 +133,9 @@ namespace MechWars.MapElements.Orders
             return attacks[idx];
         }
 
-        public override string ToString()
+        protected override string SpecificsToString()
         {
-            return string.Format("Attack [ {0} ]", Target);
+            return string.Format("{0}", Target);
         }
     }
 }

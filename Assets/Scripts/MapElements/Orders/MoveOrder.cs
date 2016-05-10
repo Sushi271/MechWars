@@ -113,9 +113,9 @@ namespace MechWars.MapElements.Orders
             return Unit.JobQueue.Empty;
         }
 
-        public override string ToString()
+        protected override string SpecificsToString()
         {
-            return string.Format("Move [ {0}, {1} ]", Destination.X, Destination.Y);
+            return string.Format("{0}, {1}", Destination.X, Destination.Y);
         }
     }
 }
