@@ -4,8 +4,8 @@ namespace MechWars.MapElements.Orders
 {
     public class StopOrder : Order<MapElement>
     {
-        public StopOrder(MapElement orderedUnit)
-            : base("Stop", orderedUnit)
+        public StopOrder(MapElement orderedMapElement)
+            : base("Stop", orderedMapElement)
         {
         }
 

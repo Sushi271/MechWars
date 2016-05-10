@@ -1,5 +1,6 @@
 ﻿using MechWars.GLRendering;
 using MechWars.MapElements.Jobs;
+using MechWars.MapElements.OrderActions;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -30,6 +31,8 @@ namespace MechWars.MapElements
         public int resourceValue;
         public int additionalResourceValue;
         public bool generateResourcesOnDeath = true;
+
+        public List<OrderAction> orderActions;
 
         public bool isShadow;
 
