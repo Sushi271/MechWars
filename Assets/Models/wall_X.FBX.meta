@@ -31,6 +31,10 @@ ModelImporter:
     4300002: Box015
     4300004: wall_base002
     4300006: Box016
+    6400000: Box015
+    6400002: Box016
+    6400004: wall_base001
+    6400006: wall_base002
   materials:
     importMaterials: 1
     materialName: 0
@@ -57,7 +61,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
