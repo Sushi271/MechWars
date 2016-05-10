@@ -3,7 +3,7 @@ guid: 0ef1e2e571a10c647add85a8022c8694
 timeCreated: 1459469867
 licenseType: Free
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: Box009
     100002: Box010
@@ -82,6 +82,62 @@ ModelImporter:
     100148: Cylinder090
     100150: Cylinder091
     100152: //RootNode
+    100154: Box017
+    100156: Box018
+    100158: Box019
+    100160: Box020
+    100162: Box021
+    100164: Box022
+    100166: Cylinder092
+    100168: Cylinder093
+    100170: Cylinder094
+    100172: Cylinder095
+    100174: Cylinder096
+    100176: Cylinder097
+    100178: Cylinder098
+    100180: Cylinder099
+    100182: Cylinder100
+    100184: Cylinder101
+    100186: Cylinder102
+    100188: Cylinder103
+    100190: Cylinder104
+    100192: Cylinder105
+    100194: Cylinder106
+    100196: Cylinder107
+    100198: Cylinder108
+    100200: Cylinder109
+    100202: Cylinder110
+    100204: Cylinder111
+    100206: Cylinder112
+    100208: Cylinder113
+    100210: Cylinder114
+    100212: Cylinder115
+    100214: Cylinder116
+    100216: Cylinder117
+    100218: Cylinder118
+    100220: Cylinder119
+    100222: Cylinder120
+    100224: Cylinder121
+    100226: Cylinder122
+    100228: Cylinder123
+    100230: Cylinder124
+    100232: Cylinder125
+    100234: Cylinder126
+    100236: Cylinder127
+    100238: Cylinder128
+    100240: Cylinder129
+    100242: Cylinder130
+    100244: Cylinder131
+    100246: Cylinder132
+    100248: Cylinder133
+    100250: harvester_leg
+    100252: harvester_leg001
+    100254: harvester_leg002
+    100256: harvester_leg003
+    100258: pilars
+    100260: pilars 1
+    100262: pilars 2
+    100264: pilars 3
     400000: Box009
     400002: Box010
     400004: Box011
@@ -159,6 +215,62 @@ ModelImporter:
     400148: Cylinder090
     400150: Cylinder091
     400152: //RootNode
+    400154: Box017
+    400156: Box018
+    400158: Box019
+    400160: Box020
+    400162: Box021
+    400164: Box022
+    400166: Cylinder092
+    400168: Cylinder093
+    400170: Cylinder094
+    400172: Cylinder095
+    400174: Cylinder096
+    400176: Cylinder097
+    400178: Cylinder098
+    400180: Cylinder099
+    400182: Cylinder100
+    400184: Cylinder101
+    400186: Cylinder102
+    400188: Cylinder103
+    400190: Cylinder104
+    400192: Cylinder105
+    400194: Cylinder106
+    400196: Cylinder107
+    400198: Cylinder108
+    400200: Cylinder109
+    400202: Cylinder110
+    400204: Cylinder111
+    400206: Cylinder112
+    400208: Cylinder113
+    400210: Cylinder114
+    400212: Cylinder115
+    400214: Cylinder116
+    400216: Cylinder117
+    400218: Cylinder118
+    400220: Cylinder119
+    400222: Cylinder120
+    400224: Cylinder121
+    400226: Cylinder122
+    400228: Cylinder123
+    400230: Cylinder124
+    400232: Cylinder125
+    400234: Cylinder126
+    400236: Cylinder127
+    400238: Cylinder128
+    400240: Cylinder129
+    400242: Cylinder130
+    400244: Cylinder131
+    400246: Cylinder132
+    400248: Cylinder133
+    400250: harvester_leg
+    400252: harvester_leg001
+    400254: harvester_leg002
+    400256: harvester_leg003
+    400258: pilars
+    400260: pilars 1
+    400262: pilars 2
+    400264: pilars 3
     2300000: Box009
     2300002: Box010
     2300004: Box011
@@ -235,6 +347,54 @@ ModelImporter:
     2300146: Cylinder089
     2300148: Cylinder090
     2300150: Cylinder091
+    2300152: Box017
+    2300154: Box018
+    2300156: Box019
+    2300158: Box020
+    2300160: Box021
+    2300162: Box022
+    2300164: Cylinder092
+    2300166: Cylinder093
+    2300168: Cylinder094
+    2300170: Cylinder095
+    2300172: Cylinder096
+    2300174: Cylinder097
+    2300176: Cylinder098
+    2300178: Cylinder099
+    2300180: Cylinder100
+    2300182: Cylinder101
+    2300184: Cylinder102
+    2300186: Cylinder103
+    2300188: Cylinder104
+    2300190: Cylinder105
+    2300192: Cylinder106
+    2300194: Cylinder107
+    2300196: Cylinder108
+    2300198: Cylinder109
+    2300200: Cylinder110
+    2300202: Cylinder111
+    2300204: Cylinder112
+    2300206: Cylinder113
+    2300208: Cylinder114
+    2300210: Cylinder115
+    2300212: Cylinder116
+    2300214: Cylinder117
+    2300216: Cylinder118
+    2300218: Cylinder119
+    2300220: Cylinder120
+    2300222: Cylinder121
+    2300224: Cylinder122
+    2300226: Cylinder123
+    2300228: Cylinder124
+    2300230: Cylinder125
+    2300232: Cylinder126
+    2300234: Cylinder127
+    2300236: Cylinder128
+    2300238: Cylinder129
+    2300240: Cylinder130
+    2300242: Cylinder131
+    2300244: Cylinder132
+    2300246: Cylinder133
     3300000: Box009
     3300002: Box010
     3300004: Box011
@@ -311,6 +471,54 @@ ModelImporter:
     3300146: Cylinder089
     3300148: Cylinder090
     3300150: Cylinder091
+    3300152: Box017
+    3300154: Box018
+    3300156: Box019
+    3300158: Box020
+    3300160: Box021
+    3300162: Box022
+    3300164: Cylinder092
+    3300166: Cylinder093
+    3300168: Cylinder094
+    3300170: Cylinder095
+    3300172: Cylinder096
+    3300174: Cylinder097
+    3300176: Cylinder098
+    3300178: Cylinder099
+    3300180: Cylinder100
+    3300182: Cylinder101
+    3300184: Cylinder102
+    3300186: Cylinder103
+    3300188: Cylinder104
+    3300190: Cylinder105
+    3300192: Cylinder106
+    3300194: Cylinder107
+    3300196: Cylinder108
+    3300198: Cylinder109
+    3300200: Cylinder110
+    3300202: Cylinder111
+    3300204: Cylinder112
+    3300206: Cylinder113
+    3300208: Cylinder114
+    3300210: Cylinder115
+    3300212: Cylinder116
+    3300214: Cylinder117
+    3300216: Cylinder118
+    3300218: Cylinder119
+    3300220: Cylinder120
+    3300222: Cylinder121
+    3300224: Cylinder122
+    3300226: Cylinder123
+    3300228: Cylinder124
+    3300230: Cylinder125
+    3300232: Cylinder126
+    3300234: Cylinder127
+    3300236: Cylinder128
+    3300238: Cylinder129
+    3300240: Cylinder130
+    3300242: Cylinder131
+    3300244: Cylinder132
+    3300246: Cylinder133
     4300000: Cylinder001
     4300002: Cylinder002
     4300004: Cylinder003
@@ -387,6 +595,54 @@ ModelImporter:
     4300146: Cylinder089
     4300148: Cylinder090
     4300150: Cylinder091
+    4300152: Cylinder098
+    4300154: Cylinder099
+    4300156: Cylinder100
+    4300158: Cylinder097
+    4300160: Cylinder096
+    4300162: Cylinder095
+    4300164: Cylinder093
+    4300166: Cylinder092
+    4300168: Cylinder094
+    4300170: Cylinder101
+    4300172: Cylinder102
+    4300174: Cylinder103
+    4300176: Cylinder104
+    4300178: Cylinder105
+    4300180: Cylinder106
+    4300182: Cylinder107
+    4300184: Box017
+    4300186: Cylinder108
+    4300188: Cylinder109
+    4300190: Cylinder110
+    4300192: Cylinder111
+    4300194: Box018
+    4300196: Cylinder112
+    4300198: Cylinder113
+    4300200: Cylinder114
+    4300202: Cylinder115
+    4300204: Cylinder116
+    4300206: Cylinder117
+    4300208: Cylinder118
+    4300210: Box019
+    4300212: Cylinder119
+    4300214: Cylinder120
+    4300216: Cylinder121
+    4300218: Cylinder122
+    4300220: Box020
+    4300222: Cylinder123
+    4300224: Cylinder124
+    4300226: Cylinder125
+    4300228: Cylinder126
+    4300230: Cylinder127
+    4300232: Cylinder128
+    4300234: Cylinder129
+    4300236: Box021
+    4300238: Cylinder130
+    4300240: Cylinder131
+    4300242: Cylinder132
+    4300244: Cylinder133
+    4300246: Box022
     6400000: Box009
     6400002: Box010
     6400004: Box011
@@ -463,6 +719,54 @@ ModelImporter:
     6400146: Cylinder089
     6400148: Cylinder090
     6400150: Cylinder091
+    6400152: Box017
+    6400154: Box018
+    6400156: Box019
+    6400158: Box020
+    6400160: Box021
+    6400162: Box022
+    6400164: Cylinder092
+    6400166: Cylinder093
+    6400168: Cylinder094
+    6400170: Cylinder095
+    6400172: Cylinder096
+    6400174: Cylinder097
+    6400176: Cylinder098
+    6400178: Cylinder099
+    6400180: Cylinder100
+    6400182: Cylinder101
+    6400184: Cylinder102
+    6400186: Cylinder103
+    6400188: Cylinder104
+    6400190: Cylinder105
+    6400192: Cylinder106
+    6400194: Cylinder107
+    6400196: Cylinder108
+    6400198: Cylinder109
+    6400200: Cylinder110
+    6400202: Cylinder111
+    6400204: Cylinder112
+    6400206: Cylinder113
+    6400208: Cylinder114
+    6400210: Cylinder115
+    6400212: Cylinder116
+    6400214: Cylinder117
+    6400216: Cylinder118
+    6400218: Cylinder119
+    6400220: Cylinder120
+    6400222: Cylinder121
+    6400224: Cylinder122
+    6400226: Cylinder123
+    6400228: Cylinder124
+    6400230: Cylinder125
+    6400232: Cylinder126
+    6400234: Cylinder127
+    6400236: Cylinder128
+    6400238: Cylinder129
+    6400240: Cylinder130
+    6400242: Cylinder131
+    6400244: Cylinder132
+    6400246: Cylinder133
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -471,6 +775,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -478,9 +783,9 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
@@ -504,20 +809,19 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
