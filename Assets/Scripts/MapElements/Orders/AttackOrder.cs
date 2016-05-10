@@ -50,7 +50,7 @@ namespace MechWars.MapElements.Orders
             MakeAttack(out stopped);
             return stopped;
         }
-        
+
         float cooldown = 0;
 
         void MakeAttack(out bool stopped)
@@ -94,9 +94,13 @@ namespace MechWars.MapElements.Orders
 
         private void RotateJob_OnJobDone()
         {
-            var aim = Target.GetClosestFieldTo(MapElement.Coords);
-            if (aim != attackJob.Aim)
-                CancelAttack();
+            bool cancel = !Target.Alive;
+            if (!cancel)
+            {
+                var aim = Target.GetClosestFieldTo(MapElement.Coords);
+                cancel = aim != attackJob.Aim;
+            }
+            if (cancel) CancelAttack();
         }
 
         private void AttackJob_OnJobDone()
