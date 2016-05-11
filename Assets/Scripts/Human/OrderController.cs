@@ -169,8 +169,7 @@ namespace MechWars.Human
             bool isOccu = false;
             foreach (var c in allCoords) //dla każdego c we współrzędnych, które zajmie budynek
             {
-                if (!Globals.FieldReservationMap.CoordsInside(c) || // jeżeli jedno z pól jest poza mapą
-                    Globals.FieldReservationMap[c] != null) // lub jeżeli jedno z pól jest zajete
+                if (Globals.FieldReservationMap[c] != null) // jeżeli jedno z pól jest zajete
                 {
                     isOccu = true;
                     break;

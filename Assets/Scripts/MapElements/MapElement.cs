@@ -291,7 +291,6 @@ namespace MechWars.MapElements
             var coords =
                 from c in CoordsInRangeSquare(range.Value)
                 where Vector2.Distance(c, Coords) <= range.Value
-                where Globals.FieldReservationMap.CoordsInside(c)
                 let me = Globals.FieldReservationMap[c]
                 where me != null && me.army != null && me.army != army
                 where MapElementInRange(me)

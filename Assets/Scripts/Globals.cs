@@ -3,6 +3,7 @@ using System.Linq;
 using MechWars.GLRendering;
 using MechWars.Pathfinding;
 using UnityEngine;
+using MechWars.MapElements.WallNeighbourhoods;
 
 namespace MechWars
 {
@@ -109,6 +110,15 @@ namespace MechWars
             get
             {
                 return TryLazyGetGlobalsComponent(ref prefabs);
+            }
+        }
+
+        static WallNeighbourhoodDictionary wallNeighbourhoodDictionary;
+        public static WallNeighbourhoodDictionary WallNeighbourhoodDictionary
+        {
+            get
+            {
+                return TryLazyGetGlobalsComponent(ref wallNeighbourhoodDictionary);
             }
         }
 

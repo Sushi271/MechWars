@@ -1,6 +1,7 @@
 ﻿using MechWars.MapElements.Orders;
 using MechWars.MapElements.Production;
 using MechWars.MapElements.Statistics;
+using MechWars.MapElements.WallNeighbourhoods;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace MechWars.MapElements
         public List<UnitProductionOption> unitProductionOptions;
         public List<BuildingConstructionOption> buildingConstructionOptions;
         public List<TechnologyDevelopmentOption> technologyDevelopmentOptions;
+
+        
 
         public event System.Action OnConstructionFinished;
 
@@ -60,8 +63,7 @@ namespace MechWars.MapElements
                 foreach (var d in deltas)
                 {
                     var field = c + d;
-                    if (Globals.FieldReservationMap.CoordsInside(field) &&
-                        Globals.FieldReservationMap[field] != this)
+                    if (Globals.FieldReservationMap[field] != this)
                         allNeighbourFields.Add(field);
                 }
         }

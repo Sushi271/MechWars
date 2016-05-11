@@ -29,8 +29,13 @@ namespace MechWars.Pathfinding
         MapElement[,] reservationTable;
         public MapElement this[int x, int y]
         {
-            get { return reservationTable[x, y]; }
-            private set { reservationTable[x, y] = value; }
+            get { return !CoordsInside(x, y) ? null : reservationTable[x, y]; }
+            private set
+            {
+                if (CoordsInside(x, y))
+                    reservationTable[x, y] = value;
+            }
+        
         }
         public MapElement this[IVector2 coords]
         {
@@ -38,11 +43,11 @@ namespace MechWars.Pathfinding
             private set { this[coords.X, coords.Y] = value; }
         }
 
-        public bool CoordsInside(IVector2 coords)
+        public bool CoordsInside(int x, int y)
         {
             return
-                0 <= coords.X && coords.X < Width &&
-                0 <= coords.Y && coords.Y < Height;
+                0 <= x && x < Width &&
+                0 <= y && y < Height;
         }
 
         void Start()
