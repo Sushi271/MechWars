@@ -14,6 +14,9 @@ namespace MechWars.MapElements.Production
 
         public bool CheckRequirements(Army army)
         {
+            if (army == null)
+                return false;
+
             var noBuildingRequirements = buildingRequirements.Count == 0;
             var buildingRequirementsMet = buildingRequirements
                 .All(b => army.Buildings.Where(b2 => !b2.UnderConstruction)

@@ -45,5 +45,10 @@ namespace MechWars.Utils
                 Mathf.Abs(thisBounds.center.y - other.center.y) < thisBounds.extents.y + other.extents.y &&
                 Mathf.Abs(thisBounds.center.z - other.center.z) < thisBounds.extents.z + other.extents.z;
         }
+
+        public static string TransformToString(this Transform transform)
+        {
+            return string.Format("P: {0}\nR: {1}\nS: {2}", transform.localPosition, transform.localRotation, transform.localScale);
+        }
     }
 }

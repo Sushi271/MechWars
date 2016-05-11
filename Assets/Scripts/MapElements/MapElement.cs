@@ -524,8 +524,7 @@ namespace MechWars.MapElements
                     sideTexture = Globals.Textures.hpBarNoArmySide;
                     topTexture = Globals.Textures.hpBarNoArmyTop;
                 }
-
-
+                
                 var baseWidth = topTexture.width + 2 * sideTexture.width;
                 var baseHeight = sideTexture.height;
 

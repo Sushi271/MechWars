@@ -9,7 +9,7 @@ namespace MechWars.MapElements.Attacks
         {
             var firepower = attacker.Stats[StatNames.Firepower];
             var hitPoints = target.Stats[StatNames.HitPoints];
-
+            
             if (hitPoints != null && firepower != null)
                 hitPoints.Value -= firepower.Value;
         }

@@ -124,13 +124,13 @@ namespace MechWars.InGameGUI
 
         void SubscribeEvents(Building building)
         {
-            if (building != null)
+            if (building != null && building.army != null)
                 building.army.Technologies.OnTechnologyDevelopmentChanged += InvokeRefreshBuildingGUI;
         }
 
         void UnsubscribeEvents(Building building)
         {
-            if (building != null)
+            if (building != null && building.army != null)
                 building.army.Technologies.OnTechnologyDevelopmentChanged -= InvokeRefreshBuildingGUI;
         }
 
