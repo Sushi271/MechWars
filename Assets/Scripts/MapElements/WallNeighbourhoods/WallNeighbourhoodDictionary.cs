@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace MechWars.MapElements.WallNeighbourhoods
 {
-   public class WallNeighbourhoodDictionary : MonoBehaviour
+    public class WallNeighbourhoodDictionary : MonoBehaviour
     {
         public List<WallNeighbourhoodDefinition> wallTypes;
-        public Dictionary<WallNeighbourhood,WallNeighbourhoodDefinition> WallTypesDictionary
+        public Dictionary<WallNeighbourhood, WallNeighbourhoodDefinition> WallTypesDictionary
         {
             get; private set;
         }
@@ -18,7 +15,7 @@ namespace MechWars.MapElements.WallNeighbourhoods
             WallTypesDictionary = new Dictionary<WallNeighbourhood, WallNeighbourhoodDefinition>();
         }
 
-        void Start ()
+        void Start()
         {
             foreach (var wt in wallTypes)
             {

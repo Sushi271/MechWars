@@ -1,11 +1,4 @@
-﻿using MechWars.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-
-namespace MechWars.MapElements.WallNeighbourhoods
+﻿namespace MechWars.MapElements.WallNeighbourhoods
 {
     public struct WallNeighbourhood
     {

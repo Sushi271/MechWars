@@ -1,23 +1,17 @@
 ﻿using MechWars.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace MechWars.MapElements.WallNeighbourhoods
 {
-    [ExecuteInEditMode]
     public class WallModelReplacer : MonoBehaviour
     {
-        GameObject auxiliaryModel;
+        public GameObject auxiliaryModel;
         WallNeighbourhood neighbourhood;
 
         bool notGenerated = true;
 
         void Update()
         {
-
             var mapElement = GetComponent<MapElement>();
             var coords = mapElement.Coords.Round();
 
@@ -35,11 +29,10 @@ namespace MechWars.MapElements.WallNeighbourhoods
             if (!neighbourhood.Equals(this.neighbourhood) || notGenerated)
             {
                 if (auxiliaryModel != null)
-                    GameObject.Destroy(auxiliaryModel);
+                    Destroy(auxiliaryModel);
                 var model = Globals.WallNeighbourhoodDictionary.WallTypesDictionary[neighbourhood].gameObject;
-                auxiliaryModel = GameObject.Instantiate(model);
-                auxiliaryModel.transform.parent = gameObject.transform;
-                auxiliaryModel.transform.localPosition = Vector3.zero;
+                auxiliaryModel = Instantiate(model);
+                auxiliaryModel.transform.SetParent(gameObject.transform, false);
                 this.neighbourhood = neighbourhood;
                 notGenerated = false;
             }
