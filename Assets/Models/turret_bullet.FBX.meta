@@ -1,38 +1,15 @@
 fileFormatVersion: 2
-guid: f57d3190c5a35bb4fb8b233f86a1dbdf
-timeCreated: 1462866327
+guid: cf7a47094dac328408818175566b88c4
+timeCreated: 1463045365
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Box002
-    100002: wall_base
-    100004: //RootNode
-    100006: Box029
-    100008: wall_base008
-    100010: wall_I 1
-    400000: Box002
-    400002: wall_base
-    400004: //RootNode
-    400006: Box029
-    400008: wall_base008
-    400010: wall_I 1
-    2300000: Box002
-    2300002: wall_base
-    2300004: Box029
-    2300006: wall_base008
-    3300000: Box002
-    3300002: wall_base
-    3300004: Box029
-    3300006: wall_base008
-    4300000: Box002
-    4300002: wall_base
-    4300004: wall_base008
-    4300006: Box029
-    6400000: Box002
-    6400002: wall_base
-    6400004: Box029
-    6400006: wall_base008
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: turret_bullet
   materials:
     importMaterials: 1
     materialName: 0
@@ -59,7 +36,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
