@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace MechWars.MapElements.OrderActions
+namespace MechWars.MapElements.Orders.Actions.Args
 {
     public class OrderActionArgs
     {
-        Dictionary<string, object> args;
+        Dictionary<string, OrderActionArg> args;
 
-        public object this[string name]
+        public OrderActionArg this[string name]
         {
             get
             {
-                object value;
+                OrderActionArg value;
                 bool success = args.TryGetValue(name, out value);
                 if (!success)
                     throw new System.Exception(string.Format(
@@ -20,12 +20,14 @@ namespace MechWars.MapElements.OrderActions
             set { args[name] = value; }
         }
 
-        public OrderActionArgs()
+        public OrderActionArgs(params OrderActionArg[] args)
         {
-            args = new Dictionary<string, object>();
+            this.args = new Dictionary<string, OrderActionArg>();
+            foreach (var arg in args)
+                this.args.Add(arg.Name, arg);
         }
 
-        public bool TryGetArg(string name, out object arg)
+        public bool TryGetArg(string name, out OrderActionArg arg)
         {
             return args.TryGetValue(name, out arg);
         }
