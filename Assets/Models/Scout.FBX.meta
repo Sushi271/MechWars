@@ -3,7 +3,7 @@ guid: 435d8bda594268d49ad2d4ba17c0d3fe
 timeCreated: 1459469869
 licenseType: Free
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: Cylinder001
     100002: Cylinder002
@@ -30,6 +30,12 @@ ModelImporter:
     100044: Line018
     100046: Line019
     100048: //RootNode
+    100050: Object001
+    100052: scout_blades
+    100054: scout_body
+    100056: scout_head
+    100058: scout_pipe
+    100060: scout_tire
     400000: Cylinder001
     400002: Cylinder002
     400004: Cylinder004
@@ -55,6 +61,12 @@ ModelImporter:
     400044: Line018
     400046: Line019
     400048: //RootNode
+    400050: Object001
+    400052: scout_blades
+    400054: scout_body
+    400056: scout_head
+    400058: scout_pipe
+    400060: scout_tire
     2300000: Cylinder001
     2300002: Cylinder002
     2300004: Cylinder004
@@ -79,6 +91,9 @@ ModelImporter:
     2300042: Line017
     2300044: Line018
     2300046: Line019
+    2300048: Object001
+    2300050: scout_pipe
+    2300052: scout_tire
     3300000: Cylinder001
     3300002: Cylinder002
     3300004: Cylinder004
@@ -103,6 +118,9 @@ ModelImporter:
     3300042: Line017
     3300044: Line018
     3300046: Line019
+    3300048: Object001
+    3300050: scout_pipe
+    3300052: scout_tire
     4300000: Cylinder001
     4300002: Cylinder002
     4300004: Line001
@@ -127,6 +145,9 @@ ModelImporter:
     4300042: Line017
     4300044: Line018
     4300046: Line019
+    4300048: scout_tire
+    4300050: scout_pipe
+    4300052: Object001
     6400000: Cylinder001
     6400002: Cylinder002
     6400004: Cylinder004
@@ -151,6 +172,9 @@ ModelImporter:
     6400042: Line017
     6400044: Line018
     6400046: Line019
+    6400048: Object001
+    6400050: scout_pipe
+    6400052: scout_tire
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -159,6 +183,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -166,9 +191,9 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
@@ -192,20 +217,19 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
