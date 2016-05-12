@@ -12,6 +12,8 @@ ModelImporter:
     100008: wall_I003
     100010: wall_I004
     100012: //RootNode
+    100014: Box024
+    100016: Box025
     400000: Box017
     400002: Box018
     400004: wall_base003
@@ -19,22 +21,32 @@ ModelImporter:
     400008: wall_I003
     400010: wall_I004
     400012: //RootNode
+    400014: Box024
+    400016: Box025
     2300000: Box017
     2300002: Box018
     2300004: wall_base003
     2300006: wall_base004
+    2300008: Box024
+    2300010: Box025
     3300000: Box017
     3300002: Box018
     3300004: wall_base003
     3300006: wall_base004
+    3300008: Box024
+    3300010: Box025
     4300000: wall_base004
     4300002: Box018
     4300004: wall_base003
     4300006: Box017
+    4300008: Box024
+    4300010: Box025
     6400000: Box017
     6400002: Box018
     6400004: wall_base003
     6400006: wall_base004
+    6400008: Box024
+    6400010: Box025
   materials:
     importMaterials: 1
     materialName: 0
