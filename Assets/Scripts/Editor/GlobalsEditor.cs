@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MechWars.Human;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,11 +13,11 @@ namespace MechWars.Editors
         public override void OnInspectorGUI()
         {
             globals = (Globals)target;
-            
+
             globals.isGameplay = EditorGUILayout.Toggle(
                 "Is Gameplay?", globals.isGameplay);
-            globals.debugStatusDisplays = EditorGUILayout.Toggle(
-                "Debug StatusDisplays", globals.debugStatusDisplays);
+            globals.humanPlayer = (HumanPlayer)EditorGUILayout.ObjectField(
+                "Human Player", globals.humanPlayer, typeof(HumanPlayer), true);
             globals.dayAndNightCycleTime = EditorGUILayout.FloatField(
                 "Day & night cycle time (minutes)", globals.dayAndNightCycleTime);
 
@@ -26,33 +27,36 @@ namespace MechWars.Editors
             globals.mapHeight = EditorGUILayout.IntField("Height", globals.mapHeight);
             EditorGUILayout.Separator();
 
-            DictionaryGuiLayout();
-            
+            DictionaryGuiLayout(
+                globals.sortedPlayers, ref newPlayer,
+                globals.sortedArmies, ref newArmy);
+
             EditorUtility.SetDirty(globals);
         }
 
-        GameObject newPlayer;
-        GameObject newArmy;
+        Player newPlayer;
+        Army newArmy;
 
-        void DictionaryGuiLayout()
+        void DictionaryGuiLayout<TKey, TValue>(
+            List<TKey> keys, ref TKey newKey, 
+            List<TValue> values, ref TValue newValue)
+            where TKey : Object
+            where TValue : Object
         {
-            var sp = globals.sortedPlayers;
-            var sa = globals.sortedArmies;
-
-            var spCopy = new List<GameObject>(sp);
-            var saCopy = new List<GameObject>(sa);
+            var keysCopy = new List<TKey>(keys);
+            var valuesCopy = new List<TValue>(values);
             var controlWidth = GUILayout.Width((Screen.width - 27) / 3.0f);
 
             EditorGUILayout.LabelField("Player-Army assignment:");
-            for (int i = 0; i < spCopy.Count; i++)
+            for (int i = 0; i < keysCopy.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
-                var key = (GameObject)EditorGUILayout.ObjectField("", spCopy[i], typeof(GameObject), true, controlWidth);
-                var value = (GameObject)EditorGUILayout.ObjectField("", saCopy[i], typeof(GameObject), true, controlWidth);
+                var key = (TKey)EditorGUILayout.ObjectField("", keysCopy[i], typeof(TKey), true, controlWidth);
+                var value = (TValue)EditorGUILayout.ObjectField("", valuesCopy[i], typeof(TValue), true, controlWidth);
                 bool remove = GUILayout.Button("Remove", controlWidth);
                 EditorGUILayout.EndHorizontal();
 
-                if (key != sp[i])
+                if (key != keys[i])
                 {
                     if (key == null)
                     {
@@ -60,51 +64,51 @@ namespace MechWars.Editors
                             string.Format("Given key cannot be NULL."), "OK");
                         continue;
                     }
-                    if (sp.Contains(key))
+                    if (keys.Contains(key))
                     {
                         EditorUtility.DisplayDialog("Key already exists!",
                             string.Format("Key {0} already exists on this dictionary.", key), "OK");
                         continue;
                     }
-                    sp[i] = key;
+                    keys[i] = key;
                 }
-                if (value != sa[i])
-                    sa[i] = value;
+                if (value != values[i])
+                    values[i] = value;
                 if (remove)
                 {
-                    sp.RemoveAt(i);
-                    sa.RemoveAt(i);
+                    keys.RemoveAt(i);
+                    values.RemoveAt(i);
                 }
             }
 
             EditorGUILayout.BeginHorizontal();
-            newPlayer = (GameObject)EditorGUILayout.ObjectField("", newPlayer, typeof(GameObject), true, controlWidth);
-            newArmy = (GameObject)EditorGUILayout.ObjectField("", newArmy, typeof(GameObject), true, controlWidth);
+            newKey = (TKey)EditorGUILayout.ObjectField("", newKey, typeof(TKey), true, controlWidth);
+            newValue = (TValue)EditorGUILayout.ObjectField("", newValue, typeof(TValue), true, controlWidth);
             bool add = GUILayout.Button("Add", controlWidth);
             EditorGUILayout.EndHorizontal();
 
             if (add)
             {
-                if (newPlayer == null)
+                if (newKey == null)
                     EditorUtility.DisplayDialog("Key is NULL!",
-                        string.Format("Given key cannot be NULL.", newPlayer), "OK");
-                else if (sp.Contains(newPlayer))
+                        string.Format("Given key cannot be NULL.", newKey), "OK");
+                else if (keys.Contains(newKey))
                     EditorUtility.DisplayDialog("Key already exists!",
-                        string.Format("Key {0} already exists on this dictionary.", newPlayer), "OK");
+                        string.Format("Key {0} already exists on this dictionary.", newKey), "OK");
                 else
                 {
-                    sp.Add(newPlayer);
-                    sa.Add(newArmy);
+                    keys.Add(newKey);
+                    values.Add(newValue);
                 }
-                
-                newPlayer = null;
-                newArmy = null;
+
+                newKey = null;
+                newValue = null;
             }
 
             if (GUILayout.Button("Clear"))
             {
-                globals.sortedPlayers.Clear();
-                globals.sortedArmies.Clear();
+                keys.Clear();
+                values.Clear();
             }
         }
     }

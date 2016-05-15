@@ -1,21 +1,26 @@
 ﻿using MechWars.MapElements.Orders;
-using MechWars.MapElements.Statistics;
+using MechWars.MapElements.Orders.Actions;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using UnityEngine;
 
 namespace MechWars.MapElements
 {
     public class Unit : MapElement
     {
         public bool canCollect;
+        public List<OrderAction<Unit>> orderActions;
 
         public SingleOrderExecutor OrderExecutor { get; private set; }
 
         protected override bool CanAddToArmy { get { return true; } }
+        public override bool Selectable { get { return true; } }
+        public override bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
+        public override bool CanBeAttacked { get { return true; } }
+        public virtual bool CanBeEscorted { get { return true; } }
 
         public Unit()
         {
-            selectable = true;
             OrderExecutor = new SingleOrderExecutor(() => new IdleOrder(this));
         }
 

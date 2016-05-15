@@ -19,9 +19,6 @@ namespace MechWars.MapElements
         public Army army;
         public TextAsset shapeFile;
         public TextAsset statsFile;
-        public bool selectable;
-        public bool canAttack;
-        public bool canBeAttacked;
         public bool canRotate;
         public float yToAim;
         public float displaySize = 1;
@@ -174,6 +171,10 @@ namespace MechWars.MapElements
         bool ShouldDrawStatusDisplay { get { return Hovered || Selected; } }
 
         protected virtual bool CanAddToArmy { get { return false; } }
+        public virtual bool Selectable { get { return false; } }
+        public virtual bool CanAttack { get { return false; } }
+        public virtual bool CanBeAttacked { get { return false; } }
+        public virtual bool CanBeEscorted { get { return false; } }
 
         public MapElement()
         {
@@ -457,41 +458,40 @@ namespace MechWars.MapElements
             var size = statusDisplay.Size;
             var distance = 0.5f;
 
-            if (Globals.Instance.debugStatusDisplays)
+            Vector2 v00 = location;
+            Vector2 v01 = location + Vector2.up * size.y;
+            Vector2 v10 = location + Vector2.right * size.x;
+            Vector2 v11 = location + Vector2.right * size.x + Vector2.up * size.y;
+
+            float lineLength = 0.2f;
+
+            Vector2 u = Vector2.up * size.y * lineLength;
+            Vector2 d = Vector2.down * size.y * lineLength;
+            Vector2 r = Vector2.right * size.x * lineLength;
+            Vector2 l = Vector2.left * size.x * lineLength;
+
+            Color color = Globals.Instance.humanPlayer.InputController.Mouse.FramesColor;
+
+            if (Hovered || Selected)
             {
-                Vector2 v00 = location;
-                Vector2 v01 = location + Vector2.up * size.y;
-                Vector2 v10 = location + Vector2.right * size.x;
-                Vector2 v11 = location + Vector2.right * size.x + Vector2.up * size.y;
+                Globals.GLRenderer.Schedule(new LineRenderTask(color, v00, v00 + r, distance));
+                Globals.GLRenderer.Schedule(new LineRenderTask(color, v00, v00 + u, distance));
 
-                float lineLength = 0.2f;
+                Globals.GLRenderer.Schedule(new LineRenderTask(color, v01, v01 + r, distance));
+                Globals.GLRenderer.Schedule(new LineRenderTask(color, v01, v01 + d, distance));
 
-                Vector2 u = Vector2.up * size.y * lineLength;
-                Vector2 d = Vector2.down * size.y * lineLength;
-                Vector2 r = Vector2.right * size.x * lineLength;
-                Vector2 l = Vector2.left * size.x * lineLength;
+                Globals.GLRenderer.Schedule(new LineRenderTask(color, v10, v10 + l, distance));
+                Globals.GLRenderer.Schedule(new LineRenderTask(color, v10, v10 + u, distance));
 
-                if (Hovered || Selected)
+                Globals.GLRenderer.Schedule(new LineRenderTask(color, v11, v11 + l, distance));
+                Globals.GLRenderer.Schedule(new LineRenderTask(color, v11, v11 + d, distance));
+
+                if (Selected)
                 {
-                    Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v00, v00 + r, distance));
-                    Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v00, v00 + u, distance));
-
-                    Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v01, v01 + r, distance));
-                    Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v01, v01 + d, distance));
-
-                    Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v10, v10 + l, distance));
-                    Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v10, v10 + u, distance));
-
-                    Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v11, v11 + l, distance));
-                    Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v11, v11 + d, distance));
-
-                    if (Selected)
-                    {
-                        Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v00 + 2 * r, v10 + 2 * l, distance));
-                        Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v01 + 2 * r, v11 + 2 * l, distance));
-                        Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v00 + 2 * u, v01 + 2 * d, distance));
-                        Globals.GLRenderer.Schedule(new LineRenderTask(Color.black, v10 + 2 * u, v11 + 2 * d, distance));
-                    }
+                    Globals.GLRenderer.Schedule(new LineRenderTask(color, v00 + 2 * r, v10 + 2 * l, distance));
+                    Globals.GLRenderer.Schedule(new LineRenderTask(color, v01 + 2 * r, v11 + 2 * l, distance));
+                    Globals.GLRenderer.Schedule(new LineRenderTask(color, v00 + 2 * u, v01 + 2 * d, distance));
+                    Globals.GLRenderer.Schedule(new LineRenderTask(color, v10 + 2 * u, v11 + 2 * d, distance));
                 }
             }
         }
@@ -521,7 +521,7 @@ namespace MechWars.MapElements
                     sideTexture = Globals.Textures.hpBarNoArmySide;
                     topTexture = Globals.Textures.hpBarNoArmyTop;
                 }
-                
+
                 var baseWidth = topTexture.width + 2 * sideTexture.width;
                 var baseHeight = sideTexture.height;
 
@@ -579,7 +579,7 @@ namespace MechWars.MapElements
                 .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
                 .AppendLine(string.Format("Coords: {0}", Coords))
                 .AppendLine(string.Format("Army: {0}", army == null ? "NONE" : army.armyName))
-                .AppendLine(string.Format("Can attack: {0}", canAttack))
+                .AppendLine(string.Format("Can attack: {0}", CanAttack))
                 .AppendLine(string.Format("Resource value: {0} + {1}", resourceValue, additionalResourceValue))
                 .AppendLine(string.Format("Stats ({0}):", Stats.Count));
             if (Stats.Count == 0)

@@ -2,13 +2,15 @@
 
 namespace MechWars.MapElements.Orders.Actions
 {
-    public class UnitProductionOrderAction : OrderAction<Building>
+    public class UnitProductionOrderAction : ProductionOrderAction
     {
+        public Unit unit;
+
         public override IOrder CreateOrder(Building orderExecutor, OrderActionArgs args)
         {
-            AssertOrderActionArgsTypeValid<UnitOrderActionArgs>(args);
-            return new UnitProductionOrder(orderExecutor,
-                (Unit)args[UnitOrderActionArgs.UnitArgName].Value);
+            if (unit == null)
+                throw new System.Exception("\"Unit unit\" field must not be NULL.");
+            return new UnitProductionOrder(orderExecutor, unit);
         }
     }
 }

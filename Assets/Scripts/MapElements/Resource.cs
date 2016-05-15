@@ -12,10 +12,7 @@ namespace MechWars.MapElements
         public float Size { get { return 1.0f * value / startValue; } }
         public override float? LifeValue { get { return value; } }
 
-        public Resource()
-        {
-            selectable = true;
-        }
+        public override bool Selectable { get { return true; } }
 
         protected override void OnStart()
         {

@@ -42,7 +42,7 @@ namespace MechWars.MapElements.Orders
 
         bool CommonUpdate()
         {
-            if (!MapElement.canAttack)
+            if (!MapElement.CanAttack)
                 throw new System.Exception(string.Format(
                     "Order {0} called for MapElement {1}, but it cannot attack.", Name, MapElement));
 

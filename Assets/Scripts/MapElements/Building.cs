@@ -1,4 +1,5 @@
 ﻿using MechWars.MapElements.Orders;
+using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Production;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
@@ -12,6 +13,7 @@ namespace MechWars.MapElements
     public class Building : MapElement
     {
         public bool isResourceDeposit;
+        public List<OrderAction<Building>> orderActions;
         public List<UnitProductionOption> unitProductionOptions;
         public List<BuildingConstructionOption> buildingConstructionOptions;
         public List<TechnologyDevelopmentOption> technologyDevelopmentOptions;
@@ -35,12 +37,14 @@ namespace MechWars.MapElements
         public BuildingConstructionInfo ConstructionInfo { get; private set; }
         
         protected override bool CanAddToArmy { get { return true; } }
+        public override bool Selectable { get { return true; } }
+        public override bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
+        public override bool CanBeAttacked { get { return true; } }
 
         HashSet<IVector2> allNeighbourFields;
 
         public Building()
         {
-            selectable = true;
             OrderExecutor = new QueueOrderExecutor(() => new IdleOrder(this));
             allNeighbourFields = new HashSet<IVector2>();
         }

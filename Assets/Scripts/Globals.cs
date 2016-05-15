@@ -4,6 +4,7 @@ using MechWars.GLRendering;
 using MechWars.Pathfinding;
 using UnityEngine;
 using MechWars.MapElements.WallNeighbourhoods;
+using MechWars.Human;
 
 namespace MechWars
 {
@@ -34,22 +35,22 @@ namespace MechWars
         //=====================================================================================
 
         public bool isGameplay;
-        public bool debugStatusDisplays;
+        public HumanPlayer humanPlayer;
 
         public int mapWidth = 64;
         public int mapHeight = 64;
 
         public float startingBuildingProgress = 0.1f;
 
-        public List<GameObject> sortedPlayers;
-        public List<GameObject> sortedArmies;
+        public List<Player> sortedPlayers;
+        public List<Army> sortedArmies;
 
         public float dayAndNightCycleTime;
 
         public Globals()
         {
-            sortedPlayers = new List<GameObject>();
-            sortedArmies = new List<GameObject>();
+            sortedPlayers = new List<Player>();
+            sortedArmies = new List<Army>();
         }
 
         public int MapWidth
@@ -124,14 +125,14 @@ namespace MechWars
 
         public static Army GetArmyForPlayer(Player player)
         {
-            int idx = Instance.sortedPlayers.IndexOf(player.gameObject);
+            int idx = Instance.sortedPlayers.IndexOf(player);
             if (idx == -1) return null;
             return Instance.sortedArmies[idx].GetComponent<Army>();
         }
 
         public static Player GetPlayerForArmy(Army army)
         {
-            int idx = Instance.sortedArmies.IndexOf(army.gameObject);
+            int idx = Instance.sortedArmies.IndexOf(army);
             if (idx == -1) return null;
             return Instance.sortedPlayers[idx].GetComponent<Player>();
         }
@@ -160,8 +161,8 @@ namespace MechWars
 
         void CheckPlayerArmyAssignmentCorrectness()
         {
-            var players = GameObject.FindGameObjectsWithTag(Tag.Player);
-            var notPlayers = players.Where(p => p.GetComponent<Player>() == null);
+            var players = GameObject.FindGameObjectsWithTag(Tag.Player).Select(p => p.GetComponent<Player>());
+            var notPlayers = players.Where(p => p == null);
             if (notPlayers.Count() > 0)
             {
                 var gameObjects = string.Join(", ", notPlayers.Select(np => string.Format("\"{0}\"", np.name)).ToArray());

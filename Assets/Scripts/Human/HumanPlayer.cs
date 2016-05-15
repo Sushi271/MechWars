@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MechWars.PlayerInput;
+using UnityEngine;
 
 namespace MechWars.Human
 {
@@ -9,10 +10,14 @@ namespace MechWars.Human
         public SelectionController SelectionController { get; private set; }
         public OrderController OrderController { get; private set; }
 
+        public InputController InputController { get; private set; }
+
         public HumanPlayer()
         {
             SelectionController = new SelectionController(this);
             OrderController = new OrderController(this);
+
+            InputController = new InputController(this);
         }
 
         protected override void OnUpdate()
