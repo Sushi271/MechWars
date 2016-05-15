@@ -6,12 +6,19 @@ namespace MechWars.PlayerInput
 {
     public class MapRaycast
     {
+        InputController inputController;
+
         public MapElement MapElement { get; private set; }
         public IVector2? Coords { get; private set; }
+
+        public MapRaycast(InputController inputController)
+        {
+            this.inputController = inputController;
+        }
         
         public void Update()
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = Camera.main.ScreenPointToRay(inputController.Mouse.Position);
             RaycastHit hitInfo;
 
             if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements)))

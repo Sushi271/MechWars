@@ -10,16 +10,16 @@ namespace MechWars.PlayerInput
 {
     public class HoverBox
     {
-        PlayerMouse mouse;
+        InputController inputController;
 
         public Vector2 Start { get; private set; }
         public Vector2 Size { get; private set; }
 
         public HashSet<MapElement> MapElementsInside { get; private set; }
 
-        public HoverBox(PlayerMouse mouse, Vector2 start)
+        public HoverBox(InputController inputController, Vector2 start)
         {
-            this.mouse = mouse;
+            this.inputController = inputController;
 
             Start = start;
             UpdateSize();
@@ -75,12 +75,12 @@ namespace MechWars.PlayerInput
 
         void UpdateSize()
         {
-            Size = mouse.Position - Start;
+            Size = inputController.Mouse.Position - Start;
         }
 
         void Draw()
         {
-            Globals.GLRenderer.Schedule(new RectangleRenderTask(mouse.FramesColor, Start, Size));
+            Globals.GLRenderer.Schedule(new RectangleRenderTask(inputController.FramesColor, Start, Size));
         }
     }
 }

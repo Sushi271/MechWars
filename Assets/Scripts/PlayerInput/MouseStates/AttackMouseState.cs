@@ -29,7 +29,7 @@ namespace MechWars.PlayerInput.MouseStates
             HoverCandidatesFilter.Attack(player, candidates);
         }
 
-        public override void Handle(PlayerMouse mouse)
+        public override void Handle(InputController mouse)
         {
 
         }
