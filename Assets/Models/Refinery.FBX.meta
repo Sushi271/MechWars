@@ -110,6 +110,41 @@ ModelImporter:
     100204: Cylinder046
     100206: fence
     100208: fence_pilars
+    100210: Box058
+    100212: Box060
+    100214: Box061
+    100216: Box062
+    100218: Box063
+    100220: Box064
+    100222: Cylinder047
+    100224: Cylinder048
+    100226: Cylinder049
+    100228: Cylinder050
+    100230: Cylinder051
+    100232: kominy_base
+    100234: refinery_barrel
+    100236: refinery_barrel001
+    100238: refinery_barrel002
+    100240: refinery_barrel003
+    100242: refinery_barrel004
+    100244: refinery_barrel005
+    100246: refinery_barrel006
+    100248: refinery_barrel007
+    100250: refinery_barrels
+    100252: refinery_building
+    100254: refinery_building_1
+    100256: refinery_building_2
+    100258: refinery_building_2 1
+    100260: refinery_building_2_top_2
+    100262: refinery_building_add
+    100264: refinery_building_roof
+    100266: refinery_chimneys
+    100268: refinery_door
+    100270: refinery_door001
+    100272: refinery_fence
+    100274: refinery_metal
+    100276: refinery_pipes
+    100278: Mesh001
     400000: Box003
     400002: Box004
     400004: Box006
@@ -215,6 +250,41 @@ ModelImporter:
     400204: Cylinder046
     400206: fence
     400208: fence_pilars
+    400210: Box058
+    400212: Box060
+    400214: Box061
+    400216: Box062
+    400218: Box063
+    400220: Box064
+    400222: Cylinder047
+    400224: Cylinder048
+    400226: Cylinder049
+    400228: Cylinder050
+    400230: Cylinder051
+    400232: kominy_base
+    400234: refinery_barrel
+    400236: refinery_barrel001
+    400238: refinery_barrel002
+    400240: refinery_barrel003
+    400242: refinery_barrel004
+    400244: refinery_barrel005
+    400246: refinery_barrel006
+    400248: refinery_barrel007
+    400250: refinery_barrels
+    400252: refinery_building
+    400254: refinery_building_1
+    400256: refinery_building_2
+    400258: refinery_building_2 1
+    400260: refinery_building_2_top_2
+    400262: refinery_building_add
+    400264: refinery_building_roof
+    400266: refinery_chimneys
+    400268: refinery_door
+    400270: refinery_door001
+    400272: refinery_fence
+    400274: refinery_metal
+    400276: refinery_pipes
+    400278: Mesh001
     2300000: Box003
     2300002: Box004
     2300004: Box006
@@ -317,6 +387,32 @@ ModelImporter:
     2300198: Cylinder044
     2300200: Cylinder045
     2300202: Cylinder046
+    2300204: Box058
+    2300206: Box060
+    2300208: Box061
+    2300210: Box062
+    2300212: Box063
+    2300214: Box064
+    2300216: Cylinder047
+    2300218: Cylinder048
+    2300220: Cylinder049
+    2300222: Cylinder050
+    2300224: Cylinder051
+    2300226: refinery_barrel
+    2300228: refinery_barrel001
+    2300230: refinery_barrel002
+    2300232: refinery_barrel003
+    2300234: refinery_barrel004
+    2300236: refinery_barrel005
+    2300238: refinery_barrel006
+    2300240: refinery_barrel007
+    2300242: refinery_building
+    2300244: refinery_building_2 1
+    2300246: refinery_building_add
+    2300248: refinery_building_roof
+    2300250: refinery_door
+    2300252: refinery_door001
+    2300254: Mesh001
     3300000: Box003
     3300002: Box004
     3300004: Box006
@@ -419,6 +515,32 @@ ModelImporter:
     3300198: Cylinder044
     3300200: Cylinder045
     3300202: Cylinder046
+    3300204: Box058
+    3300206: Box060
+    3300208: Box061
+    3300210: Box062
+    3300212: Box063
+    3300214: Box064
+    3300216: Cylinder047
+    3300218: Cylinder048
+    3300220: Cylinder049
+    3300222: Cylinder050
+    3300224: Cylinder051
+    3300226: refinery_barrel
+    3300228: refinery_barrel001
+    3300230: refinery_barrel002
+    3300232: refinery_barrel003
+    3300234: refinery_barrel004
+    3300236: refinery_barrel005
+    3300238: refinery_barrel006
+    3300240: refinery_barrel007
+    3300242: refinery_building
+    3300244: refinery_building_2 1
+    3300246: refinery_building_add
+    3300248: refinery_building_roof
+    3300250: refinery_door
+    3300252: refinery_door001
+    3300254: Mesh001
     4300000: Box003
     4300002: Box004
     4300004: Box006
@@ -521,6 +643,32 @@ ModelImporter:
     4300198: Cylinder020
     4300200: Cylinder013
     4300202: Cylinder016
+    4300204: refinery_building_add
+    4300206: refinery_door001
+    4300208: refinery_building
+    4300210: refinery_building_roof
+    4300212: refinery_door
+    4300214: refinery_barrel001
+    4300216: refinery_barrel
+    4300218: refinery_barrel002
+    4300220: refinery_barrel007
+    4300222: refinery_barrel004
+    4300224: refinery_barrel005
+    4300226: refinery_barrel003
+    4300228: refinery_barrel006
+    4300230: Cylinder051
+    4300232: Cylinder050
+    4300234: Cylinder049
+    4300236: Cylinder047
+    4300238: Cylinder048
+    4300240: refinery_building_2
+    4300242: Box058
+    4300244: Box060
+    4300246: Box061
+    4300248: Box062
+    4300250: Box063
+    4300252: Box064
+    4300254: Mesh001
     6400000: Box003
     6400002: Box004
     6400004: Box006
@@ -623,6 +771,32 @@ ModelImporter:
     6400198: Cylinder044
     6400200: Cylinder045
     6400202: Cylinder046
+    6400204: Box058
+    6400206: Box060
+    6400208: Box061
+    6400210: Box062
+    6400212: Box063
+    6400214: Box064
+    6400216: Cylinder047
+    6400218: Cylinder048
+    6400220: Cylinder049
+    6400222: Cylinder050
+    6400224: Cylinder051
+    6400226: refinery_barrel
+    6400228: refinery_barrel001
+    6400230: refinery_barrel002
+    6400232: refinery_barrel003
+    6400234: refinery_barrel004
+    6400236: refinery_barrel005
+    6400238: refinery_barrel006
+    6400240: refinery_barrel007
+    6400242: refinery_building
+    6400244: refinery_building_2 1
+    6400246: refinery_building_add
+    6400248: refinery_building_roof
+    6400250: refinery_door
+    6400252: refinery_door001
+    6400254: Mesh001
   materials:
     importMaterials: 1
     materialName: 0
