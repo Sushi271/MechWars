@@ -1,52 +1,42 @@
 fileFormatVersion: 2
-guid: 99f35718cf9830740b6c196bbe6a3c54
-timeCreated: 1462866327
+guid: 9fdc4d3fed37bd04483779cf0b539534
+timeCreated: 1463175460
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Box015
-    100002: Box016
-    100004: wall_base001
-    100006: wall_base002
-    100008: wall_I001
-    100010: wall_I002
-    100012: //RootNode
-    100014: Box022
-    100016: Box023
-    400000: Box015
-    400002: Box016
-    400004: wall_base001
-    400006: wall_base002
-    400008: wall_I001
-    400010: wall_I002
-    400012: //RootNode
-    400014: Box022
-    400016: Box023
-    2300000: Box015
-    2300002: Box016
-    2300004: wall_base001
-    2300006: wall_base002
-    2300008: Box022
-    2300010: Box023
-    3300000: Box015
-    3300002: Box016
-    3300004: wall_base001
-    3300006: wall_base002
-    3300008: Box022
-    3300010: Box023
-    4300000: wall_base001
-    4300002: Box015
-    4300004: wall_base002
-    4300006: Box016
-    4300008: Box023
-    4300010: Box022
-    6400000: Box015
-    6400002: Box016
-    6400004: wall_base001
-    6400006: wall_base002
-    6400008: Box022
-    6400010: Box023
+    100000: Cylinder001
+    100002: end_002
+    100004: end_003
+    100006: end_004
+    100008: end_1
+    100010: //RootNode
+    100012: screws
+    400000: Cylinder001
+    400002: end_002
+    400004: end_003
+    400006: end_004
+    400008: end_1
+    400010: //RootNode
+    400012: screws
+    2300000: Cylinder001
+    2300002: end_002
+    2300004: end_003
+    2300006: end_004
+    2300008: end_1
+    2300010: screws
+    3300000: Cylinder001
+    3300002: end_002
+    3300004: end_003
+    3300006: end_004
+    3300008: end_1
+    3300010: screws
+    4300000: Cylinder001
+    4300002: end_1
+    4300004: end_002
+    4300006: end_003
+    4300008: end_004
+    4300010: screws
   materials:
     importMaterials: 1
     materialName: 0
@@ -73,7 +63,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 3
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
