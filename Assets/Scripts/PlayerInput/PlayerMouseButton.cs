@@ -1,7 +1,5 @@
-﻿using MechWars.Human;
-using MechWars.MapElements.Orders.Actions;
-using MechWars.PlayerInput.MouseStates;
-using UnityEngine;
+﻿using UnityEngine;
+
 namespace MechWars.PlayerInput
 {
     public class PlayerMouseButton

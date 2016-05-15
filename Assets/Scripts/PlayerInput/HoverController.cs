@@ -6,7 +6,8 @@ namespace MechWars.PlayerInput
 {
     public class HoverController
     {
-        PlayerMouse mouse;
+        InputController inputController;
+        PlayerMouse Mouse { get { return inputController.Mouse; } }
         
         bool preHoverBoxState;
         Vector2 hoverBoxStart;
@@ -30,9 +31,9 @@ namespace MechWars.PlayerInput
             }
         }
 
-        public HoverController(PlayerMouse mouse)
+        public HoverController(InputController inputController)
         {
-            this.mouse = mouse;
+            this.inputController = inputController;
             hoveredMapElements = new HashSet<MapElement>();
         }
 
@@ -42,7 +43,7 @@ namespace MechWars.PlayerInput
 
             var candidates = new HashSet<MapElement>();
 
-            if (mouse.BehaviourDeterminant.AllowsHover)
+            if (inputController.BehaviourDeterminant.AllowsHover)
             {
                 UpdateRaycastHover(candidates);
                 ManageHoverBox(candidates);
@@ -53,7 +54,7 @@ namespace MechWars.PlayerInput
 
         void UpdateHoverBoxEnabled()
         {
-            HoverBoxEnabled = mouse.BehaviourDeterminant.AllowsMultiTarget;
+            HoverBoxEnabled = inputController.BehaviourDeterminant.AllowsMultiTarget;
             if (!HoverBoxEnabled && HoverBoxActive)
                 throw new System.Exception(
                     "HoverController is in invalid state - HoverBoxEnabled is false, but HoverBoxActive is true. \n" +
@@ -62,8 +63,8 @@ namespace MechWars.PlayerInput
         
         void UpdateRaycastHover(HashSet<MapElement> candidates)
         {
-            if (mouse.MapRaycast.MapElement != null)
-                candidates.Add(mouse.MapRaycast.MapElement);
+            if (inputController.MapRaycast.MapElement != null)
+                candidates.Add(inputController.MapRaycast.MapElement);
         }
 
         void ManageHoverBox(HashSet<MapElement> candidates)
@@ -72,18 +73,18 @@ namespace MechWars.PlayerInput
             {
                 if (!HoverBoxActive)
                 {
-                    if (mouse.Left.IsDown && !mouse.Right.IsPressed)
+                    if (Mouse.Left.IsDown && !Mouse.Right.IsPressed)
                     {
                         preHoverBoxState = true;
-                        hoverBoxStart = mouse.Position;
+                        hoverBoxStart = Mouse.Position;
                     }
                     if (preHoverBoxState)
                     {
-                        var distance = Vector2.Distance(hoverBoxStart, mouse.Position);
+                        var distance = Vector2.Distance(hoverBoxStart, Mouse.Position);
                         if (distance > hoverBoxMinDistance)
                         {
                             preHoverBoxState = false;
-                            HoverBox = new HoverBox(mouse, hoverBoxStart);
+                            HoverBox = new HoverBox(inputController, hoverBoxStart);
                         }
                     }
                 }
@@ -91,7 +92,7 @@ namespace MechWars.PlayerInput
                 {
                     HoverBox.Update();
                     candidates.UnionWith(HoverBox.MapElementsInside);
-                    if (mouse.Left.IsUp)
+                    if (Mouse.Left.IsUp)
                         HoverBox = null;
                 }
             }
@@ -99,7 +100,7 @@ namespace MechWars.PlayerInput
 
         void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
-            mouse.BehaviourDeterminant.FilterHoverCandidates(mouse.Player, candidates);
+            inputController.BehaviourDeterminant.FilterHoverCandidates(inputController.Player, candidates);
         }
 
         void UpdateHoveredMapElements(HashSet<MapElement> candidates)

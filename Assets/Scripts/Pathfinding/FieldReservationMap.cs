@@ -59,24 +59,6 @@ namespace MechWars.Pathfinding
             reservationTable = new MapElement[Width, Height];
         }
 
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F3))
-            {
-                var sb = new StringBuilder();
-                for (int i = 0; i < Height; i++)
-                {
-                    for (int j = 0; j < Width; j++)
-                    {
-                        if (this[j, i] == null) sb.Append('.');
-                        else sb.Append(this[j, i].id);
-                    }
-                    sb.AppendLine();
-                }
-                Debug.Log(sb.ToString());
-            }
-        }
-
         public void MakeReservation(MapElement mapElement, IVector2 coords)
         {
             if (mapElement == null)
