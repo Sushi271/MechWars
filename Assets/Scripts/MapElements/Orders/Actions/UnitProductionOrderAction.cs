@@ -1,6 +1,4 @@
-﻿using MechWars.MapElements.Orders.Actions.Args;
-
-namespace MechWars.MapElements.Orders.Actions
+﻿namespace MechWars.MapElements.Orders.Actions
 {
     public class UnitProductionOrderAction : ProductionOrderAction
     {

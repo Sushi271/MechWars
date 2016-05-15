@@ -4,22 +4,22 @@ namespace MechWars.PlayerInput
 {
     public class PlayerMouseButton
     {
-        int index;
+        protected int Index { get; private set; }
 
-        public bool IsDown { get; private set; }
-        public bool IsPressed { get; private set; }
-        public bool IsUp { get; private set; }
+        public bool IsDown { get; protected set; }
+        public bool IsPressed { get; protected set; }
+        public bool IsUp { get; protected set; }
 
         public PlayerMouseButton(int index)
         {
-            this.index = index;
+            Index = index;
         }
 
-        public void Update()
+        public virtual void Update()
         {
-            IsDown = Input.GetMouseButtonDown(index);
-            IsPressed = Input.GetMouseButton(index);
-            IsUp = Input.GetMouseButtonUp(index);
+            IsDown = Input.GetMouseButtonDown(Index);
+            IsPressed = Input.GetMouseButton(Index);
+            IsUp = Input.GetMouseButtonUp(Index);
         }
     }
 }

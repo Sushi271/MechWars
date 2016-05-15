@@ -71,19 +71,19 @@ namespace MechWars.Human
             {
                 var attackerUnits = selected.Units.Where(u => u.CanAttack);
                 if (mapElement != null && mapElement.CanBeAttacked)
-                    attackerUnits.GiveOrder(u => new FollowAttackOrder(u, mapElement));
+                    attackerUnits.GiveOrder(u => new FollowAttackOrder(u, mapElement.AsEnumerable()));
                 else if (dest.HasValue)
                     attackerUnits.GiveOrder(u => new AttackMoveOrder(u, dest.Value));
 
                 var attackerBuildings = selected.Buildings.Where(b => b.CanAttack);
                 if (mapElement != null && mapElement.CanBeAttacked)
-                    attackerBuildings.GiveOrder(b => new StandAttackOrder(b, mapElement));
+                    attackerBuildings.GiveOrder(b => new StandAttackOrder(b, mapElement.AsEnumerable()));
             }
             else if (escortMode)
             {
                 var unit = mapElement as Unit;
                 if (unit != null && unit.army == player.Army)
-                    selected.Units.GiveOrder(u => new EscortOrder(u, unit));
+                    selected.Units.GiveOrder(u => new EscortOrder(u, unit.AsEnumerable()));
                 else if (dest.HasValue)
                     selected.Units.GiveOrder(u => new MoveOrder(u, dest.Value));
             }
@@ -93,7 +93,7 @@ namespace MechWars.Human
                     mapElement.army != null &&
                     mapElement.army != player.Army &&
                     mapElement.CanBeAttacked)
-                    selected.Units.Where(u => u.CanAttack).GiveOrder(u => new FollowAttackOrder(u, mapElement));
+                    selected.Units.Where(u => u.CanAttack).GiveOrder(u => new FollowAttackOrder(u, mapElement.AsEnumerable()));
                 else if (mapElement != null && mapElement is Resource)
                 {
                     selected.Units.Where(u => u.canCollect).GiveOrder(u => new HarvestOrder(u, (Resource)mapElement));

@@ -17,7 +17,7 @@ namespace MechWars.MapElements
         public override bool Selectable { get { return true; } }
         public override bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
         public override bool CanBeAttacked { get { return true; } }
-        public virtual bool CanBeEscorted { get { return true; } }
+        public override bool CanBeEscorted { get { return true; } }
 
         public Unit()
         {

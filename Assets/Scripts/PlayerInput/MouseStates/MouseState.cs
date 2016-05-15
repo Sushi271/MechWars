@@ -12,6 +12,6 @@ namespace MechWars.PlayerInput.MouseStates
         public virtual Color FramesColor { get { return Color.black; } }
 
         public abstract void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates);
-        public abstract void Handle(InputController mouse);
+        public abstract void Handle(InputController inputController);
     }
 }

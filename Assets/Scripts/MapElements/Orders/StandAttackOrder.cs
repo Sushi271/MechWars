@@ -1,4 +1,5 @@
 ﻿using MechWars.Utils;
+using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders
 {
@@ -6,33 +7,51 @@ namespace MechWars.MapElements.Orders
     {
         AttackOrder attack;
         
-        public MapElement Target { get; private set; }
+        public MapElement CurrentTarget { get; private set; }
+        public HashSet<MapElement> Targets { get; private set; }
 
-        public StandAttackOrder(Unit orderedUnit, MapElement target)
+        public StandAttackOrder(Unit orderedUnit, IEnumerable<MapElement> targets)
             : base("Attack", orderedUnit)
         {
-            Target = target;
-            attack = new AttackOrder(orderedUnit, target);
+            AttackOrderHelper.AssertTargetsCanBeAttacked(targets);
+
+            Targets = new HashSet<MapElement>(targets);
         }
 
-        public StandAttackOrder(Building orderedBuilding, MapElement target)
+        public StandAttackOrder(Building orderedBuilding, IEnumerable<MapElement> targets)
             : base("Attack", orderedBuilding)
         {
-            Target = target;
-            attack = new AttackOrder(orderedBuilding, target);
+            AttackOrderHelper.AssertTargetsCanBeAttacked(targets);
+
+            Targets = new HashSet<MapElement>(targets);
+            attack = new AttackOrder(orderedBuilding, CurrentTarget);
         }        
 
         protected override bool RegularUpdate()
         {
-            if (attack.AttackingInProgress)
+            if (attack != null && attack.AttackingInProgress)
             {
                 attack.Update();
-                return attack.Stopped;
+                return false;
             }
-            
-            if (!Target.Alive) return true;
 
-            if (MapElement.MapElementInRange(Target))
+            if (CurrentTarget != null && !CurrentTarget.Alive)
+            {
+                Targets.Remove(CurrentTarget);
+                CurrentTarget = null;
+                attack = null;
+            }
+
+            Targets.RemoveWhere(t => !t.Alive);
+
+            if (CurrentTarget == null || !MapElement.MapElementInRange(CurrentTarget))
+            {
+                CurrentTarget = AttackOrderHelper.PickTarget(MapElement, Targets);
+                if (CurrentTarget == null) return true;
+                else attack = AttackOrder.Create(MapElement, CurrentTarget);
+            }
+
+            if (MapElement.MapElementInRange(CurrentTarget))
                 attack.Update();
 
             return false;
@@ -40,7 +59,7 @@ namespace MechWars.MapElements.Orders
 
         protected override bool StoppingUpdate()
         {
-            if (attack.AttackingInProgress)
+            if (attack != null && attack.AttackingInProgress)
             {
                 attack.Update();
                 return attack.Stopped;
@@ -55,12 +74,13 @@ namespace MechWars.MapElements.Orders
         
         protected override void OnStopCalled()
         {
-            attack.Stop();
+            if (attack != null)
+                attack.Stop();
         }
 
         protected override string SpecificsToString()
         {
-            return string.Format("{0}", Target);
+            return string.Format("CurrentTarget: {0}, Targets: {1}", CurrentTarget, Targets.ToDebugMessage());
         }
     }
 }

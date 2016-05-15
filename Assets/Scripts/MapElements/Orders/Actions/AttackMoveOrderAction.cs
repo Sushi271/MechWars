@@ -1,15 +1,12 @@
-﻿using MechWars.MapElements.Orders.Actions.Args;
-using MechWars.Utils;
-
-namespace MechWars.MapElements.Orders.Actions
+﻿namespace MechWars.MapElements.Orders.Actions
 {
     public class AttackMoveOrderAction : OrderAction<Unit>
     {
+        public override bool CanBeCarried { get { return true; } }
+
         public override IOrder CreateOrder(Unit orderExecutor, OrderActionArgs args)
         {
-            AssertOrderActionArgsTypeValid<DestinationOrderActionArgs>(args);
-            return new AttackMoveOrder(orderExecutor,
-                (IVector2)args[DestinationOrderActionArgs.DestinationArgName].Value);
+            return new AttackMoveOrder(orderExecutor, args.Destination);
         }
     }
 }

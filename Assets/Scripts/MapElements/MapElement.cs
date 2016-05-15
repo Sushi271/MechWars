@@ -31,7 +31,7 @@ namespace MechWars.MapElements
         public bool isShadow;
 
         bool reservationInitialized;
-
+        
         public JobQueue JobQueue { get; private set; }
 
         public Stats Stats { get; private set; }

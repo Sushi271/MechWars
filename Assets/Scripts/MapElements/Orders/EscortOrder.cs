@@ -1,5 +1,7 @@
 ﻿using System;
 using MechWars.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MechWars.MapElements.Orders
 {
@@ -11,16 +13,17 @@ namespace MechWars.MapElements.Orders
         bool targetLost;
 
         public Unit Unit { get; private set; }
-        public Unit Target { get; set; }
+        public HashSet<Unit> Targets { get; set; }
+        public IVector2 Destination { get; private set; }
 
-        public EscortOrder(Unit orderedUnit, Unit target)
+        public EscortOrder(Unit orderedUnit, IEnumerable<Unit> target)
             : base("Escort", orderedUnit)
         {
             Unit = (Unit)MapElement;
-            Target = target;
+            Targets = new HashSet<Unit>(target);
 
-            move = new MoveOrder(Unit, target.Coords.Round(), true);
-            move.OnSingleMoveFinished += OnSingleMoveFinished;
+            Destination = PickDestination();
+            move = new MoveOrder(Unit, Destination, true);
         }
 
         protected override bool RegularUpdate()
@@ -30,6 +33,18 @@ namespace MechWars.MapElements.Orders
                 move.Update();
                 return false;
             }
+
+            if (attack != null && attack.AttackingInProgress)
+            {
+                attack.Update();
+                return false;
+            }
+
+            Targets.RemoveWhere(t => !t.Alive);
+            if (Targets.Empty())
+                return true;
+
+            Destination = PickDestination();
 
             if (attack == null)
             {
@@ -50,18 +65,14 @@ namespace MechWars.MapElements.Orders
                 }
             }
 
-            if (attack != null && MapElement.MapElementInRange(Target))
-                attack.Update();
-            else
+            if (attack != null && MapElement.PositionInRange(Destination))
             {
-                if (Target.Alive)
-                {
-                    move.Destination = Target.Coords.Round();
-                    move.Update();
-                }
-                return !Target.Alive;
+                attack.Update();
+                return false;
             }
-            
+
+            move.Destination = PickDestination();
+            move.Update();
             return false;
         }
 
@@ -93,15 +104,16 @@ namespace MechWars.MapElements.Orders
                 attack.Stop();
         }
 
-        void OnSingleMoveFinished()
+        IVector2 PickDestination()
         {
-            if (Target.Alive)
-                move.Destination = Target.Coords.Round();
+            if (Targets.Empty())
+                throw new System.Exception("Cannot pick destination - no more targets to escort.");
+            return Targets.Average(t => t.Coords).Round();
         }
 
         protected override string SpecificsToString()
         {
-            return string.Format("{0}", Target);
+            return string.Format("Targets: {0}", Targets.ToDebugMessage());
         }
     }
 }

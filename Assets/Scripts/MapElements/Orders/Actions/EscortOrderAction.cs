@@ -1,8 +1,6 @@
 ﻿using MechWars.Human;
-using MechWars.MapElements.Orders.Actions.Args;
 using MechWars.PlayerInput;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace MechWars.MapElements.Orders.Actions
 {
@@ -10,6 +8,7 @@ namespace MechWars.MapElements.Orders.Actions
     {
         public override bool AllowsMultiTarget { get { return true; } }
         public override bool AllowsHover { get { return true; } }
+        public override bool CanBeCarried { get { return true; } }
 
         public override void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
         {
@@ -18,9 +17,8 @@ namespace MechWars.MapElements.Orders.Actions
 
         public override IOrder CreateOrder(Unit orderExecutor, OrderActionArgs args)
         {
-            AssertOrderActionArgsTypeValid<UnitTargetOrderActionArgs>(args);
-            return new EscortOrder(orderExecutor,
-                (Unit)args[UnitTargetOrderActionArgs.TargetArgName].Value);
+            var unitTargets = TryExtractTargetsArg<Unit>(args);
+            return new EscortOrder(orderExecutor, unitTargets);
         }
     }
 }

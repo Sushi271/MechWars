@@ -5,16 +5,15 @@ using System.Linq;
 
 namespace MechWars.PlayerInput
 {
-    public class SelectionController2
+    public class SelectionMonitor
     {
         InputController inputController;
 
         HashSet<MapElement> selectedMapElements;
         public IEnumerable<MapElement> SelectedMapElements { get { return selectedMapElements; } }
 
-        public SelectionController2(InputController inputController)
+        public SelectionMonitor()
         {
-            this.inputController = inputController;
             selectedMapElements = new HashSet<MapElement>();
         }
 
@@ -63,7 +62,7 @@ namespace MechWars.PlayerInput
         void AssertMapElementsSelectable(IEnumerable<MapElement> mapElements)
         {
             var nonSelectable = mapElements.Where(me => !me.Selectable);
-            if (nonSelectable.FirstOrDefault() != null)
+            if (!nonSelectable.Empty())
                 throw new System.Exception(string.Format("Following MapElements cannot be selected: {0}.",
                     nonSelectable.ToDebugMessage()));
         }

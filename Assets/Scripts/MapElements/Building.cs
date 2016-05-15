@@ -27,7 +27,7 @@ namespace MechWars.MapElements
             {
                 if (UnderConstruction)
                     throw new System.Exception(string.Format(
-                        "Building {0} cannot provide OrderExecutor - it's under construction.", this));
+                        "Building {0} cannot provide OrderExecutor - Building is under construction.", this));
                 return orderExecutor;
             }
             private set { orderExecutor = value; }

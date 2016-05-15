@@ -32,7 +32,7 @@ namespace MechWars.MapElements.Orders
             {
                 attackTarget = MapElement.AcquireTarget();
                 if (attackTarget != null)
-                    attack = new FollowAttackOrder(Unit, attackTarget);
+                    attack = new FollowAttackOrder(Unit, attackTarget.AsEnumerable());
             }
             if (attack != null)
             {

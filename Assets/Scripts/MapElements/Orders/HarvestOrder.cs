@@ -54,6 +54,10 @@ namespace MechWars.MapElements.Orders
         public HarvestOrder(Unit orderedUnit, Building refinery)
             : base("Harvest", orderedUnit)
         {
+            if (!refinery.isResourceDeposit)
+                throw new System.ArgumentException(string.Format(
+                    "{0} provided as \"refinery\" is not resource deposit.", refinery));
+
             Unit = (Unit)MapElement;
             Refinery = refinery;
             mode = HarvestMode.Deposit;

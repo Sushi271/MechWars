@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace MechWars.Utils
 {
@@ -8,6 +9,24 @@ namespace MechWars.Utils
         public static bool Empty<T>(this ICollection<T> collection)
         {
             return collection.Count == 0;
+        }
+        
+        public static bool Empty<T>(this IEnumerable<T> enumerable)
+        {
+            return !enumerable.HasAtLeast(1);
+        }
+
+        public static bool HasAtLeast<T>(this IEnumerable<T> enumerable, int numberOfElements)
+        {
+            if (numberOfElements == 0) return true;
+
+            int i = 0;
+            foreach (var item in enumerable)
+            {
+                i++;
+                if (i == numberOfElements) return true;
+            }
+            return false;
         }
 
         public static IEnumerable<T> AsEnumerable<T>(this T item)
@@ -106,6 +125,18 @@ namespace MechWars.Utils
         public static int RemoveWhereNot<T>(this HashSet<T> set, System.Func<T, bool> predicate)
         {
             return set.RemoveWhere(i => !predicate(i));
+        }
+
+        public static Vector2 Average<TSource>(this IEnumerable<TSource> source, System.Func<TSource, Vector2> selector)
+        {
+            var sum = Vector2.zero;
+            int count = 0;
+            foreach (var item in source)
+            {
+                sum += selector(item);
+                count += 1;
+            }
+            return sum / count;
         }
     }
 }

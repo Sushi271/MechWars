@@ -2,12 +2,22 @@
 using MechWars.MapElements.Jobs;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
+using System.Linq;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
     public class AttackOrder : Order<MapElement>
     {
+        public static AttackOrder Create(MapElement orderedMapElement, MapElement target)
+        {
+            if (orderedMapElement is Unit)
+                return new AttackOrder((Unit)orderedMapElement, target);
+            if (orderedMapElement is Building)
+                return new AttackOrder((Building)orderedMapElement, target);
+            throw new System.ArgumentException("\"MapElement orderedMapElement\" argument must be either Unit or Building.");
+        }
+
         Attack attack;
         AttackJob attackJob;
 
@@ -17,6 +27,7 @@ namespace MechWars.MapElements.Orders
         public AttackOrder(Unit orderedUnit, MapElement target)
             : base("Attack", orderedUnit)
         {
+            AttackOrderHelper.AssertTargetsCanBeAttacked(target.AsEnumerable());
             Target = target;
         }
 

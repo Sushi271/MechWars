@@ -1,6 +1,7 @@
 ﻿using MechWars.Human;
-using MechWars.MapElements.Orders.Actions.Args;
+using MechWars.Utils;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders.Actions
@@ -8,12 +9,16 @@ namespace MechWars.MapElements.Orders.Actions
     public abstract class OrderAction<T> : MonoBehaviour, IOrderAction
         where T : MapElement
     {
+        public bool TEMP_ForUnit { get { return typeof(T) == typeof(Unit); } }
+        // ---------------------------
+
         public Color framesColor = Color.black;
         public Color FramesColor { get { return framesColor; } }
 
         public virtual bool AllowsMultiTarget { get { return false; } }
         public virtual bool AllowsHover { get { return false; } }
         public virtual bool IsAttack { get { return false; } }
+        public virtual bool CanBeCarried { get { return false; } }
 
         public virtual void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
         {
@@ -36,16 +41,16 @@ namespace MechWars.MapElements.Orders.Actions
 
         public abstract IOrder CreateOrder(T orderExecutor, OrderActionArgs args);
 
-        protected void AssertOrderActionArgsTypeValid<U>(OrderActionArgs args)
-            where U : OrderActionArgs
+        protected IEnumerable<U> TryExtractTargetsArg<U>(OrderActionArgs args)
+            where U : MapElement
         {
-            if (args == null)
-                throw new System.ArgumentException("\"OrderActionArgs args\" argument cannot be NULL.");
 
-            if (!(args is U))
-                throw new System.ArgumentException(string.Format(
-                    "Method \"CreateOrder\" in class {0} must take {1} as \"OrderActionArgs args\" argument.",
-                    GetType().Name, typeof(U).Name));
+            var wrongTypeTargets = args.Targets.Where(t => !(t is U));
+            if (!wrongTypeTargets.Empty())
+                throw new System.Exception(string.Format(
+                    "OrderActionArgs.Target must be a {0} for {1}. Following targets were of wrong type: {2}.",
+                    typeof(U).Name, GetType().Name, wrongTypeTargets.ToDebugMessage()));
+            return args.Targets.Cast<U>();
         }
     }
 }

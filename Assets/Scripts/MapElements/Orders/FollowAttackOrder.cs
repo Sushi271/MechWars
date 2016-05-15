@@ -1,4 +1,5 @@
 ﻿using MechWars.Utils;
+using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders
 {
@@ -8,36 +9,57 @@ namespace MechWars.MapElements.Orders
         AttackOrder attack;
 
         public Unit Unit { get; private set; }
-        public MapElement Target { get; private set; }
 
-        public FollowAttackOrder(Unit orderedUnit, MapElement target)
+        public MapElement CurrentTarget { get; private set; }
+        public HashSet<MapElement> Targets { get; private set; }
+
+        public FollowAttackOrder(Unit orderedUnit, IEnumerable<MapElement> target)
             : base("FollowAttack", orderedUnit)
         {
-            Unit = (Unit)MapElement;
-            Target = target;
+            AttackOrderHelper.AssertTargetsCanBeAttacked(target);
 
-            move = new MoveOrder(Unit, target.Coords.Round());
-            move.OnSingleMoveFinished += OnSingleMoveFinished;
-            attack = new AttackOrder(orderedUnit, target);
+            Unit = (Unit)MapElement;
+            Targets = new HashSet<MapElement>(target);
         }
 
         protected override bool RegularUpdate()
         {
-            if (move.SingleMoveInProgress)
+            if (move != null && move.SingleMoveInProgress)
             {
                 move.Update();
                 return false;
             }
 
-            if (attack.AttackingInProgress)
+            if (attack != null && attack.AttackingInProgress)
             {
                 attack.Update();
-                return attack.Stopped;
+                return false;
             }
-            
-            if (!Target.Alive) return true;
 
-            if (!MapElement.MapElementInRange(Target))
+            if (CurrentTarget != null && !CurrentTarget.Alive)
+            {
+                Targets.Remove(CurrentTarget);
+                CurrentTarget = null;
+                move.OnSingleMoveFinished -= OnSingleMoveFinished;
+                move = null;
+                attack = null;
+            }
+
+            Targets.RemoveWhere(t => !t.Alive);
+
+            if (CurrentTarget == null)
+            {
+                CurrentTarget = AttackOrderHelper.PickTarget(MapElement, Targets);
+                if (CurrentTarget == null) return true;
+                else
+                {
+                    move = new MoveOrder(Unit, CurrentTarget.GetClosestFieldTo(Unit.Coords).Round());
+                    move.OnSingleMoveFinished += OnSingleMoveFinished;
+                    attack = new AttackOrder(Unit, CurrentTarget);
+                }
+            }
+
+            if (!MapElement.MapElementInRange(CurrentTarget))
                 move.Update();
             else attack.Update();
             return false;
@@ -45,13 +67,13 @@ namespace MechWars.MapElements.Orders
 
         protected override bool StoppingUpdate()
         {
-            if (move.SingleMoveInProgress)
+            if (move != null && move.SingleMoveInProgress)
             {
                 move.Update();
                 return move.Stopped;
             }
 
-            if (attack.AttackingInProgress)
+            if (attack != null && attack.AttackingInProgress)
             {
                 attack.Update();
                 return attack.Stopped;
@@ -66,8 +88,8 @@ namespace MechWars.MapElements.Orders
 
         void OnSingleMoveFinished()
         {
-            if (Target.Alive)
-                move.Destination = Target.Coords.Round();
+            if (CurrentTarget.Alive)
+                move.Destination = CurrentTarget.GetClosestFieldTo(Unit.Coords).Round();
         }
 
         protected override void OnStopCalled()
@@ -78,7 +100,7 @@ namespace MechWars.MapElements.Orders
 
         protected override string SpecificsToString()
         {
-            return string.Format("{0}", Target);
+            return string.Format("CurrentTarget: {0}, Targets: {1}", CurrentTarget, Targets.ToDebugMessage());
         }
     }
 }
