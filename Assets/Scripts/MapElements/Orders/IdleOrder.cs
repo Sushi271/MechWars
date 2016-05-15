@@ -25,7 +25,7 @@ namespace MechWars.MapElements.Orders
 
         protected override bool RegularUpdate()
         {
-            if (MapElement.canAttack)
+            if (MapElement.CanAttack)
             {
                 if (attack == null)
                 {

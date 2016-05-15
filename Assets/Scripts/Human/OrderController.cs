@@ -32,7 +32,6 @@ namespace MechWars.Human
                     OnBuildingLocationMouseMode();
                     break;
             }
-
         }
 
         void OnDefaultMouseMode()
@@ -70,14 +69,14 @@ namespace MechWars.Human
 
             if (attackMode)
             {
-                var attackerUnits = selected.Units.Where(u => u.canAttack);
-                if (mapElement != null && mapElement.canBeAttacked)
+                var attackerUnits = selected.Units.Where(u => u.CanAttack);
+                if (mapElement != null && mapElement.CanBeAttacked)
                     attackerUnits.GiveOrder(u => new FollowAttackOrder(u, mapElement));
                 else if (dest.HasValue)
                     attackerUnits.GiveOrder(u => new AttackMoveOrder(u, dest.Value));
 
-                var attackerBuildings = selected.Buildings.Where(b => b.canAttack);
-                if (mapElement != null && mapElement.canBeAttacked)
+                var attackerBuildings = selected.Buildings.Where(b => b.CanAttack);
+                if (mapElement != null && mapElement.CanBeAttacked)
                     attackerBuildings.GiveOrder(b => new StandAttackOrder(b, mapElement));
             }
             else if (escortMode)
@@ -93,8 +92,8 @@ namespace MechWars.Human
                 if (mapElement != null &&
                     mapElement.army != null &&
                     mapElement.army != player.Army &&
-                    mapElement.canBeAttacked)
-                    selected.Units.Where(u => u.canAttack).GiveOrder(u => new FollowAttackOrder(u, mapElement));
+                    mapElement.CanBeAttacked)
+                    selected.Units.Where(u => u.CanAttack).GiveOrder(u => new FollowAttackOrder(u, mapElement));
                 else if (mapElement != null && mapElement is Resource)
                 {
                     selected.Units.Where(u => u.canCollect).GiveOrder(u => new HarvestOrder(u, (Resource)mapElement));

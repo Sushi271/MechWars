@@ -2,13 +2,15 @@
 
 namespace MechWars.MapElements.Orders.Actions
 {
-    public class TechnologyDevelopmentOrderAction : OrderAction<Building>
+    public class TechnologyDevelopmentOrderAction : ProductionOrderAction
     {
+        public Technology technology;
+
         public override IOrder CreateOrder(Building orderExecutor, OrderActionArgs args)
         {
-            AssertOrderActionArgsTypeValid<TechnologyOrderActionArgs>(args);
-            return new TechnologyDevelopmentOrder(orderExecutor,
-                (Technology)args[TechnologyOrderActionArgs.TechnologyArgName].Value);
+            if (technology == null)
+                throw new System.Exception("\"Technology technology\" field must not be NULL.");
+            return new TechnologyDevelopmentOrder(orderExecutor, technology);
         }
     }
 }

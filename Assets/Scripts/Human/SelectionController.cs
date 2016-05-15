@@ -58,7 +58,7 @@ namespace MechWars.Human
                         var dest = new Vector2(hit.point.x, hit.point.z).Round();
                         mapElement = Globals.FieldReservationMap[dest];
                     }
-                    if (mapElement != null && mapElement.selectable)
+                    if (mapElement != null && mapElement.Selectable)
                         singleHoveredMapElement = mapElement;
                 }
             }
@@ -132,7 +132,7 @@ namespace MechWars.Human
         {
             var hoveredMapElements = new HashSet<MapElement>();
 
-            var selectableMapElements = mapElements.Where(me => me.selectable);
+            var selectableMapElements = mapElements.Where(me => me.Selectable);
             if (selectableMapElements.Count() == 0)
                 return hoveredMapElements;
 
@@ -147,7 +147,7 @@ namespace MechWars.Human
 
             var units = armyMapElements.Where(me => me is Unit).Cast<Unit>();
             var buildings = armyMapElements.Where(me => me is Building).Cast<Building>();
-            var attackingBuildings = buildings.Where(b => b.canAttack);
+            var attackingBuildings = buildings.Where(b => b.CanAttack);
 
             if (thisArmy)
             {
