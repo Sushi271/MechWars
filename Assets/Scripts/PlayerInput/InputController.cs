@@ -95,10 +95,12 @@ namespace MechWars.PlayerInput
 
             if (executeOnUp && Mouse.Left.IsUp)
             {
+                var args = new OrderActionArgs(MapRaycast.Coords.Value, HoverController.HoveredMapElements);
                 foreach (var me in SelectionMonitor.SelectedMapElements)
                 {
-                    var order = CarriedOrderAction.CreateOrder(me, new OrderActionArgs(
-                        MapRaycast.Coords.Value, HoverController.HoveredMapElements));
+                    if (me.army != Player.Army) continue;
+
+                    var order = CarriedOrderAction.CreateOrder(me, args);
                     me.OrderExecutor.Give(order);
                 }
                 CarriedOrderAction = null;

@@ -93,7 +93,7 @@ namespace MechWars.InGameGUI
                         buttons.Add(button);
                     }
 
-                    if (count > 0 || (!building.UnderConstruction && building.OrderExecutor.Count > 0))
+                    if (count > 0 || (!building.UnderConstruction && building.OrderExecutor.OrderCount > 0))
                     {
                         var button = Instantiate(buttonPrefab);
                         var rectTransform = button.GetComponent<RectTransform>();

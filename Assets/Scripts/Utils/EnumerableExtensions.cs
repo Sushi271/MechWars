@@ -29,6 +29,12 @@ namespace MechWars.Utils
             return false;
         }
 
+        public static IEnumerable<T> AsEnumerable<T>(this T item, bool nullAsEmpty)
+        {
+            if (item == null && nullAsEmpty) return Enumerable.Empty<T>();
+            return item.AsEnumerable();
+        }
+
         public static IEnumerable<T> AsEnumerable<T>(this T item)
         {
             yield return item;

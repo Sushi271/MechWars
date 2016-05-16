@@ -1,5 +1,6 @@
 ﻿using MechWars.Human;
 using MechWars.MapElements;
+using MechWars.MapElements.Orders.Actions;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,9 +37,11 @@ namespace MechWars.PlayerInput.MouseStates
 
             if (inputController.Mouse.MouseStateRight.IsDown)
                 if (leftDown) leftDown = false;
-                else if (inputController.Player.Army != null)
+                else if (inputController.Player.Army != null && inputController.MapRaycast.Coords.HasValue)
                     HandleAutomaticOrder(inputController);
 
+            if (leftDown && inputController.Mouse.MouseStateLeft.IsUp)
+                inputController.SelectionMonitor.SelectNew(inputController.HoverController.HoveredMapElements);
         }
 
         void HandleAutomaticOrder(InputController inputController)
@@ -49,35 +52,44 @@ namespace MechWars.PlayerInput.MouseStates
                     "handling automatic order, while there are more than 1 hovered MapElements.");
             var mapElement = hovered.FirstOrDefault();
 
-            var selected = inputController.SelectionMonitor.SelectedMapElements;
-
-            bool handled;
+            bool handled = false;
             if (mapElement != null)
             {
-                if (mapElement.army != null &&
-                    mapElement.army != inputController.Player.Army &&
-                    mapElement.CanBeAttacked)
-                {
-                    //foreach (var me in selected)
-                    //{
-                    //    if (me.)
-                    //}
-                }
-                //    selected.Units.Where(u => u.CanAttack).GiveOrder(u => new FollowAttackOrder(u, mapElement.AsEnumerable()));
-                //else if (mapElement != null && mapElement is Resource)
-                //{
-                //    selected.Units.Where(u => u.canCollect).GiveOrder(u => new HarvestOrder(u, (Resource)mapElement));
-                //    selected.Units.Where(u => !u.canCollect).GiveOrder(u => new MoveOrder(u, dest.Value));
-                //}
-                //else if (mapElement != null && mapElement is Building && (mapElement as Building).isResourceDeposit)
-                //{
-                //    selected.Units.Where(u => u.canCollect).GiveOrder(u => new HarvestOrder(u, (Building)mapElement));
-                //    selected.Units.Where(u => !u.canCollect).GiveOrder(u => new MoveOrder(u, dest.Value));
-                //}
+                handled = true;
+                if (mapElement.CanBeAttacked && mapElement.army != null && mapElement.army != inputController.Player.Army)
+                    GiveOrdersIfPossible(inputController, mapElement,
+                        typeof(FollowAttackOrderAction), typeof(StandAttackOrderAction));
+                else if (mapElement is Resource)
+                    GiveOrdersIfPossible(inputController, mapElement,
+                        typeof(HarvestResourceOrderAction), typeof(MoveOrderAction));
+                else if (mapElement is Building && (mapElement as Building).isResourceDeposit)
+                    GiveOrdersIfPossible(inputController, mapElement,
+                        typeof(HarvestRefineryOrderAction), typeof(MoveOrderAction));
+                else handled = false;
+            }
+            if (!handled)
+            {
+                GiveOrdersIfPossible(inputController, mapElement, typeof(MoveOrderAction));
                 handled = true;
             }
-            //else if (dest != null)
-            //    selected.Units.GiveOrder(u => new MoveOrder(u, dest.Value));
+        }
+
+        void GiveOrdersIfPossible(InputController inputController, MapElement target, params System.Type[] types)
+        {
+            var args = new OrderActionArgs(inputController.MapRaycast.Coords.Value, target.AsEnumerable(true));
+            var selected = inputController.SelectionMonitor.SelectedMapElements;
+            foreach (var me in selected)
+            {
+                if (me.army != inputController.Player.Army) continue;
+
+                var result = me.orderActions.FirstOrAnother(types.Select(
+                    t => new System.Func<OrderAction, bool>(oa => oa.GetType() == t)).ToArray());
+                if (!result.Found) continue;
+
+                var orderAction = result.Result;
+                if (me.OrderExecutor.Enabled)
+                    me.OrderExecutor.Give(orderAction.CreateOrder(me, args));
+            }
         }
     }
 }

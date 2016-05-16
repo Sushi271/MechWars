@@ -1,7 +1,4 @@
 ﻿using MechWars.MapElements.Orders;
-using MechWars.MapElements.Orders.Actions;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace MechWars.MapElements
@@ -14,7 +11,14 @@ namespace MechWars.MapElements
         public override bool Selectable { get { return true; } }
         public override bool CanBeAttacked { get { return true; } }
         public override bool CanBeEscorted { get { return true; } }
-        
+
+        protected override OrderExecutor CreateOrderExecutor()
+        {
+            var orderExecutor = new OrderExecutor(() => new IdleOrder(this));
+            orderExecutor.GiveReplaces = true;
+            return orderExecutor;
+        }
+
         protected override void OnUpdate()
         {
             base.OnUpdate();

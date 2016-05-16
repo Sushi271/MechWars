@@ -2,8 +2,6 @@
 using System.Linq;
 using UnityEngine;
 
-// TODO: add / replace (join functionalities of Queue and Single)
-
 namespace MechWars.MapElements.Orders
 {
     public class OrderExecutor
@@ -12,11 +10,12 @@ namespace MechWars.MapElements.Orders
         System.Func<Order> defaultOrderCreator;
 
         public bool Enabled { get; private set; }
+        public bool GiveReplaces { get; set; }
 
         public Order DefaultOrder { get; private set; }
 
-        public int Count { get { return orderQueue.Count; } }
-        public Order CurrentOrder { get { return Count == 0 ? null : orderQueue.First(); } }
+        public int OrderCount { get { return orderQueue.Count; } }
+        public Order CurrentOrder { get { return OrderCount == 0 ? null : orderQueue.First(); } }
         public Order this[int i] { get { return orderQueue[i]; } }
 
         public OrderExecutor(System.Func<Order> defaultOrderCreator = null, bool enabled = true)
@@ -33,13 +32,15 @@ namespace MechWars.MapElements.Orders
             Enabled = true;
         }
 
-        public void Give(Order order)
+        public void Give(Order order, bool forceAdd = false)
         {
             if (!Enabled)
             {
-                Debug.LogWarning("Give() failed, OrderExecutor not Enabled.");
+                LogNotEnabledWarning("Give");
                 return;
             }
+            if (OrderCount > 0 && GiveReplaces && !forceAdd)
+                CancelAll();
             orderQueue.Add(order);
         }
 
@@ -47,11 +48,11 @@ namespace MechWars.MapElements.Orders
         {
             if (!Enabled)
             {
-                Debug.LogWarning("Cancel() failed, OrderExecutor not Enabled.");
+                LogNotEnabledWarning("Cancel");
                 return;
             }
 
-            if (idx < 0 || Count <= idx)
+            if (idx < 0 || OrderCount <= idx)
                 throw new System.IndexOutOfRangeException(
                     "Parameter idx must be between 0 (inclusive) and Count (exclusive).");
             if (idx > 0)
@@ -67,7 +68,7 @@ namespace MechWars.MapElements.Orders
         {
             if (!Enabled)
             {
-                Debug.LogWarning("Cancel() failed, OrderExecutor not Enabled.");
+                LogNotEnabledWarning("Cancel");
                 return;
             }
 
@@ -82,35 +83,35 @@ namespace MechWars.MapElements.Orders
         {
             if (!Enabled)
             {
-                Debug.LogWarning("Cancel() failed, OrderExecutor not Enabled.");
+                LogNotEnabledWarning("CancelCurrent");
                 return;
             }
 
-            if (Count > 0) Cancel(0);
+            if (OrderCount > 0) Cancel(0);
         }
 
         public void CancelAll()
         {
             if (!Enabled)
             {
-                Debug.LogWarning("CancelAll() failed, OrderExecutor not Enabled.");
+                LogNotEnabledWarning("CancelAll");
                 return;
             }
 
-            if (Count == 0) return;
-            while (Count > 1)
+            if (OrderCount == 0) return;
+            while (OrderCount > 1)
             {
-                orderQueue[Count - 1].Terminate();
-                orderQueue.RemoveAt(Count - 1);
+                orderQueue[OrderCount - 1].Terminate();
+                orderQueue.RemoveAt(OrderCount - 1);
             }
-            Cancel(0);
+            CancelCurrent();
         }
 
         public void Update()
         {
             if (!Enabled)
             {
-                Debug.LogWarning("Update() failed, OrderExecutor not Enabled.");
+                LogNotEnabledWarning("Update");
                 return;
             }
 
@@ -118,7 +119,8 @@ namespace MechWars.MapElements.Orders
             {
                 if (DefaultOrder == null)
                     DefaultOrder = defaultOrderCreator();
-                DefaultOrder.Update();
+                if (DefaultOrder != null)
+                    DefaultOrder.Update();
             }
             else
             {
@@ -144,13 +146,18 @@ namespace MechWars.MapElements.Orders
         {
             if (!Enabled)
             {
-                Debug.LogWarning("Terminate() failed, OrderExecutor not Enabled.");
+                LogNotEnabledWarning("Terminate");
                 return;
             }
 
             foreach (var o in orderQueue)
                 o.Terminate();
             orderQueue.Clear();
+        }
+
+        void LogNotEnabledWarning(string funcName)
+        {
+            Debug.LogWarning(string.Format("{0}() failed, OrderExecutor not Enabled.", funcName));
         }
     }
 }

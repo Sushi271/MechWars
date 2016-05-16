@@ -487,7 +487,7 @@ namespace MechWars.MapElements
             Vector2 d = Vector2.down * size.y * lineLength;
             Vector2 r = Vector2.right * size.x * lineLength;
             Vector2 l = Vector2.left * size.x * lineLength;
-
+            
             Color color = Globals.Instance.humanPlayer.InputController.FramesColor;
 
             if (Hovered || Selected)

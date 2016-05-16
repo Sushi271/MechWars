@@ -37,6 +37,22 @@ namespace MechWars.PlayerInput
             }
         }
 
+        public void SelectNew(IEnumerable<MapElement> mapElements)
+        {
+            AssertMapElementsSelectable(mapElements);
+
+            foreach (var me in mapElements)
+                if (me.Selected)
+                    selectedMapElements.Remove(me); // DON'T set me.Selected = false!
+            ClearSelection();                       // only those who are left have now set Selected = false
+            foreach (var me in mapElements)
+            {
+                if (!me.Selected)
+                    me.Selected = true;      // now setting Selected = true only for those, who were previously removed
+                selectedMapElements.Add(me); // and all are added to selection
+            }
+        }
+
         public void ToggleSelect(IEnumerable<MapElement> mapElements)
         {
             AssertMapElementsSelectable(mapElements);

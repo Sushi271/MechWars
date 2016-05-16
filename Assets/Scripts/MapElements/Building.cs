@@ -1,5 +1,4 @@
 ﻿using MechWars.MapElements.Orders;
-using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Production;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
@@ -41,6 +40,8 @@ namespace MechWars.MapElements
         {
             base.OnStart();
             if (isShadow) return;
+            
+            if (!UnderConstruction) OrderExecutor.Enable();
 
             InitializeNeighbourFields();
         }
@@ -64,10 +65,7 @@ namespace MechWars.MapElements
 
             if (UnderConstruction)
                 transform.localScale = new Vector3(1, ConstructionInfo.TotalProgress, 1);
-            else
-            {
-                transform.localScale = Vector3.one;
-            }
+            else transform.localScale = Vector3.one;
         }
 
         public Unit Spawn(Unit unit)
@@ -180,12 +178,12 @@ namespace MechWars.MapElements
                     OrderExecutor.DefaultOrder == null ? "---" :
                     OrderExecutor.DefaultOrder.ToString()));
                 sb.AppendLine("Order queue:");
-                if (OrderExecutor.Count == 0)
+                if (OrderExecutor.OrderCount == 0)
                     sb.Append("    ---");
-                else for (int i = 0; i < OrderExecutor.Count; i++)
+                else for (int i = 0; i < OrderExecutor.OrderCount; i++)
                     {
                         string line = string.Format("{0}: {1}", i, OrderExecutor[i]);
-                        if (i < OrderExecutor.Count - 1)
+                        if (i < OrderExecutor.OrderCount - 1)
                             sb.AppendLine(line);
                         else sb.Append(line);
                     }
