@@ -2,7 +2,7 @@
 
 namespace MechWars.MapElements.Orders
 {
-    public class AttackMoveOrder : Order<Unit>
+    public class AttackMoveOrder : Order
     {
         MoveOrder move;
         FollowAttackOrder attack;

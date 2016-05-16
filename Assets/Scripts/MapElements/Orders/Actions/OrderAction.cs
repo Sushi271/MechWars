@@ -1,4 +1,5 @@
 ﻿using MechWars.Human;
+using MechWars.PlayerInput;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +7,8 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders.Actions
 {
-    public abstract class OrderAction<T> : MonoBehaviour, IOrderAction
-        where T : MapElement
+    public abstract class OrderAction : MonoBehaviour, IMouseBehaviourDeterminant
     {
-        public bool TEMP_ForUnit { get { return typeof(T) == typeof(Unit); } }
-        // ---------------------------
-
         public Color framesColor = Color.black;
         public Color FramesColor { get { return framesColor; } }
 
@@ -26,31 +23,36 @@ namespace MechWars.MapElements.Orders.Actions
                 throw new System.Exception(string.Format(
                     "{0} cannot filter hover candidates - it does not allow hover at all.", GetType().Name));
         }
+        
+        public abstract Order CreateOrder(MapElement orderExecutor, OrderActionArgs args);
 
-        public IOrder CreateOrder(MapElement orderExecutor, OrderActionArgs args)
-        {
-            if (orderExecutor == null)
-                throw new System.ArgumentException("\"MapElement orderExecutor\" argument cannot be NULL.");
-            if (!(orderExecutor is T))
-                throw new System.ArgumentException(string.Format(
-                    "\"MapElement orderExecutor\" is of type {0}, but it is used in OrderAction<{1}>. \n" +
-                    "Provide argument of type {1} instead", orderExecutor.GetType(), typeof(T)));
-
-            return CreateOrder((T)orderExecutor, args);
-        }
-
-        public abstract IOrder CreateOrder(T orderExecutor, OrderActionArgs args);
-
-        protected IEnumerable<U> TryExtractTargetsArg<U>(OrderActionArgs args)
-            where U : MapElement
+        protected IEnumerable<T> TryExtractTargetsArg<T>(OrderActionArgs args)
+            where T : MapElement
         {
 
-            var wrongTypeTargets = args.Targets.Where(t => !(t is U));
+            var wrongTypeTargets = args.Targets.Where(t => !(t is T));
             if (!wrongTypeTargets.Empty())
                 throw new System.Exception(string.Format(
                     "OrderActionArgs.Target must be a {0} for {1}. Following targets were of wrong type: {2}.",
-                    typeof(U).Name, GetType().Name, wrongTypeTargets.ToDebugMessage()));
-            return args.Targets.Cast<U>();
+                    typeof(T).Name, GetType().Name, wrongTypeTargets.ToDebugMessage()));
+            return args.Targets.Cast<T>();
+        }
+
+        protected void AssertOrderExecutorIs<T>(MapElement orderExecutor)
+            where T : MapElement
+        {
+            if (!(orderExecutor is T))
+                throw new System.ArgumentException(string.Format(
+                    "\"MapElement orderExecutor\" must be a {0}.", typeof(T).Name));
+        }
+
+        protected void AssertOrderExecutorIs<T1, T2>(MapElement orderExecutor)
+            where T1 : MapElement
+            where T2 : MapElement
+        {
+            if (!(orderExecutor is T1) && !(orderExecutor is T2))
+                throw new System.ArgumentException(string.Format(
+                    "\"MapElement orderExecutor\" must be a {0}, or a {1}.", typeof(T1).Name, typeof(T2).Name));
         }
     }
 }

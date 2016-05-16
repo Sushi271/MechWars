@@ -7,8 +7,6 @@ namespace MechWars.PlayerInput
 {
     public class SelectionMonitor
     {
-        InputController inputController;
-
         HashSet<MapElement> selectedMapElements;
         public IEnumerable<MapElement> SelectedMapElements { get { return selectedMapElements; } }
 

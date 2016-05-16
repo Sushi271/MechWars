@@ -185,7 +185,7 @@ namespace MechWars.Human
                 else if (CheckResources(constOpt))
                 {
                     var buildingToConst = constructingBuilding.Construct(constOpt, p);
-                    constructingBuilding.GiveOrder(new BuildingConstructionOrder(constructingBuilding, buildingToConst));
+                    constructingBuilding.OrderExecutor.Give(new BuildingConstructionOrder(constructingBuilding, buildingToConst));
                     QuitBuildingLocationMode();
                 }
             }
@@ -208,7 +208,7 @@ namespace MechWars.Human
 
         public void ProductionOrdered(Building orderingBuilding, UnitProductionOption productionOption)
         {
-            orderingBuilding.GiveOrder(new UnitProductionOrder(orderingBuilding, productionOption.unit));
+            orderingBuilding.OrderExecutor.Give(new UnitProductionOrder(orderingBuilding, productionOption.unit));
         }
 
         public void ConstructionOrdered(Building orderingBuilding, BuildingConstructionOption constructionOption)
@@ -235,12 +235,12 @@ namespace MechWars.Human
 
         public void DevelopmentOrdered(Building orderingBuilding, TechnologyDevelopmentOption developmentOption)
         {
-            orderingBuilding.GiveOrder(new TechnologyDevelopmentOrder(orderingBuilding, developmentOption.technology));
+            orderingBuilding.OrderExecutor.Give(new TechnologyDevelopmentOrder(orderingBuilding, developmentOption.technology));
         }
 
         public void CancelOrder(Building building)
         {
-            building.CancelCurrentOrder();
+            building.OrderExecutor.CancelCurrent();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MechWars.MapElements.Orders
 {
-    public class EscortOrder : Order<Unit>
+    public class EscortOrder : Order
     {
         MoveOrder move;
         AttackOrder attack;

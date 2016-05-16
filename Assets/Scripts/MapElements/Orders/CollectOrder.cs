@@ -1,10 +1,9 @@
-﻿using System;
-using MechWars.MapElements.Statistics;
+﻿using MechWars.MapElements.Statistics;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class CollectOrder : Order<Unit>
+    public class CollectOrder : Order
     {
         float progress;
 

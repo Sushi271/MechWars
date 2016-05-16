@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class HarvestOrder : Order<Unit>
+    public class HarvestOrder : Order
     {
         MoveOrder move;
         CollectOrder collect;

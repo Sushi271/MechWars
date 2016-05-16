@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders
 {
-    public class FollowAttackOrder : Order<Unit>
+    public class FollowAttackOrder : Order
     {
         MoveOrder move;
         AttackOrder attack;

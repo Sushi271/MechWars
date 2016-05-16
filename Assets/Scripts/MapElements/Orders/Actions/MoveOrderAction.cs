@@ -1,12 +1,13 @@
 ﻿namespace MechWars.MapElements.Orders.Actions
 {
-    public class MoveOrderAction : OrderAction<Unit>
+    public class MoveOrderAction : OrderAction
     {
         public override bool CanBeCarried { get { return true; } }
 
-        public override IOrder CreateOrder(Unit orderExecutor, OrderActionArgs args)
+        public override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
         {
-            return new MoveOrder(orderExecutor, args.Destination);
+            AssertOrderExecutorIs<Unit>(orderExecutor);
+            return new MoveOrder((Unit)orderExecutor, args.Destination);
         }
     }
 }

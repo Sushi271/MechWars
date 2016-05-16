@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class AttackOrder : Order<MapElement>
+    public class AttackOrder : Order
     {
         public static AttackOrder Create(MapElement orderedMapElement, MapElement target)
         {

@@ -3,12 +3,13 @@ using System.Linq;
 
 namespace MechWars.MapElements.Orders.Actions
 {
-    public class HarvestResourceOrderAction : OrderAction<Unit>
+    public class HarvestResourceOrderAction : OrderAction
     {
         public override bool CanBeCarried { get { return true; } }
 
-        public override IOrder CreateOrder(Unit orderExecutor, OrderActionArgs args)
+        public override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
         {
+            AssertOrderExecutorIs<Unit>(orderExecutor);
             var resourceTargets = TryExtractTargetsArg<Resource>(args);
             if (resourceTargets.Empty())
                 throw new System.Exception(
@@ -16,7 +17,7 @@ namespace MechWars.MapElements.Orders.Actions
             if (resourceTargets.HasAtLeast(2))
                 throw new System.Exception(
                     "HarvestResourceOrderAction requires single Resource target, but more than 1 provided.");
-            return new HarvestOrder(orderExecutor, resourceTargets.First());
+            return new HarvestOrder((Unit)orderExecutor, resourceTargets.First());
         }
     }
 }

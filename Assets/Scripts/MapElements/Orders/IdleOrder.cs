@@ -1,27 +1,18 @@
 ﻿using MechWars.MapElements.Jobs;
-using MechWars.MapElements.Statistics;
-using MechWars.Utils;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class IdleOrder : Order<MapElement>
+    public class IdleOrder : Order
     {
         AttackOrder attack;
         MapElement autoAttackTarget;
         bool targetLost;
 
-        public IdleOrder(Unit orderedUnit)
-            : base("Idle", orderedUnit)
+        public IdleOrder(MapElement orderedMapElement)
+            : base("Idle", orderedMapElement)
         {
-        }
-
-        public IdleOrder(Building orderedBuilding)
-            : base("Idle", orderedBuilding)
-        {
-        }
+        }        
 
         protected override bool RegularUpdate()
         {

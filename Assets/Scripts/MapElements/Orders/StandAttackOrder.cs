@@ -3,29 +3,19 @@ using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders
 {
-    public class StandAttackOrder : Order<MapElement>
+    public class StandAttackOrder : Order
     {
         AttackOrder attack;
         
         public MapElement CurrentTarget { get; private set; }
         public HashSet<MapElement> Targets { get; private set; }
 
-        public StandAttackOrder(Unit orderedUnit, IEnumerable<MapElement> targets)
-            : base("Attack", orderedUnit)
+        public StandAttackOrder(MapElement orderedMapElement, IEnumerable<MapElement> targets)
+            : base("Attack", orderedMapElement)
         {
             AttackOrderHelper.AssertTargetsCanBeAttacked(targets);
-
             Targets = new HashSet<MapElement>(targets);
         }
-
-        public StandAttackOrder(Building orderedBuilding, IEnumerable<MapElement> targets)
-            : base("Attack", orderedBuilding)
-        {
-            AttackOrderHelper.AssertTargetsCanBeAttacked(targets);
-
-            Targets = new HashSet<MapElement>(targets);
-            attack = new AttackOrder(orderedBuilding, CurrentTarget);
-        }        
 
         protected override bool RegularUpdate()
         {

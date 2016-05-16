@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class MoveOrder : Order<Unit>
+    public class MoveOrder : Order
     {
         Path path;
         bool pathNeedsUpdate;

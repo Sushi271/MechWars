@@ -15,8 +15,8 @@ namespace MechWars.PlayerInput
 
         public bool CarriesOrderAction { get { return CarriedOrderAction != null; } }
 
-        IOrderAction carriedOrderAction;
-        public IOrderAction CarriedOrderAction
+        OrderAction carriedOrderAction;
+        public OrderAction CarriedOrderAction
         {
             get { return carriedOrderAction; }
             set
@@ -97,15 +97,9 @@ namespace MechWars.PlayerInput
             {
                 foreach (var me in SelectionMonitor.SelectedMapElements)
                 {
-                    // TODO: REFACTOR THIS SHIT
-                    if (CarriedOrderAction.TEMP_ForUnit && !(me is Unit)) continue;
-                    if (!CarriedOrderAction.TEMP_ForUnit && !(me is Building)) continue;
-
                     var order = CarriedOrderAction.CreateOrder(me, new OrderActionArgs(
                         MapRaycast.Coords.Value, HoverController.HoveredMapElements));
-                    if (me is Unit) ((Unit)me).GiveOrder(order);
-                    else ((Building)me).GiveOrder(order);
-                    // ENDTODO
+                    me.OrderExecutor.Give(order);
                 }
                 CarriedOrderAction = null;
                 executeOnUp = false;

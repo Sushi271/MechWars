@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MechWars.MapElements.Orders.Actions
 {
-    public abstract class ProductionOrderAction : OrderAction<Building>
+    public abstract class ProductionOrderAction : OrderAction
     {
         public int cost;
         public float productionTime;

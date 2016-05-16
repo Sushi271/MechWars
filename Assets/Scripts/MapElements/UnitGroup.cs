@@ -18,16 +18,10 @@ namespace MechWars.MapElements
             return new UnitGroup(units.Where(predicate));
         }
 
-        public void GiveOrder(System.Func<Unit, Order<Unit>> orderConstructor)
+        public void GiveOrder(System.Func<Unit, Order> orderConstructor)
         {
             foreach (var u in units)
-                u.GiveOrder(orderConstructor(u));
-        }
-
-        public void GiveOrder(System.Func<Unit, Order<MapElement>> orderConstructor)
-        {
-            foreach (var u in units)
-                u.GiveOrder(orderConstructor(u));
+                u.OrderExecutor.Give(orderConstructor(u));
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using MechWars.MapElements.Orders.Products;
+﻿using MechWars.MapElements.Orders.Products;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class ProductionOrder : Order<Building>
+    public class ProductionOrder : Order
     {
         public int Paid { get; private set; }
         float progress;

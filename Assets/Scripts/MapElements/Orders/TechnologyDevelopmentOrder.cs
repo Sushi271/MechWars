@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class TechnologyDevelopmentOrder : Order<Building>
+    public class TechnologyDevelopmentOrder : Order
     {
         ProductionOrder productionOrder;
 

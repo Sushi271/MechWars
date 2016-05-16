@@ -1,5 +1,7 @@
 ﻿using MechWars.GLRendering;
 using MechWars.MapElements.Jobs;
+using MechWars.MapElements.Orders;
+using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -27,6 +29,8 @@ namespace MechWars.MapElements
         public int resourceValue;
         public int additionalResourceValue;
         public bool generateResourcesOnDeath = true;
+
+        public List<OrderAction> orderActions;
 
         public bool isShadow;
 
@@ -170,9 +174,11 @@ namespace MechWars.MapElements
 
         bool ShouldDrawStatusDisplay { get { return Hovered || Selected; } }
 
+        public virtual OrderExecutor OrderExecutor { get; private set; }
+
         protected virtual bool CanAddToArmy { get { return false; } }
         public virtual bool Selectable { get { return false; } }
-        public virtual bool CanAttack { get { return false; } }
+        public bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
         public virtual bool CanBeAttacked { get { return false; } }
         public virtual bool CanBeEscorted { get { return false; } }
 
@@ -181,6 +187,13 @@ namespace MechWars.MapElements
             JobQueue = new JobQueue(this);
             Stats = new Stats(this);
             alive = true;
+
+            OrderExecutor = CreateOrderExecutor();
+        }
+
+        protected virtual OrderExecutor CreateOrderExecutor()
+        {
+            return new OrderExecutor(() => new IdleOrder(this));
         }
 
         void Start()
@@ -310,7 +323,7 @@ namespace MechWars.MapElements
                 for (int x = xFrom; x <= xTo; x++)
                     yield return new IVector2(x, y);
         }
-
+        
         void Update()
         {
             OnUpdate();
@@ -331,6 +344,8 @@ namespace MechWars.MapElements
                 }
                 lastArmy = army;
             }
+
+            OrderExecutor.Update();
 
             UpdateDying();
             JobQueue.Update();
@@ -367,6 +382,9 @@ namespace MechWars.MapElements
             if (!suspendDestroy) Destroy(gameObject);
 
             TurnIntoResource();
+
+            if (OrderExecutor.Enabled)
+                OrderExecutor.Terminate();
         }
 
         void TurnIntoResource()

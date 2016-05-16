@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class UnitProductionOrder : Order<Building>
+    public class UnitProductionOrder : Order
     {
         ProductionOrder productionOrder;
 
@@ -12,7 +12,6 @@ namespace MechWars.MapElements.Orders
 
         public Building Building { get; private set; }
         public Unit Unit { get; private set; }
-
 
         public UnitProductionOrder(Building orderedBuilding, Unit producedUnit)
             : base("UnitProduction", orderedBuilding)

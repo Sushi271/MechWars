@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class DepositOrder : Order<Unit>
+    public class DepositOrder : Order
     {
         float progress;
 

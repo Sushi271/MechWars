@@ -1,34 +1,56 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+
+// TODO: add / replace (join functionalities of Queue and Single)
 
 namespace MechWars.MapElements.Orders
 {
-    public class QueueOrderExecutor
+    public class OrderExecutor
     {
-        List<IOrder> orderQueue;
-        System.Func<IOrder> defaultOrderCreator;
+        List<Order> orderQueue;
+        System.Func<Order> defaultOrderCreator;
 
-        public IOrder DefaultOrder { get; private set; }
+        public bool Enabled { get; private set; }
+
+        public Order DefaultOrder { get; private set; }
 
         public int Count { get { return orderQueue.Count; } }
-        public IOrder CurrentOrder { get { return Count == 0 ? null : orderQueue.First(); } }
-        public IOrder this[int i] { get { return orderQueue[i]; } }
+        public Order CurrentOrder { get { return Count == 0 ? null : orderQueue.First(); } }
+        public Order this[int i] { get { return orderQueue[i]; } }
 
-        public QueueOrderExecutor(System.Func<IOrder> defaultOrderCreator = null)
+        public OrderExecutor(System.Func<Order> defaultOrderCreator = null, bool enabled = true)
         {
-            orderQueue = new List<IOrder>();
+            orderQueue = new List<Order>();
             if (defaultOrderCreator == null)
                 defaultOrderCreator = () => null;
             this.defaultOrderCreator = defaultOrderCreator;
+            Enabled = enabled;
         }
-        
-        public void Give(IOrder order)
+
+        public void Enable()
         {
+            Enabled = true;
+        }
+
+        public void Give(Order order)
+        {
+            if (!Enabled)
+            {
+                Debug.LogWarning("Give() failed, OrderExecutor not Enabled.");
+                return;
+            }
             orderQueue.Add(order);
         }
 
         public void Cancel(int idx)
         {
+            if (!Enabled)
+            {
+                Debug.LogWarning("Cancel() failed, OrderExecutor not Enabled.");
+                return;
+            }
+
             if (idx < 0 || Count <= idx)
                 throw new System.IndexOutOfRangeException(
                     "Parameter idx must be between 0 (inclusive) and Count (exclusive).");
@@ -41,8 +63,14 @@ namespace MechWars.MapElements.Orders
                 CurrentOrder.Stop();
         }
 
-        public void Cancel(IOrder order)
+        public void Cancel(Order order)
         {
+            if (!Enabled)
+            {
+                Debug.LogWarning("Cancel() failed, OrderExecutor not Enabled.");
+                return;
+            }
+
             int idx = orderQueue.IndexOf(order);
             if (idx == -1)
                 throw new System.ArgumentException(string.Format(
@@ -50,8 +78,25 @@ namespace MechWars.MapElements.Orders
             Cancel(idx);
         }
 
+        public void CancelCurrent()
+        {
+            if (!Enabled)
+            {
+                Debug.LogWarning("Cancel() failed, OrderExecutor not Enabled.");
+                return;
+            }
+
+            if (Count > 0) Cancel(0);
+        }
+
         public void CancelAll()
         {
+            if (!Enabled)
+            {
+                Debug.LogWarning("CancelAll() failed, OrderExecutor not Enabled.");
+                return;
+            }
+
             if (Count == 0) return;
             while (Count > 1)
             {
@@ -63,6 +108,12 @@ namespace MechWars.MapElements.Orders
 
         public void Update()
         {
+            if (!Enabled)
+            {
+                Debug.LogWarning("Update() failed, OrderExecutor not Enabled.");
+                return;
+            }
+
             if (CurrentOrder == null)
             {
                 if (DefaultOrder == null)
@@ -91,6 +142,12 @@ namespace MechWars.MapElements.Orders
 
         public void Terminate()
         {
+            if (!Enabled)
+            {
+                Debug.LogWarning("Terminate() failed, OrderExecutor not Enabled.");
+                return;
+            }
+
             foreach (var o in orderQueue)
                 o.Terminate();
             orderQueue.Clear();

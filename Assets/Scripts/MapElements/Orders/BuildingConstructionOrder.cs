@@ -6,7 +6,7 @@ using MechWars.MapElements.Production;
 
 namespace MechWars.MapElements.Orders
 {
-    public class BuildingConstructionOrder : Order<Building>
+    public class BuildingConstructionOrder : Order
     {
         BuildingConstructionInfo constructionInfo;
         ProductionOrder productionOrder;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders.Actions
 {
-    public class FollowAttackOrderAction : OrderAction<Unit>
+    public class FollowAttackOrderAction : OrderAction
     {
         public override bool AllowsMultiTarget { get { return true; } }
         public override bool AllowsHover { get { return true; } }
@@ -16,9 +16,10 @@ namespace MechWars.MapElements.Orders.Actions
             HoverCandidatesFilter.Attack(player, candidates);
         }
 
-        public override IOrder CreateOrder(Unit orderExecutor, OrderActionArgs args)
+        public override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
         {
-            return new FollowAttackOrder(orderExecutor, args.Targets);
+            AssertOrderExecutorIs<Unit>(orderExecutor);
+            return new FollowAttackOrder((Unit)orderExecutor, args.Targets);
         }
     }
 }

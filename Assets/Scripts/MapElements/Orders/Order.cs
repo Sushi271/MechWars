@@ -1,14 +1,13 @@
 ﻿namespace MechWars.MapElements.Orders
 {
-    public abstract class Order<T> : IOrder
-        where T : MapElement
+    public abstract class Order
     {
         public string Name { get; private set; }
         public MapElement MapElement { get; private set; }
         public bool Stopping { get; private set; }
         public bool Stopped { get; private set; }
 
-        protected Order(string name, T mapElement)
+        protected Order(string name, MapElement mapElement)
         {
             Name = name;
             MapElement = mapElement;

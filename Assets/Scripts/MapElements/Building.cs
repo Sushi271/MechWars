@@ -13,40 +13,28 @@ namespace MechWars.MapElements
     public class Building : MapElement
     {
         public bool isResourceDeposit;
-        public List<OrderAction<Building>> orderActions;
         public List<UnitProductionOption> unitProductionOptions;
         public List<BuildingConstructionOption> buildingConstructionOptions;
         public List<TechnologyDevelopmentOption> technologyDevelopmentOptions;
-        
+
         public event System.Action OnConstructionFinished;
-
-        QueueOrderExecutor orderExecutor;
-        public QueueOrderExecutor OrderExecutor
-        {
-            get
-            {
-                if (UnderConstruction)
-                    throw new System.Exception(string.Format(
-                        "Building {0} cannot provide OrderExecutor - Building is under construction.", this));
-                return orderExecutor;
-            }
-            private set { orderExecutor = value; }
-        }
-
+        
         public bool UnderConstruction { get { return ConstructionInfo != null; } }
         public BuildingConstructionInfo ConstructionInfo { get; private set; }
-        
         protected override bool CanAddToArmy { get { return true; } }
         public override bool Selectable { get { return true; } }
-        public override bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
         public override bool CanBeAttacked { get { return true; } }
 
         HashSet<IVector2> allNeighbourFields;
 
         public Building()
         {
-            OrderExecutor = new QueueOrderExecutor(() => new IdleOrder(this));
             allNeighbourFields = new HashSet<IVector2>();
+        }
+
+        protected override OrderExecutor CreateOrderExecutor()
+        {
+            return new OrderExecutor(() => new IdleOrder(this), false);
         }
 
         protected override void OnStart()
@@ -79,7 +67,6 @@ namespace MechWars.MapElements
             else
             {
                 transform.localScale = Vector3.one;
-                OrderExecutor.Update();
             }
         }
 
@@ -163,45 +150,9 @@ namespace MechWars.MapElements
         public void FinishConstruction()
         {
             ConstructionInfo = null;
+            OrderExecutor.Enable();
             if (OnConstructionFinished != null)
                 OnConstructionFinished();
-        }
-
-        public void GiveOrder(IOrder order)
-        {
-            if (UnderConstruction)
-                throw new System.Exception(string.Format(
-                    "Building {0} cannot take orders - it's under construction.", this));
-
-            if (order is Order<Building> || order is Order<MapElement>)
-                OrderExecutor.Give(order);
-            else throw new System.Exception(string.Format(
-                "Order {0} not suitable for MapElement {1}.", order, this));
-        }
-
-        public void CancelCurrentOrder()
-        {
-            if (UnderConstruction)
-                throw new System.Exception(string.Format(
-                    "Building {0} cannot cancel orders - it's under construction.", this));
-            if (OrderExecutor.Count > 0)
-                OrderExecutor.Cancel(0);
-        }
-
-        public void CancelOrder(IOrder order)
-        {
-            if (UnderConstruction)
-                throw new System.Exception(string.Format(
-                    "Building {0} cannot cancel orders - it's under construction.", this));
-            OrderExecutor.Cancel(order);
-        }
-
-        public void CancelAllOrders()
-        {
-            if (UnderConstruction)
-                throw new System.Exception(string.Format(
-                    "Building {0} cannot cancel orders - it's under construction.", this));
-            OrderExecutor.CancelAll();
         }
 
         protected override void OnLifeEnd()
