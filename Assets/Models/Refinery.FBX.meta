@@ -145,6 +145,19 @@ ModelImporter:
     100274: refinery_metal
     100276: refinery_pipes
     100278: Mesh001
+    100280: Box065
+    100282: Box066
+    100284: Box067
+    100286: Box070
+    100288: Box071
+    100290: Box072
+    100292: Box074
+    100294: Box075
+    100296: Group001
+    100298: Mesh002
+    100300: Refinery 1
+    100302: Refinery 2
+    100304: refinery_door002
     400000: Box003
     400002: Box004
     400004: Box006
@@ -285,6 +298,19 @@ ModelImporter:
     400274: refinery_metal
     400276: refinery_pipes
     400278: Mesh001
+    400280: Box065
+    400282: Box066
+    400284: Box067
+    400286: Box070
+    400288: Box071
+    400290: Box072
+    400292: Box074
+    400294: Box075
+    400296: Group001
+    400298: Mesh002
+    400300: Refinery 1
+    400302: Refinery 2
+    400304: refinery_door002
     2300000: Box003
     2300002: Box004
     2300004: Box006
@@ -413,6 +439,16 @@ ModelImporter:
     2300250: refinery_door
     2300252: refinery_door001
     2300254: Mesh001
+    2300256: Box065
+    2300258: Box066
+    2300260: Box067
+    2300262: Box070
+    2300264: Box071
+    2300266: Box072
+    2300268: Box074
+    2300270: Box075
+    2300272: Mesh002
+    2300274: refinery_door002
     3300000: Box003
     3300002: Box004
     3300004: Box006
@@ -541,6 +577,16 @@ ModelImporter:
     3300250: refinery_door
     3300252: refinery_door001
     3300254: Mesh001
+    3300256: Box065
+    3300258: Box066
+    3300260: Box067
+    3300262: Box070
+    3300264: Box071
+    3300266: Box072
+    3300268: Box074
+    3300270: Box075
+    3300272: Mesh002
+    3300274: refinery_door002
     4300000: Box003
     4300002: Box004
     4300004: Box006
@@ -669,6 +715,16 @@ ModelImporter:
     4300250: Box063
     4300252: Box064
     4300254: Mesh001
+    4300256: Box070
+    4300258: Box071
+    4300260: Box072
+    4300262: Box066
+    4300264: Box067
+    4300266: Box065
+    4300268: Box074
+    4300270: Box075
+    4300272: refinery_door002
+    4300274: Mesh002
     6400000: Box003
     6400002: Box004
     6400004: Box006
@@ -797,6 +853,16 @@ ModelImporter:
     6400250: refinery_door
     6400252: refinery_door001
     6400254: Mesh001
+    6400256: Box065
+    6400258: Box066
+    6400260: Box067
+    6400262: Box070
+    6400264: Box071
+    6400266: Box072
+    6400268: Box074
+    6400270: Box075
+    6400272: Mesh002
+    6400274: refinery_door002
   materials:
     importMaterials: 1
     materialName: 0

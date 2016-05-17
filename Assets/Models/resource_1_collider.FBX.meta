@@ -1,58 +1,15 @@
 fileFormatVersion: 2
-guid: c44fb12cbb771844090e2f5396b292ec
-timeCreated: 1461662470
+guid: cc31277e67161464e85bba4936495b19
+timeCreated: 1463480533
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Base001
-    100002: Box001
-    100004: Group001
-    100006: Hose005
-    100008: Hose006
-    100010: //RootNode
-    100012: Resource_2
-    100014: Torus Knot006
-    100016: Tube007
-    100018: Tube008
-    400000: Base001
-    400002: Box001
-    400004: Group001
-    400006: Hose005
-    400008: Hose006
-    400010: Resource_2
-    400012: //RootNode
-    400014: Torus Knot006
-    400016: Tube007
-    400018: Tube008
-    2300000: Base001
-    2300002: Box001
-    2300004: Hose005
-    2300006: Hose006
-    2300008: Torus Knot006
-    2300010: Tube007
-    2300012: Tube008
-    3300000: Base001
-    3300002: Box001
-    3300004: Hose005
-    3300006: Hose006
-    3300008: Torus Knot006
-    3300010: Tube007
-    3300012: Tube008
-    4300000: Base001
-    4300002: Torus Knot006
-    4300004: Tube007
-    4300006: Hose005
-    4300008: Hose006
-    4300010: Box001
-    4300012: Tube008
-    6400000: Base001
-    6400002: Box001
-    6400004: Hose005
-    6400006: Hose006
-    6400008: Torus Knot006
-    6400010: Tube007
-    6400012: Tube008
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Box003
   materials:
     importMaterials: 1
     materialName: 0
@@ -78,8 +35,8 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 3
-    addColliders: 1
+    meshCompression: 0
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
