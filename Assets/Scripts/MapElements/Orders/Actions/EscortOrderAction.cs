@@ -8,6 +8,7 @@ namespace MechWars.MapElements.Orders.Actions
     {
         public override bool AllowsMultiTarget { get { return true; } }
         public override bool AllowsHover { get { return true; } }
+        public override bool IsEscort { get { return true; } }
         public override bool CanBeCarried { get { return true; } }
 
         public override void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)

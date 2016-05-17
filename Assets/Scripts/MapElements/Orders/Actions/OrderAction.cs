@@ -12,10 +12,13 @@ namespace MechWars.MapElements.Orders.Actions
         public Color framesColor = Color.black;
         public Color FramesColor { get { return framesColor; } }
 
+        public virtual bool AllowsMultiExecutor { get { return true; } }
         public virtual bool AllowsMultiTarget { get { return false; } }
         public virtual bool AllowsHover { get { return false; } }
         public virtual bool IsAttack { get { return false; } }
+        public virtual bool IsEscort { get { return false; } }
         public virtual bool CanBeCarried { get { return false; } }
+        public virtual bool IsSequential { get { return false; } }
 
         public virtual void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
         {
@@ -23,8 +26,20 @@ namespace MechWars.MapElements.Orders.Actions
                 throw new System.Exception(string.Format(
                     "{0} cannot filter hover candidates - it does not allow hover at all.", GetType().Name));
         }
-        
+
+        public virtual bool CanCreateOrder(ICanCreateOrderArgs args)
+        {
+            return true;
+        }
+
         public abstract Order CreateOrder(MapElement orderExecutor, OrderActionArgs args);
+
+        public virtual OrderActionArgs CreateArgs(InputController inputController)
+        {
+            return new OrderActionArgs(
+                inputController.Mouse.MapRaycast.Coords.Value,
+                inputController.HoverController.HoveredMapElements);
+        }
 
         protected IEnumerable<T> TryExtractTargetsArg<T>(OrderActionArgs args)
             where T : MapElement

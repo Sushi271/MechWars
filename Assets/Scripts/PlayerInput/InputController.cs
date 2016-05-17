@@ -1,19 +1,18 @@
 ﻿using MechWars.Human;
-using MechWars.MapElements;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.PlayerInput.MouseStates;
 using UnityEngine;
 
 namespace MechWars.PlayerInput
 {
-    public class InputController
+    public class InputController : ICanCreateOrderArgs
     {
-        public HumanPlayer Player { get; private set; }
+        public Player Player { get { return HumanPlayer; } }
+        public HumanPlayer HumanPlayer { get; private set; }
 
         public HoverController HoverController { get; private set; }
         public SelectionMonitor SelectionMonitor { get; private set; }
 
-        public MapRaycast MapRaycast { get; private set; }
         public MouseState State { get; private set; }
         public PlayerMouse Mouse { get; private set; }
 
@@ -32,6 +31,8 @@ namespace MechWars.PlayerInput
 
         public bool CarriesOrderAction { get { return CarriedOrderAction != null; } }
 
+        public BuildingShadow BuildingShadow { get; set; }
+
         public Color FramesColor { get { return BehaviourDeterminant.FramesColor; } }
 
         public IMouseBehaviourDeterminant BehaviourDeterminant
@@ -44,43 +45,44 @@ namespace MechWars.PlayerInput
 
         public InputController(HumanPlayer player)
         {
-            Player = player;
+            HumanPlayer = player;
 
             HoverController = new HoverController(this) { HoverBoxMinDistance = 5 };
             SelectionMonitor = new SelectionMonitor();
-            
-            State = DefaultMouseState.Instance;
-            MapRaycast = new MapRaycast(this);
+
+            State = DefaultMouseState.GetInstance(this);
             Mouse = new PlayerMouse(this);
         }
 
         public void Update()
         {
-            MapRaycast.Update();
             State = ReadMouseState();
             Mouse.Update();
+            if (BuildingShadow != null) BuildingShadow.Update();
             HoverController.Update();
 
             if (CarriesOrderAction) HandleCarriedOrderAction();
-            else State.Handle(this);
+            else State.Handle();
         }
 
         MouseState ReadMouseState()
         {
             if (Input.GetKey(KeyCode.RightAlt)) // it's first, because RightAlt == AltGr == RightControl!!
-                return LookAtMouseState.Instance;
+                return LookAtMouseState.GetInstance(this);
             else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-                return AttackMouseState.Instance;
+                return AttackMouseState.GetInstance(this);
             else if (Input.GetKey(KeyCode.LeftAlt))
-                return EscortMouseState.Instance;
+                return EscortMouseState.GetInstance(this);
             else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                return ToggleSelectMouseState.Instance;
-            else return DefaultMouseState.Instance;
+                return ToggleSelectMouseState.GetInstance(this);
+            else return DefaultMouseState.GetInstance(this);
         }
 
         bool executeOnUp;
         void HandleCarriedOrderAction()
         {
+            // TODO: if SelectedMapElements DIE - cancel if none remaining can do such order
+
             if (Mouse.Left.IsDown) executeOnUp = true;
             if (Mouse.Right.IsDown)
             {
@@ -90,21 +92,32 @@ namespace MechWars.PlayerInput
 
             if (executeOnUp && Mouse.Left.IsUp)
             {
-                var args = new OrderActionArgs(MapRaycast.Coords.Value, HoverController.HoveredMapElements);
-                foreach (var me in SelectionMonitor.SelectedMapElements)
-                {
-                    if (me.army != Player.Army) continue;
+                if (SelectionMonitor.SelectedCount == 0)
+                    new System.Exception("Game is in invalid state: " +
+                        "trying to handle CarriedOrderAction, but no MapElements are selected.");
 
-                    var order = CarriedOrderAction.CreateOrder(me, args);
-                    me.OrderExecutor.Give(order);
+                if (CarriedOrderAction.AllowsMultiExecutor || SelectionMonitor.SelectedCount == 1)
+                {
+                    if (CarriedOrderAction.CanCreateOrder(this))
+                    {
+                        var args = CarriedOrderAction.CreateArgs(this);
+                        foreach (var me in SelectionMonitor.SelectedMapElements)
+                        {
+                            if (me.army != HumanPlayer.Army) continue;
+
+                            var order = CarriedOrderAction.CreateOrder(me, args);
+                            me.OrderExecutor.Give(order);
+                        }
+                    }
                 }
-                CarriedOrderAction = null;
+                else throw new System.Exception(string.Format(
+                    "Game is in invalid state: trying to handle CarriedOrderAction {0}, " +
+                    "but it doesn't allow multi-executor and SelectionMonitor.SelectedCount == {1}",
+                    CarriedOrderAction.GetType().Name, SelectionMonitor.SelectedCount));
+                if (!CarriedOrderAction.IsSequential)
+                    CarriedOrderAction = null;
                 executeOnUp = false;
             }
         }
     }
 }
-
-// TODOs:
-//   - if (CarriesOrderAction) ???
-//   - State.Handle() { ??? }

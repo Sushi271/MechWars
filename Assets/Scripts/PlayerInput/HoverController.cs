@@ -63,8 +63,8 @@ namespace MechWars.PlayerInput
         
         void UpdateRaycastHover(HashSet<MapElement> candidates)
         {
-            if (inputController.MapRaycast.MapElement != null)
-                candidates.Add(inputController.MapRaycast.MapElement);
+            if (inputController.Mouse.MapRaycast.MapElement != null)
+                candidates.Add(inputController.Mouse.MapRaycast.MapElement);
         }
 
         void ManageHoverBox(HashSet<MapElement> candidates)
@@ -105,7 +105,7 @@ namespace MechWars.PlayerInput
 
         void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
-            inputController.BehaviourDeterminant.FilterHoverCandidates(inputController.Player, candidates);
+            inputController.BehaviourDeterminant.FilterHoverCandidates(inputController.HumanPlayer, candidates);
         }
 
         void UpdateHoveredMapElements(HashSet<MapElement> candidates)

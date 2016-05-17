@@ -179,6 +179,7 @@ namespace MechWars.MapElements
         protected virtual bool CanAddToArmy { get { return false; } }
         public virtual bool Selectable { get { return false; } }
         public bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
+        public bool CanEscort { get { return orderActions.Any(oa => oa.IsEscort); } }
         public virtual bool CanBeAttacked { get { return false; } }
         public virtual bool CanBeEscorted { get { return false; } }
 
@@ -472,26 +473,27 @@ namespace MechWars.MapElements
 
         void DrawBorder(StatusDisplayInfo statusDisplay)
         {
-            var location = new Vector2(statusDisplay.Left, Screen.height - statusDisplay.Top);
-            var size = statusDisplay.Size;
-            var distance = 0.5f;
-
-            Vector2 v00 = location;
-            Vector2 v01 = location + Vector2.up * size.y;
-            Vector2 v10 = location + Vector2.right * size.x;
-            Vector2 v11 = location + Vector2.right * size.x + Vector2.up * size.y;
-
-            float lineLength = 0.2f;
-
-            Vector2 u = Vector2.up * size.y * lineLength;
-            Vector2 d = Vector2.down * size.y * lineLength;
-            Vector2 r = Vector2.right * size.x * lineLength;
-            Vector2 l = Vector2.left * size.x * lineLength;
-            
-            Color color = Globals.Instance.humanPlayer.InputController.FramesColor;
-
             if (Hovered || Selected)
             {
+                var location = new Vector2(statusDisplay.Left, Screen.height - statusDisplay.Top);
+                var size = statusDisplay.Size;
+                var distance = 0.5f;
+
+                Vector2 v00 = location;
+                Vector2 v01 = location + Vector2.up * size.y;
+                Vector2 v10 = location + Vector2.right * size.x;
+                Vector2 v11 = location + Vector2.right * size.x + Vector2.up * size.y;
+
+                float lineLength = 0.2f;
+
+                Vector2 u = Vector2.up * size.y * lineLength;
+                Vector2 d = Vector2.down * size.y * lineLength;
+                Vector2 r = Vector2.right * size.x * lineLength;
+                Vector2 l = Vector2.left * size.x * lineLength;
+
+                Color color = !Hovered ? Color.black :
+                    Globals.Instance.humanPlayer.InputController.FramesColor;
+
                 Globals.GLRenderer.Schedule(new LineRenderTask(color, v00, v00 + r, distance));
                 Globals.GLRenderer.Schedule(new LineRenderTask(color, v00, v00 + u, distance));
 

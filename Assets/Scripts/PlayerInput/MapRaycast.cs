@@ -6,19 +6,20 @@ namespace MechWars.PlayerInput
 {
     public class MapRaycast
     {
-        InputController inputController;
+        PlayerMouse mouse;
 
         public MapElement MapElement { get; private set; }
+        public Vector2? PreciseCoords { get; private set; }
         public IVector2? Coords { get; private set; }
 
-        public MapRaycast(InputController inputController)
+        public MapRaycast(PlayerMouse mouse)
         {
-            this.inputController = inputController;
+            this.mouse = mouse;
         }
         
         public void Update()
         {
-            var ray = Camera.main.ScreenPointToRay(inputController.Mouse.Position);
+            var ray = Camera.main.ScreenPointToRay(mouse.Position);
             RaycastHit hitInfo;
 
             if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements)))
@@ -27,11 +28,13 @@ namespace MechWars.PlayerInput
                 MapElement = go.GetComponentInParent<MapElement>();
                 if (MapElement == null)
                     throw new System.Exception("Non-MapElement GameObject is in MapElements layer.");
-                Coords = MapElement.Coords.Round();
+                PreciseCoords = MapElement.Coords;
+                Coords = PreciseCoords.Value.Round();
             }
             else if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain)))
             {
-                Coords = new Vector2(hitInfo.point.x, hitInfo.point.z).Round();
+                PreciseCoords = new Vector2(hitInfo.point.x, hitInfo.point.z);
+                Coords = PreciseCoords.Value.Round();
                 MapElement = Globals.FieldReservationMap[Coords.Value];
             }
             else

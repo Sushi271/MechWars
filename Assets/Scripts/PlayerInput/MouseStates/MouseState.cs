@@ -10,20 +10,27 @@ namespace MechWars.PlayerInput.MouseStates
 {
     public abstract class MouseState : IMouseBehaviourDeterminant
     {
+        protected InputController InputController { get; private set; }
+
         public bool AllowsHover { get { return true; } }
         public bool AllowsMultiTarget { get { return true; } }
         public virtual Color FramesColor { get { return Color.black; } }
 
-        public abstract void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates);
-        public abstract void Handle(InputController inputController);
-        
-        protected void GiveOrdersIfPossible(InputController inputController, IEnumerable<MapElement> targets, params System.Type[] types)
+        public MouseState(InputController inputController)
         {
-            var args = new OrderActionArgs(inputController.MapRaycast.Coords.Value, targets);
-            var selected = inputController.SelectionMonitor.SelectedMapElements;
+            InputController = inputController;
+        }
+
+        public abstract void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates);
+        public abstract void Handle();
+        
+        protected void GiveOrdersIfPossible(IEnumerable<MapElement> targets, params System.Type[] types)
+        {
+            var args = new OrderActionArgs(InputController.Mouse.MapRaycast.Coords.Value, targets);
+            var selected = InputController.SelectionMonitor.SelectedMapElements;
             foreach (var me in selected)
             {
-                if (me.army != inputController.Player.Army) continue;
+                if (me.army != InputController.HumanPlayer.Army) continue;
 
                 var result = me.orderActions.FirstOrAnother(types.Select(
                     t => new System.Func<OrderAction, bool>(oa => oa.GetType() == t)).ToArray());

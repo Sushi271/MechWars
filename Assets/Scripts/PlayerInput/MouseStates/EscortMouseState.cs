@@ -9,19 +9,17 @@ namespace MechWars.PlayerInput.MouseStates
     public class EscortMouseState : MouseState
     {
         static EscortMouseState instance;
-        public static EscortMouseState Instance
+        public static EscortMouseState GetInstance(InputController inputController)
         {
-            get
-            {
-                if (instance == null)
-                    instance = new EscortMouseState();
-                return instance;
-            }
+            if (instance == null)
+                instance = new EscortMouseState(inputController);
+            return instance;
         }
 
         public override Color FramesColor { get { return Color.blue; } }
 
-        EscortMouseState()
+        EscortMouseState(InputController inputController)
+            : base(inputController)
         {
         }
 
@@ -31,15 +29,15 @@ namespace MechWars.PlayerInput.MouseStates
         }
 
         bool leftDown;
-        public override void Handle(InputController inputController)
+        public override void Handle()
         {
-            var hovered = inputController.HoverController.HoveredMapElements;
+            var hovered = InputController.HoverController.HoveredMapElements;
 
-            if (inputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
-            if (inputController.Mouse.MouseStateRight.IsDown) leftDown = false;
-            if (leftDown && inputController.Mouse.MouseStateLeft.IsUp)
+            if (InputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
+            if (InputController.Mouse.MouseStateRight.IsDown) leftDown = false;
+            if (leftDown && InputController.Mouse.MouseStateLeft.IsUp)
             {
-                GiveOrdersIfPossible(inputController, hovered, typeof(EscortOrderAction));
+                GiveOrdersIfPossible(hovered, typeof(EscortOrderAction));
                 leftDown = false;
             }
         }

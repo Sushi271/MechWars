@@ -8,6 +8,7 @@ namespace MechWars.PlayerInput
         InputController inputController;
 
         public Vector2 Position { get { return Input.mousePosition; } }
+        public MapRaycast MapRaycast { get; private set; }
 
         public PlayerMouseButton Left { get; private set; }
         public PlayerMouseButton Right { get; private set; }
@@ -21,6 +22,8 @@ namespace MechWars.PlayerInput
         {
             this.inputController = inputController;
 
+            MapRaycast = new MapRaycast(this);
+
             Left = new PlayerMouseButton(0);
             Right = new PlayerMouseButton(1);
 
@@ -30,6 +33,8 @@ namespace MechWars.PlayerInput
 
         public void Update()
         {
+            MapRaycast.Update();
+
             Left.Update();
             Right.Update();
 

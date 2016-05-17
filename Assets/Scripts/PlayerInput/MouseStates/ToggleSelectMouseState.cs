@@ -1,41 +1,52 @@
 ﻿using MechWars.Human;
 using MechWars.MapElements;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace MechWars.PlayerInput.MouseStates
 {
     public class ToggleSelectMouseState : MouseState
     {
         static ToggleSelectMouseState instance;
-        public static ToggleSelectMouseState Instance
+        public static ToggleSelectMouseState GetInstance(InputController inputController)
+        {
+            if (instance == null)
+                instance = new ToggleSelectMouseState(inputController);
+            return instance;
+        }
+
+        public override Color FramesColor
         {
             get
             {
-                if (instance == null)
-                    instance = new ToggleSelectMouseState();
-                return instance;
+                var hovered = InputController.HoverController.HoveredMapElements;
+                if (hovered.All(me => me.Selected))
+                    return Color.gray;
+                return Color.black;
             }
         }
 
-        ToggleSelectMouseState()
+        ToggleSelectMouseState(InputController inputController)
+            : base(inputController)
         {
         }
 
         public override void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
         {
-            HoverCandidatesFilter.Attack(player, candidates);
+            HoverCandidatesFilter.ToggleSelect(player, candidates);
         }
 
         bool leftDown;
-        public override void Handle(InputController inputController)
+        public override void Handle()
         {
-            var hovered = inputController.HoverController.HoveredMapElements;
+            var hovered = InputController.HoverController.HoveredMapElements;
 
-            if (inputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
-            if (inputController.Mouse.MouseStateRight.IsDown) leftDown = false;
-            if (leftDown && inputController.Mouse.MouseStateLeft.IsUp)
+            if (InputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
+            if (InputController.Mouse.MouseStateRight.IsDown) leftDown = false;
+            if (leftDown && InputController.Mouse.MouseStateLeft.IsUp)
             {
-                inputController.SelectionMonitor.SelectOrToggle(hovered);
+                InputController.SelectionMonitor.SelectOrToggle(hovered);
                 leftDown = false;
             }
         }

@@ -8,17 +8,15 @@ namespace MechWars.PlayerInput.MouseStates
     public class LookAtMouseState : MouseState
     {
         static LookAtMouseState instance;
-        public static LookAtMouseState Instance
+        public static LookAtMouseState GetInstance(InputController inputController)
         {
-            get
-            {
-                if (instance == null)
-                    instance = new LookAtMouseState();
-                return instance;
-            }
+            if (instance == null)
+                instance = new LookAtMouseState(inputController);
+            return instance;
         }
 
-        LookAtMouseState()
+        LookAtMouseState(InputController inputController)
+            : base(inputController)
         {
         }
 
@@ -28,13 +26,13 @@ namespace MechWars.PlayerInput.MouseStates
         }
 
         bool leftDown;
-        public override void Handle(InputController inputController)
+        public override void Handle()
         {
-            var hovered = inputController.HoverController.HoveredMapElements;
+            var hovered = InputController.HoverController.HoveredMapElements;
 
-            if (inputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
-            if (inputController.Mouse.MouseStateRight.IsDown) leftDown = false;
-            if (leftDown && inputController.Mouse.MouseStateLeft.IsUp)
+            if (InputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
+            if (InputController.Mouse.MouseStateRight.IsDown) leftDown = false;
+            if (leftDown && InputController.Mouse.MouseStateLeft.IsUp)
             {
                 var center = hovered.Average(me => me.Coords);
                 // TODO: move camera to center

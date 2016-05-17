@@ -4,6 +4,8 @@
     {
         public Technology technology;
 
+        public override bool AllowsMultiExecutor { get { return false; } }
+
         public override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
         {
             if (technology == null)

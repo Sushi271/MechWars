@@ -9,6 +9,7 @@ namespace MechWars.PlayerInput
     {
         HashSet<MapElement> selectedMapElements;
         public IEnumerable<MapElement> SelectedMapElements { get { return selectedMapElements; } }
+        public int SelectedCount { get { return selectedMapElements.Count; } }
 
         public SelectionMonitor()
         {
