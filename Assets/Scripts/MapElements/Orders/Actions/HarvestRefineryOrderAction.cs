@@ -7,7 +7,7 @@ namespace MechWars.MapElements.Orders.Actions
     {
         public override bool CanBeCarried { get { return true; } }
 
-        public override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
         {
             AssertOrderExecutorIs<Unit>(orderExecutor);
             var buildingTargets = TryExtractTargetsArg<Building>(args);

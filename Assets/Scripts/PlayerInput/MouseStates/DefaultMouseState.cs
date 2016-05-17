@@ -4,20 +4,13 @@ using MechWars.MapElements.Orders.Actions;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace MechWars.PlayerInput.MouseStates
 {
     public class DefaultMouseState : MouseState
     {
-        static DefaultMouseState instance;
-        public static DefaultMouseState GetInstance(InputController inputController)
-        {
-            if (instance == null)
-                instance = new DefaultMouseState(inputController);
-            return instance;
-        }
-
-        DefaultMouseState(InputController inputController)
+        public DefaultMouseState(InputController inputController)
             : base(inputController)
         {
         }
@@ -60,19 +53,23 @@ namespace MechWars.PlayerInput.MouseStates
             {
                 handled = true;
                 if (mapElement.CanBeAttacked && mapElement.army != null && mapElement.army != InputController.HumanPlayer.Army)
-                    GiveOrdersIfPossible(mapElement.AsEnumerable(true),
-                        typeof(FollowAttackOrderAction), typeof(StandAttackOrderAction), typeof(MoveOrderAction));
+                    GiveOrdersIfPossible(
+                        typeof(FollowAttackOrderAction),
+                        typeof(StandAttackOrderAction),
+                        typeof(MoveOrderAction));
                 else if (mapElement is Resource)
-                    GiveOrdersIfPossible(mapElement.AsEnumerable(true),
-                        typeof(HarvestResourceOrderAction), typeof(MoveOrderAction));
+                    GiveOrdersIfPossible(
+                        typeof(HarvestResourceOrderAction),
+                        typeof(MoveOrderAction));
                 else if (mapElement is Building && (mapElement as Building).isResourceDeposit)
-                    GiveOrdersIfPossible( mapElement.AsEnumerable(true),
-                        typeof(HarvestRefineryOrderAction), typeof(MoveOrderAction));
+                    GiveOrdersIfPossible(
+                        typeof(HarvestRefineryOrderAction),
+                        typeof(MoveOrderAction));
                 else handled = false;
             }
             if (!handled)
             {
-                GiveOrdersIfPossible(mapElement.AsEnumerable(true), typeof(MoveOrderAction));
+                GiveOrdersIfPossible(typeof(MoveOrderAction));
                 handled = true;
             }
         }

@@ -7,15 +7,7 @@ namespace MechWars.PlayerInput.MouseStates
 {
     public class LookAtMouseState : MouseState
     {
-        static LookAtMouseState instance;
-        public static LookAtMouseState GetInstance(InputController inputController)
-        {
-            if (instance == null)
-                instance = new LookAtMouseState(inputController);
-            return instance;
-        }
-
-        LookAtMouseState(InputController inputController)
+        public LookAtMouseState(InputController inputController)
             : base(inputController)
         {
         }

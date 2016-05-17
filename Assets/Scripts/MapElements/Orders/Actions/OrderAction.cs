@@ -11,6 +11,7 @@ namespace MechWars.MapElements.Orders.Actions
     {
         public Color framesColor = Color.black;
         public Color FramesColor { get { return framesColor; } }
+        public Color HoverBoxColor { get { return framesColor; } }
 
         public virtual bool AllowsMultiExecutor { get { return true; } }
         public virtual bool AllowsMultiTarget { get { return false; } }
@@ -27,19 +28,30 @@ namespace MechWars.MapElements.Orders.Actions
                     "{0} cannot filter hover candidates - it does not allow hover at all.", GetType().Name));
         }
 
-        public virtual bool CanCreateOrder(ICanCreateOrderArgs args)
+        public bool GiveOrder(InputController InputController, MapElement orderExecutor)
+        {
+            if (orderExecutor.OrderExecutor.Enabled && CanCreateOrder(InputController))
+            {
+                var args = CreateArgs(InputController);
+                orderExecutor.OrderExecutor.Give(CreateOrder(orderExecutor, args));
+                return true;
+            }
+            return false;
+        }
+
+        protected virtual bool CanCreateOrder(ICanCreateOrderArgs args)
         {
             return true;
         }
 
-        public abstract Order CreateOrder(MapElement orderExecutor, OrderActionArgs args);
-
-        public virtual OrderActionArgs CreateArgs(InputController inputController)
+        protected virtual OrderActionArgs CreateArgs(InputController inputController)
         {
             return new OrderActionArgs(
                 inputController.Mouse.MapRaycast.Coords.Value,
                 inputController.HoverController.HoveredMapElements);
         }
+
+        protected abstract Order CreateOrder(MapElement orderExecutor, OrderActionArgs args);
 
         protected IEnumerable<T> TryExtractTargetsArg<T>(OrderActionArgs args)
             where T : MapElement

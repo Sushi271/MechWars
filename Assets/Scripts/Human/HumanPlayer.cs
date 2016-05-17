@@ -11,11 +11,11 @@ namespace MechWars.Human
         public OrderController OrderController { get; private set; }
 
         public InputController InputController { get; private set; }
-
+        
         public HumanPlayer()
         {
-            SelectionController = new SelectionController(this);
-            OrderController = new OrderController(this);
+            //SelectionController = new SelectionController(this);
+            //OrderController = new OrderController(this);
 
             InputController = new InputController(this);
         }

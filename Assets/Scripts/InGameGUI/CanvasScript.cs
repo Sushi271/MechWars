@@ -1,5 +1,6 @@
 ﻿using MechWars.Human;
 using MechWars.MapElements;
+using MechWars.MapElements.Orders.Actions;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace MechWars.InGameGUI
             var hp = thisPlayer as HumanPlayer;
             if (hp == null) return;
 
-            var selBuilding = hp.SelectionController.SelectedMapElements.FirstOrDefault() as Building;
+            var selBuilding = hp.InputController.SelectionMonitor.SelectedMapElements.FirstOrDefault() as Building;
             if (selBuilding != building || refreshBuildingGUI)
             {
                 refreshBuildingGUI = false;
@@ -47,14 +48,14 @@ namespace MechWars.InGameGUI
 
                 if (building != null && !building.UnderConstruction)
                 {
-                    var prodOpts = building.unitProductionOptions
-                        .Where(po => po.CheckRequirements(building.army)).ToList();
-                    var constOpts = building.buildingConstructionOptions
-                        .Where(bo => bo.CheckRequirements(building.army)).ToList();
-                    var devOpts = building.technologyDevelopmentOptions
-                        .Where(tdo => building.army.Technologies.CanDevelop(tdo.technology))
-                        .Where(tdo => tdo.CheckRequirements(building.army)).ToList();
-                    var count = prodOpts.Count + constOpts.Count + devOpts.Count;
+                    var productionOAs = building.orderActions.OfType<UnitProductionOrderAction>()
+                        .Where(poa => poa.CheckRequirements(building.army)).ToList();
+                    var constructionOAs = building.orderActions.OfType<BuildingConstructionOrderAction>()
+                        .Where(coa => coa.CheckRequirements(building.army)).ToList();
+                    var developmentOAs = building.orderActions.OfType<TechnologyDevelopmentOrderAction>()
+                        .Where(doa => building.army.Technologies.CanDevelop(doa.technology))
+                        .Where(doa => doa.CheckRequirements(building.army)).ToList();
+                    var count = productionOAs.Count + constructionOAs.Count + developmentOAs.Count;
 
                     float margin = 4;
                     float h = buttonPrefab.GetComponent<RectTransform>().sizeDelta.y;
@@ -67,28 +68,29 @@ namespace MechWars.InGameGUI
                         rectTransform.SetParent(transform);
                         rectTransform.position = new Vector3(x, y, 0);
                         var text = button.GetComponent<ButtonScript>().innerText;
-                        if (i < prodOpts.Count)
+                        if (i < productionOAs.Count)
                         {
-                            var prodOpt = prodOpts[i];
-                            button.name = string.Format("Button {0}", prodOpt.unit.mapElementName);
-                            text.text = string.Format("Produce {0} ({1} RP)", prodOpt.unit.mapElementName, prodOpt.cost);
-                            button.onClick.AddListener(new UnityAction(
-                                () => hp.OrderController.ProductionOrdered(building, prodOpt)));
+                            var poa = productionOAs[i];
+                            button.name = string.Format("Button {0}", poa.unit.mapElementName);
+                            text.text = string.Format("Produce {0} ({1} RP)", poa.unit.mapElementName, poa.cost);
+                            button.onClick.AddListener(new UnityAction(() =>
+                                poa.GiveOrder(hp.InputController, building)));
                         }
-                        else if (i < prodOpts.Count + constOpts.Count)
+                        else if (i < productionOAs.Count + constructionOAs.Count)
                         {
-                            var constOpt = constOpts[i - prodOpts.Count];
-                            button.name = string.Format("Button {0}", constOpt.building.mapElementName);
-                            text.text = string.Format("Build {0} ({1} RP)", constOpt.building.mapElementName, constOpt.cost);
+                            var coa = constructionOAs[i - productionOAs.Count];
+                            button.name = string.Format("Button {0}", coa.building.mapElementName);
+                            text.text = string.Format("Build {0} ({1} RP)", coa.building.mapElementName, coa.cost);
                             button.onClick.AddListener(new UnityAction(
-                                () => hp.OrderController.ConstructionOrdered(building, constOpt)));
+                                () => hp.InputController.CarriedOrderAction = coa));
                         }
                         else
                         {
-                            var devOpt = devOpts[i - prodOpts.Count - constOpts.Count];
-                            button.name = string.Format("Button {0}", devOpt.technology.technologyName);
-                            text.text = string.Format("Develop {0} ({1} RP)", devOpt.technology.technologyName, devOpt.cost);
-                            button.onClick.AddListener(new UnityAction(() => hp.OrderController.DevelopmentOrdered(building, devOpt)));
+                            var doa = developmentOAs[i - productionOAs.Count - constructionOAs.Count];
+                            button.name = string.Format("Button {0}", doa.technology.technologyName);
+                            text.text = string.Format("Develop {0} ({1} RP)", doa.technology.technologyName, doa.cost);
+                            button.onClick.AddListener(new UnityAction(() =>
+                                doa.GiveOrder(hp.InputController, building)));
                         }
                         buttons.Add(button);
                     }

@@ -1,6 +1,8 @@
 ﻿using MechWars.MapElements;
 using MechWars.Utils;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace MechWars.PlayerInput
 {
@@ -8,6 +10,7 @@ namespace MechWars.PlayerInput
     {
         PlayerMouse mouse;
 
+        public bool GUIHit { get; private set; }
         public MapElement MapElement { get; private set; }
         public Vector2? PreciseCoords { get; private set; }
         public IVector2? Coords { get; private set; }
@@ -16,13 +19,30 @@ namespace MechWars.PlayerInput
         {
             this.mouse = mouse;
         }
-        
+
         public void Update()
         {
             var ray = Camera.main.ScreenPointToRay(mouse.Position);
-            RaycastHit hitInfo;
 
-            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements)))
+            RaycastHit hitInfo;
+            
+            GUIHit = false;
+            MapElement = null;
+            PreciseCoords = null;
+            Coords = null;
+
+            var pointerData = new PointerEventData(EventSystem.current) { position = mouse.Position };
+
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+            Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.UI));
+            Debug.Log(results.Count);
+            
+            if (!results.Empty())
+            {
+                GUIHit = true;
+            }
+            else if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements)))
             {
                 var go = hitInfo.collider.gameObject;
                 MapElement = go.GetComponentInParent<MapElement>();
@@ -37,11 +57,8 @@ namespace MechWars.PlayerInput
                 Coords = PreciseCoords.Value.Round();
                 MapElement = Globals.FieldReservationMap[Coords.Value];
             }
-            else
-            {
-                MapElement = null;
-                Coords = null;
-            }
+            if (MapElement != null)
+                Debug.Log(LayerMask.LayerToName(MapElement.gameObject.layer));
         }
     }
 }

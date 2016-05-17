@@ -16,7 +16,7 @@ namespace MechWars.MapElements.Orders.Actions
             HoverCandidatesFilter.Attack(player, candidates);
         }
 
-        public override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
         {
             AssertOrderExecutorIs<Unit>(orderExecutor);
             return new FollowAttackOrder((Unit)orderExecutor, args.Targets);

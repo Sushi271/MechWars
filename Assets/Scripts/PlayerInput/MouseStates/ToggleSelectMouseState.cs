@@ -8,26 +8,20 @@ namespace MechWars.PlayerInput.MouseStates
 {
     public class ToggleSelectMouseState : MouseState
     {
-        static ToggleSelectMouseState instance;
-        public static ToggleSelectMouseState GetInstance(InputController inputController)
-        {
-            if (instance == null)
-                instance = new ToggleSelectMouseState(inputController);
-            return instance;
-        }
-
         public override Color FramesColor
         {
             get
             {
                 var hovered = InputController.HoverController.HoveredMapElements;
                 if (hovered.All(me => me.Selected))
-                    return Color.gray;
+                    return new Color(0.75f, 0.75f, 0.75f);
                 return Color.black;
             }
         }
 
-        ToggleSelectMouseState(InputController inputController)
+        public override Color HoverBoxColor { get { return Color.black; } }
+
+        public ToggleSelectMouseState(InputController inputController)
             : base(inputController)
         {
         }

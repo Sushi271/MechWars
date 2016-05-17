@@ -80,7 +80,7 @@ namespace MechWars.PlayerInput
 
         void Draw()
         {
-            Globals.GLRenderer.Schedule(new RectangleRenderTask(inputController.FramesColor, Start, Size));
+            Globals.GLRenderer.Schedule(new RectangleRenderTask(inputController.HoverBoxColor, Start, Size));
         }
     }
 }

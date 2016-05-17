@@ -1,12 +1,16 @@
 ﻿using MechWars.Human;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.PlayerInput.MouseStates;
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace MechWars.PlayerInput
 {
     public class InputController : ICanCreateOrderArgs
     {
+        Dictionary<System.Type, MouseState> mouseStates;
+
         public Player Player { get { return HumanPlayer; } }
         public HumanPlayer HumanPlayer { get; private set; }
 
@@ -34,6 +38,7 @@ namespace MechWars.PlayerInput
         public BuildingShadow BuildingShadow { get; set; }
 
         public Color FramesColor { get { return BehaviourDeterminant.FramesColor; } }
+        public Color HoverBoxColor { get { return BehaviourDeterminant.HoverBoxColor; } }
 
         public IMouseBehaviourDeterminant BehaviourDeterminant
         {
@@ -45,12 +50,15 @@ namespace MechWars.PlayerInput
 
         public InputController(HumanPlayer player)
         {
+            mouseStates = new Dictionary<System.Type, MouseState>();
+            InitializeMouseStates();
+
             HumanPlayer = player;
 
             HoverController = new HoverController(this) { HoverBoxMinDistance = 5 };
             SelectionMonitor = new SelectionMonitor();
 
-            State = DefaultMouseState.GetInstance(this);
+            State = GetMouseState<DefaultMouseState>();
             Mouse = new PlayerMouse(this);
         }
 
@@ -62,20 +70,23 @@ namespace MechWars.PlayerInput
             HoverController.Update();
 
             if (CarriesOrderAction) HandleCarriedOrderAction();
-            else State.Handle();
+            else
+            {
+                State.Handle();
+            }
         }
 
         MouseState ReadMouseState()
         {
             if (Input.GetKey(KeyCode.RightAlt)) // it's first, because RightAlt == AltGr == RightControl!!
-                return LookAtMouseState.GetInstance(this);
+                return GetMouseState<LookAtMouseState>();
             else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-                return AttackMouseState.GetInstance(this);
+                return GetMouseState<AttackMouseState>();
             else if (Input.GetKey(KeyCode.LeftAlt))
-                return EscortMouseState.GetInstance(this);
+                return GetMouseState<EscortMouseState>();
             else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                return ToggleSelectMouseState.GetInstance(this);
-            else return DefaultMouseState.GetInstance(this);
+                return GetMouseState<ToggleSelectMouseState>();
+            else return GetMouseState<DefaultMouseState>();
         }
 
         bool executeOnUp;
@@ -98,16 +109,11 @@ namespace MechWars.PlayerInput
 
                 if (CarriedOrderAction.AllowsMultiExecutor || SelectionMonitor.SelectedCount == 1)
                 {
-                    if (CarriedOrderAction.CanCreateOrder(this))
+                    foreach (var me in SelectionMonitor.SelectedMapElements)
                     {
-                        var args = CarriedOrderAction.CreateArgs(this);
-                        foreach (var me in SelectionMonitor.SelectedMapElements)
-                        {
-                            if (me.army != HumanPlayer.Army) continue;
+                        if (me.army != HumanPlayer.Army) continue;
 
-                            var order = CarriedOrderAction.CreateOrder(me, args);
-                            me.OrderExecutor.Give(order);
-                        }
+                        CarriedOrderAction.GiveOrder(this, me);
                     }
                 }
                 else throw new System.Exception(string.Format(
@@ -118,6 +124,21 @@ namespace MechWars.PlayerInput
                     CarriedOrderAction = null;
                 executeOnUp = false;
             }
+        }
+
+        MouseState GetMouseState<T>()
+            where T : MouseState
+        {
+            return mouseStates[typeof(T)];
+        }
+
+        void InitializeMouseStates()
+        {
+            mouseStates.Add(typeof(DefaultMouseState), new DefaultMouseState(this));
+            mouseStates.Add(typeof(ToggleSelectMouseState), new ToggleSelectMouseState(this));
+            mouseStates.Add(typeof(AttackMouseState), new AttackMouseState(this));
+            mouseStates.Add(typeof(EscortMouseState), new EscortMouseState(this));
+            mouseStates.Add(typeof(LookAtMouseState), new LookAtMouseState(this));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MechWars.Human;
+using MechWars.Utils;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,10 +17,10 @@ namespace MechWars.InGameGUI
             if (p != null && p is HumanPlayer)
             {
                 var hp = (HumanPlayer)p;
-                var mapElements = hp.SelectionController.SelectedMapElements;
-                if (mapElements.Count > 1)
-                    text.text = string.Format("Selected {0} MapElements.", mapElements.Count);
-                else if (mapElements.Count == 0)
+                var mapElements = hp.InputController.SelectionMonitor.SelectedMapElements;
+                if (mapElements.HasAtLeast(2))
+                    text.text = string.Format("Selected {0} MapElements.", mapElements.Count());
+                else if (mapElements.Empty())
                     text.text = "No selection.";
                 else text.text = mapElements.First().TEMP_PrintStatus().ToString();
             }

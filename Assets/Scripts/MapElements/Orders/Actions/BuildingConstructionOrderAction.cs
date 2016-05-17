@@ -13,7 +13,7 @@ namespace MechWars.MapElements.Orders.Actions
 
         public int StartCost { get { return Mathf.CeilToInt(cost * Globals.Instance.startingBuildingProgress); } }
 
-        public override bool CanCreateOrder(ICanCreateOrderArgs args)
+        protected override bool CanCreateOrder(ICanCreateOrderArgs args)
         {
             if (args.BuildingShadow.InsideMap)
             {
@@ -37,20 +37,20 @@ namespace MechWars.MapElements.Orders.Actions
             return true;
         }
 
-        public override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override OrderActionArgs CreateArgs(InputController inputController)
+        {
+            return new OrderActionArgs(
+                inputController.Mouse.MapRaycast.Coords.Value,
+                inputController.HoverController.HoveredMapElements);
+        }
+
+        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
         {
             if (building == null)
                 throw new System.Exception("\"Building building\" field must not be NULL.");
             AssertOrderExecutorIs<Building>(orderExecutor);
             
             return new BuildingConstructionOrder((Building)orderExecutor, building);
-        }
-
-        public override OrderActionArgs CreateArgs(InputController inputController)
-        {
-            return new OrderActionArgs(
-                inputController.Mouse.MapRaycast.Coords.Value,
-                inputController.HoverController.HoveredMapElements);
         }
     }
 }

@@ -24,8 +24,8 @@ namespace MechWars.PlayerInput
 
             MapRaycast = new MapRaycast(this);
 
-            Left = new PlayerMouseButton(0);
-            Right = new PlayerMouseButton(1);
+            Left = new PlayerMouseButton(inputController, 0);
+            Right = new PlayerMouseButton(inputController, 1);
 
             MouseStateLeft = new MouseStateButton(inputController, 0);
             MouseStateRight = new MouseStateButton(inputController, 1);

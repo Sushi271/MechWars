@@ -4,19 +4,16 @@ namespace MechWars.PlayerInput.MouseStates
 {
     public class MouseStateButton : PlayerMouseButton
     {
-        InputController inputController;
-
         public bool WasDown { get; private set; }
 
         public MouseStateButton(InputController inputController, int index)
-            : base(index)
+            : base(inputController, index)
         {
-            this.inputController = inputController;
         }
-
+        
         public override void Update()
         {
-            if (!inputController.CarriesOrderAction)
+            if (!InputController.CarriesOrderAction && !InputController.Mouse.MapRaycast.GUIHit)
             {
                 IsDown = Input.GetMouseButtonDown(Index);
 

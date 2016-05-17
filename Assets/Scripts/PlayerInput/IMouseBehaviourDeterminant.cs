@@ -8,6 +8,7 @@ namespace MechWars.PlayerInput
     public interface IMouseBehaviourDeterminant
     {
         Color FramesColor { get; }
+        Color HoverBoxColor { get; }
         bool AllowsMultiTarget { get; }
         bool AllowsHover { get; }
 

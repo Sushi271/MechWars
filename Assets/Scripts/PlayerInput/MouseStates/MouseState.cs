@@ -15,6 +15,7 @@ namespace MechWars.PlayerInput.MouseStates
         public bool AllowsHover { get { return true; } }
         public bool AllowsMultiTarget { get { return true; } }
         public virtual Color FramesColor { get { return Color.black; } }
+        public virtual Color HoverBoxColor { get { return FramesColor; } }
 
         public MouseState(InputController inputController)
         {
@@ -24,9 +25,8 @@ namespace MechWars.PlayerInput.MouseStates
         public abstract void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates);
         public abstract void Handle();
         
-        protected void GiveOrdersIfPossible(IEnumerable<MapElement> targets, params System.Type[] types)
+        protected void GiveOrdersIfPossible(params System.Type[] types)
         {
-            var args = new OrderActionArgs(InputController.Mouse.MapRaycast.Coords.Value, targets);
             var selected = InputController.SelectionMonitor.SelectedMapElements;
             foreach (var me in selected)
             {
@@ -37,8 +37,7 @@ namespace MechWars.PlayerInput.MouseStates
                 if (!result.Found) continue;
 
                 var orderAction = result.Result;
-                if (me.OrderExecutor.Enabled)
-                    me.OrderExecutor.Give(orderAction.CreateOrder(me, args));
+                orderAction.GiveOrder(InputController, me);
             }
         }
     }
