@@ -23,9 +23,10 @@ namespace MechWars.Human
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            
-            SelectionController.Update();
-            OrderController.Update();
+
+            //SelectionController.Update();
+            //OrderController.Update();
+            InputController.Update();
         }
     }
 }

@@ -31,46 +31,30 @@ namespace MechWars.PlayerInput
             AssertMapElementsSelectable(mapElements);
 
             foreach (var me in mapElements)
-            {
                 me.Selected = false;
-                selectedMapElements.Remove(me);
-            }
+            selectedMapElements.RemoveWhere(me => !me.Selected);
         }
 
         public void SelectNew(IEnumerable<MapElement> mapElements)
         {
             AssertMapElementsSelectable(mapElements);
-
-            foreach (var me in mapElements)
-                if (me.Selected)
-                    selectedMapElements.Remove(me); // DON'T set me.Selected = false!
-            ClearSelection();                       // only those who are left have now set Selected = false
-            foreach (var me in mapElements)
-            {
-                if (!me.Selected)
-                    me.Selected = true;      // now setting Selected = true only for those, who were previously removed
-                selectedMapElements.Add(me); // and all are added to selection
-            }
+            
+            ClearSelection();
+            Select(mapElements);
         }
 
-        public void ToggleSelect(IEnumerable<MapElement> mapElements)
+        public void SelectOrToggle(IEnumerable<MapElement> mapElements)
         {
             AssertMapElementsSelectable(mapElements);
 
-            foreach (var me in mapElements)
-            {
-                me.Selected = !me.Selected;
-                if (me.Selected)
-                    selectedMapElements.Add(me);
-                else selectedMapElements.Remove(me);
-            }
+            if (mapElements.All(me => me.Selected))
+                Deselect(mapElements);
+            else Select(mapElements);
         }
 
         public void ClearSelection()
         {
-            foreach (var me in selectedMapElements)
-                me.Selected = false;
-            selectedMapElements.RemoveWhere(me => !me.Selected);
+            Deselect(selectedMapElements);
         }
 
         void AssertMapElementsSelectable(IEnumerable<MapElement> mapElements)

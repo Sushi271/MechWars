@@ -40,8 +40,13 @@ namespace MechWars.PlayerInput.MouseStates
                 else if (inputController.Player.Army != null && inputController.MapRaycast.Coords.HasValue)
                     HandleAutomaticOrder(inputController);
 
+            var hovered = inputController.HoverController.HoveredMapElements;
+
             if (leftDown && inputController.Mouse.MouseStateLeft.IsUp)
-                inputController.SelectionMonitor.SelectNew(inputController.HoverController.HoveredMapElements);
+            {
+                inputController.SelectionMonitor.SelectNew(hovered);
+                leftDown = false;
+            }
         }
 
         void HandleAutomaticOrder(InputController inputController)
@@ -57,38 +62,20 @@ namespace MechWars.PlayerInput.MouseStates
             {
                 handled = true;
                 if (mapElement.CanBeAttacked && mapElement.army != null && mapElement.army != inputController.Player.Army)
-                    GiveOrdersIfPossible(inputController, mapElement,
-                        typeof(FollowAttackOrderAction), typeof(StandAttackOrderAction));
+                    GiveOrdersIfPossible(inputController, mapElement.AsEnumerable(true),
+                        typeof(FollowAttackOrderAction), typeof(StandAttackOrderAction), typeof(MoveOrderAction));
                 else if (mapElement is Resource)
-                    GiveOrdersIfPossible(inputController, mapElement,
+                    GiveOrdersIfPossible(inputController, mapElement.AsEnumerable(true),
                         typeof(HarvestResourceOrderAction), typeof(MoveOrderAction));
                 else if (mapElement is Building && (mapElement as Building).isResourceDeposit)
-                    GiveOrdersIfPossible(inputController, mapElement,
+                    GiveOrdersIfPossible(inputController, mapElement.AsEnumerable(true),
                         typeof(HarvestRefineryOrderAction), typeof(MoveOrderAction));
                 else handled = false;
             }
             if (!handled)
             {
-                GiveOrdersIfPossible(inputController, mapElement, typeof(MoveOrderAction));
+                GiveOrdersIfPossible(inputController, mapElement.AsEnumerable(true), typeof(MoveOrderAction));
                 handled = true;
-            }
-        }
-
-        void GiveOrdersIfPossible(InputController inputController, MapElement target, params System.Type[] types)
-        {
-            var args = new OrderActionArgs(inputController.MapRaycast.Coords.Value, target.AsEnumerable(true));
-            var selected = inputController.SelectionMonitor.SelectedMapElements;
-            foreach (var me in selected)
-            {
-                if (me.army != inputController.Player.Army) continue;
-
-                var result = me.orderActions.FirstOrAnother(types.Select(
-                    t => new System.Func<OrderAction, bool>(oa => oa.GetType() == t)).ToArray());
-                if (!result.Found) continue;
-
-                var orderAction = result.Result;
-                if (me.OrderExecutor.Enabled)
-                    me.OrderExecutor.Give(orderAction.CreateOrder(me, args));
             }
         }
     }

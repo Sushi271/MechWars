@@ -80,11 +80,16 @@ namespace MechWars.PlayerInput
                     }
                     if (preHoverBoxState)
                     {
-                        var distance = Vector2.Distance(hoverBoxStart, Mouse.Position);
-                        if (distance > hoverBoxMinDistance)
-                        {
+                        if (Mouse.Left.IsUp || Mouse.Right.IsDown)
                             preHoverBoxState = false;
-                            HoverBox = new HoverBox(inputController, hoverBoxStart);
+                        else
+                        {
+                            var distance = Vector2.Distance(hoverBoxStart, Mouse.Position);
+                            if (distance > hoverBoxMinDistance)
+                            {
+                                preHoverBoxState = false;
+                                HoverBox = new HoverBox(inputController, hoverBoxStart);
+                            }
                         }
                     }
                 }
@@ -92,7 +97,7 @@ namespace MechWars.PlayerInput
                 {
                     HoverBox.Update();
                     candidates.UnionWith(HoverBox.MapElementsInside);
-                    if (Mouse.Left.IsUp)
+                    if (Mouse.Left.IsUp || Mouse.Right.IsDown)
                         HoverBox = null;
                 }
             }

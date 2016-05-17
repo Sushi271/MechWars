@@ -13,7 +13,9 @@ namespace MechWars.PlayerInput
         public HoverController HoverController { get; private set; }
         public SelectionMonitor SelectionMonitor { get; private set; }
 
-        public bool CarriesOrderAction { get { return CarriedOrderAction != null; } }
+        public MapRaycast MapRaycast { get; private set; }
+        public MouseState State { get; private set; }
+        public PlayerMouse Mouse { get; private set; }
 
         OrderAction carriedOrderAction;
         public OrderAction CarriedOrderAction
@@ -28,12 +30,9 @@ namespace MechWars.PlayerInput
             }
         }
 
-        public MouseState State { get; private set; }
-        public MapRaycast MapRaycast { get; private set; }
+        public bool CarriesOrderAction { get { return CarriedOrderAction != null; } }
 
         public Color FramesColor { get { return BehaviourDeterminant.FramesColor; } }
-
-        public PlayerMouse Mouse { get; private set; }
 
         public IMouseBehaviourDeterminant BehaviourDeterminant
         {
@@ -45,40 +44,36 @@ namespace MechWars.PlayerInput
 
         public InputController(HumanPlayer player)
         {
-            HoverController = new HoverController(this) { HoverBoxMinDistance = 5 };
-            SelectionMonitor = new SelectionMonitor();
-
             Player = player;
 
+            HoverController = new HoverController(this) { HoverBoxMinDistance = 5 };
+            SelectionMonitor = new SelectionMonitor();
+            
             State = DefaultMouseState.Instance;
+            MapRaycast = new MapRaycast(this);
+            Mouse = new PlayerMouse(this);
         }
 
         public void Update()
         {
-            UpdateProperties();
+            MapRaycast.Update();
+            State = ReadMouseState();
+            Mouse.Update();
             HoverController.Update();
 
             if (CarriesOrderAction) HandleCarriedOrderAction();
             else State.Handle(this);
         }
 
-        void UpdateProperties()
-        {
-            MapRaycast.Update();
-            State = ReadMouseState();
-
-            Mouse.Update();
-        }
-
         MouseState ReadMouseState()
         {
-            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-                return AttackMouseState.Instance;
-            else if (Input.GetKeyDown(KeyCode.LeftAlt))
-                return EscortMouseState.Instance;
-            else if (Input.GetKeyDown(KeyCode.RightAlt))
+            if (Input.GetKey(KeyCode.RightAlt)) // it's first, because RightAlt == AltGr == RightControl!!
                 return LookAtMouseState.Instance;
-            else if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+                return AttackMouseState.Instance;
+            else if (Input.GetKey(KeyCode.LeftAlt))
+                return EscortMouseState.Instance;
+            else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                 return ToggleSelectMouseState.Instance;
             else return DefaultMouseState.Instance;
         }

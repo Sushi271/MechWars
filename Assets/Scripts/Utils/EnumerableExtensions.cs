@@ -29,14 +29,9 @@ namespace MechWars.Utils
             return false;
         }
 
-        public static IEnumerable<T> AsEnumerable<T>(this T item, bool nullAsEmpty)
+        public static IEnumerable<T> AsEnumerable<T>(this T item, bool nullAsEmpty = false)
         {
-            if (item == null && nullAsEmpty) return Enumerable.Empty<T>();
-            return item.AsEnumerable();
-        }
-
-        public static IEnumerable<T> AsEnumerable<T>(this T item)
-        {
+            if (item == null && nullAsEmpty) yield break;
             yield return item;
         }
 
@@ -54,7 +49,7 @@ namespace MechWars.Utils
 
         public static IEnumerable<TResult> SelectDistinct<T, TResult>(this IEnumerable<T> enumerable, System.Func<T, TResult> selector)
         {
-            return enumerable.SelectDistinct(selector).Distinct();
+            return enumerable.Select(selector).Distinct();
         }
 
         public static bool None<T>(this IEnumerable<T> enumerable, System.Func<T, bool> predicate)

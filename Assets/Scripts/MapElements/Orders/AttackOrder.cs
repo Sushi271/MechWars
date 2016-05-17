@@ -34,6 +34,7 @@ namespace MechWars.MapElements.Orders
         public AttackOrder(Building orderedBuilding, MapElement target)
             : base("Attack", orderedBuilding)
         {
+            AttackOrderHelper.AssertTargetsCanBeAttacked(target.AsEnumerable());
             Target = target;
         }
 

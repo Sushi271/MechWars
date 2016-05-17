@@ -2,6 +2,7 @@
 using MechWars.MapElements;
 using UnityEngine;
 using MechWars.Human;
+using MechWars.MapElements.Orders.Actions;
 
 namespace MechWars.PlayerInput.MouseStates
 {
@@ -29,9 +30,18 @@ namespace MechWars.PlayerInput.MouseStates
             HoverCandidatesFilter.Escort(player, candidates);
         }
 
+        bool leftDown;
         public override void Handle(InputController inputController)
         {
+            var hovered = inputController.HoverController.HoveredMapElements;
 
+            if (inputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
+            if (inputController.Mouse.MouseStateRight.IsDown) leftDown = false;
+            if (leftDown && inputController.Mouse.MouseStateLeft.IsUp)
+            {
+                GiveOrdersIfPossible(inputController, hovered, typeof(EscortOrderAction));
+                leftDown = false;
+            }
         }
     }
 }
