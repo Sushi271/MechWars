@@ -37,6 +37,11 @@ namespace MechWars.PlayerInput
             hoveredMapElements = new HashSet<MapElement>();
         }
 
+        public bool IsHovered(MapElement mapElement)
+        {
+            return hoveredMapElements.Contains(mapElement);
+        }
+
         public void Update()
         {
             UpdateHoverBoxEnabled();
@@ -105,21 +110,30 @@ namespace MechWars.PlayerInput
 
         void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
-            inputController.BehaviourDeterminant.FilterHoverCandidates(inputController.HumanPlayer, candidates);
+            inputController.BehaviourDeterminant.FilterHoverCandidates(candidates);
         }
 
         void UpdateHoveredMapElements(HashSet<MapElement> candidates)
         {
-            foreach (var me in hoveredMapElements)
-                if (!candidates.Contains(me))
-                    me.Hovered = false;
-            hoveredMapElements.RemoveWhere(me => !me.Hovered);
-            foreach (var me in candidates)
-                if (!me.Hovered)
-                {
-                    me.Hovered = true;
-                    hoveredMapElements.Add(me);
-                }
+            var toRemove = new HashSet<MapElement>(hoveredMapElements);
+            toRemove.ExceptWith(candidates);
+            foreach (var me in toRemove)
+                me.LifeEnding -= MapElement_LifeEnding;
+            hoveredMapElements.ExceptWith(toRemove);
+
+            var toAdd = new HashSet<MapElement>(candidates);
+            toAdd.ExceptWith(hoveredMapElements);
+            foreach (var me in toAdd)
+                me.LifeEnding += MapElement_LifeEnding;
+            hoveredMapElements.UnionWith(toAdd);
+        }
+
+        private void MapElement_LifeEnding(MapElement sender)
+        {
+            sender.LifeEnding -= MapElement_LifeEnding;
+            hoveredMapElements.Remove(sender);
+            if (HoverBox != null)
+                HoverBox.MapElementsInside.Remove(sender);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using MechWars.PlayerInput;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MechWars.MapElements.Orders.Actions
 {
@@ -13,22 +12,22 @@ namespace MechWars.MapElements.Orders.Actions
 
         public int StartCost { get { return Mathf.CeilToInt(cost * Globals.Instance.startingBuildingProgress); } }
 
-        protected override bool CanCreateOrder(ICanCreateOrderArgs args)
+        protected override bool CanCreateOrder(ICanCreateOrderArgs canCreateOrderArgs)
         {
-            if (args.BuildingShadow.InsideMap)
+            if (canCreateOrderArgs.BuildingPlacement.InsideMap)
             {
                 Debug.Log(string.Format("Cannot place building {0} outside map.", building));
                 return false;
             }
 
-            if (args.BuildingShadow.PositionOccupied)
+            if (canCreateOrderArgs.BuildingPlacement.PositionOccupied)
             {
                 Debug.Log(string.Format("Cannot place building {0} in location {1} - it's occupied.",
-                    building, args.BuildingShadow.Position));
+                    building, canCreateOrderArgs.BuildingPlacement.Position));
                 return false;
             }
 
-            if (StartCost > args.Player.Army.resources)
+            if (StartCost > canCreateOrderArgs.Player.Army.resources)
             {
                 Debug.Log(string.Format("Not enough resources to start construction of building {0}.", building));
                 return false;
@@ -37,14 +36,7 @@ namespace MechWars.MapElements.Orders.Actions
             return true;
         }
 
-        protected override OrderActionArgs CreateArgs(InputController inputController)
-        {
-            return new OrderActionArgs(
-                inputController.Mouse.MapRaycast.Coords.Value,
-                inputController.HoverController.HoveredMapElements);
-        }
-
-        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
             if (building == null)
                 throw new System.Exception("\"Building building\" field must not be NULL.");

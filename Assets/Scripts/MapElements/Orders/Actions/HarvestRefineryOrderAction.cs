@@ -7,10 +7,10 @@ namespace MechWars.MapElements.Orders.Actions
     {
         public override bool CanBeCarried { get { return true; } }
 
-        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
             AssertOrderExecutorIs<Unit>(orderExecutor);
-            var buildingTargets = TryExtractTargetsArg<Building>(args);
+            var buildingTargets = TryExtractTargetsArg<Building>(orderActionArgs);
             if (buildingTargets.Empty())
                 throw new System.Exception(
                     "HarvestRefineryOrderAction requires single Builiding target, but none provided.");

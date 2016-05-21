@@ -7,10 +7,10 @@ namespace MechWars.MapElements.Orders.Actions
     {
         public override bool CanBeCarried { get { return true; } }
 
-        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
             AssertOrderExecutorIs<Unit>(orderExecutor);
-            var resourceTargets = TryExtractTargetsArg<Resource>(args);
+            var resourceTargets = TryExtractTargetsArg<Resource>(orderActionArgs);
             if (resourceTargets.Empty())
                 throw new System.Exception(
                     "HarvestResourceOrderAction requires single Resource target, but none provided.");

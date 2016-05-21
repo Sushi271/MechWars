@@ -1,5 +1,4 @@
-﻿using MechWars.Human;
-using MechWars.MapElements;
+﻿using MechWars.MapElements;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace MechWars.PlayerInput.MouseStates
             get
             {
                 var hovered = InputController.HoverController.HoveredMapElements;
-                if (hovered.All(me => me.Selected))
+                if (hovered.All(me => Globals.Spectator.InputController.SelectionMonitor.IsSelected(me)))
                     return new Color(0.75f, 0.75f, 0.75f);
                 return Color.black;
             }
@@ -21,27 +20,22 @@ namespace MechWars.PlayerInput.MouseStates
 
         public override Color HoverBoxColor { get { return Color.black; } }
 
-        public ToggleSelectMouseState(InputController inputController)
-            : base(inputController)
+        public ToggleSelectMouseState(MouseStateController stateController)
+            : base(stateController)
         {
         }
 
-        public override void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
+        public override void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
-            HoverCandidatesFilter.ToggleSelect(player, candidates);
+            HoverCandidatesFilter.ToggleSelect(candidates);
         }
-
-        bool leftDown;
+        
         public override void Handle()
         {
-            var hovered = InputController.HoverController.HoveredMapElements;
-
-            if (InputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
-            if (InputController.Mouse.MouseStateRight.IsDown) leftDown = false;
-            if (leftDown && InputController.Mouse.MouseStateLeft.IsUp)
+            if (StateController.LeftActionTriggered)
             {
+                var hovered = InputController.HoverController.HoveredMapElements;
                 InputController.SelectionMonitor.SelectOrToggle(hovered);
-                leftDown = false;
             }
         }
     }

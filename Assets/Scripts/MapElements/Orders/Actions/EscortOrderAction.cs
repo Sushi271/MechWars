@@ -1,5 +1,4 @@
-﻿using MechWars.Human;
-using MechWars.PlayerInput;
+﻿using MechWars.PlayerInput;
 using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders.Actions
@@ -11,15 +10,15 @@ namespace MechWars.MapElements.Orders.Actions
         public override bool IsEscort { get { return true; } }
         public override bool CanBeCarried { get { return true; } }
 
-        public override void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
+        public override void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
-            HoverCandidatesFilter.Escort(player, candidates);
+            HoverCandidatesFilter.Escort(candidates);
         }
 
-        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
             AssertOrderExecutorIs<Unit>(orderExecutor);
-            var unitTargets = TryExtractTargetsArg<Unit>(args);
+            var unitTargets = TryExtractTargetsArg<Unit>(orderActionArgs);
             return new EscortOrder((Unit)orderExecutor, unitTargets);
         }
     }

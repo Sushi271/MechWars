@@ -36,12 +36,9 @@ namespace MechWars.PlayerInput
             var results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, results);
             Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.UI));
-            Debug.Log(results.Count);
             
             if (!results.Empty())
-            {
                 GUIHit = true;
-            }
             else if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements)))
             {
                 var go = hitInfo.collider.gameObject;
@@ -57,8 +54,6 @@ namespace MechWars.PlayerInput
                 Coords = PreciseCoords.Value.Round();
                 MapElement = Globals.FieldReservationMap[Coords.Value];
             }
-            if (MapElement != null)
-                Debug.Log(LayerMask.LayerToName(MapElement.gameObject.layer));
         }
     }
 }

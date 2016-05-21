@@ -50,20 +50,6 @@ namespace MechWars.MapElements
             }
         }
 
-        bool hovered;
-        public bool Hovered
-        {
-            get { return hovered; }
-            set { if (alive) hovered = value; }
-        }
-
-        bool selected;
-        public bool Selected
-        {
-            get { return selected; }
-            set { if (alive) selected = value; }
-        }
-
         public float X
         {
             get { return transform.position.x; }
@@ -172,8 +158,6 @@ namespace MechWars.MapElements
             }
         }
 
-        bool ShouldDrawStatusDisplay { get { return Hovered || Selected; } }
-
         public virtual OrderExecutor OrderExecutor { get; private set; }
 
         protected virtual bool CanAddToArmy { get { return false; } }
@@ -183,8 +167,12 @@ namespace MechWars.MapElements
         public virtual bool CanBeAttacked { get { return false; } }
         public virtual bool CanBeEscorted { get { return false; } }
 
+        public event LifeEndingEventHandler LifeEnding;
+
         public MapElement()
         {
+            if (isShadow) return;
+
             JobQueue = new JobQueue(this);
             Stats = new Stats(this);
             alive = true;
@@ -199,13 +187,13 @@ namespace MechWars.MapElements
 
         void Start()
         {
+            if (isShadow) return;
+
             OnStart();
         }
 
         protected virtual void OnStart()
         {
-            if (isShadow) return;
-
             id = NewId;
 
             Globals.MapElementsDatabase.Insert(this);
@@ -327,13 +315,13 @@ namespace MechWars.MapElements
         
         void Update()
         {
+            if (isShadow) return;
+
             OnUpdate();
         }
 
         protected virtual void OnUpdate()
         {
-            if (isShadow) return;
-
             if (lastArmy != army)
             {
                 if (CanAddToArmy)
@@ -370,7 +358,8 @@ namespace MechWars.MapElements
 
         protected virtual void OnLifeEnd()
         {
-            selected = hovered = false;
+            if (LifeEnding != null)
+                LifeEnding(this);
 
             if (army != null && CanAddToArmy)
                 army.RemoveMapElement(this);
@@ -380,6 +369,7 @@ namespace MechWars.MapElements
                 Globals.FieldReservationMap.ReleaseReservations(this);
                 Globals.MapElementsDatabase.Delete(this);
             }
+            
             if (!suspendDestroy) Destroy(gameObject);
 
             TurnIntoResource();
@@ -445,6 +435,8 @@ namespace MechWars.MapElements
         bool suspendDestroy;
         void OnDestroy()
         {
+            if (isShadow) return;
+
             suspendDestroy = true;
             if (!Dying)
             {
@@ -453,139 +445,6 @@ namespace MechWars.MapElements
             }
             if (Alive) Alive = false;
             suspendDestroy = false;
-        }
-
-        void OnGUI()
-        {
-            if (ShouldDrawStatusDisplay)
-            {
-                var statusDisplay = new StatusDisplayInfo(this);
-                DrawBorder(statusDisplay);
-                DrawHealthBar(statusDisplay);
-            }
-        }
-
-        public void DrawStatusDisplay(StatusDisplayInfo statusDisplay)
-        {
-            DrawBorder(statusDisplay);
-            DrawHealthBar(statusDisplay);
-        }
-
-        void DrawBorder(StatusDisplayInfo statusDisplay)
-        {
-            if (Hovered || Selected)
-            {
-                var location = new Vector2(statusDisplay.Left, Screen.height - statusDisplay.Top);
-                var size = statusDisplay.Size;
-                var distance = 0.5f;
-
-                Vector2 v00 = location;
-                Vector2 v01 = location + Vector2.up * size.y;
-                Vector2 v10 = location + Vector2.right * size.x;
-                Vector2 v11 = location + Vector2.right * size.x + Vector2.up * size.y;
-
-                float lineLength = 0.2f;
-
-                Vector2 u = Vector2.up * size.y * lineLength;
-                Vector2 d = Vector2.down * size.y * lineLength;
-                Vector2 r = Vector2.right * size.x * lineLength;
-                Vector2 l = Vector2.left * size.x * lineLength;
-
-                Color color = !Hovered ? Color.black :
-                    Globals.Instance.humanPlayer.InputController.FramesColor;
-
-                Globals.GLRenderer.Schedule(new LineRenderTask(color, v00, v00 + r, distance));
-                Globals.GLRenderer.Schedule(new LineRenderTask(color, v00, v00 + u, distance));
-
-                Globals.GLRenderer.Schedule(new LineRenderTask(color, v01, v01 + r, distance));
-                Globals.GLRenderer.Schedule(new LineRenderTask(color, v01, v01 + d, distance));
-
-                Globals.GLRenderer.Schedule(new LineRenderTask(color, v10, v10 + l, distance));
-                Globals.GLRenderer.Schedule(new LineRenderTask(color, v10, v10 + u, distance));
-
-                Globals.GLRenderer.Schedule(new LineRenderTask(color, v11, v11 + l, distance));
-                Globals.GLRenderer.Schedule(new LineRenderTask(color, v11, v11 + d, distance));
-
-                if (Selected)
-                {
-                    Globals.GLRenderer.Schedule(new LineRenderTask(color, v00 + 2 * r, v10 + 2 * l, distance));
-                    Globals.GLRenderer.Schedule(new LineRenderTask(color, v01 + 2 * r, v11 + 2 * l, distance));
-                    Globals.GLRenderer.Schedule(new LineRenderTask(color, v00 + 2 * u, v01 + 2 * d, distance));
-                    Globals.GLRenderer.Schedule(new LineRenderTask(color, v10 + 2 * u, v11 + 2 * d, distance));
-                }
-            }
-        }
-
-        void DrawHealthBar(StatusDisplayInfo statusDisplay)
-        {
-            var hitPoints = Stats[StatNames.HitPoints];
-            if (hitPoints == null) return;
-
-            if (Selected || Hovered)
-            {
-                GUI.depth = (int)(statusDisplay.Distance * 10);
-                GUI.BeginGroup(new Rect(statusDisplay.Location, statusDisplay.Size));
-
-                Texture mainTexture;
-                Texture sideTexture;
-                Texture topTexture;
-                if (army != null)
-                {
-                    mainTexture = army.hpBarMain;
-                    sideTexture = army.hpBarSide;
-                    topTexture = army.hpBarTop;
-                }
-                else
-                {
-                    mainTexture = Globals.Textures.hpBarNoArmy;
-                    sideTexture = Globals.Textures.hpBarNoArmySide;
-                    topTexture = Globals.Textures.hpBarNoArmyTop;
-                }
-
-                var baseWidth = topTexture.width + 2 * sideTexture.width;
-                var baseHeight = sideTexture.height;
-
-                var barAspectRatio = (float)baseHeight / baseWidth;
-                var sideAspectRatio = (float)sideTexture.height / sideTexture.width;
-
-                float distFromBounds = 0.1f;
-
-                Vector2 barLocation = distFromBounds * statusDisplay.Size;
-                float barWidth = (1 - 2 * distFromBounds) * statusDisplay.Width;
-                float barHeight = barWidth * barAspectRatio;
-                float borderThickness = barHeight / sideAspectRatio;
-
-                float ratio = hitPoints.Value / hitPoints.MaxValue;
-                float contentBarWidth = ratio * barWidth;
-                float mainWidth = contentBarWidth - 2 * borderThickness;
-                float mainHeight = barHeight - 2 * borderThickness;
-
-                Vector2 topLocation = barLocation + Vector2.right * borderThickness;
-                Vector2 mainLocation = topLocation + Vector2.up * borderThickness;
-                Vector2 bottomLocation = mainLocation + Vector2.up * mainHeight;
-                Vector2 rightSideLocation = topLocation + Vector2.right * mainWidth;
-
-                Vector2 barSize = new Vector2(barWidth, barHeight);
-                Vector2 sideSize = new Vector2(borderThickness, barHeight);
-                Vector2 topSize = new Vector2(mainWidth, borderThickness);
-                Vector2 mainSize = new Vector2(mainWidth, mainHeight);
-                Vector2 leftSideSize = sideSize;
-                float sideToFullRatio = borderThickness / barWidth;
-                if (ratio < sideToFullRatio)
-                    leftSideSize = new Vector2(ratio * barWidth, barHeight);
-
-                GUI.DrawTexture(new Rect(barLocation, barSize), Globals.Textures.hpBarBackground);
-                GUI.DrawTexture(new Rect(barLocation, leftSideSize), sideTexture);
-                if (mainWidth > 0)
-                {
-                    GUI.DrawTexture(new Rect(topLocation, topSize), topTexture);
-                    GUI.DrawTexture(new Rect(mainLocation, mainSize), mainTexture);
-                    GUI.DrawTexture(new Rect(bottomLocation, topSize), topTexture);
-                }
-                if (rightSideLocation.x > barLocation.x)
-                    GUI.DrawTexture(new Rect(rightSideLocation, sideSize), sideTexture);
-                GUI.EndGroup();
-            }
         }
 
         public override string ToString()

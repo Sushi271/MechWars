@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using MechWars.MapElements;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MechWars
 {
@@ -15,24 +13,6 @@ namespace MechWars
                     army = Globals.GetArmyForPlayer(this);
                 return army;
             }
-        }
-
-        void Start()
-        {
-            OnStart();
-        }
-
-        protected virtual void OnStart()
-        {
-        }
-
-        void Update()
-        {
-            OnUpdate();
-        }
-
-        protected virtual void OnUpdate()
-        {
         }
     }
 }

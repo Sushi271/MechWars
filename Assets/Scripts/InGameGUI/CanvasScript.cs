@@ -1,5 +1,4 @@
-﻿using MechWars.Human;
-using MechWars.MapElements;
+﻿using MechWars.MapElements;
 using MechWars.MapElements.Orders.Actions;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,6 @@ namespace MechWars.InGameGUI
 {
     public class CanvasScript : MonoBehaviour
     {
-        public Player thisPlayer;
         public Button buttonPrefab;
 
         Building building;
@@ -22,15 +20,13 @@ namespace MechWars.InGameGUI
         void Start()
         {
             buttons = new List<Button>();
-            thisPlayer.Army.OnBuildingConstructionFinished += InvokeRefreshBuildingGUI;
+            Globals.Spectator.player.Army.OnBuildingConstructionFinished += InvokeRefreshBuildingGUI;
         }
 
         void Update()
         {
-            var hp = thisPlayer as HumanPlayer;
-            if (hp == null) return;
-
-            var selBuilding = hp.InputController.SelectionMonitor.SelectedMapElements.FirstOrDefault() as Building;
+            var inputController = Globals.Spectator.InputController;
+            var selBuilding = inputController.SelectionMonitor.SelectedMapElements.FirstOrDefault() as Building;
             if (selBuilding != building || refreshBuildingGUI)
             {
                 refreshBuildingGUI = false;
@@ -74,7 +70,7 @@ namespace MechWars.InGameGUI
                             button.name = string.Format("Button {0}", poa.unit.mapElementName);
                             text.text = string.Format("Produce {0} ({1} RP)", poa.unit.mapElementName, poa.cost);
                             button.onClick.AddListener(new UnityAction(() =>
-                                poa.GiveOrder(hp.InputController, building)));
+                                poa.GiveOrder(building, inputController.OrderActionArgs)));
                         }
                         else if (i < productionOAs.Count + constructionOAs.Count)
                         {
@@ -82,7 +78,7 @@ namespace MechWars.InGameGUI
                             button.name = string.Format("Button {0}", coa.building.mapElementName);
                             text.text = string.Format("Build {0} ({1} RP)", coa.building.mapElementName, coa.cost);
                             button.onClick.AddListener(new UnityAction(
-                                () => hp.InputController.CarriedOrderAction = coa));
+                                () => inputController.CarriedOrderAction = coa));
                         }
                         else
                         {
@@ -90,7 +86,7 @@ namespace MechWars.InGameGUI
                             button.name = string.Format("Button {0}", doa.technology.technologyName);
                             text.text = string.Format("Develop {0} ({1} RP)", doa.technology.technologyName, doa.cost);
                             button.onClick.AddListener(new UnityAction(() =>
-                                doa.GiveOrder(hp.InputController, building)));
+                                doa.GiveOrder(building, inputController.OrderActionArgs)));
                         }
                         buttons.Add(button);
                     }
@@ -104,24 +100,17 @@ namespace MechWars.InGameGUI
                         var text = button.GetComponent<ButtonScript>().innerText;
                         button.name = "Button Cancel";
                         text.text = "Cancel";
-                        button.onClick.AddListener(new UnityAction(() => hp.OrderController.CancelOrder(building)));
+                        button.onClick.AddListener(new UnityAction(() => building.OrderExecutor.CancelCurrent()));
                         buttons.Add(button);
                     }
-                }
-            }
-            else
-            {
-                foreach (var b in buttons)
-                {
-                    b.interactable = hp.MouseMode == MouseMode.Default;
                 }
             }
         }
 
         void OnDestroy()
         {
-            if (thisPlayer != null && thisPlayer.Army != null)
-                thisPlayer.Army.OnBuildingConstructionFinished -= InvokeRefreshBuildingGUI;
+            if (Globals.HumanArmy != null)
+                Globals.HumanArmy.OnBuildingConstructionFinished -= InvokeRefreshBuildingGUI;
         }
 
         void SubscribeEvents(Building building)

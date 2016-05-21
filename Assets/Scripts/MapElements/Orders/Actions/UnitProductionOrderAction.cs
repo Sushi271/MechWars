@@ -4,7 +4,7 @@
     {
         public Unit unit;
 
-        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
             if (unit == null)
                 throw new System.Exception("\"Unit unit\" field must not be NULL.");

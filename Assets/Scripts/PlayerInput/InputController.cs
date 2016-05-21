@@ -1,23 +1,18 @@
-﻿using MechWars.Human;
-using MechWars.MapElements.Orders.Actions;
+﻿using MechWars.MapElements.Orders.Actions;
 using MechWars.PlayerInput.MouseStates;
-using System.Collections.Generic;
+using MechWars.Utils;
 using UnityEngine;
-using System;
 
 namespace MechWars.PlayerInput
 {
-    public class InputController : ICanCreateOrderArgs
+    public class InputController
     {
-        Dictionary<System.Type, MouseState> mouseStates;
-
-        public Player Player { get { return HumanPlayer; } }
-        public HumanPlayer HumanPlayer { get; private set; }
+        public Spectator Spectator { get; private set; }
 
         public HoverController HoverController { get; private set; }
         public SelectionMonitor SelectionMonitor { get; private set; }
 
-        public MouseState State { get; private set; }
+        public MouseStateController MouseStateController { get; private set; }
         public PlayerMouse Mouse { get; private set; }
 
         OrderAction carriedOrderAction;
@@ -26,7 +21,7 @@ namespace MechWars.PlayerInput
             get { return carriedOrderAction; }
             set
             {
-                if (Mouse.IsMouseStateButtonActive)
+                if (MouseStateController.IsMouseStateButtonActive)
                     throw new System.InvalidOperationException(
                         "Cannot assign new CarriedOrderAction while MouseStateButton is active.");
                 carriedOrderAction = value;
@@ -44,58 +39,44 @@ namespace MechWars.PlayerInput
         {
             get
             {
-                return CarriesOrderAction ? (IMouseBehaviourDeterminant)CarriedOrderAction : State;
+                return CarriesOrderAction ?
+                    (IMouseBehaviourDeterminant)CarriedOrderAction :
+                    MouseStateController.State;
             }
         }
 
-        public InputController(HumanPlayer player)
+        public IOrderActionArgs OrderActionArgs
         {
-            mouseStates = new Dictionary<System.Type, MouseState>();
-            InitializeMouseStates();
+            get { return new InputControllerOrderActionArgs(this); }
+        }
 
-            HumanPlayer = player;
+        public InputController(Spectator spectator)
+        {
+            Spectator = spectator;
 
             HoverController = new HoverController(this) { HoverBoxMinDistance = 5 };
             SelectionMonitor = new SelectionMonitor();
 
-            State = GetMouseState<DefaultMouseState>();
             Mouse = new PlayerMouse(this);
+            MouseStateController = new MouseStateController(this);
         }
 
         public void Update()
         {
-            State = ReadMouseState();
             Mouse.Update();
+            MouseStateController.Update();
             if (BuildingShadow != null) BuildingShadow.Update();
             HoverController.Update();
 
-            if (CarriesOrderAction) HandleCarriedOrderAction();
-            else
-            {
-                State.Handle();
-            }
-        }
-
-        MouseState ReadMouseState()
-        {
-            if (Input.GetKey(KeyCode.RightAlt)) // it's first, because RightAlt == AltGr == RightControl!!
-                return GetMouseState<LookAtMouseState>();
-            else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-                return GetMouseState<AttackMouseState>();
-            else if (Input.GetKey(KeyCode.LeftAlt))
-                return GetMouseState<EscortMouseState>();
-            else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                return GetMouseState<ToggleSelectMouseState>();
-            else return GetMouseState<DefaultMouseState>();
+            if (CarriesOrderAction && Globals.HumanPlayer != null) HandleCarriedOrderAction();
+            else MouseStateController.HandleState();
         }
 
         bool executeOnUp;
         void HandleCarriedOrderAction()
         {
-            // TODO: if SelectedMapElements DIE - cancel if none remaining can do such order
-
             if (Mouse.Left.IsDown) executeOnUp = true;
-            if (Mouse.Right.IsDown)
+            if (Mouse.Right.IsDown || SelectionMonitor.SelectedMapElements.Empty())
             {
                 CarriedOrderAction = null;
                 executeOnUp = false;
@@ -111,9 +92,9 @@ namespace MechWars.PlayerInput
                 {
                     foreach (var me in SelectionMonitor.SelectedMapElements)
                     {
-                        if (me.army != HumanPlayer.Army) continue;
+                        if (me.army != Globals.HumanArmy) continue;
 
-                        CarriedOrderAction.GiveOrder(this, me);
+                        CarriedOrderAction.GiveOrder(me, OrderActionArgs);
                     }
                 }
                 else throw new System.Exception(string.Format(
@@ -124,21 +105,6 @@ namespace MechWars.PlayerInput
                     CarriedOrderAction = null;
                 executeOnUp = false;
             }
-        }
-
-        MouseState GetMouseState<T>()
-            where T : MouseState
-        {
-            return mouseStates[typeof(T)];
-        }
-
-        void InitializeMouseStates()
-        {
-            mouseStates.Add(typeof(DefaultMouseState), new DefaultMouseState(this));
-            mouseStates.Add(typeof(ToggleSelectMouseState), new ToggleSelectMouseState(this));
-            mouseStates.Add(typeof(AttackMouseState), new AttackMouseState(this));
-            mouseStates.Add(typeof(EscortMouseState), new EscortMouseState(this));
-            mouseStates.Add(typeof(LookAtMouseState), new LookAtMouseState(this));
         }
     }
 }

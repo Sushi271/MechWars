@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using MechWars.MapElements;
 using UnityEngine;
-using MechWars.Human;
 using MechWars.MapElements.Orders.Actions;
 
 namespace MechWars.PlayerInput.MouseStates
@@ -10,26 +9,20 @@ namespace MechWars.PlayerInput.MouseStates
     {
         public override Color FramesColor { get { return Color.blue; } }
 
-        public EscortMouseState(InputController inputController)
-            : base(inputController)
+        public EscortMouseState(MouseStateController stateController)
+            : base(stateController)
         {
         }
 
-        public override void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
+        public override void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
-            HoverCandidatesFilter.Escort(player, candidates);
+            HoverCandidatesFilter.Escort(candidates);
         }
 
-        bool leftDown;
         public override void Handle()
         {
-            if (InputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
-            if (InputController.Mouse.MouseStateRight.IsDown) leftDown = false;
-            if (leftDown && InputController.Mouse.MouseStateLeft.IsUp)
-            {
+            if (StateController.LeftActionTriggered)
                 GiveOrdersIfPossible(typeof(EscortOrderAction));
-                leftDown = false;
-            }
         }
     }
 }

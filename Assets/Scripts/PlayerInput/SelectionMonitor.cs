@@ -16,24 +16,31 @@ namespace MechWars.PlayerInput
             selectedMapElements = new HashSet<MapElement>();
         }
 
+        public bool IsSelected(MapElement mapElement)
+        {
+            return selectedMapElements.Contains(mapElement);
+        }
+
         public void Select(IEnumerable<MapElement> mapElements)
         {
             AssertMapElementsSelectable(mapElements);
 
-            foreach (var me in mapElements)
-            {
-                me.Selected = true;
-                selectedMapElements.Add(me);
-            }
+            var toAdd = new HashSet<MapElement>(mapElements);
+            toAdd.ExceptWith(selectedMapElements);
+            foreach (var me in toAdd)
+                me.LifeEnding += MapElement_LifeEnding;
+            selectedMapElements.UnionWith(toAdd);
         }
 
         public void Deselect(IEnumerable<MapElement> mapElements)
         {
             AssertMapElementsSelectable(mapElements);
 
-            foreach (var me in mapElements)
-                me.Selected = false;
-            selectedMapElements.RemoveWhere(me => !me.Selected);
+            var toRemove = new HashSet<MapElement>(mapElements);
+            toRemove.Intersect(selectedMapElements);
+            foreach (var me in toRemove)
+                me.LifeEnding -= MapElement_LifeEnding;
+            selectedMapElements.ExceptWith(mapElements);
         }
 
         public void SelectNew(IEnumerable<MapElement> mapElements)
@@ -48,14 +55,21 @@ namespace MechWars.PlayerInput
         {
             AssertMapElementsSelectable(mapElements);
 
-            if (mapElements.All(me => me.Selected))
+            if (selectedMapElements.IsSupersetOf(mapElements))
                 Deselect(mapElements);
             else Select(mapElements);
         }
 
         public void ClearSelection()
         {
-            Deselect(selectedMapElements);
+            foreach (var me in selectedMapElements)
+                me.LifeEnding -= MapElement_LifeEnding;
+            selectedMapElements.Clear();
+        }
+
+        private void MapElement_LifeEnding(MapElement sender)
+        {
+            throw new System.NotImplementedException();
         }
 
         void AssertMapElementsSelectable(IEnumerable<MapElement> mapElements)

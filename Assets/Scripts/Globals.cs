@@ -4,7 +4,6 @@ using MechWars.GLRendering;
 using MechWars.Pathfinding;
 using UnityEngine;
 using MechWars.MapElements.WallNeighbourhoods;
-using MechWars.Human;
 
 namespace MechWars
 {
@@ -35,7 +34,7 @@ namespace MechWars
         //=====================================================================================
 
         public bool isGameplay;
-        public HumanPlayer humanPlayer;
+        public Spectator spectator;
 
         public int mapWidth = 64;
         public int mapHeight = 64;
@@ -72,6 +71,10 @@ namespace MechWars
                 return mapHeight;
             }
         }
+
+        public static Spectator Spectator { get { return Instance.spectator; } }
+        public static Player HumanPlayer { get { return Spectator == null ? null : Spectator.player; } }
+        public static Army HumanArmy { get { return HumanPlayer == null ? null : HumanPlayer.Army; } }
 
         public static GameObject MainCameraObject { get { return GameObject.FindGameObjectWithTag(Tag.MainCamera); } }
         public static GameObject GUICameraObject { get { return GameObject.FindGameObjectWithTag(Tag.GUICamera); } }

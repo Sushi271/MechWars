@@ -1,22 +1,20 @@
-﻿using MechWars.Human;
-using MechWars.MapElements;
+﻿using MechWars.MapElements;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace MechWars.PlayerInput
 {
     public static class HoverCandidatesFilter
     {
-        public static void Select(HumanPlayer player, HashSet<MapElement> candidates)
+        public static void Select(HashSet<MapElement> candidates)
         {
             candidates.RemoveWhere(me => !me.Selectable);
             if (candidates.Empty()) return;
 
             var armies = candidates.SelectDistinct(me => me.army);
             var army = armies.FirstOrAnother(
-                a => a == player.Army,
+                a => a == Globals.HumanArmy,
                 a => a != null,
                 a => a == null).Result;
             candidates.RemoveWhere(me => me.army != army);
@@ -45,19 +43,19 @@ namespace MechWars.PlayerInput
             candidates.RemoveWhere(me => me != first);
         }
 
-        public static void ToggleSelect(HumanPlayer player, HashSet<MapElement> candidates)
+        public static void ToggleSelect(HashSet<MapElement> candidates)
         {
             candidates.RemoveWhere(me => !me.Selectable);
             if (candidates.Empty()) return;
 
-            var selected = player.InputController.SelectionMonitor.SelectedMapElements;
+            var selected = Globals.Spectator.InputController.SelectionMonitor.SelectedMapElements;
             Army army;
             if (!selected.Empty()) army = selected.First().army;
             else
             {
                 var armies = candidates.SelectDistinct(me => me.army);
                 army = armies.FirstOrAnother(
-                    a => a == player.Army,
+                    a => a == Globals.HumanArmy,
                     a => a != null,
                     a => a == null).Result;
             }
@@ -94,9 +92,9 @@ namespace MechWars.PlayerInput
             candidates.RemoveWhere(me => me != first);
         }
         
-        public static void Attack(HumanPlayer player, HashSet<MapElement> candidates)
+        public static void Attack(HashSet<MapElement> candidates)
         {
-            var selected = player.InputController.SelectionMonitor.SelectedMapElements;
+            var selected = Globals.Spectator.InputController.SelectionMonitor.SelectedMapElements;
             if (selected.None(me => me.CanAttack))
             {
                 candidates.Clear();
@@ -108,9 +106,9 @@ namespace MechWars.PlayerInput
             
             var armies = candidates.SelectDistinct(me => me.army);
             var army = armies.FirstOrAnother(
-                a => a != null && a != player.Army,
+                a => a != null && a != Globals.HumanArmy,
                 a => a == null,
-                a => a == player.Army).Result;
+                a => a == Globals.HumanArmy).Result;
             candidates.RemoveWhere(me => me.army != army);
             // candidates cannot be empty after this - no return
 
@@ -133,19 +131,19 @@ namespace MechWars.PlayerInput
             candidates.Clear();
         }
 
-        public static void Escort(HumanPlayer player, HashSet<MapElement> candidates)
+        public static void Escort(HashSet<MapElement> candidates)
         {
-            var selected = player.InputController.SelectionMonitor.SelectedMapElements;
+            var selected = Globals.Spectator.InputController.SelectionMonitor.SelectedMapElements;
             if (selected.None(me => me.CanEscort))
             {
                 candidates.Clear();
                 return;
             }
 
-            candidates.RemoveWhere(me => !me.CanBeEscorted || me.army != player.Army);
+            candidates.RemoveWhere(me => !me.CanBeEscorted || me.army != Globals.HumanArmy);
         }
 
-        internal static void LookAt(HumanPlayer player, HashSet<MapElement> candidates)
+        internal static void LookAt(HashSet<MapElement> candidates)
         {
             candidates.RemoveWhere(me => !me.Selectable);
         }

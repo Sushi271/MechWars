@@ -1,5 +1,4 @@
-﻿using MechWars.Human;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,8 +15,8 @@ namespace MechWars.Editors
 
             globals.isGameplay = EditorGUILayout.Toggle(
                 "Is Gameplay?", globals.isGameplay);
-            globals.humanPlayer = (HumanPlayer)EditorGUILayout.ObjectField(
-                "Human Player", globals.humanPlayer, typeof(HumanPlayer), true);
+            globals.spectator = (Spectator)EditorGUILayout.ObjectField(
+                "Spectator", globals.spectator, typeof(Spectator), true);
             globals.dayAndNightCycleTime = EditorGUILayout.FloatField(
                 "Day & night cycle time (minutes)", globals.dayAndNightCycleTime);
 

@@ -1,5 +1,4 @@
-﻿using MechWars.Human;
-using MechWars.PlayerInput;
+﻿using MechWars.PlayerInput;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,48 +20,40 @@ namespace MechWars.MapElements.Orders.Actions
         public virtual bool CanBeCarried { get { return false; } }
         public virtual bool IsSequential { get { return false; } }
 
-        public virtual void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
+        public virtual void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
             if (!AllowsHover)
                 throw new System.Exception(string.Format(
                     "{0} cannot filter hover candidates - it does not allow hover at all.", GetType().Name));
         }
 
-        public bool GiveOrder(InputController InputController, MapElement orderExecutor)
+        public bool GiveOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
-            if (orderExecutor.OrderExecutor.Enabled && CanCreateOrder(InputController))
+            if (orderExecutor.OrderExecutor.Enabled && CanCreateOrder(orderActionArgs.CanCreateOrderArgs))
             {
-                var args = CreateArgs(InputController);
-                orderExecutor.OrderExecutor.Give(CreateOrder(orderExecutor, args));
+                orderExecutor.OrderExecutor.Give(CreateOrder(orderExecutor, orderActionArgs));
                 return true;
             }
             return false;
         }
 
-        protected virtual bool CanCreateOrder(ICanCreateOrderArgs args)
+        protected virtual bool CanCreateOrder(ICanCreateOrderArgs canCreateOrderArgs)
         {
             return true;
         }
 
-        protected virtual OrderActionArgs CreateArgs(InputController inputController)
-        {
-            return new OrderActionArgs(
-                inputController.Mouse.MapRaycast.Coords.Value,
-                inputController.HoverController.HoveredMapElements);
-        }
+        protected abstract Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs);
 
-        protected abstract Order CreateOrder(MapElement orderExecutor, OrderActionArgs args);
-
-        protected IEnumerable<T> TryExtractTargetsArg<T>(OrderActionArgs args)
+        protected IEnumerable<T> TryExtractTargetsArg<T>(IOrderActionArgs orderActionArgs)
             where T : MapElement
         {
 
-            var wrongTypeTargets = args.Targets.Where(t => !(t is T));
+            var wrongTypeTargets = orderActionArgs.Targets.Where(t => !(t is T));
             if (!wrongTypeTargets.Empty())
                 throw new System.Exception(string.Format(
                     "OrderActionArgs.Target must be a {0} for {1}. Following targets were of wrong type: {2}.",
                     typeof(T).Name, GetType().Name, wrongTypeTargets.ToDebugMessage()));
-            return args.Targets.Cast<T>();
+            return orderActionArgs.Targets.Cast<T>();
         }
 
         protected void AssertOrderExecutorIs<T>(MapElement orderExecutor)

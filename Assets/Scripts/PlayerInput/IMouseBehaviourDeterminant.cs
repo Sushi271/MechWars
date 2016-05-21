@@ -1,5 +1,4 @@
-﻿using MechWars.Human;
-using MechWars.MapElements;
+﻿using MechWars.MapElements;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +11,6 @@ namespace MechWars.PlayerInput
         bool AllowsMultiTarget { get; }
         bool AllowsHover { get; }
 
-        void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates);
+        void FilterHoverCandidates(HashSet<MapElement> candidates);
     }
 }

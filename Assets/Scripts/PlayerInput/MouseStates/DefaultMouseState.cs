@@ -1,42 +1,34 @@
-﻿using MechWars.Human;
-using MechWars.MapElements;
+﻿using MechWars.MapElements;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace MechWars.PlayerInput.MouseStates
 {
     public class DefaultMouseState : MouseState
     {
-        public DefaultMouseState(InputController inputController)
-            : base(inputController)
+        public DefaultMouseState(MouseStateController stateController)
+            : base(stateController)
         {
         }
 
-        public override void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
+        public override void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
-            HoverCandidatesFilter.Select(player, candidates);
+            HoverCandidatesFilter.Select(candidates);
         }
-
-        bool leftDown;
+        
         public override void Handle()
         {
-            if (InputController.Mouse.MouseStateLeft.IsDown)
-                leftDown = true;
-
-            if (InputController.Mouse.MouseStateRight.IsDown)
-                if (leftDown) leftDown = false;
-                else if (InputController.HumanPlayer.Army != null && InputController.Mouse.MapRaycast.Coords.HasValue)
-                    HandleAutomaticOrder();
-
-            var hovered = InputController.HoverController.HoveredMapElements;
-
-            if (leftDown && InputController.Mouse.MouseStateLeft.IsUp)
+            if (StateController.RightActionTriggered)
             {
+                if (Globals.HumanArmy != null && InputController.Mouse.MapRaycast.Coords.HasValue)
+                    HandleAutomaticOrder();
+            }
+            else if (StateController.LeftActionTriggered)
+            {
+                var hovered = InputController.HoverController.HoveredMapElements;
                 InputController.SelectionMonitor.SelectNew(hovered);
-                leftDown = false;
             }
         }
 
@@ -52,7 +44,7 @@ namespace MechWars.PlayerInput.MouseStates
             if (mapElement != null)
             {
                 handled = true;
-                if (mapElement.CanBeAttacked && mapElement.army != null && mapElement.army != InputController.HumanPlayer.Army)
+                if (mapElement.CanBeAttacked && mapElement.army != null && mapElement.army != Globals.HumanArmy)
                     GiveOrdersIfPossible(
                         typeof(FollowAttackOrderAction),
                         typeof(StandAttackOrderAction),

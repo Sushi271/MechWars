@@ -5,6 +5,10 @@ namespace MechWars
 {
     public class StatusDisplayInfo
     {
+        public MapElement MapElement { get; private set; }
+        public bool Hovered { get; private set; }
+        public bool Selected { get; private set; }
+
         public Vector2 Center { get; private set; }
         public Vector2 Size { get; private set; }
         public Vector2 Location { get; private set; }
@@ -19,8 +23,11 @@ namespace MechWars
 
         public float Distance { get; private set; }
 
-        public StatusDisplayInfo(MapElement mapElement)
+        public StatusDisplayInfo(MapElement mapElement, bool hovered, bool selected)
         {
+            Hovered = hovered;
+            Selected = selected;
+
             var cam = Camera.main;
             Vector3 camPos = cam.transform.position;
             Quaternion camRot = cam.transform.rotation;

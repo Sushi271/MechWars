@@ -6,7 +6,7 @@
 
         public override bool AllowsMultiExecutor { get { return false; } }
 
-        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
             if (technology == null)
                 throw new System.Exception("\"Technology technology\" field must not be NULL.");

@@ -2,7 +2,7 @@
 {
     public class StopOrderAction : OrderAction
     {
-        protected override Order CreateOrder(MapElement orderExecutor, OrderActionArgs args)
+        protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
             return new StopOrder(orderExecutor);
         }

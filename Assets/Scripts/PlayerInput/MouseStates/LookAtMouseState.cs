@@ -1,5 +1,4 @@
-﻿using MechWars.Human;
-using MechWars.MapElements;
+﻿using MechWars.MapElements;
 using MechWars.Utils;
 using System.Collections.Generic;
 
@@ -7,28 +6,23 @@ namespace MechWars.PlayerInput.MouseStates
 {
     public class LookAtMouseState : MouseState
     {
-        public LookAtMouseState(InputController inputController)
-            : base(inputController)
+        public LookAtMouseState(MouseStateController stateController)
+            : base(stateController)
         {
         }
 
-        public override void FilterHoverCandidates(HumanPlayer player, HashSet<MapElement> candidates)
+        public override void FilterHoverCandidates( HashSet<MapElement> candidates)
         {
-            HoverCandidatesFilter.LookAt(player, candidates);
+            HoverCandidatesFilter.LookAt(candidates);
         }
-
-        bool leftDown;
+        
         public override void Handle()
         {
-            var hovered = InputController.HoverController.HoveredMapElements;
-
-            if (InputController.Mouse.MouseStateLeft.IsDown) leftDown = true;
-            if (InputController.Mouse.MouseStateRight.IsDown) leftDown = false;
-            if (leftDown && InputController.Mouse.MouseStateLeft.IsUp)
+            if (StateController.LeftActionTriggered)
             {
+                var hovered = InputController.HoverController.HoveredMapElements;
                 var center = hovered.Average(me => me.Coords);
                 // TODO: move camera to center
-                leftDown = false;
             }
         }
     }

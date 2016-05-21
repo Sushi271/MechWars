@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MechWars.PlayerInput
 {
-    public class BuildingShadow
+    public class BuildingShadow : IBuildingPlacement
     {
         InputController inputController;
 
@@ -16,7 +16,6 @@ namespace MechWars.PlayerInput
 
         public bool InsideMap { get; private set; }
         public bool PositionOccupied { get; private set; }
-        public bool PositionValid { get { return InsideMap && PositionOccupied; } }
 
         public Vector2 Position { get; private set; }
 

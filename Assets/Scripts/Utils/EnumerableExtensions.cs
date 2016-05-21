@@ -15,7 +15,7 @@ namespace MechWars.Utils
         {
             return !enumerable.HasAtLeast(1);
         }
-
+        
         public static bool HasAtLeast<T>(this IEnumerable<T> enumerable, int numberOfElements)
         {
             if (numberOfElements == 0) return true;

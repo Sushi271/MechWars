@@ -4,7 +4,7 @@ namespace MechWars.MapElements.Orders.Actions
 {
     public interface ICanCreateOrderArgs
     {
-        BuildingShadow BuildingShadow { get; }
+        IBuildingPlacement BuildingPlacement { get; }
         Player Player { get; }
     }
 }

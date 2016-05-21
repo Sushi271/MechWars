@@ -31,21 +31,8 @@ namespace MechWars.PlayerInput
         {
             UpdateSize();
             Draw();
-
-            var mapElementObjects = GameObject.FindGameObjectsWithTag(Tag.MapElement);
-            var mapElements = mapElementObjects.Select(go => go.GetComponent<MapElement>());
-
-            // TODO: WTF why this exception is sometimes randomly unpredictably being thrown?!
-#if DEBUG_HOVER_BOX
-            var nullMapElements = mapElementObjects.Where(me => me.GetComponent<MapElement>() == null);
-            if (nullMapElements.Count() > 0)
-            {
-                throw new System.Exception(string.Format("Object with tag \"{0}\" doesn't have MapElement script {1}, {2}",
-                    Tag.MapElement, nullMapElements.ToDebugMessage(), mapElements.ToDebugMessage()));
-            }
-#else
-            mapElements = mapElements.Where(me => me != null && me.GetComponent<MapElement>() != null);
-#endif
+            
+            var mapElements = Globals.MapElementsDatabase.MapElements;
 
             var mapElementsScreenPos = mapElements.Select(a => new
                 {
