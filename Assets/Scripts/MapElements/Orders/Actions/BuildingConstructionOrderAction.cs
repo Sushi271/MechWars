@@ -1,33 +1,40 @@
-﻿using UnityEngine;
+﻿using MechWars.MapElements.Orders.Products;
+using MechWars.PlayerInput;
+using UnityEngine;
 
 namespace MechWars.MapElements.Orders.Actions
 {
-    public class BuildingConstructionOrderAction : ProductionOrderAction
+    public class BuildingConstructionOrderAction : ProductionOrderAction, IBuildingConstructArgs
     {
         public Building building;
+        public bool sequential;
+
+        public Building Building { get { return building; } }
+        public int Cost { get { return cost; } }
+        public float ProductionTime { get { return productionTime; } }
 
         public override bool AllowsMultiExecutor { get { return false; } }
         public override bool CanBeCarried { get { return true; } }
-        public override bool IsSequential { get { return true; } }
+        public override bool IsSequential { get { return sequential; } }
 
-        public int StartCost { get { return Mathf.CeilToInt(cost * Globals.Instance.startingBuildingProgress); } }
+        public int StartCost { get { return Mathf.CeilToInt(cost * Globals.MapSettings.startingBuildingProgress); } }
 
-        protected override bool CanCreateOrder(ICanCreateOrderArgs canCreateOrderArgs)
+        protected override bool CanCreateOrder(IOrderActionArgs orderActionArgs)
         {
-            if (canCreateOrderArgs.BuildingPlacement.InsideMap)
+            if (!orderActionArgs.BuildingPlacement.InsideMap)
             {
                 Debug.Log(string.Format("Cannot place building {0} outside map.", building));
                 return false;
             }
 
-            if (canCreateOrderArgs.BuildingPlacement.PositionOccupied)
+            if (orderActionArgs.BuildingPlacement.PositionOccupied)
             {
                 Debug.Log(string.Format("Cannot place building {0} in location {1} - it's occupied.",
-                    building, canCreateOrderArgs.BuildingPlacement.Position));
+                    building, orderActionArgs.BuildingPlacement.Position));
                 return false;
             }
 
-            if (StartCost > canCreateOrderArgs.Player.Army.resources)
+            if (StartCost > orderActionArgs.Player.army.resources)
             {
                 Debug.Log(string.Format("Not enough resources to start construction of building {0}.", building));
                 return false;
@@ -41,8 +48,12 @@ namespace MechWars.MapElements.Orders.Actions
             if (building == null)
                 throw new System.Exception("\"Building building\" field must not be NULL.");
             AssertOrderExecutorIs<Building>(orderExecutor);
-            
-            return new BuildingConstructionOrder((Building)orderExecutor, building);
+
+            Building constructor = (Building)orderExecutor;
+            BuildingProduct buildingProduct = constructor.Construct(this, orderActionArgs.BuildingPlacement.Position);
+
+
+            return new BuildingConstructionOrder((Building)orderExecutor, buildingProduct);
         }
     }
 }

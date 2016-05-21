@@ -54,8 +54,8 @@ namespace MechWars.Pathfinding
         {
             reservationDictionary = new Dictionary<MapElement, List<IVector2>>();
 
-            Width = Globals.Instance.MapWidth;
-            Height = Globals.Instance.MapHeight;
+            Width = Globals.MapSettings.Width;
+            Height = Globals.MapSettings.Height;
             reservationTable = new MapElement[Width, Height];
         }
 

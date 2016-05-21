@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MechWars.MapElements;
 using UnityEngine;
+using MechWars.Utils;
 
 namespace MechWars.PlayerInput
 {
@@ -78,7 +79,7 @@ namespace MechWars.PlayerInput
             {
                 if (!HoverBoxActive)
                 {
-                    if (Mouse.Left.IsDown && !Mouse.Right.IsPressed)
+                    if (Mouse.Left.IsDown && !Mouse.Right.IsPressed && !Mouse.MapRaycast.GUIHit)
                     {
                         preHoverBoxState = true;
                         hoverBoxStart = Mouse.Position;

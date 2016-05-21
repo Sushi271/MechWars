@@ -1,5 +1,6 @@
 ﻿using MechWars.MapElements;
 using MechWars.MapElements.Orders.Actions;
+using MechWars.PlayerInput;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,11 +21,15 @@ namespace MechWars.InGameGUI
         void Start()
         {
             buttons = new List<Button>();
-            Globals.Spectator.player.Army.OnBuildingConstructionFinished += InvokeRefreshBuildingGUI;
+            if (Globals.HumanArmy != null)
+                Globals.HumanArmy.OnBuildingConstructionFinished += InvokeRefreshBuildingGUI;
         }
 
         void Update()
         {
+            if (Globals.Spectator == null)
+                throw new System.Exception("Globals.Spectator is NULL.");
+
             var inputController = Globals.Spectator.InputController;
             var selBuilding = inputController.SelectionMonitor.SelectedMapElements.FirstOrDefault() as Building;
             if (selBuilding != building || refreshBuildingGUI)
@@ -77,8 +82,11 @@ namespace MechWars.InGameGUI
                             var coa = constructionOAs[i - productionOAs.Count];
                             button.name = string.Format("Button {0}", coa.building.mapElementName);
                             text.text = string.Format("Build {0} ({1} RP)", coa.building.mapElementName, coa.cost);
-                            button.onClick.AddListener(new UnityAction(
-                                () => inputController.CarriedOrderAction = coa));
+                            button.onClick.AddListener(new UnityAction(() =>
+                            {
+                                inputController.CarriedOrderAction = coa;
+                                inputController.CreateShadow(coa);
+                            }));
                         }
                         else
                         {

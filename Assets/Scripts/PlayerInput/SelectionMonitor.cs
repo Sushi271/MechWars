@@ -69,7 +69,7 @@ namespace MechWars.PlayerInput
 
         private void MapElement_LifeEnding(MapElement sender)
         {
-            throw new System.NotImplementedException();
+            Deselect(sender.AsEnumerable());
         }
 
         void AssertMapElementsSelectable(IEnumerable<MapElement> mapElements)

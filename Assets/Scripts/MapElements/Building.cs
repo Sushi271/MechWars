@@ -1,4 +1,6 @@
 ﻿using MechWars.MapElements.Orders;
+using MechWars.MapElements.Orders.Actions;
+using MechWars.MapElements.Orders.Products;
 using MechWars.MapElements.Production;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
@@ -12,10 +14,6 @@ namespace MechWars.MapElements
     public class Building : MapElement
     {
         public bool isResourceDeposit;
-        public List<UnitProductionOption> unitProductionOptions;
-        public List<BuildingConstructionOption> buildingConstructionOptions;
-        public List<TechnologyDevelopmentOption> technologyDevelopmentOptions;
-
         public event System.Action OnConstructionFinished;
         
         public bool UnderConstruction { get { return ConstructionInfo != null; } }
@@ -39,7 +37,6 @@ namespace MechWars.MapElements
         protected override void OnStart()
         {
             base.OnStart();
-            if (isShadow) return;
             
             if (!UnderConstruction) OrderExecutor.Enable();
 
@@ -61,7 +58,6 @@ namespace MechWars.MapElements
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            if (isShadow) return;
 
             if (UnderConstruction)
                 transform.localScale = new Vector3(1, ConstructionInfo.TotalProgress, 1);
@@ -93,56 +89,59 @@ namespace MechWars.MapElements
             return newUnit;
         }
 
-        public Building Construct(BuildingConstructionOption buildingCO, Vector2 location)
+        public BuildingProduct Construct(IBuildingConstructArgs args, Vector2 location)
         {
             if (UnderConstruction)
                 throw new System.Exception(string.Format(
                     "Building {0} cannot construct buildings - it's under construction.", this));
-
-            if (!buildingConstructionOptions.Contains(buildingCO))
+            
+            if (orderActions.OfType<BuildingConstructionOrderAction>().None(oa => oa.Equals(args)))
                 throw new System.Exception(string.Format(
-                    "Building {0} cannot construct Building {1}", this, buildingCO.building));
+                    "Building {0} cannot construct Building {1}", this, args.Building));
 
-            if (!buildingCO.CheckRequirements(army))
+            if (!args.CheckRequirements(army))
                 throw new System.Exception(string.Format(
-                    "Building {0} is not meeting requirements to construct Building {1}", this, buildingCO.building));
+                    "Building {0} is not meeting requirements to construct Building {1}", this, args.Building));
 
-            var building = buildingCO.building;
-            var bci = new BuildingConstructionInfo(buildingCO);
-            int startCost = Mathf.CeilToInt(bci.Cost * bci.TotalProgress);
+            var prefab = args.Building;
+            int startCost = args.StartCost;
             if (startCost > army.resources)
             {
-                Debug.Log(string.Format("Not enough resources to start Building {0} construction", building));
+                Debug.Log(string.Format("Not enough resources to start Building {0} construction", prefab));
                 return null;
             }
 
-            building.Coords = location;
-            if (building.AllCoords.Any(c => Globals.FieldReservationMap[c]))
+            prefab.Coords = location;
+            if (prefab.AllCoords.Any(c => Globals.FieldReservationMap[c]))
             {
                 throw new System.Exception(string.Format(
-                    "Cannot construct Building {0} in location {1} - it's occupied.", building, location));
+                    "Cannot construct Building {0} in location {1} - it's occupied.", prefab, location));
             }
 
             army.resources -= startCost;
-            bci.Paid += startCost;
 
-            var gameObject = Instantiate(building.gameObject);
+            var gameObject = Instantiate(prefab.gameObject);
             gameObject.transform.parent = transform.parent;
             gameObject.transform.position = new Vector3(location.x, 0, location.y);
-            gameObject.name = building.gameObject.name;
-            var newBuilding = gameObject.GetComponent<Building>();
-            newBuilding.InitializeReservation();
-            newBuilding.army = army;
-            newBuilding.ConstructionInfo = bci;
-            newBuilding.resourceValue = bci.Paid;
-            newBuilding.ReadStats();
-            var hpStat = newBuilding.Stats[StatNames.HitPoints];
+            gameObject.name = prefab.gameObject.name;
+
+            var building = gameObject.GetComponent<Building>();
+            building.InitializeReservation();
+            building.army = army;
+            building.resourceValue = startCost;
+            building.ReadStats();
+
+            var buildingProduct = new BuildingProduct(building, args.Cost, args.ProductionTime);
+
+            var bci = new BuildingConstructionInfo(buildingProduct, startCost);
+            building.ConstructionInfo = bci;
+            var hpStat = building.Stats[StatNames.HitPoints];
             if (hpStat == null)
                 throw new System.Exception(string.Format(
-                    "Building {0} doesn't have {1} Stat.", building, StatNames.HitPoints));
+                    "Building {0} doesn't have {1} Stat.", prefab, StatNames.HitPoints));
             hpStat.Value = bci.TotalProgress * hpStat.MaxValue;
 
-            return newBuilding;
+            return buildingProduct;
         }
 
         public void FinishConstruction()

@@ -32,12 +32,12 @@ namespace MechWars.PlayerInput
             UpdateSize();
             Draw();
             
-            var mapElements = Globals.MapElementsDatabase.MapElements;
+            var mapElements = Globals.MapElementsDatabase.All;
 
-            var mapElementsScreenPos = mapElements.Select(a => new
+            var mapElementsScreenPos = mapElements.Select(me => new
                 {
-                    MapElement = a,
-                    ScreenPosition = Globals.MainCamera.WorldToScreenPoint(a.transform.position)
+                    MapElement = me,
+                    ScreenPosition = Globals.MainCamera.WorldToScreenPoint(me.transform.position)
                 });
 
             var x0 = Mathf.Min(Start.x, Start.x + Size.x);
@@ -45,13 +45,13 @@ namespace MechWars.PlayerInput
             var y0 = Mathf.Min(Start.y, Start.y + Size.y);
             var y1 = Mathf.Max(Start.y, Start.y + Size.y);
 
-            var newMapElementsInside = new HashSet<MapElement>(mapElementsScreenPos.Where(asp =>
+            var newMapElementsInside = new HashSet<MapElement>(mapElementsScreenPos.Where(mesp =>
                 {
-                    var pos = asp.ScreenPosition;
+                    var pos = mesp.ScreenPosition;
                     return
                         x0 <= pos.x && pos.x <= x1 &&
                         y0 <= pos.y && pos.y <= y1;
-                }).Select(asp => asp.MapElement));
+                }).Select(mesp => mesp.MapElement));
 
             var removedMapElements = MapElementsInside.Where(c => !newMapElementsInside.Contains(c)).ToList();
             foreach (var rme in removedMapElements)

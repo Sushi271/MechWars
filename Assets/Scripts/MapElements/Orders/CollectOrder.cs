@@ -45,9 +45,6 @@ namespace MechWars.MapElements.Orders
 
         bool MakeCollect()
         {
-            if (!Unit.canCollect)
-                throw new System.Exception(string.Format("Unit {0} cannot collect/deposit resources.", Unit));
-
             var collectRateStat = Unit.Stats[StatNames.CollectRate];
             var carriedResourceStat = Unit.Stats[StatNames.CarriedResource];
             if (collectRateStat == null || carriedResourceStat == null)

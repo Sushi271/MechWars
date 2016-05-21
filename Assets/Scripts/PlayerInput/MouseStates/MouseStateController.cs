@@ -88,9 +88,6 @@ namespace MechWars.PlayerInput.MouseStates
                 LeftActionTriggered = true;
                 leftDown = false;
             }
-
-            Debug.Log("A: " + MouseStateLeft.IsDown + " " + MouseStateRight.IsDown);
-            Debug.Log("B: " + LeftActionTriggered + " " + RightActionTriggered);
         }
     }
 }

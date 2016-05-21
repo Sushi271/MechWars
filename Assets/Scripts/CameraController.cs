@@ -58,13 +58,13 @@ namespace MechWars
         void CorrectCameraPosition()
         {
             var center = handle.transform.position;
-            var glb = Globals.Instance;
+            var mapSettings = Globals.MapSettings;
 
             var correction = Vector3.zero;
             if (center.x < 0) correction -= new Vector3(center.x, 0, 0);
-            if (glb.MapWidth - 1 < center.x) correction -= new Vector3(center.x - (glb.MapWidth - 1), 0, 0);
+            if (mapSettings.Width - 1 < center.x) correction -= new Vector3(center.x - (mapSettings.Width - 1), 0, 0);
             if (center.z < 0) correction -= new Vector3(0, 0, center.z);
-            if (glb.MapHeight - 1 < center.z) correction -= new Vector3(0, 0, center.z - (glb.MapHeight - 1));
+            if (mapSettings.Height - 1 < center.z) correction -= new Vector3(0, 0, center.z - (mapSettings.Height - 1));
 
             handle.transform.position += correction;
         }

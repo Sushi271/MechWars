@@ -5,8 +5,9 @@ namespace MechWars.MapElements.Orders.Actions
 {
     public interface IOrderActionArgs
     {
+        Player Player { get; }
         IVector2 Destination { get;  }
         IEnumerable<MapElement> Targets { get; }
-        ICanCreateOrderArgs CanCreateOrderArgs { get; }
+        IBuildingPlacement BuildingPlacement { get; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using MechWars.GLRendering;
-using MechWars.MapElements.Jobs;
+﻿using MechWars.MapElements.Jobs;
 using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Statistics;
@@ -334,7 +333,8 @@ namespace MechWars.MapElements
                 lastArmy = army;
             }
 
-            OrderExecutor.Update();
+            if (OrderExecutor.Enabled)
+                OrderExecutor.Update();
 
             UpdateDying();
             JobQueue.Update();
@@ -385,7 +385,7 @@ namespace MechWars.MapElements
             int resVal = resourceValue + additionalResourceValue;
             if (resVal == 0) return;
 
-            var noArmy = GameObject.FindGameObjectsWithTag(Tag.Army)
+            var noArmy = Globals.MapSettings.armyObjects
                 .Where(a => a.GetComponent<Army>() == null).FirstOrDefault();
             if (noArmy == null) return;
 

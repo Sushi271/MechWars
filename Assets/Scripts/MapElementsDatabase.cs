@@ -1,5 +1,6 @@
 ﻿using MechWars.MapElements;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MechWars
 {
@@ -14,6 +15,17 @@ namespace MechWars
         public IEnumerable<Unit> Units { get { return units; } }
         public IEnumerable<Building> Buildings { get { return buildings; } }
         public IEnumerable<Resource> Resources { get { return resources; } }
+
+        public IEnumerable<MapElement> All
+        {
+            get
+            {
+                return mapElements
+                    .Concat(units.Cast<MapElement>())
+                    .Concat(buildings.Cast<MapElement>())
+                    .Concat(resources.Cast<MapElement>());
+            }
+        }
 
         public MapElementsDatabase()
         {

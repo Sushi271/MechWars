@@ -7,13 +7,10 @@ namespace MechWars.MapElements.Orders.Products
     {
         public Building Building { get; private set; }
 
-        public BuildingProduct(Building product)
+        public BuildingProduct(Building building, int cost, float productionTime)
+            : base(building.name, cost, productionTime)
         {
-            Building = product;
-            
-            Name = Building.mapElementName;
-            Cost = Building.ConstructionInfo.Cost;
-            ProductionTime = Building.ConstructionInfo.ConstructionTime;
+            Building = building;
         }
 
         public override string ToString()

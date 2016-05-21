@@ -8,27 +8,24 @@ namespace MechWars.PlayerInput
     public class BuildingShadow : IBuildingPlacement
     {
         InputController inputController;
-
-        Building constructor;
-        BuildingConstructionOrderAction orderAction;
-
+        Building prefab;
         Building shadow;
+
+        bool destroyed;
 
         public bool InsideMap { get; private set; }
         public bool PositionOccupied { get; private set; }
 
         public Vector2 Position { get; private set; }
 
-        public BuildingShadow(InputController inputController,
-            Building constructor, BuildingConstructionOrderAction orderAction)
+        public BuildingShadow(InputController inputController, BuildingConstructionOrderAction orderAction)
         {
             this.inputController = inputController;
+            prefab = orderAction.building;
 
-            this.constructor = constructor;
-            this.orderAction = orderAction;
-
-            shadow = Object.Instantiate(orderAction.building.gameObject).GetComponent<Building>();
-            shadow.gameObject.name = orderAction.building.gameObject.name + " shadow";
+            shadow = Object.Instantiate(prefab.gameObject).GetComponent<Building>();
+            shadow.gameObject.layer = 0;
+            shadow.gameObject.name = prefab.gameObject.name + " shadow";
             shadow.isShadow = true;
             var rs = shadow.GetComponentsInChildren<Renderer>();
             foreach (var r in rs)
@@ -40,8 +37,15 @@ namespace MechWars.PlayerInput
             }
         }
 
+        public void Destroy()
+        {
+            Object.Destroy(shadow.gameObject);
+            destroyed = true;
+        }
+
         public void Update()
         {
+            if (destroyed) return;
             UpdateLocation();
             UpdateLook();
         }
@@ -54,7 +58,7 @@ namespace MechWars.PlayerInput
                 return;
 
             var p = coords.Value;
-            var shape = orderAction.building.Shape;
+            var shape = prefab.Shape;
             var W = shape.Width;
             var H = shape.Height;
 

@@ -29,7 +29,7 @@ namespace MechWars.MapElements.Orders.Actions
 
         public bool GiveOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
-            if (orderExecutor.OrderExecutor.Enabled && CanCreateOrder(orderActionArgs.CanCreateOrderArgs))
+            if (orderExecutor.OrderExecutor.Enabled && CanCreateOrder(orderActionArgs))
             {
                 orderExecutor.OrderExecutor.Give(CreateOrder(orderExecutor, orderActionArgs));
                 return true;
@@ -37,7 +37,7 @@ namespace MechWars.MapElements.Orders.Actions
             return false;
         }
 
-        protected virtual bool CanCreateOrder(ICanCreateOrderArgs canCreateOrderArgs)
+        protected virtual bool CanCreateOrder(IOrderActionArgs orderActionArgs)
         {
             return true;
         }

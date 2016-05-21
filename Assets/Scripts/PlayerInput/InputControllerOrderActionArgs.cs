@@ -9,14 +9,15 @@ namespace MechWars.PlayerInput
     {
         InputController inputController;
 
+        public Player Player { get { return inputController.Spectator.player; } }
         public IVector2 Destination { get { return inputController.Mouse.MapRaycast.Coords.Value; } }
         public IEnumerable<MapElement> Targets { get { return inputController.HoverController.HoveredMapElements; } }
         public ICanCreateOrderArgs CanCreateOrderArgs { get; private set; }
+        public IBuildingPlacement BuildingPlacement { get { return inputController.BuildingShadow; } }
 
         public InputControllerOrderActionArgs(InputController inputController)
         {
             this.inputController = inputController;
-            CanCreateOrderArgs = new InputControllerCanCreateOrderArgs(inputController);
         }
     }
 }

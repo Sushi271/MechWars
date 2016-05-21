@@ -16,9 +16,7 @@ namespace MechWars.MapElements
 
         protected override void OnStart()
         {
-
             base.OnStart();
-            if (isShadow) return;
 
             startValue = value;
             if (startValue == 0) startValue = 1;
@@ -27,7 +25,6 @@ namespace MechWars.MapElements
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            if (isShadow) return;
 
             var scale = Mathf.Pow(Size, 1 / 3f);
             transform.localScale = new Vector3(scale, scale, scale);

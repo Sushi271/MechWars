@@ -110,25 +110,6 @@ namespace MechWars.PlayerInput
                 a => a == null,
                 a => a == Globals.HumanArmy).Result;
             candidates.RemoveWhere(me => me.army != army);
-            // candidates cannot be empty after this - no return
-
-            System.Func<MapElement, bool> units = me => me is Unit;
-            var unitsExist = candidates.Any(units);
-            if (unitsExist)
-            {
-                candidates.RemoveWhereNot(units);
-                return;
-            }
-
-            System.Func<MapElement, bool> buildings = me => me is Building;
-            var buildingsExist = candidates.Any(buildings);
-            if (buildingsExist)
-            {
-                candidates.RemoveWhereNot(buildings);
-                return;
-            }
-
-            candidates.Clear();
         }
 
         public static void Escort(HashSet<MapElement> candidates)

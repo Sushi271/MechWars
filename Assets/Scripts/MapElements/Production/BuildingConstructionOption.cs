@@ -6,6 +6,6 @@ namespace MechWars.MapElements.Production
     {
         public Building building;
 
-        public int StartCost { get { return Mathf.CeilToInt(cost * Globals.Instance.startingBuildingProgress); } }
+        public int StartCost { get { return Mathf.CeilToInt(cost * Globals.MapSettings.startingBuildingProgress); } }
     }
 }

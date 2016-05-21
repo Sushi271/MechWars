@@ -14,15 +14,14 @@ namespace MechWars.MapElements.Orders
         public Building ConstructingBuilding { get; private set; }
         public Building ConstructedBuilding { get; private set; }
 
-        public BuildingConstructionOrder(Building orderedBuilding, Building constructedBuilding)
+        public BuildingConstructionOrder(Building orderedBuilding, BuildingProduct buildingProduct)
             : base("Construction", orderedBuilding)
         {
             ConstructingBuilding = orderedBuilding;
-            ConstructedBuilding = constructedBuilding;
+            ConstructedBuilding = buildingProduct.Building;
 
             constructionInfo = ConstructedBuilding.ConstructionInfo;
-            productionOrder = new ProductionOrder(ConstructingBuilding,
-                new BuildingProduct(ConstructedBuilding), constructionInfo.Paid);
+            productionOrder = new ProductionOrder(ConstructingBuilding, buildingProduct, constructionInfo.Paid);
         }
 
         protected override bool RegularUpdate()

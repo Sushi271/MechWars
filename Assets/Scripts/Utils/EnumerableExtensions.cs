@@ -139,5 +139,15 @@ namespace MechWars.Utils
             }
             return sum / count;
         }
+
+        public static string ToDebugMessage<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.AllToString(i => i == null ? "NULL" : i.ToString());
+        }
+
+        public static string AllToString<T>(this IEnumerable<T> enumerable, System.Func<T, string> serializer)
+        {
+            return string.Format("[ {0} ]", string.Join(", ", enumerable.Select(i => serializer(i)).ToArray()));
+        }
     }
 }

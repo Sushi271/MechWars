@@ -13,13 +13,12 @@ namespace MechWars.MapElements.Orders
         public Building Building { get; private set; }
         public Unit Unit { get; private set; }
 
-        public UnitProductionOrder(Building orderedBuilding, Unit producedUnit)
+        public UnitProductionOrder(Building orderedBuilding, UnitProduct unitProduct)
             : base("UnitProduction", orderedBuilding)
         {
             Building = orderedBuilding;
-            Unit = producedUnit;
-
-            productionOrder = new ProductionOrder(Building, new UnitProduct(Building, Unit));
+            Unit = unitProduct.Unit;            
+            productionOrder = new ProductionOrder(Building, unitProduct);
         }
 
         protected override bool RegularUpdate()

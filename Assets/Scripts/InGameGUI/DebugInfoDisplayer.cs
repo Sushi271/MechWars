@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
 {
-    public class StatusDisplayer : MonoBehaviour
+    public class DebugInfoDisplayer : MonoBehaviour
     {
         public Canvas canvas;
 

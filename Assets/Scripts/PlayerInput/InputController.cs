@@ -1,6 +1,7 @@
 ﻿using MechWars.MapElements.Orders.Actions;
 using MechWars.PlayerInput.MouseStates;
 using MechWars.Utils;
+using System.Linq;
 using UnityEngine;
 
 namespace MechWars.PlayerInput
@@ -30,7 +31,7 @@ namespace MechWars.PlayerInput
 
         public bool CarriesOrderAction { get { return CarriedOrderAction != null; } }
 
-        public BuildingShadow BuildingShadow { get; set; }
+        public BuildingShadow BuildingShadow { get; private set; }
 
         public Color FramesColor { get { return BehaviourDeterminant.FramesColor; } }
         public Color HoverBoxColor { get { return BehaviourDeterminant.HoverBoxColor; } }
@@ -72,13 +73,33 @@ namespace MechWars.PlayerInput
             else MouseStateController.HandleState();
         }
 
+        public void CreateShadow(BuildingConstructionOrderAction orderAction)
+        {
+            BuildingShadow = new BuildingShadow(this, orderAction);
+        }
+
+        public void DestroyShadow()
+        {
+            if (BuildingShadow != null)
+            {
+                BuildingShadow.Destroy();
+                BuildingShadow = null;
+            }
+        }
+
         bool executeOnUp;
         void HandleCarriedOrderAction()
         {
             if (Mouse.Left.IsDown) executeOnUp = true;
+            if (Mouse.Right.IsDown)
+            {
+                int x = 5;
+                int y = x;
+            }
             if (Mouse.Right.IsDown || SelectionMonitor.SelectedMapElements.Empty())
             {
                 CarriedOrderAction = null;
+                DestroyShadow();
                 executeOnUp = false;
             }
 
@@ -88,21 +109,30 @@ namespace MechWars.PlayerInput
                     new System.Exception("Game is in invalid state: " +
                         "trying to handle CarriedOrderAction, but no MapElements are selected.");
 
+
                 if (CarriedOrderAction.AllowsMultiExecutor || SelectionMonitor.SelectedCount == 1)
                 {
+                    bool orderGiven = false;
+
                     foreach (var me in SelectionMonitor.SelectedMapElements)
                     {
-                        if (me.army != Globals.HumanArmy) continue;
-
-                        CarriedOrderAction.GiveOrder(me, OrderActionArgs);
+                        if (me.army == Globals.HumanArmy)
+                            orderGiven = orderGiven || CarriedOrderAction.GiveOrder(me, OrderActionArgs);
+                    }
+                    
+                    if (orderGiven)
+                    {
+                        if (!CarriedOrderAction.IsSequential)
+                        {
+                            CarriedOrderAction = null;
+                            DestroyShadow();
+                        }
                     }
                 }
                 else throw new System.Exception(string.Format(
                     "Game is in invalid state: trying to handle CarriedOrderAction {0}, " +
                     "but it doesn't allow multi-executor and SelectionMonitor.SelectedCount == {1}",
                     CarriedOrderAction.GetType().Name, SelectionMonitor.SelectedCount));
-                if (!CarriedOrderAction.IsSequential)
-                    CarriedOrderAction = null;
                 executeOnUp = false;
             }
         }

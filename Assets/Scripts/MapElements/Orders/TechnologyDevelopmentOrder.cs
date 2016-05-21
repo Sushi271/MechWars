@@ -10,13 +10,13 @@ namespace MechWars.MapElements.Orders
         public Building Building { get; private set; }
         public Technology Technology { get; private set; }
        
-        public TechnologyDevelopmentOrder(Building orderedBuilding, Technology developedTechnology)
+        public TechnologyDevelopmentOrder(Building orderedBuilding, TechnologyProduct technologyProduct)
             : base("Development", orderedBuilding)
         {
             Building = orderedBuilding;
-            Technology = developedTechnology;
-            productionOrder = new ProductionOrder(Building, new TechnologyProduct(Building, Technology));
-            
+            Technology = technologyProduct.Technology;
+            productionOrder = new ProductionOrder(Building, technologyProduct);
+                        
             Building.army.Technologies.StartDeveloping(Technology);
         }
 

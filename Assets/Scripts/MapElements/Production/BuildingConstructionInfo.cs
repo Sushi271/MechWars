@@ -1,23 +1,23 @@
-﻿using UnityEngine;
+﻿using MechWars.MapElements.Orders.Products;
+using UnityEngine;
 
 namespace MechWars.MapElements.Production
 {
     public class BuildingConstructionInfo
     {
-        public Building Building { get; private set; }
-        public int Cost { get; private set; }
-        public float ConstructionTime { get; private set; }
-
-        public float TotalProgress { get; set; }
+        public BuildingProduct BuildingProduct { get; private set; }
         public int Paid { get; set; }
+        public float TotalProgress { get; set; }
 
-        public BuildingConstructionInfo(BuildingConstructionOption constructionOption)
+        public Building Building { get { return BuildingProduct.Building; } }
+        public int Cost { get { return BuildingProduct.Cost; } }
+        public float ConstructionTime { get { return BuildingProduct.ProductionTime; } }
+
+        public BuildingConstructionInfo(BuildingProduct buildingProduct, int alreadyPaid)
         {
-            Building = constructionOption.building;
-            Cost = constructionOption.cost;
-            ConstructionTime = constructionOption.productionTime;
-
-            TotalProgress = 0.1f;
+            BuildingProduct = buildingProduct;
+            Paid = alreadyPaid;
+            TotalProgress = (float)Paid / Cost;
         }
     }
 }

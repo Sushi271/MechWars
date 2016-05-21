@@ -1,7 +1,7 @@
 ﻿using MechWars.MapElements;
 using UnityEngine;
 
-namespace MechWars
+namespace MechWars.InGameGUI
 {
     public class StatusDisplayInfo
     {
@@ -25,6 +25,7 @@ namespace MechWars
 
         public StatusDisplayInfo(MapElement mapElement, bool hovered, bool selected)
         {
+            MapElement = mapElement;
             Hovered = hovered;
             Selected = selected;
 

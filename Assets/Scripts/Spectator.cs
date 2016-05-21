@@ -14,7 +14,7 @@ namespace MechWars
             InputController = new InputController(this);
         }
 
-        void OnUpdate()
+        void Update()
         {
             InputController.Update();
         }

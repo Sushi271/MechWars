@@ -7,8 +7,6 @@ namespace MechWars
     [System.Serializable]
     public class Army : MonoBehaviour
     {
-        public Player Player { get; private set; }
-
         public HashSet<Unit> Units { get; private set; }
         public HashSet<Building> Buildings { get; private set; }
         public TechnologyController Technologies { get; private set; }
@@ -28,11 +26,6 @@ namespace MechWars
             Units = new HashSet<Unit>();
             Buildings = new HashSet<Building>();
             Technologies = new TechnologyController(this);
-        }
-
-        void Start()
-        {
-            Player = Globals.GetPlayerForArmy(this);
         }
 
         public void AddMapElement(MapElement mapElement)
