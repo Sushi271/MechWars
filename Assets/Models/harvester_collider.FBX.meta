@@ -72,6 +72,19 @@ ModelImporter:
     4300020: Box033
     4300022: Box034
     4300024: Box035
+    6400000: Box023
+    6400002: Box024
+    6400004: Box025
+    6400006: Box026
+    6400008: Box027
+    6400010: Box028
+    6400012: Box029
+    6400014: Box030
+    6400016: Box031
+    6400018: Box032
+    6400020: Box033
+    6400022: Box034
+    6400024: Box035
   materials:
     importMaterials: 1
     materialName: 0
@@ -98,7 +111,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
