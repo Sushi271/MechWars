@@ -1,7 +1,6 @@
 ﻿using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Orders.Products;
-using MechWars.MapElements.Production;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -29,9 +28,9 @@ namespace MechWars.MapElements
             allNeighbourFields = new HashSet<IVector2>();
         }
 
-        protected override OrderExecutor CreateOrderExecutor()
+        protected override OrderExecutor CreateOrderExecutor(bool enabled = false)
         {
-            return new OrderExecutor(() => new IdleOrder(this), false);
+            return base.CreateOrderExecutor(enabled);
         }
 
         protected override void OnStart()
@@ -159,34 +158,20 @@ namespace MechWars.MapElements
                 OrderExecutor.Terminate();
         }
 
-        public override StringBuilder TEMP_PrintStatus()
+        public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
-            var sb = base.TEMP_PrintStatus().AppendLine()
+            base.DEBUG_PrintStatus(sb)
+                .AppendLine()
                 .AppendLine(string.Format("Is resource deposit: {0}", isResourceDeposit))
                 .AppendLine(string.Format("Under construction: {0}", UnderConstruction));
             if (UnderConstruction)
             {
-                sb.AppendLine("Construction info:")
+                sb
+                    .AppendLine("Construction info:")
                     .AppendLine(string.Format("    Paid/Cost: {0} / {1} ({2:P1})", ConstructionInfo.Paid, ConstructionInfo.Cost, ConstructionInfo.TotalProgress))
                     .Append(string.Format("    Construction time: {0}", ConstructionInfo.ConstructionTime));
             }
-            else
-            {
-                sb.AppendLine("Default order:");
-                sb.AppendLine(string.Format("    {0}",
-                    OrderExecutor.DefaultOrder == null ? "---" :
-                    OrderExecutor.DefaultOrder.ToString()));
-                sb.AppendLine("Order queue:");
-                if (OrderExecutor.OrderCount == 0)
-                    sb.Append("    ---");
-                else for (int i = 0; i < OrderExecutor.OrderCount; i++)
-                    {
-                        string line = string.Format("{0}: {1}", i, OrderExecutor[i]);
-                        if (i < OrderExecutor.OrderCount - 1)
-                            sb.AppendLine(line);
-                        else sb.Append(line);
-                    }
-            }
+            else DEBUG_PrintOrders(sb);
 
             return sb;
         }

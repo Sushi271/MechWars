@@ -52,9 +52,10 @@
         public override string ToString()
         {
             var specifics = SpecificsToString();
-            return string.Format("{0}{1}", Name, 
+            return string.Format("{0}{1}", Name,
                 specifics != string.Empty ?
-                " [ {1} ]" : string.Empty);
+                string.Format(" [ {0} ]", specifics) :
+                string.Empty);
         }
     }
 }

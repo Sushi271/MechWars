@@ -2,7 +2,6 @@
 using MechWars.MapElements.Orders.Products;
 using MechWars.MapElements.Statistics;
 using UnityEngine;
-using MechWars.MapElements.Production;
 
 namespace MechWars.MapElements.Orders
 {

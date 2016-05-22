@@ -10,17 +10,19 @@ namespace MechWars.MapElements
         public override bool CanBeAttacked { get { return true; } }
         public override bool CanBeEscorted { get { return true; } }
 
-        protected override OrderExecutor CreateOrderExecutor()
+        protected override OrderExecutor CreateOrderExecutor(bool enabled = true)
         {
-            var orderExecutor = new OrderExecutor(() => new IdleOrder(this));
+            var orderExecutor = base.CreateOrderExecutor();
             orderExecutor.GiveReplaces = true;
             return orderExecutor;
         }
         
-        public override StringBuilder TEMP_PrintStatus()
+        public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
-            return base.TEMP_PrintStatus().AppendLine()
-                .Append(string.Format("Current order: {0}", OrderExecutor.CurrentOrder == null ? "NONE" : OrderExecutor.CurrentOrder.ToString()));
+            base.DEBUG_PrintStatus(sb)
+                .AppendLine();
+            DEBUG_PrintOrders(sb);
+            return sb;
         }
     }
 }

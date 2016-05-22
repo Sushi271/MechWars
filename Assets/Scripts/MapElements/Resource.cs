@@ -30,10 +30,12 @@ namespace MechWars.MapElements
             transform.localScale = new Vector3(scale, scale, scale);
         }
 
-        public override StringBuilder TEMP_PrintStatus()
+        public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
-            return base.TEMP_PrintStatus().AppendLine()
+            base.DEBUG_PrintStatus(sb)
+                .AppendLine()
                 .Append(string.Format("Resources: {0} / {1} ({2:P1})", value, startValue, (float)value / startValue));
+            return sb;
         }
     }
 }

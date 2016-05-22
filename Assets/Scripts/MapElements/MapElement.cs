@@ -34,7 +34,7 @@ namespace MechWars.MapElements
         public bool isShadow;
 
         bool reservationInitialized;
-        
+
         public JobQueue JobQueue { get; private set; }
 
         public Stats Stats { get; private set; }
@@ -179,9 +179,9 @@ namespace MechWars.MapElements
             OrderExecutor = CreateOrderExecutor();
         }
 
-        protected virtual OrderExecutor CreateOrderExecutor()
+        protected virtual OrderExecutor CreateOrderExecutor(bool enabled = true)
         {
-            return new OrderExecutor(() => new IdleOrder(this));
+            return new OrderExecutor(() => new IdleOrder(this), enabled);
         }
 
         void Start()
@@ -311,7 +311,7 @@ namespace MechWars.MapElements
                 for (int x = xFrom; x <= xTo; x++)
                     yield return new IVector2(x, y);
         }
-        
+
         void Update()
         {
             if (isShadow) return;
@@ -369,7 +369,7 @@ namespace MechWars.MapElements
                 Globals.FieldReservationMap.ReleaseReservations(this);
                 Globals.MapElementsDatabase.Delete(this);
             }
-            
+
             if (!suspendDestroy) Destroy(gameObject);
 
             TurnIntoResource();
@@ -452,9 +452,9 @@ namespace MechWars.MapElements
             return string.Format("{0} ({1})", mapElementName ?? "", id);
         }
 
-        public virtual StringBuilder TEMP_PrintStatus()
+        public virtual StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
-            var sb = new StringBuilder()
+            sb
                 .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
                 .AppendLine(string.Format("Coords: {0}", Coords))
                 .AppendLine(string.Format("Army: {0}", army == null ? "NONE" : army.armyName))
@@ -476,6 +476,26 @@ namespace MechWars.MapElements
                 else sb.Append(line);
                 i++;
             }
+            return sb;
+        }
+
+        protected StringBuilder DEBUG_PrintOrders(StringBuilder sb)
+        {
+            sb
+                .AppendLine("Default order:")
+                .AppendLine(string.Format("    {0}",
+                    OrderExecutor.DefaultOrder == null ? "---" :
+                    OrderExecutor.DefaultOrder.ToString()))
+                .AppendLine("Order queue:");
+            if (OrderExecutor.OrderCount == 0)
+                sb.Append("    ---");
+            else for (int i = 0; i < OrderExecutor.OrderCount; i++)
+                {
+                    string line = string.Format("{0}: {1}", i, OrderExecutor[i]);
+                    if (i < OrderExecutor.OrderCount - 1)
+                        sb.AppendLine(line);
+                    else sb.Append(line);
+                }
             return sb;
         }
     }

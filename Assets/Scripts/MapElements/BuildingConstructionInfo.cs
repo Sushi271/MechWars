@@ -1,7 +1,6 @@
 ﻿using MechWars.MapElements.Orders.Products;
-using UnityEngine;
 
-namespace MechWars.MapElements.Production
+namespace MechWars.MapElements
 {
     public class BuildingConstructionInfo
     {
