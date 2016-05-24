@@ -63,6 +63,8 @@ ModelImporter:
     100110: Cylinder097
     100112: Cylinder098
     100114: //RootNode
+    100116: MechFlamethrower_lower_boder
+    100118: MechFlamethrower_upper_boder
     400000: Arc008
     400002: Arc009
     400004: Arc010
@@ -121,6 +123,8 @@ ModelImporter:
     400110: Cylinder097
     400112: Cylinder098
     400114: //RootNode
+    400116: MechFlamethrower_lower_boder
+    400118: MechFlamethrower_upper_boder
     2300000: Arc008
     2300002: Arc009
     2300004: Arc010
