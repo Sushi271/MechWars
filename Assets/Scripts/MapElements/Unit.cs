@@ -1,5 +1,6 @@
 ﻿using MechWars.MapElements.Orders;
 using System.Text;
+using UnityEngine;
 
 namespace MechWars.MapElements
 {
@@ -16,7 +17,18 @@ namespace MechWars.MapElements
             orderExecutor.GiveReplaces = true;
             return orderExecutor;
         }
-        
+
+        protected override Sprite GetMarkerImage()
+        {
+            return army.unitMarker;
+        }
+
+        protected override float GetMarkerHeight()
+        {
+            return 3;
+        }
+
+
         public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
             base.DEBUG_PrintStatus(sb)

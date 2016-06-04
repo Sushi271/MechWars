@@ -205,6 +205,40 @@ namespace MechWars.MapElements
             UpdateAlive();
 
             InitializeReservation();
+            InitializeMinimapMarker();
+        }
+
+        void InitializeMinimapMarker()
+        {
+            // 1. get marker image from this Unit's army
+            var markerImage = GetMarkerImage();
+            if (markerImage == null) return;
+            // 2. get Globals -> Prefabs -> marker
+            var markerPrefab = Globals.Prefabs.marker;
+            // 3. instantiate gameobject from prefab
+            var marker = Instantiate(markerPrefab);
+            // 4. get SpriteRenderer Component from newly instantiated gameobject
+            var sr = marker.GetComponent<SpriteRenderer>();
+            // 5. assign marget image to SpriteRenderer Component's "sprite" field
+            sr.sprite = markerImage;
+            // 6. set marker's size according to its shape's size & H position
+            marker.transform.localScale *= Mathf.Max(Shape.Width, Shape.Height);
+            var pos = marker.transform.localPosition;
+            pos.y = GetMarkerHeight();
+            marker.transform.localPosition = pos;
+
+            // 7. set this Unit as parent for newly instantiated gameobject
+            marker.transform.SetParent(this.gameObject.transform, false);
+        }
+
+        protected virtual Sprite GetMarkerImage()
+        {
+            return null;
+        }
+
+        protected virtual float GetMarkerHeight()
+        {
+            return 0;
         }
 
         public void ReadStats(bool force = false)

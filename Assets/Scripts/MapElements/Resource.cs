@@ -22,6 +22,17 @@ namespace MechWars.MapElements
             if (startValue == 0) startValue = 1;
         }
 
+        protected override Sprite GetMarkerImage()
+        {
+            return Globals.Textures.resourceMarker;
+        }
+
+        protected override float GetMarkerHeight()
+        {
+            return 2;
+        }
+
+
         protected override void OnUpdate()
         {
             base.OnUpdate();
