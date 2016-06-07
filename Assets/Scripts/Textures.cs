@@ -9,5 +9,7 @@ namespace MechWars
         public Texture hpBarNoArmy;
         public Texture hpBarNoArmySide;
         public Texture hpBarNoArmyTop;
+
+        public Sprite resourceMarker;
     }
 }

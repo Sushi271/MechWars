@@ -10,6 +10,8 @@ namespace MechWars
     {
         System.Random random = new System.Random();
 
+        [PrefabType(PrefabType.Other)]
+        public GameObject marker;
         [PrefabType(PrefabType.Resource)]
         public GameObject resource1;
         [PrefabType(PrefabType.Resource)]
@@ -35,7 +37,8 @@ namespace MechWars
 
         enum PrefabType
         {
-            Resource
+            Resource,
+            Other
         }
 
         class PrefabTypeAttribute : System.Attribute

@@ -36,6 +36,7 @@ ModelImporter:
     100056: scout_head
     100058: scout_pipe
     100060: scout_tire
+    100062: scout_head 1
     400000: Cylinder001
     400002: Cylinder002
     400004: Cylinder004
@@ -67,6 +68,7 @@ ModelImporter:
     400056: scout_head
     400058: scout_pipe
     400060: scout_tire
+    400062: scout_head 1
     2300000: Cylinder001
     2300002: Cylinder002
     2300004: Cylinder004

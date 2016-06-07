@@ -13,7 +13,7 @@ namespace MechWars
         {
             var minutes = cycleTime;
             if (minutes == 0) minutes = 1; // zabezpieczenie, bo gdy 0 to będzie dziel/0 dwie linijki niżej
-            float seconds = minutes * 60;  // 60 sekund w minucie, okres pelnego cyklu
+            float seconds = minutes * 360;  // 60 sekund w minucie, okres pelnego cyklu
             float speed = 360 / seconds;   // szybkosc = odwrotnosc okresu
 
             foreach (var light in lights)
