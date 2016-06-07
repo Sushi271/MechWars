@@ -6,6 +6,11 @@ namespace MechWars.MapElements.Orders.Actions
     public class HarvestResourceOrderAction : OrderAction
     {
         public override bool CanBeCarried { get { return true; } }
+        
+        protected override bool CanCreateOrder(IOrderActionArgs orderActionArgs)
+        {
+            return orderActionArgs.Targets.HasExactly(1);
+        }
 
         protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {

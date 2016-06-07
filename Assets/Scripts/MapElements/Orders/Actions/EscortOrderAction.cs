@@ -1,4 +1,5 @@
 ﻿using MechWars.PlayerInput;
+using MechWars.Utils;
 using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders.Actions
@@ -13,6 +14,11 @@ namespace MechWars.MapElements.Orders.Actions
         public override void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
             HoverCandidatesFilter.Escort(candidates);
+        }
+
+        protected override bool CanCreateOrder(IOrderActionArgs orderActionArgs)
+        {
+            return !orderActionArgs.Targets.Empty();
         }
 
         protected override Order CreateOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)

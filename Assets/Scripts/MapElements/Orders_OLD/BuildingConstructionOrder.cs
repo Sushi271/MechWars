@@ -1,11 +1,11 @@
 ﻿using System;
-using MechWars.MapElements.Orders.Products;
+using MechWars.MapElements.Orders_OLD.Products;
 using MechWars.MapElements.Statistics;
 using UnityEngine;
 
-namespace MechWars.MapElements.Orders
+namespace MechWars.MapElements.Orders_OLD
 {
-    public class BuildingConstructionOrder : Order
+    public class BuildingConstructionOrder : Order_OLD
     {
         BuildingConstructionInfo constructionInfo;
         ProductionOrder productionOrder;

@@ -11,21 +11,19 @@ namespace MechWars.Pathfinding
     {
         CoordPair start;
         CoordPair target;
-        Unit orderedUnit;
 
         Dictionary<CoordPair, AStarCoordPairNode> evaluated;
         Dictionary<CoordPair, AStarCoordPairNode> toEvaluate;
         BinaryHeap<float, AStarCoordPairNode> priorityQueue;
 
 
-        public Path FindPath(CoordPair start, CoordPair target, Unit orderedUnit)
+        public Path FindPath(CoordPair start, CoordPair target, MapElement orderedMapElement)
         {
             this.start = start;
             this.target = target;
-            this.orderedUnit = orderedUnit;
 
             var reservation = Globals.FieldReservationMap[target.Vector];
-            if (reservation != null && reservation != orderedUnit)
+            if (reservation != null && reservation != orderedMapElement)
                 target = DesignateAlternateTarget(false);
 
             evaluated = new Dictionary<CoordPair, AStarCoordPairNode>();

@@ -1,8 +1,6 @@
-﻿using MechWars.MapElements;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace MechWars.Pathfinding
 {
@@ -15,6 +13,8 @@ namespace MechWars.Pathfinding
 
         public WayPoint First { get { return Count == 0 ? null : wayPoints.Last(); } }
         public WayPoint Last { get { return Count == 0 ? null : wayPoints.First(); } }
+
+        public bool Empty { get { return Count <= 1; } }
         
         public Path()
         {

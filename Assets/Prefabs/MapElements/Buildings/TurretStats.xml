@@ -3,5 +3,6 @@
     <Stat name="Rotation speed" value="1.5" />
     <Stat name="Firepower" value="20" />
     <Stat name="Attack speed" value="0.666" />
-    <Stat name="Range" value="7" />
+    <Stat name="Attack range" value="7" />
+    <Stat name="View range" value="7" />
 </Stats>

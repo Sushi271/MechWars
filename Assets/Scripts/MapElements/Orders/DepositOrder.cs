@@ -1,87 +1,81 @@
 ﻿using MechWars.MapElements.Statistics;
-using System.Linq;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
     public class DepositOrder : Order
     {
-        float progress;
+        public override string Name { get { return "Deposit"; } }
+        protected override bool CanStop { get { return true; } }
 
         public Unit Unit { get; private set; }
-        public Building Refinery { get; set; }
+        public Building Deposit { get; private set; }
 
-        public bool InRange
+        float depositRate;
+        Stat carriedResourceStat;
+
+        float progress;
+
+        public DepositOrder(Unit unit, Building deposit)
+            : base(unit)
         {
-            get
+            Unit = unit;
+            Deposit = deposit;
+        }
+
+        protected override void OnStart()
+        {
+            Stat depositRateStat = null;
+            TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.CarriedResource, out carriedResourceStat));
+            TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.DepositRate, out depositRateStat));
+            TryFail(OrderResultAsserts.AssertUnitIsNeighbourOf(Unit, Deposit));
+            TryFail(OrderResultAsserts.AssertBuildingIsNotUnderConstruction(Deposit));
+            TryFail(OrderResultAsserts.AssertMapElementIsNotDying(Deposit));
+            TryFail(OrderResultAsserts.AssertBuildingIsResourceDeposit(Deposit));
+            if (Failed) return;
+
+            if (carriedResourceStat.Value == 0)
             {
-                var allRefineryCoords = Refinery.AllCoords;
-                return allRefineryCoords.Any(c =>
-                    {
-                        var dr = c - Unit.Coords;
-                        return Mathf.Abs(dr.x) <= 1 && Mathf.Abs(dr.y) <= 1;
-                    });
+                Succeed();
+                return;
             }
+
+            depositRate = depositRateStat.Value;
         }
 
-        public DepositOrder(Unit orderedUnit, Building refinery)
-            : base("Deposit", orderedUnit)
+        protected override void OnUpdate()
         {
-            Unit = (Unit)MapElement;
-            Refinery = refinery;
-        }
+            if (State == OrderState.Stopping) return;
+            if (Deposit.Dying)
+            {
+                Succeed();
+                return;
+            }
 
-        protected override bool RegularUpdate()
-        {
-            if (InRange) return MakeDeposit();
-            throw new System.Exception(string.Format("Order {0} called, when not in range.", Name));
-        }
-
-        protected override bool StoppingUpdate()
-        {
-            return true;
-        }
-
-        protected override void TerminateCore()
-        {
-        }
-
-        bool MakeDeposit()
-        {
-            var depositRateStat = Unit.Stats[StatNames.DepositRate];
-            var carriedResourceStat = Unit.Stats[StatNames.CarriedResource];
-            if (depositRateStat == null || carriedResourceStat == null)
-                throw new System.Exception(string.Format(
-                    "Unit {0} claims it can collect resources, but it doesn't have Stats: {1} & {2}, that are necessary.",
-                    Unit, StatNames.DepositRate, StatNames.CarriedResource));
-
-            var depositRate = depositRateStat.Value;
             var carriedResource = (int)carriedResourceStat.Value;
 
             var dProgress = depositRate * Time.deltaTime;
             progress += dProgress;
-            int intProgress = (int)progress;
-
-            bool finished = false;
+            var intProgress = (int)progress;
+            
             if (intProgress > 0)
             {
-                progress -= intProgress;
                 if (intProgress >= carriedResource)
                 {
                     intProgress = carriedResource;
-                    finished = true;
+                    Succeed();
                 }
 
-                Unit.army.resources += intProgress;
+                progress -= intProgress;
+                Deposit.army.resources += intProgress;
                 carriedResourceStat.Value -= intProgress;
                 Unit.additionalResourceValue -= intProgress;
             }
-            return finished;
         }
 
         protected override string SpecificsToString()
         {
-            return string.Format("{0}", Refinery);
+            return Deposit.ToString();
         }
     }
 }

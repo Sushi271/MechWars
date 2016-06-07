@@ -30,6 +30,8 @@ namespace MechWars
         }
 
         //=====================================================================================
+
+        public bool debugComplexOrderStrings;
         
         public static Spectator Spectator { get { return Destroyed ? null : MapSettings.spectator; } }
         public static Player HumanPlayer { get { return Spectator == null ? null : Spectator.player; } }

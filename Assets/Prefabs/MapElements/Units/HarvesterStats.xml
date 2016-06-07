@@ -5,4 +5,5 @@
     <Stat name="Collect rate" value="10" />
     <Stat name="Deposit rate" value="66.666" />
     <Stat name="Carried resource" value="0" max_value="100" />
+    <Stat name="View range" value="5" />
 </Stats>

@@ -1,112 +1,79 @@
-﻿using MechWars.MapElements.Jobs;
-using UnityEngine;
+﻿using MechWars.MapElements.Statistics;
+using MechWars.Utils;
 
 namespace MechWars.MapElements.Orders
 {
-    public class IdleOrder : Order
+    public class IdleOrder : ComplexOrder
     {
-        AttackOrder attack;
-        MapElement autoAttackTarget;
-        bool targetLost;
+        public override string Name { get { return "Idle"; } }
 
-        public IdleOrder(MapElement orderedMapElement)
-            : base("Idle", orderedMapElement)
+        public MapElement AutoAttackTarget { get; private set; }
+        IVector2 AutoAttackTargetClosestCoords { get { return AutoAttackTarget.GetClosestFieldTo(MapElement.Coords); } }
+
+        IdleRotationOrder idleRotationOrder;
+        AttackOrder attackOrder;
+
+        public IdleOrder(MapElement mapElement)
+            : base(mapElement)
         {
-        }        
-
-        protected override bool RegularUpdate()
-        {
-            if (MapElement.CanAttack)
-            {
-                if (attack == null)
-                {
-                    autoAttackTarget = MapElement.AcquireTarget();
-                    if (autoAttackTarget != null)
-                    {
-                        if (MapElement is Unit)
-                            attack = new AttackOrder((Unit)MapElement, autoAttackTarget);
-                        else if (MapElement is Building)
-                            attack = new AttackOrder((Building)MapElement, autoAttackTarget);
-                        else throw new System.Exception("MapElement is neither Unit nor Building.");
-
-                        targetLost = false;
-                    }
-                }
-                else if (targetLost || !autoAttackTarget.Alive
-                    || !MapElement.MapElementInRange(autoAttackTarget))
-                {
-                    targetLost = true;
-                    if (!attack.Stopping)
-                        attack.Stop();
-                    if (attack.Stopped)
-                    {
-                        attack = null;
-                        autoAttackTarget = null;
-                    }
-                }
-            }
-
-            if (attack != null)
-                attack.Update();
-            else CasualIdleBehaviour();
-
-            return false;
         }
 
-        protected override bool StoppingUpdate()
+        protected override void OnStart()
         {
-            if (autoAttackTarget != null)
-            {
-                if (!attack.AttackingInProgress) return true;
+            idleRotationOrder = new IdleRotationOrder(MapElement);
+            GiveSubOrder(idleRotationOrder);
+        }
 
-                attack.Update();
-                if (!attack.Stopped) return false;
+        protected override void OnSubOrderUpdating()
+        {
+            if (SubOrder == idleRotationOrder)
+            {
+                if (MapElement.CanAttack)
+                {
+                    AutoAttackTarget = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                    if (AutoAttackTarget != null && !AutoAttackTarget.Dying)
+                        idleRotationOrder.Stop();
+                }
+            }
+            else if (SubOrder == attackOrder)
+            {
+                if (AutoAttackTarget.Dying || !MapElement.HasMapElementInRange(AutoAttackTarget, StatNames.AttackRange))
+                    attackOrder.Stop();
+            }
+        }
+
+        protected override void OnSubOrderStopped()
+        {
+            if (SubOrder == idleRotationOrder) idleRotationOrder = null;
+            else if (SubOrder == attackOrder) attackOrder = null;
+
+            if (State != OrderState.Stopping)
+            {
+                if (AutoAttackTarget != null && !AutoAttackTarget.Dying &&
+                    MapElement.HasMapElementInRange(AutoAttackTarget, StatNames.AttackRange))
+                {
+                    attackOrder = new AttackOrder(MapElement, AutoAttackTarget);
+                    GiveSubOrder(attackOrder);
+                }
                 else
                 {
-                    attack = null;
-                    autoAttackTarget = null;
-                    return true;
+                    idleRotationOrder = new IdleRotationOrder(MapElement);
+                    GiveSubOrder(idleRotationOrder);
                 }
             }
-            else
-            {
-                // Finish CasualIdleBehaviour()
-                return true;
-            }
         }
 
-        protected override void TerminateCore()
+        protected override void OnSubOrderFinished()
         {
+            attackOrder = null;
+            idleRotationOrder = new IdleRotationOrder(MapElement);
+            GiveSubOrder(idleRotationOrder);
         }
 
-        protected override void OnStopCalled()
+        protected override string SpecificsToStringCore()
         {
-            if (attack != null)
-                attack.Stop();
-        }
-
-        float minRotationTime = 5;
-        float maxRotationTime = 15;
-        float nextRotationTime = -1;
-        float timeToRotation = 0;
-
-        void CasualIdleBehaviour()
-        {
-            if (MapElement.canRotate &&
-                MapElement.JobQueue.Empty)
-            {
-                if (nextRotationTime == -1)
-                    nextRotationTime = Random.Range(minRotationTime, maxRotationTime);
-                timeToRotation += Time.deltaTime;
-                if (timeToRotation > nextRotationTime)
-                {
-                    timeToRotation -= nextRotationTime;
-                    nextRotationTime = -1;
-                    var angleToRotate = Random.Range(-180, 180);
-                    var targetRotation = MapElement.Rotation + angleToRotate;
-                    MapElement.JobQueue.Add(new RotateJob(MapElement, targetRotation));
-                }
-            }
+            if (AutoAttackTarget == null) return base.SpecificsToStringCore();
+            return string.Format("CurrentTarget: {0}", AutoAttackTarget);
         }
     }
 }

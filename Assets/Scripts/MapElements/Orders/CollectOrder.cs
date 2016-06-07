@@ -5,83 +5,77 @@ namespace MechWars.MapElements.Orders
 {
     public class CollectOrder : Order
     {
-        float progress;
+        public override string Name { get { return "Collect"; } }
+        protected override bool CanStop { get { return true; } }
 
         public Unit Unit { get; private set; }
-        public Resource Resource { get; set; }
+        public Resource Resource { get; private set; }
 
-        public bool InRange
-        {
-            get
-            {
-                var dr = Resource.Coords - Unit.Coords;
-                return Mathf.Abs(dr.x) <= 1 && Mathf.Abs(dr.y) <= 1;
-            }
-        }
+        float collectRate;
+        Stat carriedResourceStat;
 
-        public CollectOrder(Unit orderedUnit, Resource resource)
-            : base("Collect", orderedUnit)
+        float progress;
+
+        public CollectOrder(Unit unit, Resource resource)
+            : base(unit)
         {
-            Unit = (Unit)MapElement;
+            Unit = unit;
             Resource = resource;
         }
 
-        protected override bool RegularUpdate()
+        protected override void OnStart()
         {
-            if (!Resource.Alive) return true;
-            if (Resource.value == 0) return true;
-            if (InRange) return MakeCollect();
-            throw new System.Exception(string.Format("Order {0} called, when not in range.", Name));
+            Stat collectRateStat = null;
+            TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.CarriedResource, out carriedResourceStat));
+            TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.CollectRate, out collectRateStat));
+            TryFail(OrderResultAsserts.AssertUnitIsNeighbourOf(Unit, Resource));
+            if (Failed) return;
+
+            if (Resource.value == 0 || carriedResourceStat.HasMaxValue)
+            {
+                Succeed();
+                return;
+            }
+
+            collectRate = collectRateStat.Value;
         }
 
-        protected override bool StoppingUpdate()
+        protected override void OnUpdate()
         {
-            return true;
-        }
+            if (State == OrderState.Stopping) return;
+            if (Resource.value == 0)
+            {
+                Succeed();
+                return;
+            }
 
-        protected override void TerminateCore()
-        {
-        }
-
-        bool MakeCollect()
-        {
-            var collectRateStat = Unit.Stats[StatNames.CollectRate];
-            var carriedResourceStat = Unit.Stats[StatNames.CarriedResource];
-            if (collectRateStat == null || carriedResourceStat == null)
-                throw new System.Exception(string.Format(
-                    "Unit {0} claims it can collect resources, but it doesn't have Stats: {1} & {2}, that are necessary.",
-                    Unit, StatNames.CollectRate, StatNames.CarriedResource));
-
-            var collectRate = collectRateStat.Value;
             var carriedResource = (int)carriedResourceStat.Value;
             var tankCapacity = (int)carriedResourceStat.MaxValue;
             var tankRoomLeft = tankCapacity - carriedResource;
-            
+
             var dProgress = collectRate * Time.deltaTime;
             progress += dProgress;
-            int intProgress = (int)progress;
-
-            bool finished = false;
+            var intProgress = (int)progress;
+            
             if (intProgress > 0)
             {
-                progress -= intProgress;
                 int limit = Mathf.Min(tankRoomLeft, Resource.value);
                 if (intProgress >= limit)
                 {
                     intProgress = limit;
-                    finished = true;
+                    Succeed();
                 }
 
+                progress -= intProgress;
                 Resource.value -= intProgress;
                 carriedResourceStat.Value += intProgress;
                 Unit.additionalResourceValue += intProgress;
             }
-            return finished;
         }
 
         protected override string SpecificsToString()
         {
-            return string.Format("{0}", Resource);
+            return Resource.ToString();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using MechWars.PlayerInput;
-
-namespace MechWars.MapElements.Orders.Actions
+﻿namespace MechWars.MapElements.Orders.Actions
 {
     public interface ICanCreateOrderArgs
     {

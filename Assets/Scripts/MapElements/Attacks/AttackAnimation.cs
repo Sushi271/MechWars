@@ -1,7 +1,4 @@
-﻿using MechWars.MapElements.Attacks;
-using MechWars.MapElements.Statistics;
-using MechWars.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MechWars.MapElements.Attacks
 {

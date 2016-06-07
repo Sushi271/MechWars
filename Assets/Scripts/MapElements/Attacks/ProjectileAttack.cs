@@ -1,4 +1,5 @@
 ﻿using MechWars.MapElements.Jobs;
+using MechWars.MapElements.Orders;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using UnityEngine;
@@ -51,37 +52,42 @@ namespace MechWars.MapElements.Attacks
             data.startingVelocity = startingSpeed * AB.normalized;
             data.timeToHit = ABLen / startingSpeed;
 
-            var moveJob = target.JobQueue.CurrentJob as MoveJob;
-            if (moveJob != null)
+            var targetUnit = target as Unit;
+            if (targetUnit != null)
             {
-                var ABLenSq = ABLen * ABLen;
-
-                var VALen = startingSpeed;
-                var VALenSq = VALen * VALen;
-
-                var VB = moveJob != null ? moveJob.Velocity.AsHorizontalVector3() : Vector3.zero;
-                var VBLen = VB.magnitude;
-                var VBLenSq = VBLen * VBLen;
-
-                var VBDotAB = Vector3.Dot(VB, AB);
-
-                var alpha = ABLenSq;
-                var beta = 2 * VBDotAB;
-                var gamma = VBLenSq - VALenSq;
-                var Delta = beta * beta - 4 * alpha * gamma;
-
-                if (Delta >= 0)
+                var move = targetUnit.Move;
+                if (move != null)
                 {
-                    var sqrtDelta = Mathf.Sqrt(Delta);
-                    var reciprocT1 = (-beta - sqrtDelta) / (2 * alpha);
-                    var reciprocT2 = (-beta + sqrtDelta) / (2 * alpha);
-                    var reciprocT = reciprocT1 >= 0 ? reciprocT1 : reciprocT2;
-                    var t = 1 / reciprocT;
+                    var ABLenSq = ABLen * ABLen;
 
-                    data.startingVelocity = AB / t + VB;
-                    data.timeToHit = t;
+                    var VALen = startingSpeed;
+                    var VALenSq = VALen * VALen;
+
+                    var VB = move.Velocity.AsHorizontalVector3();
+                    var VBLen = VB.magnitude;
+                    var VBLenSq = VBLen * VBLen;
+
+                    var VBDotAB = Vector3.Dot(VB, AB);
+
+                    var alpha = ABLenSq;
+                    var beta = 2 * VBDotAB;
+                    var gamma = VBLenSq - VALenSq;
+                    var Delta = beta * beta - 4 * alpha * gamma;
+
+                    if (Delta >= 0)
+                    {
+                        var sqrtDelta = Mathf.Sqrt(Delta);
+                        var reciprocT1 = (-beta - sqrtDelta) / (2 * alpha);
+                        var reciprocT2 = (-beta + sqrtDelta) / (2 * alpha);
+                        var reciprocT = reciprocT1 >= 0 ? reciprocT1 : reciprocT2;
+                        var t = 1 / reciprocT;
+
+                        data.startingVelocity = AB / t + VB;
+                        data.timeToHit = t;
+                    }
                 }
             }
+                
 
             return data;
         }

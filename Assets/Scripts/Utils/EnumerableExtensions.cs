@@ -29,6 +29,32 @@ namespace MechWars.Utils
             return false;
         }
 
+        public static bool HasNoMoreThan<T>(this IEnumerable<T> enumerable, int numberOfElements)
+        {
+            if (numberOfElements == 0) return true;
+
+            int i = 0;
+            foreach (var item in enumerable)
+            {
+                i++;
+                if (i > numberOfElements) return false;
+            }
+            return true;
+        }
+
+        public static bool HasExactly<T>(this IEnumerable<T> enumerable, int numberOfElements)
+        {
+            if (numberOfElements == 0) return true;
+
+            int i = 0;
+            foreach (var item in enumerable)
+            {
+                i++;
+                if (i > numberOfElements) return false;
+            }
+            return i == numberOfElements;
+        }
+
         public static IEnumerable<T> AsEnumerable<T>(this T item, bool nullAsEmpty = false)
         {
             if (item == null && nullAsEmpty) yield break;

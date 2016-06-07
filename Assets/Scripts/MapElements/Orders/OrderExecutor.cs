@@ -57,10 +57,10 @@ namespace MechWars.MapElements.Orders
                     "Parameter idx must be between 0 (inclusive) and Count (exclusive).");
             if (idx > 0)
             {
-                orderQueue[idx].Terminate();
+                orderQueue[idx].CancelBrandNew();
                 orderQueue.RemoveAt(idx);
             }
-            else if (!CurrentOrder.Stopped && !CurrentOrder.Stopping)
+            else if (!CurrentOrder.InFinalState && CurrentOrder.State != OrderState.Stopping)
                 CurrentOrder.Stop();
         }
 
@@ -101,7 +101,7 @@ namespace MechWars.MapElements.Orders
             if (OrderCount == 0) return;
             while (OrderCount > 1)
             {
-                orderQueue[OrderCount - 1].Terminate();
+                orderQueue[OrderCount - 1].CancelBrandNew();
                 orderQueue.RemoveAt(OrderCount - 1);
             }
             CancelCurrent();
@@ -118,25 +118,30 @@ namespace MechWars.MapElements.Orders
             if (CurrentOrder == null)
             {
                 if (DefaultOrder == null)
+                {
                     DefaultOrder = defaultOrderCreator();
-                if (DefaultOrder != null)
+                    DefaultOrder.Start();
+                }
+                if (DefaultOrder != null && DefaultOrder.CanUpdate)
                     DefaultOrder.Update();
             }
             else
             {
                 if (DefaultOrder != null)
                 {
-                    if (!DefaultOrder.Stopping)
+                    if (DefaultOrder.State == OrderState.Started)
                         DefaultOrder.Stop();
-                    if (!DefaultOrder.Stopped)
+                    if (!DefaultOrder.InFinalState)
                         DefaultOrder.Update();
-                    if (DefaultOrder.Stopped)
+                    if (DefaultOrder.InFinalState)
                         DefaultOrder = null;
                 }
                 else
                 {
+                    if (CurrentOrder.State == OrderState.BrandNew)
+                        CurrentOrder.Start();
                     CurrentOrder.Update();
-                    if (CurrentOrder.Stopped)
+                    if (CurrentOrder.InFinalState)
                         orderQueue.RemoveAt(0);
                 }
             }

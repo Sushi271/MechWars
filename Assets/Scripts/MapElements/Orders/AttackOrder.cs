@@ -1,153 +1,116 @@
 ﻿using MechWars.MapElements.Attacks;
-using MechWars.MapElements.Jobs;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
-using System.Linq;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class AttackOrder : Order
+    public class AttackOrder : ComplexOrder
     {
-        public static AttackOrder Create(MapElement orderedMapElement, MapElement target)
-        {
-            if (orderedMapElement is Unit)
-                return new AttackOrder((Unit)orderedMapElement, target);
-            if (orderedMapElement is Building)
-                return new AttackOrder((Building)orderedMapElement, target);
-            throw new System.ArgumentException("\"MapElement orderedMapElement\" argument must be either Unit or Building.");
-        }
-
         Attack attack;
-        AttackJob attackJob;
 
+        RotateOrder rotateOrder;
+        SingleAttackOrder singleAttackOrder;
+
+        float cooldown;
+
+        public override string Name { get { return "Attack"; } }
         public MapElement Target { get; private set; }
-        public bool AttackingInProgress { get { return attack != null; } }
 
-        public AttackOrder(Unit orderedUnit, MapElement target)
-            : base("Attack", orderedUnit)
+        IVector2 Aim { get { return Target.GetClosestFieldTo(MapElement.Coords); } }
+
+        public AttackOrder(MapElement mapElement, MapElement target)
+            : base(mapElement)
         {
-            AttackOrderHelper.AssertTargetsCanBeAttacked(target.AsEnumerable());
             Target = target;
         }
 
-        public AttackOrder(Building orderedBuilding, MapElement target)
-            : base("Attack", orderedBuilding)
+        protected override void OnStart()
         {
-            AttackOrderHelper.AssertTargetsCanBeAttacked(target.AsEnumerable());
-            Target = target;
+            TryFail(OrderResultAsserts.AssertMapElementCanBeAttacked(Target));
+            TryFail(OrderResultAsserts.AssertMapElementHasAnyAttacks(MapElement));
+            if (Failed) return;
+
+            if (Target.Dying) Succeed();
         }
 
-        protected override bool RegularUpdate()
+        protected override void OnUpdate()
         {
-            return CommonUpdate();
-        }
+            if (HasSubOrder || State == OrderState.Stopping) return;
 
-        protected override bool StoppingUpdate()
-        {
-            return CommonUpdate();
-        }
-
-        protected override void TerminateCore()
-        {
-        }
-
-        bool CommonUpdate()
-        {
-            if (!MapElement.CanAttack)
-                throw new System.Exception(string.Format(
-                    "Order {0} called for MapElement {1}, but it cannot attack.", Name, MapElement));
-
-            bool stopped;
-            MakeAttack(out stopped);
-            return stopped;
-        }
-
-        float cooldown = 0;
-
-        void MakeAttack(out bool stopped)
-        {
-            stopped = false;
-
-            if (!AttackingInProgress)
+            if (!Target.Dying)
             {
-                if (Stopping || !Target.Alive)
+                if (attack == null)
+                    attack = MapElement.PickAttack();
+                if (rotateOrder == null)
                 {
-                    stopped = true;
-                    return;
+                    rotateOrder = new RotateOrder(MapElement);
+                    GiveSubOrder(rotateOrder);
+                    //singleAttackOrder = new SingleAttackOrder(MapElement, Target, attack, aim);
                 }
-
-                cooldown -= Time.deltaTime;
-                if (cooldown <= 0)
+                if (cooldown > 0)
                 {
-                    var aim = Target.GetClosestFieldTo(MapElement.Coords);
-                    if (MapElement.PositionInRange(aim))
-                        StartAttack(aim);
+                    cooldown -= Time.deltaTime;
+                    cooldown = Mathf.Clamp(cooldown, 0, cooldown);
                 }
             }
+            else Succeed();
         }
 
-        void StartAttack(Vector2 aim)
+        protected override void OnSubOrderStarting()
         {
-            attack = PickAttack();
-            if (attack != null)
-            {
-                attackJob = new AttackJob(attack, MapElement, Target, aim);
-                var angle = -UnityExtensions.AngleFromTo(Vector2.up, attackJob.Direction);
-                var rotateJob = new RotateJob(MapElement, angle);
-                rotateJob.OnJobDone += RotateJob_OnJobDone;
-                attackJob.OnJobDone += AttackJob_OnJobDone;
+            if (Target.Dying)
+                SubOrder.CancelBrandNew();
+            else if (SubOrder == rotateOrder)
+                UpdateRotateOrdersProperties();
+        }
 
-                MapElement.JobQueue.Add(rotateJob);
-                MapElement.JobQueue.Add(attackJob);
+        protected override void OnSubOrderUpdating()
+        {
+            if (Target.Dying)
+            {
+                if (SubOrder == rotateOrder)
+                    SubOrder.Stop();
+            }
+            else if (SubOrder == rotateOrder)
+                UpdateRotateOrdersProperties();
+        }
+
+        protected override void OnSubOrderFinished()
+        {
+            if (SubOrder == rotateOrder)
+            {
+                rotateOrder = null;
+                if (cooldown == 0)
+                {
+                    singleAttackOrder = new SingleAttackOrder(MapElement, Target, attack, Aim);
+                    GiveSubOrder(singleAttackOrder);
+                }
+            }
+            else if (SubOrder == singleAttackOrder)
+            {
+                singleAttackOrder = null;
+                attack = null;
+                var attackSpeedStat = MapElement.Stats[StatNames.AttackSpeed];
+                if (attackSpeedStat == null)
+                    cooldown = 1;
+                else cooldown = 1 / attackSpeedStat.Value;
             }
         }
-        
-        private void RotateJob_OnJobDone()
+
+        void UpdateRotateOrdersProperties()
         {
-            bool cancel = !Target.Alive;
-            if (!cancel)
+            if (rotateOrder != null)
             {
-                var aim = Target.GetClosestFieldTo(MapElement.Coords);
-                cancel = aim != attackJob.Aim;
+                var direction = attack.GetDirection(MapElement, Target, Aim);
+                var angle = UnityExtensions.AngleFromToXZ(Vector2.up, direction);
+                rotateOrder.TargetRotation = angle;
             }
-            if (cancel) CancelAttack();
         }
 
-        private void AttackJob_OnJobDone()
+        protected override string SpecificsToStringCore()
         {
-            var attackSpeedStat = MapElement.Stats[StatNames.AttackSpeed];
-            float attackSpeed = 1;
-            if (attackSpeedStat != null && attackSpeedStat.Value > 0)
-                attackSpeed = attackSpeedStat.Value;
-            float attackInterval = 1 / attackSpeed;
-            cooldown += attackInterval;
-
-            CancelAttack();
-        }
-
-        void CancelAttack()
-        {
-            attack = null;
-            attackJob = null;
-            MapElement.JobQueue.Clear();
-        }
-
-        Attack PickAttack()
-        {
-            var attacks = MapElement.GetComponents<Attack>();
-            if (attacks.Length == 0)
-            {
-                Debug.LogWarning(string.Format("MapElement {0} has no Attacks.", MapElement));
-                return null;
-            }
-            int idx = Random.Range(0, attacks.Length);
-            return attacks[idx];
-        }
-
-        protected override string SpecificsToString()
-        {
-            return string.Format("{0}", Target);
+            return Target.ToString();
         }
     }
 }

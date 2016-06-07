@@ -1,124 +1,180 @@
 ﻿using MechWars.MapElements.Statistics;
 using MechWars.Utils;
+using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class HarvestOrder : Order
+    public class HarvestOrder : ComplexOrder
     {
-        MoveOrder move;
-        CollectOrder collect;
-        DepositOrder deposit;
+        public override string Name { get { return "Harvest"; } }
+
+        Resource resource;
+
+        public Unit Unit { get; private set; }
+        public Resource Resource
+        {
+            get { return resource; }
+            private set
+            {
+                if (resource == value) return;
+                resource = value;
+                if (resource != null)
+                    resourceCoords = Resource.Coords.Round();
+            }
+        }
+        public Building Deposit { get; private set; }
+
+        IVector2 DepositClosestCoords { get { return Deposit.GetClosestFieldTo(Unit.Coords); } }
+
+        IVector2? resourceCoords;
+
+        MoveOrder moveOrder;
+        CollectOrder collectOrder;
+        DepositOrder depositOrder;
 
         HarvestMode mode;
 
-        bool reloadMove;
+        Stat carriedResourceStat;
 
-        public Unit Unit { get; private set; }
-        public Resource Resource { get; private set; }
-        public Building Refinery { get; private set; }
+        public bool TankFull { get { return carriedResourceStat.HasMaxValue; } }
+        public bool TankEmpty { get { return carriedResourceStat.Value == 0; } }
 
-        public bool TankFull
+        public HarvestOrder(Unit unit, Resource resource)
+            : base(unit)
         {
-            get
-            {
-                var carriedResourceStat = Unit.Stats[StatNames.CarriedResource];
-                if (carriedResourceStat == null)
-                    throw new System.Exception(string.Format(
-                        "Unit {0} doesn't have Stat {1}.", StatNames.CarriedResource));
-                return carriedResourceStat.Value == carriedResourceStat.MaxValue;
-            }
-        }
-
-        public bool TankEmpty
-        {
-            get
-            {
-                var carriedResourceStat = Unit.Stats[StatNames.CarriedResource];
-                if (carriedResourceStat == null)
-                    throw new System.Exception(string.Format(
-                        "Unit {0} doesn't have Stat {1}.", StatNames.CarriedResource));
-                return carriedResourceStat.Value == 0;
-            }
-        }
-
-        public HarvestOrder(Unit orderedUnit, Resource resource)
-            : base("Harvest", orderedUnit)
-        {
-            Unit = (Unit)MapElement;
+            Unit = unit;
             Resource = resource;
             mode = HarvestMode.Collect;
         }
 
-        public HarvestOrder(Unit orderedUnit, Building refinery)
-            : base("Harvest", orderedUnit)
+        public HarvestOrder(Unit unit, Building deposit)
+            : base(unit)
         {
-            if (!refinery.isResourceDeposit)
-                throw new System.ArgumentException(string.Format(
-                    "{0} provided as \"refinery\" is not resource deposit.", refinery));
-
-            Unit = (Unit)MapElement;
-            Refinery = refinery;
+            Unit = unit;
+            Deposit = deposit;
             mode = HarvestMode.Deposit;
         }
 
-        protected override bool RegularUpdate()
+        protected override void OnStart()
         {
-            if (!Stopping && !Stopped)
-            {
-                bool decided = DecideMode();
-                if (!decided) Stop();
-                else ExecuteMode();
-                return false;
-            }
-            return true;
+            TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.CarriedResource, out carriedResourceStat));
+            if (Deposit != null) TryFail(OrderResultAsserts.AssertBuildingIsResourceDeposit(Deposit));
+            if (Failed) return;
+
+            GiveNewSubOrder();
         }
 
-        protected override bool StoppingUpdate()
+        protected override void OnUpdate()
         {
-            if (move == null) return true;
-            if (move.SingleMoveInProgress)
+            if (Resource != null && Resource.value == 0)
+                Resource = null;
+            if (Deposit != null && Deposit.Dying)
+                Deposit = null;
+        }
+
+        protected override void OnSubOrderUpdating()
+        {
+            if (SubOrder == moveOrder)
             {
-                move.Update();
-                if (move.Stopped) return true;
-            }
-            else if (Resource == null) return true;
-            else if (mode == HarvestMode.Collect)
-            {
-                if (collect == null) return true;
-                else if (!collect.InRange) return true;
-                else
+                if (mode == HarvestMode.Deposit)
                 {
-                    collect.Update();
-                    if (collect.Stopped) return true;
+                    if (Deposit == null)
+                        moveOrder.Stop();
                 }
             }
-            else if (mode == HarvestMode.Deposit)
+        }
+
+        protected override void OnSubOrderStopped()
+        {
+            if (SubOrder == moveOrder) moveOrder = null;
+            else if (SubOrder == collectOrder) collectOrder = null;
+            else if (SubOrder == depositOrder) depositOrder = null;
+            
+            if (State != OrderState.Stopped)
+                GiveNewSubOrder();
+        }
+
+        protected override void OnSubOrderFinished()
+        {
+            if (SubOrder == moveOrder)
             {
-                if (deposit == null) return true;
-                else if (!deposit.InRange) return true;
-                else
+                moveOrder = null;
+                if (mode == HarvestMode.Collect)
                 {
-                    deposit.Update();
-                    if (deposit.Stopped) return true;
+                    Resource = null;
+                    resourceCoords = null;
+                    Resource = MapElement.PickClosestResourceInRange(StatNames.ViewRange);
+                    if (Resource != null && Resource.value > 0 &&
+                        Unit.Coords.Round().IsNeighbourTo(Resource.Coords.Round()))
+                    {
+                        collectOrder = new CollectOrder(Unit, Resource);
+                        GiveSubOrder(collectOrder);
+                    }
+                    else GiveNewSubOrder();
+                }
+                else if (mode == HarvestMode.Deposit)
+                {
+                    Deposit = PickDeposit();
+                    if (Deposit != null &&
+                        Unit.Coords.Round().IsNeighbourTo(DepositClosestCoords))
+                    {
+                        depositOrder = new DepositOrder(Unit, Deposit);
+                        GiveSubOrder(depositOrder);
+                    }
                 }
             }
-            return false;
+            else if (SubOrder == collectOrder)
+            {
+                if (!TankFull)
+                {
+                    Resource = null;
+                    resourceCoords = null;
+                }
+                else if (Resource.value == 0)
+                    Resource = MapElement.PickClosestResourceInRange(StatNames.ViewRange);
+                GiveNewSubOrder();
+            }
+            else if (SubOrder == depositOrder)
+            {
+                if (!TankEmpty)
+                    Deposit = null;
+                GiveNewSubOrder();
+            }
         }
 
-        protected override void TerminateCore()
-        {
-        }
-
-        bool DecideMode()
+        void GiveNewSubOrder()
         {
             if (mode == HarvestMode.Collect)
             {
-                if (TankFull || Resource == null && PickResource() == null)
+                if (TankFull)
                 {
                     mode = HarvestMode.Deposit;
-                    if (PickRefinery() == null) return false;
+                    GiveNewSubOrder();
+                }
+                else
+                {
+                    if (resourceCoords == null)
+                    {
+                        Resource = MapElement.PickClosestResourceInRange(StatNames.ViewRange);
+                        if (Resource == null)
+                        {
+                            if (!TankEmpty)
+                            {
+                                resourceCoords = Unit.Coords.Round();
+                                mode = HarvestMode.Deposit;
+                                GiveNewSubOrder();
+                            }
+                            else Succeed();
+                        }
+                    }
+                    if (resourceCoords != null)
+                    {
+                        moveOrder = new MoveOrder(Unit, resourceCoords.Value);
+                        GiveSubOrder(moveOrder);
+                    }
                 }
             }
             else if (mode == HarvestMode.Deposit)
@@ -126,132 +182,38 @@ namespace MechWars.MapElements.Orders
                 if (TankEmpty)
                 {
                     mode = HarvestMode.Collect;
-                    if (Resource == null && PickResource(true) == null) return false;
+                    GiveNewSubOrder();
                 }
-            }
-            return true;
-        }
-
-        Resource PickResource(bool log = false)
-        {
-            var resources = Globals.MapElementsDatabase.Resources.Where(r => r.Alive && r.value > 0);
-            if (resources.Count() == 0)
-            {
-                if (log)
-                    Debug.Log(Unit + ": No more resources!"); // TODO: play message "No more resources!"
-                return null;
-            }
-            Resource = resources.SelectMin(r => Vector2.Distance(r.Coords, Unit.Coords));
-            if (collect != null)
-                collect.Resource = Resource;
-            reloadMove = true;
-            return Resource;
-        }
-
-        Building PickRefinery()
-        {
-            var buildings = Globals.MapElementsDatabase.Buildings;
-            var refineries = buildings.Where(b => b.army == Unit.army && b.isResourceDeposit && !b.UnderConstruction);
-            if (refineries.Count() == 0)
-            {
-                Debug.Log(Unit + ": No refineries!"); // TODO: play message "No refineries!"
-                return null;
-            }
-            Refinery = refineries.SelectMin(r => Vector2.Distance(r.Coords, Unit.Coords));
-            if (deposit != null)
-                deposit.Refinery = Refinery;
-            reloadMove = true;
-            return Refinery;
-        }
-
-        void ExecuteMode()
-        {
-            if (mode == HarvestMode.Collect)
-            {
-                if (move != null && move.SingleMoveInProgress)
-                    move.Update();
                 else
                 {
-                    if (Resource != null)
-                    {
-                        if (collect == null)
-                            collect = new CollectOrder(Unit, Resource);
-                        if (!collect.InRange)
-                        {
-                            if (move == null || reloadMove)
-                            {
-                                move = new MoveOrder(Unit, Resource.Coords.Round());
-                                reloadMove = false;
-                            }
-                            move.Update();
-                        }
-                        else
-                        {
-                            move = null;
-                            collect.Update();
-                            if (collect.Stopped)
-                            {
-                                if (!Resource.Alive || Resource.value == 0)
-                                    Resource = null;
-                                collect = null;
-                            }
-                        }
-                    }
-                }
-            }
-            else if (mode == HarvestMode.Deposit)
-            {
-                if (deposit == null)
-                    deposit = new DepositOrder(Unit, Refinery);
-
-                if (move != null && move.SingleMoveInProgress)
-                    move.Update();
-                else
-                {
-                    if (!deposit.InRange)
-                    {
-                        if (move == null || reloadMove)
-                        {
-                            move = new MoveOrder(Unit, Refinery.Coords.Round());
-                            reloadMove = false;
-                        }
-                        move.Update();
-                    }
+                    if (Deposit == null)
+                        Deposit = PickDeposit();
+                    if (Deposit == null)
+                        Succeed();
                     else
                     {
-                        move = null;
-                        deposit.Update();
-                        if (deposit.Stopped)
-                        {
-                            Refinery = null;
-                            deposit = null;
-                        }
+                        moveOrder = new MoveOrder(Unit, DepositClosestCoords);
+                        GiveSubOrder(moveOrder);
                     }
                 }
             }
         }
 
-        void OnSingleMoveFinished()
+        Building PickDeposit()
         {
-            if (mode == HarvestMode.Collect)
-                move.Destination = Resource.Coords.Round();
-            else if (mode == HarvestMode.Deposit)
-                move.Destination = Refinery.Coords.Round();
+            var buildings = Globals.MapElementsDatabase.Buildings;
+            var deposits = buildings.Where(b => b.army == Unit.army
+                && b.isResourceDeposit && !b.UnderConstruction && !b.Dying);
+            if (deposits.Count() == 0) return null;
+
+            return deposits.SelectMin(d => Vector2.Distance(d.Coords, Unit.Coords));
         }
 
-        protected override void OnStopCalled()
+        protected override string SpecificsToStringCore()
         {
-            if (move != null) move.Stop();
-            if (collect != null) collect.Stop();
-            if (deposit != null) deposit.Stop();
-        }
-
-
-        protected override string SpecificsToString()
-        {
-            return string.Format("{0}", 
-                mode == HarvestMode.Collect ?
-                (MapElement)Resource : Refinery);
+            return string.Format("Resource: {0}, Deposit: {1}",
+                Resource != null ? Resource.ToString() : "NONE",
+                Deposit != null ? Deposit.ToString() : "NONE");
         }
 
         enum HarvestMode

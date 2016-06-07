@@ -30,12 +30,27 @@ namespace MechWars.Utils
         public static Vector3 AsHorizontalVector3(this IVector2 v) { return new Vector3(v.X, 0, v.Y); }
 
         public static IVector2 Sign(this IVector2 v) { return new IVector2(System.Math.Sign(v.X), System.Math.Sign(v.Y)); }
+        public static bool IsNeighbourTo(this IVector2 u, IVector2 v)
+        {
+            var delta = v - u;
+            var absDX = Mathf.Abs(delta.X);
+            var absDY = Mathf.Abs(delta.Y);
+            return absDX <= 1 && absDY <= 1 && (absDX != 0 || absDY != 0);
+        }
 
-        public static float AngleFromTo(Vector2 from, Vector2 to)
+        public static bool IsInteger(this Vector2 v) { return v.x == (int)v.x && v.y == (int)v.y; }
+
+        static float AngleFromTo(Vector2 from, Vector2 to)
         {
             var angleValue = Vector2.Angle(from, to);
             var angleSign = Mathf.Sign(from.x * to.y - from.y * to.x);
             return angleValue * angleSign;
+        }
+
+        public static float AngleFromToXZ(Vector2 from, Vector2 to)
+        {
+            // minus is because of cross product (x1*y2 - x2*y1 versus x2*z1 - x1*z2)
+            return -AngleFromTo(from, to);
         }
 
         public static bool IntersectsStrictly(this Bounds thisBounds, Bounds other)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace MechWars.MapElements.Orders
+namespace MechWars.MapElements.Orders_OLD
 {
     public static class AttackOrderHelper
     {
@@ -13,12 +13,6 @@ namespace MechWars.MapElements.Orders
             if (!nonAttackable.Empty())
                 throw new System.Exception(string.Format("Following MapElements cannot be attacked: {0}.",
                     nonAttackable.ToDebugMessage()));
-        }
-
-        public static MapElement PickTarget(MapElement mapElement, IEnumerable<MapElement> targets)
-        {
-            if (targets.Empty()) return null;
-            return targets.SelectMin(t => Vector2.Distance(mapElement.Coords, t.GetClosestFieldTo(mapElement.Coords)));
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using MechWars.MapElements.Jobs;
+﻿using MechWars.MapElements.Attacks;
+using MechWars.MapElements.Jobs;
 using MechWars.MapElements.Orders;
+using MechWars.MapElements.Orders_OLD;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
@@ -248,16 +250,16 @@ namespace MechWars.MapElements
             reservationInitialized = true;
         }
 
-        public bool MapElementInRange(MapElement other)
+        public bool HasMapElementInRange(MapElement other, string rangeStatName)
         {
             var position = other.GetClosestFieldTo(Coords);
-            return PositionInRange(position);
+            return HasPositionInRange(position, rangeStatName);
         }
 
-        public Vector2 GetClosestFieldTo(Vector2 position)
+        public IVector2 GetClosestFieldTo(Vector2 position)
         {
             float drLen = Mathf.Infinity;
-            Vector2? target = null;
+            IVector2? target = null;
             foreach (var c in AllCoords)
             {
                 var dr = position - c;
@@ -272,9 +274,9 @@ namespace MechWars.MapElements
             return target.Value;
         }
 
-        public bool PositionInRange(Vector2 position)
+        public bool HasPositionInRange(Vector2 position, string rangeStatName)
         {
-            var range = Stats[StatNames.Range];
+            var range = Stats[rangeStatName];
             if (range == null) return false;
 
             var dr = position - Coords;
@@ -282,22 +284,45 @@ namespace MechWars.MapElements
                 dr.magnitude <= range.Value;
         }
 
-        public MapElement AcquireTarget()
+        public Resource PickClosestResourceInRange(string rangeStatName)
         {
-            var range = Stats[StatNames.Range];
+            return PickClosestMapElementInRange<Resource>(rangeStatName, r => r.value > 0);
+        }
+
+        public MapElement PickClosestEnemyInRange(string rangeStatName)
+        {
+            return PickClosestMapElementInRange<MapElement>(rangeStatName, me => me.army != null && me.army != army && !me.Dying);
+        }
+
+        public T PickClosestMapElementInRange<T>(string rangeStatName)
+            where T : MapElement
+        {
+            return PickClosestMapElementInRange<T>(rangeStatName, me => true);
+        }
+
+        public T PickClosestMapElementInRange<T>(string rangeStatName, System.Func<T, bool> predicate)
+            where T : MapElement
+        {
+            var range = Stats[rangeStatName];
             if (range == null) return null;
 
-            var coords =
+            var mapElements =
                 from c in CoordsInRangeSquare(range.Value)
                 where Vector2.Distance(c, Coords) <= range.Value
                 let me = Globals.FieldReservationMap[c]
-                where me != null && me.army != null && me.army != army
-                where MapElementInRange(me)
-                select me;
-            if (coords.Count() == 0) return null;
+                where me!= null && me is T
+                let tme = (T)me
+                where predicate(tme)
+                where HasMapElementInRange(tme, rangeStatName)
+                select tme;
+            return PickClosestMapElementFrom(mapElements);
+        }
 
-            var target = coords.SelectMin(me => Vector2.Distance(me.Coords, Coords));
-            return target;
+        public T PickClosestMapElementFrom<T>(IEnumerable<T> mapElements)
+            where T : MapElement
+        {
+            if (mapElements.Empty()) return null;
+            return mapElements.SelectMin(me => Vector2.Distance(Coords, me.GetClosestFieldTo(Coords)));
         }
 
         IEnumerable<IVector2> CoordsInRangeSquare(float range)
@@ -310,6 +335,13 @@ namespace MechWars.MapElements
             for (int y = yFrom; y <= yTo; y++)
                 for (int x = xFrom; x <= xTo; x++)
                     yield return new IVector2(x, y);
+        }
+
+        public Attack PickAttack()
+        {
+            var attacks = GetComponents<Attack>();
+            int idx = Random.Range(0, attacks.Length);
+            return attacks[idx];
         }
 
         void Update()

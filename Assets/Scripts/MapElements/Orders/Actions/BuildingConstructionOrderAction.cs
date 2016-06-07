@@ -1,5 +1,4 @@
-﻿using MechWars.MapElements.Orders.Products;
-using MechWars.PlayerInput;
+﻿using MechWars.MapElements.Orders_OLD.Products;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders.Actions
@@ -52,8 +51,8 @@ namespace MechWars.MapElements.Orders.Actions
             Building constructor = (Building)orderExecutor;
             BuildingProduct buildingProduct = constructor.Construct(this, orderActionArgs.BuildingPlacement.Position);
 
-
-            return new BuildingConstructionOrder((Building)orderExecutor, buildingProduct);
+            return null;
+            //return new BuildingConstructionOrder((Building)orderExecutor, buildingProduct);
         }
     }
 }

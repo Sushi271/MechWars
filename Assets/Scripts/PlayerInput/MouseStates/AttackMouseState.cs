@@ -2,6 +2,7 @@
 using MechWars.MapElements;
 using UnityEngine;
 using MechWars.MapElements.Orders.Actions;
+using System;
 
 namespace MechWars.PlayerInput.MouseStates
 {
@@ -26,6 +27,9 @@ namespace MechWars.PlayerInput.MouseStates
                     typeof(FollowAttackOrderAction),
                     typeof(StandAttackOrderAction),
                     typeof(MoveOrderAction));
+            else if (StateController.RightActionTriggered)
+                GiveOrdersIfPossible(
+                    typeof(AttackMoveOrderAction));
         }
     }
 }

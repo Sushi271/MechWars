@@ -1,7 +1,7 @@
 ﻿using MechWars.MapElements.Statistics;
 using UnityEngine;
 
-namespace MechWars.MapElements.Orders.Products
+namespace MechWars.MapElements.Orders_OLD.Products
 {
     public class BuildingProduct : Product
     {

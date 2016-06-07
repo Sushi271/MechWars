@@ -1,119 +1,127 @@
-﻿using System;
+﻿using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MechWars.MapElements.Orders
 {
-    public class EscortOrder : Order
+    public class EscortOrder : ComplexOrder
     {
-        MoveOrder move;
-        AttackOrder attack;
-        MapElement attackTarget;
-        bool targetLost;
+        public override string Name { get { return "Escort"; } }
 
         public Unit Unit { get; private set; }
-        public HashSet<Unit> Targets { get; set; }
-        public IVector2 Destination { get; private set; }
+        public HashSet<Unit> Targets { get; private set; }
 
-        public EscortOrder(Unit orderedUnit, IEnumerable<Unit> target)
-            : base("Escort", orderedUnit)
+        public MapElement AttackTarget { get; private set; }
+        IVector2 AttackTargetClosestCoords { get { return AttackTarget.GetClosestFieldTo(Unit.Coords); } }
+
+        IVector2 Destination { get; set; }
+        bool DestinationInRange { get { return Unit.HasPositionInRange(Destination, StatNames.AttackRange); } }
+
+        MoveOrder moveOrder;
+        AttackOrder attackOrder;
+
+        public EscortOrder(Unit unit, IEnumerable<Unit> targets)
+            : base(unit)
         {
-            Unit = (Unit)MapElement;
-            Targets = new HashSet<Unit>(target);
-
-            Destination = PickDestination();
-            move = new MoveOrder(Unit, Destination, true);
+            Unit = unit;
+            Targets = new HashSet<Unit>(targets);
         }
 
-        protected override bool RegularUpdate()
+        protected override void OnStart()
         {
-            if (move.SingleMoveInProgress)
-            {
-                move.Update();
-                return false;
-            }
+            TryFail(OrderResultAsserts.AssertMapElementHasAnyAttacks(MapElement));
+            if (Failed) return;
 
-            if (attack != null && attack.AttackingInProgress)
-            {
-                attack.Update();
-                return false;
-            }
+            UpdateEscortData();
+            if (Succeeded) return;
 
-            Targets.RemoveWhere(t => !t.Alive);
-            if (Targets.Empty())
-                return true;
+            GiveNewSubOrder();
+        }
 
-            Destination = PickDestination();
+        protected override void OnUpdate()
+        {
+            UpdateEscortData();
+        }
 
-            if (attack == null)
+        protected override void OnSubOrderUpdating()
+        {
+            if (SubOrder.State == OrderState.Stopping) return;
+
+            if (SubOrder == moveOrder)
             {
-                attackTarget = MapElement.AcquireTarget();
-                if (attackTarget != null)
-                    attack = new AttackOrder(Unit, attackTarget);
-            }
-            else if (targetLost || !attackTarget.Alive
-                || !MapElement.MapElementInRange(attackTarget))
-            {
-                targetLost = true;
-                if (!attack.Stopping)
-                    attack.Stop();
-                if (attack.Stopped)
+                if (DestinationInRange)
                 {
-                    attack = null;
-                    attackTarget = null;
+                    AttackTarget = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                    if (AttackTarget != null)
+                        moveOrder.Stop();
                 }
             }
-
-            if (attack != null && MapElement.PositionInRange(Destination))
+            else if (SubOrder == attackOrder)
             {
-                attack.Update();
-                return false;
+                if (!DestinationInRange)
+                    attackOrder.Stop();
+            }
+        }
+
+        protected override void OnSubOrderStopped()
+        {
+            if (SubOrder == moveOrder) moveOrder = null;
+            else if (SubOrder == attackOrder)
+            {
+                attackOrder = null;
+                AttackTarget = null;
             }
 
-            move.Destination = PickDestination();
-            move.Update();
-            return false;
+            if (State != OrderState.Stopping && !Conclusive)
+                GiveNewSubOrder();
         }
 
-        protected override bool StoppingUpdate()
+        protected override void OnSubOrderFinished()
         {
-            if (move.SingleMoveInProgress)
+            attackOrder = null;
+            AttackTarget = null;
+            GiveNewSubOrder();
+        }
+        
+        void GiveNewSubOrder()
+        {
+            if (DestinationInRange)
             {
-                move.Update();
-                return move.Stopped;
+                AttackTarget = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                if (AttackTarget != null)
+                {
+                    attackOrder = new AttackOrder(MapElement, AttackTarget);
+                    GiveSubOrder(attackOrder);
+                }
             }
-
-            if (attack != null && !attack.Stopped)
+            else
             {
-                attack.Update();
-                return attack.Stopped;
+                moveOrder = new MoveOrder(Unit, Destination, true);
+                GiveSubOrder(moveOrder);
             }
-
-            return true;
         }
 
-        protected override void TerminateCore()
+        void UpdateEscortData()
         {
-        }
-
-        protected override void OnStopCalled()
-        {
-            move.Stop();
-            if (attack != null)
-                attack.Stop();
-        }
-
-        IVector2 PickDestination()
-        {
+            Targets.RemoveWhere(t => t.Dying);
             if (Targets.Empty())
-                throw new System.Exception("Cannot pick destination - no more targets to escort.");
-            return Targets.Average(t => t.Coords).Round();
+            {
+                if (moveOrder != null) moveOrder.Stop();
+                if (attackOrder != null) attackOrder.Stop();
+                Succeed();
+            }
+            else
+            {
+                Destination = Targets.Average(t => t.Coords).Round();
+                if (moveOrder != null)
+                    moveOrder.Destination = Destination;
+            }
         }
 
-        protected override string SpecificsToString()
+        protected override string SpecificsToStringCore()
         {
-            return string.Format("Targets: {0}", Targets.ToDebugMessage());
+            return string.Format("Targets: {0}, AttackTarget: {1}", Targets.ToDebugMessage(),
+                AttackTarget != null ? AttackTarget.ToString() : "NONE");
         }
     }
 }

@@ -68,6 +68,8 @@ namespace MechWars.MapElements.Statistics
             }
         }
 
+        public bool HasMaxValue {  get { return Limited && Value == MaxValue; } }
+
         public Stat(string name, MapElement owner)
         {
             Name = name;

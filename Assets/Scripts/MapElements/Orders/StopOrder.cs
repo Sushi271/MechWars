@@ -1,26 +1,17 @@
-﻿using System;
-
-namespace MechWars.MapElements.Orders
+﻿namespace MechWars.MapElements.Orders
 {
     public class StopOrder : Order
     {
-        public StopOrder(MapElement orderedMapElement)
-            : base("Stop", orderedMapElement)
-        {
-        }
-
-        protected override bool RegularUpdate()
-        {
-            return true;
-        }
+        public override string Name { get { return "Stop"; } }
         
-        protected override bool StoppingUpdate()
+        public StopOrder(MapElement mapElement)
+            : base(mapElement)
         {
-            return true;
         }
 
-        protected override void TerminateCore()
+        protected override void OnStart()
         {
+            Succeed();           
         }
     }
 }

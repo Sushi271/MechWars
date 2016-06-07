@@ -1,104 +1,106 @@
-﻿using MechWars.Utils;
+﻿using MechWars.MapElements.Statistics;
+using MechWars.Utils;
 using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders
 {
-    public class FollowAttackOrder : Order
+    public class FollowAttackOrder : ComplexOrder
     {
-        MoveOrder move;
-        AttackOrder attack;
+        public override string Name { get { return "FollowAttack"; } }
 
         public Unit Unit { get; private set; }
-
-        public MapElement CurrentTarget { get; private set; }
         public HashSet<MapElement> Targets { get; private set; }
 
-        public FollowAttackOrder(Unit orderedUnit, IEnumerable<MapElement> target)
-            : base("FollowAttack", orderedUnit)
-        {
-            AttackOrderHelper.AssertTargetsCanBeAttacked(target);
+        public MapElement CurrentTarget { get; private set; }
+        IVector2 CurrentTargetClosestCoords { get { return CurrentTarget.GetClosestFieldTo(Unit.Coords); } }
 
-            Unit = (Unit)MapElement;
-            Targets = new HashSet<MapElement>(target);
+        MoveOrder moveOrder;
+        AttackOrder attackOrder;
+
+        public FollowAttackOrder(Unit unit, IEnumerable<MapElement> targets)
+            : base(unit)
+        {
+            Unit = unit;
+            Targets = new HashSet<MapElement>(targets);
         }
 
-        protected override bool RegularUpdate()
+        protected override void OnStart()
         {
-            if (move != null && move.SingleMoveInProgress)
-            {
-                move.Update();
-                return false;
-            }
+            TryFail(OrderResultAsserts.AssertMapElementsCanBeAttacked(Targets));
+            TryFail(OrderResultAsserts.AssertMapElementHasAnyAttacks(MapElement));
+            if (Failed) return;
 
-            if (attack != null && attack.AttackingInProgress)
-            {
-                attack.Update();
-                return false;
-            }
+            UpdateCurrentTarget();
+        }
 
-            if (CurrentTarget != null && !CurrentTarget.Alive)
-            {
-                Targets.Remove(CurrentTarget);
-                CurrentTarget = null;
-                move.OnSingleMoveFinished -= OnSingleMoveFinished;
-                move = null;
-                attack = null;
-            }
+        protected override void OnUpdate()
+        {
+            Targets.RemoveWhere(t => t.Dying);
+        }
 
-            Targets.RemoveWhere(t => !t.Alive);
-
-            if (CurrentTarget == null)
+        protected override void OnSubOrderUpdating()
+        {
+            if (SubOrder == moveOrder)
             {
-                CurrentTarget = AttackOrderHelper.PickTarget(MapElement, Targets);
-                if (CurrentTarget == null) return true;
+                if (CurrentTarget.Dying)
+                    moveOrder.Stop();
                 else
                 {
-                    move = new MoveOrder(Unit, CurrentTarget.GetClosestFieldTo(Unit.Coords).Round());
-                    move.OnSingleMoveFinished += OnSingleMoveFinished;
-                    attack = new AttackOrder(Unit, CurrentTarget);
+                    moveOrder.Destination = CurrentTargetClosestCoords;
+                    if (MapElement.HasMapElementInRange(CurrentTarget, StatNames.AttackRange))
+                        moveOrder.Stop();
                 }
             }
-
-            if (!MapElement.MapElementInRange(CurrentTarget))
-                move.Update();
-            else attack.Update();
-            return false;
-        }
-
-        protected override bool StoppingUpdate()
-        {
-            if (move != null && move.SingleMoveInProgress)
+            else if (SubOrder == attackOrder)
             {
-                move.Update();
-                return move.Stopped;
+                if (!CurrentTarget.Dying && !MapElement.HasMapElementInRange(CurrentTarget, StatNames.AttackRange))
+                    attackOrder.Stop();
             }
+        }
 
-            if (attack != null && attack.AttackingInProgress)
+        protected override void OnSubOrderStopped()
+        {
+            if (SubOrder == moveOrder) moveOrder = null;
+            else if (SubOrder == attackOrder) attackOrder = null;
+
+            if (State != OrderState.Stopping)
             {
-                attack.Update();
-                return attack.Stopped;
+                if (!CurrentTarget.Dying)
+                {
+                    if (MapElement.HasMapElementInRange(CurrentTarget, StatNames.AttackRange))
+                    {
+                        attackOrder = new AttackOrder(Unit, CurrentTarget);
+                        GiveSubOrder(attackOrder);
+                    }
+                    else
+                    {
+                        moveOrder = new MoveOrder(Unit, CurrentTargetClosestCoords, true);
+                        GiveSubOrder(moveOrder);
+                    }
+                }
+                else UpdateCurrentTarget();
             }
-
-            return true;
         }
 
-        protected override void TerminateCore()
+        protected override void OnSubOrderFinished()
         {
+            attackOrder = null;
+            UpdateCurrentTarget();
         }
 
-        void OnSingleMoveFinished()
+        void UpdateCurrentTarget()
         {
-            if (CurrentTarget.Alive)
-                move.Destination = CurrentTarget.GetClosestFieldTo(Unit.Coords).Round();
+            Targets.RemoveWhere(t => t.Dying);
+            CurrentTarget = MapElement.PickClosestMapElementFrom(Targets);
+            if (CurrentTarget == null) Succeed();
+            else
+            {
+                moveOrder = new MoveOrder(Unit, CurrentTargetClosestCoords, true);
+                GiveSubOrder(moveOrder);
+            }
         }
 
-        protected override void OnStopCalled()
-        {
-            move.Stop();
-            attack.Stop();
-        }
-
-        protected override string SpecificsToString()
+        protected override string SpecificsToStringCore()
         {
             return string.Format("CurrentTarget: {0}, Targets: {1}", CurrentTarget, Targets.ToDebugMessage());
         }

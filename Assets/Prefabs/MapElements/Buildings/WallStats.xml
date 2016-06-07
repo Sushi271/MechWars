@@ -1,3 +1,4 @@
 <Stats>
     <Stat name="Hit points" value="75" max_value="75" />
+    <Stat name="View range" value="2" />
 </Stats>

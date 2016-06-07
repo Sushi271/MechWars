@@ -1,87 +1,97 @@
-﻿using MechWars.Utils;
+﻿using MechWars.MapElements.Statistics;
+using MechWars.Utils;
+using System.Collections.Generic;
 
 namespace MechWars.MapElements.Orders
 {
-    public class AttackMoveOrder : Order
+    public class AttackMoveOrder : ComplexOrder
     {
-        MoveOrder move;
-        FollowAttackOrder attack;
-        MapElement attackTarget;
+        public override string Name { get { return "AttackMove"; } }
 
         public Unit Unit { get; private set; }
-        public IVector2 Destination { get; set; }
 
-        public AttackMoveOrder(Unit orderedUnit, IVector2 destination)
-            : base("AttackMove", orderedUnit)
+        public MapElement AttackTarget { get; private set; }
+        IVector2 AttackTargetClosestCoords { get { return AttackTarget.GetClosestFieldTo(Unit.Coords); } }
+
+        IVector2 Destination { get; set; }
+
+        MoveOrder moveOrder;
+        FollowAttackOrder followAttackOrder;
+
+        public AttackMoveOrder(Unit unit, IVector2 destination)
+            : base(unit)
         {
-            Unit = (Unit)MapElement;
+            Unit = unit;
             Destination = destination;
-
-            move = new MoveOrder(Unit, destination);
         }
 
-        protected override bool RegularUpdate()
+        protected override void OnStart()
         {
-            if (move.SingleMoveInProgress)
-            {
-                move.Update();
-                return move.Stopped;
-            }
+            TryFail(OrderResultAsserts.AssertMapElementHasAnyAttacks(MapElement));
+            if (Failed) return;
 
-            if (attack == null)
-            {
-                attackTarget = MapElement.AcquireTarget();
-                if (attackTarget != null)
-                    attack = new FollowAttackOrder(Unit, attackTarget.AsEnumerable());
-            }
-            if (attack != null)
-            {
-                if (!attack.Stopped)
-                    attack.Update();
-                else
-                {
-                    attack = null;
-                    attackTarget = null;
-                }
-                return false;
-            }
-
-            move.Update();
-            return move.Stopped;
+            GiveNewSubOrder();
         }
 
-        protected override bool StoppingUpdate()
+        protected override void OnSubOrderUpdating()
         {
-            if (move.SingleMoveInProgress)
+            if (SubOrder.State == OrderState.Stopping) return;
+
+            if (SubOrder == moveOrder)
             {
-                move.Update();
-                return move.Stopped;
+                AttackTarget = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                if (AttackTarget != null)
+                    moveOrder.Stop();
+            }
+        }
+
+        protected override void OnSubOrderStopped()
+        {
+            if (SubOrder == moveOrder) moveOrder = null;
+            else if (SubOrder == followAttackOrder)
+            {
+                followAttackOrder = null;
+                AttackTarget = null;
             }
 
-            if (attack != null && !attack.Stopped)
+            if (State != OrderState.Stopping && !Conclusive)
+                GiveNewSubOrder();
+        }
+
+        protected override void OnSubOrderFinished()
+        {
+            if (SubOrder == moveOrder)
             {
-                attack.Update();
-                return attack.Stopped;
+                moveOrder = null;
+                Succeed();
             }
-
-            return true;
+            else if (SubOrder == followAttackOrder)
+            {
+                followAttackOrder = null;
+                AttackTarget = null;
+                GiveNewSubOrder();
+            }
+        }
+        
+        void GiveNewSubOrder()
+        {
+            AttackTarget = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+            if (AttackTarget != null)
+            {
+                followAttackOrder = new FollowAttackOrder(Unit, AttackTarget.AsEnumerable());
+                GiveSubOrder(followAttackOrder);
+            }
+            else
+            {
+                moveOrder = new MoveOrder(Unit, Destination);
+                GiveSubOrder(moveOrder);
+            }
         }
 
-        protected override void TerminateCore()
+        protected override string SpecificsToStringCore()
         {
-        }
-
-        protected override void OnStopCalled()
-        {
-            move.Stop();
-            if (attack != null)
-                attack.Stop();
-        }
-
-
-        protected override string SpecificsToString()
-        {
-            return string.Format("{0}", Destination);
+            return string.Format("Destination: {0}, AttackTarget: {1}", Destination,
+                AttackTarget != null ? AttackTarget.ToString() : "NONE");
         }
     }
 }

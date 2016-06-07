@@ -1,9 +1,9 @@
-﻿using MechWars.MapElements.Orders.Products;
+﻿using MechWars.MapElements.Orders_OLD.Products;
 using UnityEngine;
 
-namespace MechWars.MapElements.Orders
+namespace MechWars.MapElements.Orders_OLD
 {
-    public class TechnologyDevelopmentOrder : Order
+    public class TechnologyDevelopmentOrder : Order_OLD
     {
         ProductionOrder productionOrder;
 

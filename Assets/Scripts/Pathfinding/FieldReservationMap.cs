@@ -43,11 +43,22 @@ namespace MechWars.Pathfinding
             private set { this[coords.X, coords.Y] = value; }
         }
 
+        public bool CoordsInside(IVector2 coords)
+        {
+            return CoordsInside(coords.X, coords.Y);
+        }
+
         public bool CoordsInside(int x, int y)
         {
             return
                 0 <= x && x < Width &&
                 0 <= y && y < Height;
+        }
+
+        public bool FieldOccupiedFor(MapElement mapElement, IVector2 coords)
+        {
+            var occupier = this[coords];
+            return occupier != null && occupier != mapElement;
         }
 
         void Start()

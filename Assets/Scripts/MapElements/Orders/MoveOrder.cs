@@ -1,121 +1,107 @@
-﻿using MechWars.MapElements.Jobs;
-using MechWars.Pathfinding;
+﻿using MechWars.Pathfinding;
 using MechWars.Utils;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class MoveOrder : Order
+    public class MoveOrder : ComplexOrder
     {
+        IVector2 destination;
+
         Path path;
         bool pathNeedsUpdate;
 
-        bool dontStop;
+        RotateOrder rotateOrder;
+        SingleMoveOrder singleMoveOrder;
+
+        public override string Name { get { return "Move"; } }
 
         public Unit Unit { get; private set; }
-
-        IVector2 destination;
         public IVector2 Destination
         {
             get { return destination; }
             set
             {
-                if (destination != value)
-                    pathNeedsUpdate = true;
+                if (destination == value) return;
                 destination = value;
+                pathNeedsUpdate = true;
             }
         }
+        public bool DontFinish { get; private set; }
 
-        public bool SingleMoveInProgress { get; private set; }
-
-        public event System.Action OnSingleMoveFinished;
-
-        public MoveOrder(Unit orderedUnit, IVector2 destination, bool dontStop = false)
-            : base("Move", orderedUnit)
+        public MoveOrder(Unit unit, IVector2 destination, bool dontFinish = false)
+            : base(unit)
         {
-            Unit = (Unit)MapElement;
+            Unit = unit;
             Destination = destination;
-
-            this.dontStop = dontStop;
-
-            path = null;
-            pathNeedsUpdate = true;
+            DontFinish = dontFinish;
         }
 
-        protected override bool RegularUpdate()
+        protected override void OnStart()
         {
-            if (pathNeedsUpdate)
+            TryFail(OrderResultAsserts.AssertMapElementIsInIntegerCoords(MapElement));
+        }
+
+        protected override void OnUpdate()
+        {
+            if (HasSubOrder || State == OrderState.Stopping) return;
+
+            if (pathNeedsUpdate || path == null)
                 CalculatePath();
-            if (path.Count > 0)
+
+            if (!path.Empty)
             {
-                if (SingleMove())
+                var singleMoveDestination = path.First.Next.Coords.Vector;
+                var delta = singleMoveDestination - MapElement.Coords;
+                var angle = UnityExtensions.AngleFromToXZ(Vector2.up, delta);
+
+                rotateOrder = new RotateOrder(Unit, angle);
+                GiveSubOrder(rotateOrder);
+            }
+            else if (!DontFinish) Succeed();
+        }
+
+        protected override void OnSubOrderStarting()
+        {
+            if (SubOrder == singleMoveOrder)
+            {
+                if (Globals.FieldReservationMap.FieldOccupiedFor(MapElement, singleMoveOrder.Destination))
                 {
-                    SingleMoveInProgress = false;
-                    if (OnSingleMoveFinished != null)
-                        OnSingleMoveFinished.Invoke();
-                    path.Pop();
-                    if (path.Length == 0 || Unit.Coords == path.Last.Coords.Vector)
-                        return !dontStop;
-                    pathNeedsUpdate = true;
+                    CalculatePath();
+                    singleMoveOrder.LastMinuteChangeDestination(path.First.Next.Coords.Vector);
                 }
             }
-            return false;
         }
 
-        protected override bool StoppingUpdate()
+        protected override void OnSubOrderFinished()
         {
-            if (pathNeedsUpdate) return true;
-            if (SingleMove()) return true;
-            return false;
-        }
-
-        protected override void TerminateCore()
-        {
+            if (SubOrder == rotateOrder)
+            {
+                rotateOrder = null;
+                singleMoveOrder = new SingleMoveOrder(Unit, path.First.Next.Coords.Vector);
+                GiveSubOrder(singleMoveOrder);
+            }
+            else if (SubOrder == singleMoveOrder)
+            {
+                singleMoveOrder = null;
+                path.Pop();
+                if (!path.Empty)
+                    pathNeedsUpdate = true;
+                else if (!DontFinish) Succeed();
+            }
         }
 
         void CalculatePath()
         {
             path = new AStarPathfinder().FindPath(
-                new CoordPair(Unit.Coords.Round()),
-                new CoordPair(Destination),
-                Unit);
+                new CoordPair(MapElement.Coords.Round()),
+                new CoordPair(Destination), MapElement);
             pathNeedsUpdate = false;
         }
 
-        bool SingleMove()
+        protected override string SpecificsToStringCore()
         {
-            SingleMoveInProgress = true;
-
-            if (path.First == null) return true;
-            if (path.First.Next == null) return true;
-            var coords = path.First.Next.Coords;
-
-            var frm = Globals.FieldReservationMap;
-            var vec = coords.Vector;
-            var occupier = frm[vec];
-            
-            if (occupier != Unit)
-            {
-                if (occupier != null)
-                    throw new System.Exception(string.Format("Unit {0} cannot move to field {1} - it's occupied.",
-                        Unit.ToString(), vec.ToString()));
-
-                frm.MakeReservation(Unit, vec);
-                frm.ReleaseReservation(Unit, Unit.Coords.Round());
-                
-                var delta = vec - Unit.Coords.Round();
-                var angle = -UnityExtensions.AngleFromTo(Vector2.up, delta);                
-
-                Unit.JobQueue.Add(new RotateJob(Unit, angle));
-                Unit.JobQueue.Add(new MoveJob(Unit, delta));
-            }
-
-            return Unit.JobQueue.Empty;
-        }
-
-        protected override string SpecificsToString()
-        {
-            return string.Format("{0}, {1}", Destination.X, Destination.Y);
+            return Destination.ToString();
         }
     }
 }

@@ -1,74 +1,109 @@
-﻿using MechWars.Utils;
+﻿using MechWars.MapElements.Statistics;
+using MechWars.Utils;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
-    public class StandAttackOrder : Order
+    public class StandAttackOrder : ComplexOrder
     {
-        AttackOrder attack;
+        public override string Name { get { return "StandAttack"; } }
         
-        public MapElement CurrentTarget { get; private set; }
         public HashSet<MapElement> Targets { get; private set; }
 
-        public StandAttackOrder(MapElement orderedMapElement, IEnumerable<MapElement> targets)
-            : base("Attack", orderedMapElement)
+        public MapElement CurrentTarget { get; private set; }
+        float CurrentTargetAngle
         {
-            AttackOrderHelper.AssertTargetsCanBeAttacked(targets);
+            get
+            {
+                // TODO: replace with "Aim"s
+                var targetCoords = CurrentTarget.GetClosestFieldTo(MapElement.Coords);
+                var direction = targetCoords - MapElement.Coords;
+                var angle = UnityExtensions.AngleFromToXZ(Vector2.up, direction);
+                return angle;
+            }
+        }
+
+        RotateOrder rotateOrder;
+        AttackOrder attackOrder;
+
+        public StandAttackOrder(MapElement mapElement, IEnumerable<MapElement> targets)
+            : base(mapElement)
+        {
             Targets = new HashSet<MapElement>(targets);
         }
 
-        protected override bool RegularUpdate()
+        protected override void OnStart()
         {
-            if (attack != null && attack.AttackingInProgress)
-            {
-                attack.Update();
-                return false;
-            }
+            TryFail(OrderResultAsserts.AssertMapElementsCanBeAttacked(Targets));
+            TryFail(OrderResultAsserts.AssertMapElementHasAnyAttacks(MapElement));
+            if (Failed) return;
 
-            if (CurrentTarget != null && !CurrentTarget.Alive)
-            {
-                Targets.Remove(CurrentTarget);
-                CurrentTarget = null;
-                attack = null;
-            }
-
-            Targets.RemoveWhere(t => !t.Alive);
-
-            if (CurrentTarget == null || !MapElement.MapElementInRange(CurrentTarget))
-            {
-                CurrentTarget = AttackOrderHelper.PickTarget(MapElement, Targets);
-                if (CurrentTarget == null) return true;
-                else attack = AttackOrder.Create(MapElement, CurrentTarget);
-            }
-
-            if (MapElement.MapElementInRange(CurrentTarget))
-                attack.Update();
-
-            return false;
+            UpdateCurrentTarget();
         }
 
-        protected override bool StoppingUpdate()
+        protected override void OnUpdate()
         {
-            if (attack != null && attack.AttackingInProgress)
+            Targets.RemoveWhere(t => t.Dying);
+        }
+
+        protected override void OnSubOrderUpdating()
+        {
+            if (SubOrder == rotateOrder)
             {
-                attack.Update();
-                return attack.Stopped;
+                var closest = MapElement.PickClosestMapElementFrom(Targets);
+                var currentInRange = MapElement.HasMapElementInRange(CurrentTarget, StatNames.AttackRange);
+                if (closest != CurrentTarget || CurrentTarget.Dying || currentInRange)
+                    rotateOrder.Stop();
+                else rotateOrder.TargetRotation = CurrentTargetAngle;
             }
-
-            return true;
+            else if (SubOrder == attackOrder)
+            {
+                if (!CurrentTarget.Dying && !MapElement.HasMapElementInRange(CurrentTarget, StatNames.AttackRange))
+                    attackOrder.Stop();
+            }
         }
 
-        protected override void TerminateCore()
+        protected override void OnSubOrderStopped()
         {
-        }
-        
-        protected override void OnStopCalled()
-        {
-            if (attack != null)
-                attack.Stop();
+            if (SubOrder == rotateOrder) rotateOrder = null;
+            else if (SubOrder == attackOrder) attackOrder = null;
+
+            if (State != OrderState.Stopping)
+                if (!CurrentTarget.Dying)
+                    GiveNewSubOrder();
+                else UpdateCurrentTarget();
         }
 
-        protected override string SpecificsToString()
+        protected override void OnSubOrderFinished()
+        {
+            attackOrder = null;
+            UpdateCurrentTarget();
+        }
+
+        void UpdateCurrentTarget()
+        {
+            Targets.RemoveWhere(t => t.Dying);
+            CurrentTarget = MapElement.PickClosestMapElementFrom(Targets);
+            if (CurrentTarget != null) GiveNewSubOrder();
+            else Succeed();
+        }
+
+        void GiveNewSubOrder()
+        {
+            if (MapElement.HasMapElementInRange(CurrentTarget, StatNames.AttackRange))
+            {
+                attackOrder = new AttackOrder(MapElement, CurrentTarget);
+                GiveSubOrder(attackOrder);
+            }
+            else
+            {
+                rotateOrder = new RotateOrder(MapElement, CurrentTargetAngle);
+                GiveSubOrder(rotateOrder);
+            }
+        }
+
+        protected override string SpecificsToStringCore()
         {
             return string.Format("CurrentTarget: {0}, Targets: {1}", CurrentTarget, Targets.ToDebugMessage());
         }
