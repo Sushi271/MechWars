@@ -1,6 +1,7 @@
 ﻿using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders_OLD;
 using System.Text;
+using UnityEngine;
 
 namespace MechWars.MapElements
 {
@@ -19,6 +20,18 @@ namespace MechWars.MapElements
             orderExecutor.GiveReplaces = true;
             return orderExecutor;
         }
+
+        protected override Sprite GetMarkerImage()
+        {
+            return army.unitMarker;
+        }
+
+        protected override float GetMarkerHeight()
+        {
+            return 3;
+        }
+
+
 
         public bool SetMove(SingleMoveOrder singleMoveOrder)
         {

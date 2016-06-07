@@ -21,6 +21,8 @@ namespace MechWars.MapElements
         public override bool Selectable { get { return true; } }
         public override bool CanBeAttacked { get { return true; } }
 
+
+
         HashSet<IVector2> allNeighbourFields;
 
         public Building()
@@ -54,13 +56,37 @@ namespace MechWars.MapElements
                 }
         }
 
+        protected override Sprite GetMarkerImage()
+        {
+            return army.buildingMarker;
+        }
+
+        protected override float GetMarkerHeight()
+        {
+            return 1;
+        }
+
         protected override void OnUpdate()
         {
             base.OnUpdate();
 
             if (UnderConstruction)
                 transform.localScale = new Vector3(1, ConstructionInfo.TotalProgress, 1);
-            else transform.localScale = Vector3.one;
+            else
+            {
+                transform.localScale = Vector3.one;
+
+                var particleManager = GetComponent<ParticleManager>();
+                if (particleManager != null)
+                {
+                    foreach (var pg in particleManager.particleGroups)
+                {
+                    pg.Enabled = true;
+                }
+                }
+            }
+
+
         }
 
         public Unit Spawn(Unit unit)
@@ -139,6 +165,12 @@ namespace MechWars.MapElements
                 throw new System.Exception(string.Format(
                     "Building {0} doesn't have {1} Stat.", prefab, StatNames.HitPoints));
             hpStat.Value = bci.TotalProgress * hpStat.MaxValue;
+
+            var particleManager = gameObject.GetComponent<ParticleManager>();
+            foreach (var pg in particleManager.particleGroups)
+            {
+                pg.Enabled = false;
+            }
 
             return buildingProduct;
         }

@@ -21,6 +21,9 @@ namespace MechWars
         public Texture hpBarSide;
         public Texture hpBarTop;
 
+        public Sprite unitMarker;
+        public Sprite buildingMarker;
+
         public Army()
         {
             Units = new HashSet<Unit>();

@@ -83,6 +83,8 @@ ModelImporter:
     100150: Cylinder081
     100152: Cylinder082
     100154: //RootNode
+    100156: MechMachinegun_down
+    100158: MechMachinegun_up
     400000: Arc001
     400002: Arc003
     400004: Arc004
@@ -161,6 +163,8 @@ ModelImporter:
     400150: Cylinder081
     400152: Cylinder082
     400154: //RootNode
+    400156: MechMachinegun_down
+    400158: MechMachinegun_up
     2300000: Arc001
     2300002: Arc003
     2300004: Arc004
@@ -494,7 +498,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
