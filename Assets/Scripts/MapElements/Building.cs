@@ -77,9 +77,12 @@ namespace MechWars.MapElements
                 transform.localScale = Vector3.one;
 
                 var particleManager = GetComponent<ParticleManager>();
-                foreach (var pg in particleManager.particleGroups)
+                if (particleManager != null)
+                {
+                    foreach (var pg in particleManager.particleGroups)
                 {
                     pg.Enabled = true;
+                }
                 }
             }
 
