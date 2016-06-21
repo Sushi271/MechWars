@@ -32,7 +32,7 @@ namespace MechWars.MapElements.Orders
             NextSubOrder = null;
         }
 
-        protected sealed override void UpdateCore()
+        protected sealed override void LateOnUpdate()
         {
             if (!HasSubOrder) return;
 
@@ -115,6 +115,14 @@ namespace MechWars.MapElements.Orders
                 else if (SubOrder.State == OrderState.Started)
                     SubOrder.Stop();
             }
+        }
+
+        protected override void OnTerminating()
+        {
+            if (NextSubOrder != null)
+                NextSubOrder.Terminate();
+            if (SubOrder != null)
+                SubOrder.Terminate();
         }
 
         protected sealed override string SpecificsToString()

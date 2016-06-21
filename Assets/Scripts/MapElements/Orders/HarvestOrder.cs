@@ -28,7 +28,7 @@ namespace MechWars.MapElements.Orders
         public Building Deposit { get; private set; }
 
         IVector2 DepositClosestCoords { get { return Deposit.GetClosestFieldTo(Unit.Coords); } }
-
+        
         IVector2? resourceCoords;
 
         MoveOrder moveOrder;

@@ -11,5 +11,7 @@ namespace MechWars
         public Texture hpBarNoArmyTop;
 
         public Sprite resourceMarker;
+        public Sprite neutralUnitMarker;
+        public Sprite neutralBuildingMarker;
     }
 }

@@ -1,4 +1,4 @@
-﻿using MechWars.MapElements.Orders_OLD.Products;
+﻿using MechWars.MapElements.Orders.Products;
 
 namespace MechWars.MapElements.Orders.Actions
 {
@@ -13,9 +13,9 @@ namespace MechWars.MapElements.Orders.Actions
             if (technology == null)
                 throw new System.Exception("\"Technology technology\" field must not be NULL.");
             AssertOrderExecutorIs<Building>(orderExecutor);
-            return null;
-            //return new TechnologyDevelopmentOrder((Building)orderExecutor,
-            //    new TechnologyProduct(technology, cost, productionTime));
+            
+            return new TechnologyDevelopmentOrder((Building)orderExecutor,
+                new TechnologyProduct(technology, cost, productionTime));
         }
     }
 }

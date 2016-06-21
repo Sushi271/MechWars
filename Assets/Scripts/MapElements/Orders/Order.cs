@@ -71,7 +71,7 @@
             if (!CanUpdate) return;
             
             OnUpdate();
-            UpdateCore();
+            LateOnUpdate();
             if (State == OrderState.Stopping)
                 FinalizeStop();
             else if (Conclusive) Finish();
@@ -81,7 +81,7 @@
         {
         }
 
-        protected virtual void UpdateCore()
+        protected virtual void LateOnUpdate()
         {
         }
 

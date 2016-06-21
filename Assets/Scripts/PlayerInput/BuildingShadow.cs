@@ -28,13 +28,13 @@ namespace MechWars.PlayerInput
             shadow.gameObject.name = prefab.gameObject.name + " shadow";
             shadow.isShadow = true;
             var rs = shadow.GetComponentsInChildren<Renderer>();
-            foreach (var r in rs)
-            {
-                var m = r.material;
-                var col = m.color;
-                col.a = 0.5f;
-                m.color = col;
-            }
+            //foreach (var r in rs)
+            //{
+            //    var m = r.material;
+            //    var col = m.color;
+            //    col.a = 0.5f;
+            //    m.color = col;
+            //}
         }
 
         public void Destroy()

@@ -1,6 +1,6 @@
 ﻿using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
-using MechWars.MapElements.Orders_OLD.Products;
+using MechWars.MapElements.Orders.Products;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace MechWars.MapElements
     {
         public bool isResourceDeposit;
         public event System.Action OnConstructionFinished;
-        
+
         public bool UnderConstruction { get { return ConstructionInfo != null; } }
         public BuildingConstructionInfo ConstructionInfo { get; private set; }
         protected override bool CanAddToArmy { get { return true; } }
@@ -38,7 +38,7 @@ namespace MechWars.MapElements
         protected override void OnStart()
         {
             base.OnStart();
-            
+
             if (!UnderConstruction) OrderExecutor.Enable();
 
             InitializeNeighbourFields();
@@ -58,7 +58,9 @@ namespace MechWars.MapElements
 
         protected override Sprite GetMarkerImage()
         {
-            return army.buildingMarker;
+            if (army != null)
+                return army.buildingMarker;
+            return Globals.Textures.neutralBuildingMarker;
         }
 
         protected override float GetMarkerHeight()
@@ -78,15 +80,11 @@ namespace MechWars.MapElements
 
                 var particleManager = GetComponent<ParticleManager>();
                 if (particleManager != null)
-                {
                     foreach (var pg in particleManager.particleGroups)
-                {
-                    pg.Enabled = true;
-                }
-                }
+                    {
+                        pg.Enabled = true;
+                    }
             }
-
-
         }
 
         public Unit Spawn(Unit unit)
@@ -119,7 +117,7 @@ namespace MechWars.MapElements
             if (UnderConstruction)
                 throw new System.Exception(string.Format(
                     "Building {0} cannot construct buildings - it's under construction.", this));
-            
+
             if (orderActions.OfType<BuildingConstructionOrderAction>().None(oa => oa.Equals(args)))
                 throw new System.Exception(string.Format(
                     "Building {0} cannot construct Building {1}", this, args.Building));
@@ -167,10 +165,11 @@ namespace MechWars.MapElements
             hpStat.Value = bci.TotalProgress * hpStat.MaxValue;
 
             var particleManager = gameObject.GetComponent<ParticleManager>();
-            foreach (var pg in particleManager.particleGroups)
-            {
-                pg.Enabled = false;
-            }
+            if (particleManager != null)
+                foreach (var pg in particleManager.particleGroups)
+                {
+                    pg.Enabled = false;
+                }
 
             return buildingProduct;
         }
