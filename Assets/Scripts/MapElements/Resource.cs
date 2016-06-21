@@ -32,7 +32,6 @@ namespace MechWars.MapElements
             return 2;
         }
 
-
         protected override void OnUpdate()
         {
             base.OnUpdate();

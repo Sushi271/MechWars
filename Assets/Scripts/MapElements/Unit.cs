@@ -23,15 +23,15 @@ namespace MechWars.MapElements
 
         protected override Sprite GetMarkerImage()
         {
-            return army.unitMarker;
+            if (army != null)
+                return army.unitMarker;
+            return Globals.Textures.neutralUnitMarker;
         }
 
         protected override float GetMarkerHeight()
         {
             return 3;
         }
-
-
 
         public bool SetMove(SingleMoveOrder singleMoveOrder)
         {

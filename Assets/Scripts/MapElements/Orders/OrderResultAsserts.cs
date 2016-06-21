@@ -35,6 +35,15 @@ namespace MechWars.MapElements.Orders
             return null;
         }
 
+        public static FailOrderResult AssertIsNotNull(object o, string objectName)
+        {
+            if (o == null)
+                return new FailOrderResult(string.Format(
+                    "{0} is NULL.", objectName));
+            return null;
+
+        }
+
         public static FailOrderResult AssertBuildingIsResourceDeposit(Building building)
         {
             if (!building.isResourceDeposit)

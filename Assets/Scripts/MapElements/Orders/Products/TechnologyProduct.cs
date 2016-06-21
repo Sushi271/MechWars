@@ -1,4 +1,4 @@
-﻿namespace MechWars.MapElements.Orders_OLD.Products
+﻿namespace MechWars.MapElements.Orders.Products
 {
     public class TechnologyProduct : Product
     {

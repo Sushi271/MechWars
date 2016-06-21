@@ -1,7 +1,4 @@
-﻿using MechWars.MapElements.Statistics;
-using UnityEngine;
-
-namespace MechWars.MapElements.Orders_OLD.Products
+﻿namespace MechWars.MapElements.Orders.Products
 {
     public class UnitProduct : Product
     {
