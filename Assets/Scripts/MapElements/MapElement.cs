@@ -1,5 +1,4 @@
 ﻿using MechWars.MapElements.Attacks;
-using MechWars.MapElements.Jobs;
 using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Statistics;
@@ -35,8 +34,6 @@ namespace MechWars.MapElements
         public bool isShadow;
 
         bool reservationInitialized;
-
-        public JobQueue JobQueue { get; private set; }
 
         public Stats Stats { get; private set; }
         bool statsRead;
@@ -172,8 +169,7 @@ namespace MechWars.MapElements
         public MapElement()
         {
             if (isShadow) return;
-
-            JobQueue = new JobQueue(this);
+            
             Stats = new Stats(this);
             alive = true;
 
@@ -402,7 +398,6 @@ namespace MechWars.MapElements
                 OrderExecutor.Update();
 
             UpdateDying();
-            JobQueue.Update();
             UpdateAlive();
         }
 
@@ -410,15 +405,15 @@ namespace MechWars.MapElements
         {
             if (!Dying && LifeValue == 0)
             {
-                JobQueue.Clear();
                 Dying = true;
+                OrderExecutor.CancelAll();
             }
         }
 
         protected virtual void UpdateAlive()
         {
             if (!Dying || !Alive) return;
-            Alive = !JobQueue.Empty;
+            Alive = OrderExecutor.OrderCount == 0;
         }
 
         protected virtual void OnLifeEnd()
@@ -503,11 +498,7 @@ namespace MechWars.MapElements
             if (isShadow) return;
 
             suspendDestroy = true;
-            if (!Dying)
-            {
-                JobQueue.TotalClear();
-                Dying = true;
-            }
+            if (!Dying) Dying = true;
             if (Alive) Alive = false;
             suspendDestroy = false;
         }

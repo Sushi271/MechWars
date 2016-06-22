@@ -182,13 +182,6 @@ namespace MechWars.MapElements
                 OnConstructionFinished();
         }
 
-        protected override void OnLifeEnd()
-        {
-            base.OnLifeEnd();
-            if (!UnderConstruction)
-                OrderExecutor.Terminate();
-        }
-
         public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
             base.DEBUG_PrintStatus(sb)
