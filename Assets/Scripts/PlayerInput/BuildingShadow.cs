@@ -117,6 +117,11 @@ namespace MechWars.PlayerInput
 
         void UpdateLook()
         {
+            if (PositionOccupied)
+            {
+                int x = 0;
+                int y = x;
+            }
             var renderers = shadow.GetComponentsInChildren<Renderer>();
             foreach (var r in renderers)
             {
