@@ -29,9 +29,9 @@ namespace MechWars.MapElements.Orders.Actions
 
         public bool GiveOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
-            if (orderExecutor.OrderExecutor.Enabled && CanCreateOrder(orderActionArgs))
+            if (orderExecutor.OrderQueue.Enabled && CanCreateOrder(orderActionArgs))
             {
-                orderExecutor.OrderExecutor.Give(CreateOrder(orderExecutor, orderActionArgs));
+                orderExecutor.OrderQueue.Give(CreateOrder(orderExecutor, orderActionArgs));
                 return true;
             }
             return false;

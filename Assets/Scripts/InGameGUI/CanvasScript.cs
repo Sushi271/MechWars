@@ -98,7 +98,7 @@ namespace MechWars.InGameGUI
                         buttons.Add(button);
                     }
 
-                    if (count > 0 || (!building.UnderConstruction && building.OrderExecutor.OrderCount > 0))
+                    if (count > 0 || (!building.UnderConstruction && building.OrderQueue.OrderCount > 0))
                     {
                         var button = Instantiate(buttonPrefab);
                         var rectTransform = button.GetComponent<RectTransform>();
@@ -107,7 +107,7 @@ namespace MechWars.InGameGUI
                         var text = button.GetComponent<ButtonScript>().innerText;
                         button.name = "Button Cancel";
                         text.text = "Cancel";
-                        button.onClick.AddListener(new UnityAction(() => building.OrderExecutor.CancelCurrent()));
+                        button.onClick.AddListener(new UnityAction(() => building.OrderQueue.CancelCurrent()));
                         buttons.Add(button);
                     }
                 }

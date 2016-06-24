@@ -30,16 +30,16 @@ namespace MechWars.MapElements
             allNeighbourFields = new HashSet<IVector2>();
         }
 
-        protected override OrderExecutor CreateOrderExecutor(bool enabled = false)
+        protected override OrderQueue CreateOrderQueue(bool enabled = false)
         {
-            return base.CreateOrderExecutor(enabled);
+            return base.CreateOrderQueue(enabled);
         }
 
         protected override void OnStart()
         {
             base.OnStart();
 
-            if (!UnderConstruction) OrderExecutor.Enable();
+            if (!UnderConstruction) OrderQueue.Enable();
 
             InitializeNeighbourFields();
         }
@@ -177,7 +177,7 @@ namespace MechWars.MapElements
         public void FinishConstruction()
         {
             ConstructionInfo = null;
-            OrderExecutor.Enable();
+            OrderQueue.Enable();
             if (OnConstructionFinished != null)
                 OnConstructionFinished();
         }

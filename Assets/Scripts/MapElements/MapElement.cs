@@ -155,7 +155,7 @@ namespace MechWars.MapElements
             }
         }
 
-        public virtual OrderExecutor OrderExecutor { get; private set; }
+        public virtual OrderQueue OrderQueue { get; private set; }
 
         protected virtual bool CanAddToArmy { get { return false; } }
         public virtual bool Selectable { get { return false; } }
@@ -173,12 +173,12 @@ namespace MechWars.MapElements
             Stats = new Stats(this);
             alive = true;
 
-            OrderExecutor = CreateOrderExecutor();
+            OrderQueue = CreateOrderQueue();
         }
 
-        protected virtual OrderExecutor CreateOrderExecutor(bool enabled = true)
+        protected virtual OrderQueue CreateOrderQueue(bool enabled = true)
         {
-            return new OrderExecutor(() => new IdleOrder(this), enabled);
+            return new OrderQueue(() => new IdleOrder(this), enabled);
         }
 
         void Start()
@@ -216,7 +216,7 @@ namespace MechWars.MapElements
             var marker = Instantiate(markerPrefab);
             // 4. get SpriteRenderer Component from newly instantiated gameobject
             var sr = marker.GetComponent<SpriteRenderer>();
-            // 5. assign marget image to SpriteRenderer Component's "sprite" field
+            // 5. assign marker image to SpriteRenderer Component's "sprite" field
             sr.sprite = markerImage;
             // 6. set marker's size according to its shape's size & H position
             marker.transform.localScale *= Mathf.Max(Shape.Width, Shape.Height);
@@ -394,8 +394,8 @@ namespace MechWars.MapElements
                 lastArmy = army;
             }
 
-            if (OrderExecutor.Enabled)
-                OrderExecutor.Update();
+            if (OrderQueue.Enabled)
+                OrderQueue.Update();
 
             UpdateDying();
             UpdateAlive();
@@ -406,14 +406,14 @@ namespace MechWars.MapElements
             if (!Dying && LifeValue == 0)
             {
                 Dying = true;
-                OrderExecutor.CancelAll();
+                OrderQueue.CancelAll();
             }
         }
 
         protected virtual void UpdateAlive()
         {
             if (!Dying || !Alive) return;
-            Alive = OrderExecutor.OrderCount == 0;
+            Alive = OrderQueue.OrderCount == 0;
         }
 
         protected virtual void OnLifeEnd()
@@ -434,8 +434,8 @@ namespace MechWars.MapElements
 
             TurnIntoResource();
 
-            if (OrderExecutor.Enabled)
-                OrderExecutor.Terminate();
+            if (OrderQueue.Enabled)
+                OrderQueue.Terminate();
         }
 
         void TurnIntoResource()
@@ -540,15 +540,15 @@ namespace MechWars.MapElements
             sb
                 .AppendLine("Default order:")
                 .AppendLine(string.Format("    {0}",
-                    OrderExecutor.DefaultOrder == null ? "---" :
-                    OrderExecutor.DefaultOrder.ToString()))
+                    OrderQueue.DefaultOrder == null ? "---" :
+                    OrderQueue.DefaultOrder.ToString()))
                 .AppendLine("Order queue:");
-            if (OrderExecutor.OrderCount == 0)
+            if (OrderQueue.OrderCount == 0)
                 sb.Append("    ---");
-            else for (int i = 0; i < OrderExecutor.OrderCount; i++)
+            else for (int i = 0; i < OrderQueue.OrderCount; i++)
                 {
-                    string line = string.Format("{0}: {1}", i, OrderExecutor[i]);
-                    if (i < OrderExecutor.OrderCount - 1)
+                    string line = string.Format("{0}: {1}", i, OrderQueue[i]);
+                    if (i < OrderQueue.OrderCount - 1)
                         sb.AppendLine(line);
                     else sb.Append(line);
                 }

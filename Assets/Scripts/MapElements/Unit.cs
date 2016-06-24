@@ -13,9 +13,9 @@ namespace MechWars.MapElements
 
         public Move Move { get; private set; }
 
-        protected override OrderExecutor CreateOrderExecutor(bool enabled = true)
+        protected override OrderQueue CreateOrderQueue(bool enabled = true)
         {
-            var orderExecutor = base.CreateOrderExecutor();
+            var orderExecutor = base.CreateOrderQueue();
             orderExecutor.GiveReplaces = true;
             return orderExecutor;
         }
