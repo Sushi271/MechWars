@@ -44,9 +44,8 @@ namespace MechWars.MapElements.Orders
                     attack = MapElement.PickAttack();
                 if (rotateOrder == null)
                 {
-                    rotateOrder = new RotateOrder(MapElement);
+                    rotateOrder = new RotateOrder(MapElement, true);
                     GiveSubOrder(rotateOrder);
-                    //singleAttackOrder = new SingleAttackOrder(MapElement, Target, attack, aim);
                 }
                 if (cooldown > 0)
                 {

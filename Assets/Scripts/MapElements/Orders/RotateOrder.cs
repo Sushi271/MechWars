@@ -6,6 +6,9 @@ namespace MechWars.MapElements.Orders
 {
     public class RotateOrder : Order
     {
+        IRotatable rotatedObject;
+        string speedStatName;
+
         public override string Name { get { return "Rotate"; } }
         protected override bool CanStop { get { return true; } }
 
@@ -26,9 +29,20 @@ namespace MechWars.MapElements.Orders
         public int Direction { get; private set; }
         public float Speed { get; private set; }
 
-        public RotateOrder(MapElement mapElement, float targetRotation = 0, bool dontFinish = false)
+        public RotateOrder(MapElement mapElement, bool tryRotateHead = false, float targetRotation = 0, bool dontFinish = false)
             : base(mapElement)
         {
+            if (tryRotateHead && mapElement.attackHead != null)
+            {
+                rotatedObject = mapElement.attackHead;
+                speedStatName = StatNames.AttackHeadRotationSpeed;
+            }
+            else
+            {
+                rotatedObject = mapElement;
+                speedStatName = StatNames.RotationSpeed;
+            }
+
             TargetRotation = targetRotation;
             DontFinish = dontFinish;
         }
@@ -36,7 +50,7 @@ namespace MechWars.MapElements.Orders
         protected override void OnStart()
         {
             Stat speedStat = null;
-            TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.RotationSpeed, out speedStat));
+            TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, speedStatName, out speedStat));
             if (Failed) return;
 
             CalculateDeltaAndDirection();
@@ -45,7 +59,7 @@ namespace MechWars.MapElements.Orders
 
         void CalculateDeltaAndDirection()
         {
-            Delta = (TargetRotation - MapElement.Rotation).NormalizeAngle();
+            Delta = (TargetRotation - rotatedObject.Rotation).NormalizeAngle();
             Direction = System.Math.Sign(Delta);
         }
 
@@ -56,12 +70,12 @@ namespace MechWars.MapElements.Orders
             float dDist = Speed * 360 * Time.deltaTime;
             if (dDist < Mathf.Abs(Delta))
             {
-                MapElement.Rotation += Direction * dDist;
+                rotatedObject.Rotation += Direction * dDist;
                 CalculateDeltaAndDirection();
             }
             else
             {
-                MapElement.Rotation = TargetRotation;
+                rotatedObject.Rotation = TargetRotation;
                 if (!DontFinish) Succeed();
             }
         }

@@ -10,6 +10,7 @@ namespace MechWars.MapElements
         public override bool Selectable { get { return true; } }
         public override bool CanBeAttacked { get { return true; } }
         public override bool CanBeEscorted { get { return true; } }
+        public override bool CanRotateItself { get { return true; } }
 
         public Move Move { get; private set; }
 

@@ -21,8 +21,6 @@ namespace MechWars.MapElements
         public override bool Selectable { get { return true; } }
         public override bool CanBeAttacked { get { return true; } }
 
-
-
         HashSet<IVector2> allNeighbourFields;
 
         public Building()

@@ -7,6 +7,8 @@ namespace MechWars.MapElements.Orders
 {
     public class StandAttackOrder : ComplexOrder
     {
+        // TODO: Why there is RotateOrder inside this? Attack rotates anyway!
+
         public override string Name { get { return "StandAttack"; } }
         
         public HashSet<MapElement> Targets { get; private set; }
@@ -98,7 +100,7 @@ namespace MechWars.MapElements.Orders
             }
             else
             {
-                rotateOrder = new RotateOrder(MapElement, CurrentTargetAngle);
+                rotateOrder = new RotateOrder(MapElement, true, CurrentTargetAngle);
                 GiveSubOrder(rotateOrder);
             }
         }

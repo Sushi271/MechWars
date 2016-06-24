@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace MechWars.MapElements
 {
-    public class MapElement : MonoBehaviour
+    public class MapElement : MonoBehaviour, IRotatable
     {
         Army lastArmy;
 
@@ -20,7 +20,6 @@ namespace MechWars.MapElements
         public Army army;
         public TextAsset shapeFile;
         public TextAsset statsFile;
-        public bool canRotate;
         public float yToAim;
         public float displaySize = 1;
         public float displayYOffset = 0;
@@ -28,6 +27,8 @@ namespace MechWars.MapElements
         public int resourceValue;
         public int additionalResourceValue;
         public bool generateResourcesOnDeath = true;
+
+        public AttackHead attackHead;
 
         public List<OrderAction> orderActions;
 
@@ -155,7 +156,7 @@ namespace MechWars.MapElements
             }
         }
 
-        public virtual OrderQueue OrderQueue { get; private set; }
+        public OrderQueue OrderQueue { get; private set; }
 
         protected virtual bool CanAddToArmy { get { return false; } }
         public virtual bool Selectable { get { return false; } }
@@ -163,6 +164,7 @@ namespace MechWars.MapElements
         public bool CanEscort { get { return orderActions.Any(oa => oa.IsEscort); } }
         public virtual bool CanBeAttacked { get { return false; } }
         public virtual bool CanBeEscorted { get { return false; } }
+        public virtual bool CanRotateItself { get { return false; } }
 
         public event LifeEndingEventHandler LifeEnding;
 

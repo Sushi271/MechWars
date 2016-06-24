@@ -55,7 +55,7 @@ namespace MechWars.MapElements.Orders
                 var delta = singleMoveDestination - MapElement.Coords;
                 var angle = UnityExtensions.AngleFromToXZ(Vector2.up, delta);
 
-                rotateOrder = new RotateOrder(Unit, angle);
+                rotateOrder = new RotateOrder(Unit, false, angle);
                 GiveSubOrder(rotateOrder);
             }
             else if (!DontFinish) Succeed();
