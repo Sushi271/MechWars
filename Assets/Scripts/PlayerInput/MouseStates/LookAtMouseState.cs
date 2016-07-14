@@ -21,7 +21,7 @@ namespace MechWars.PlayerInput.MouseStates
             if (StateController.LeftActionTriggered)
             {
                 var hovered = InputController.HoverController.HoveredMapElements;
-                var center = hovered.Average(me => me.Coords);
+                var center = hovered.Average2(me => me.Coords);
                 // TODO: move camera to center
             }
         }

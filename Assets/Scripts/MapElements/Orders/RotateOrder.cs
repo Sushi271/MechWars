@@ -29,12 +29,37 @@ namespace MechWars.MapElements.Orders
         public int Direction { get; private set; }
         public float Speed { get; private set; }
 
+        bool horizontalDone;
+
+        // [MESS] Vertical
+        public bool RotatesVertically { get; set; }
+
+        float targetHeadPitch;
+        public float TargetHeadPitch
+        {
+            get { return targetHeadPitch; }
+            set
+            {
+                if (value == targetHeadPitch) return;
+                targetHeadPitch = value;
+                CalculateHeadPitchDeltaAndDirection();
+            }
+        }
+
+        public float HeadPitchDelta { get; private set; }
+        public int HeadPitchDirection { get; private set; }
+        public float HeadPitchSpeed { get; private set; }
+
+        bool verticalDone;
+        // [/MESS]
+
         public RotateOrder(MapElement mapElement, bool tryRotateHead = false, float targetRotation = 0, bool dontFinish = false)
             : base(mapElement)
         {
-            if (tryRotateHead && mapElement.attackHead != null)
+            var head = mapElement.attackHead as HorizontalAttackHead;
+            if (tryRotateHead && head != null)
             {
-                rotatedObject = mapElement.attackHead;
+                rotatedObject = head;
                 speedStatName = StatNames.AttackHeadRotationSpeed;
             }
             else
@@ -53,8 +78,19 @@ namespace MechWars.MapElements.Orders
             TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, speedStatName, out speedStat));
             if (Failed) return;
 
+            Stat headPitchSpeedStat = null;
+            if (RotatesVertically)
+            {
+                TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.AttackHeadPitchSpeed, out headPitchSpeedStat));
+                if (Failed) return;
+            }
+
             CalculateDeltaAndDirection();
+            CalculateHeadPitchDeltaAndDirection();
+
             Speed = speedStat.Value;
+            if (RotatesVertically)
+                HeadPitchSpeed = headPitchSpeedStat.Value;
         }
 
         void CalculateDeltaAndDirection()
@@ -63,21 +99,49 @@ namespace MechWars.MapElements.Orders
             Direction = System.Math.Sign(Delta);
         }
 
+        void CalculateHeadPitchDeltaAndDirection()
+        {
+            HeadPitchDelta = (TargetHeadPitch - rotatedObject.HeadPitch).NormalizeAngle();
+            HeadPitchDirection = System.Math.Sign(HeadPitchDelta);
+        }
+
         protected override void OnUpdate()
         {
             if (State == OrderState.Stopping) return;
 
-            float dDist = Speed * 360 * Time.deltaTime;
-            if (dDist < Mathf.Abs(Delta))
+            if (!horizontalDone)
             {
-                rotatedObject.Rotation += Direction * dDist;
-                CalculateDeltaAndDirection();
+                float dDist = Speed * 360 * Time.deltaTime;
+                if (dDist < Mathf.Abs(Delta))
+                {
+                    rotatedObject.Rotation += Direction * dDist;
+                    CalculateDeltaAndDirection();
+                }
+                else
+                {
+                    rotatedObject.Rotation = TargetRotation;
+                    if (!DontFinish)
+                        horizontalDone = true;
+                }
             }
-            else
+
+            if (RotatesVertically && !verticalDone)
             {
-                rotatedObject.Rotation = TargetRotation;
-                if (!DontFinish) Succeed();
+                float dDist = HeadPitchSpeed * 360 * Time.deltaTime;
+                if (dDist < Mathf.Abs(HeadPitchDelta))
+                {
+                    rotatedObject.HeadPitch += HeadPitchDirection * dDist;
+                    CalculateHeadPitchDeltaAndDirection();
+                }
+                else
+                {
+                    rotatedObject.HeadPitch = TargetHeadPitch;
+                    verticalDone = true;
+                }
             }
+
+            if (horizontalDone && (!RotatesVertically || verticalDone))
+                Succeed();
         }
         
         protected override string SpecificsToString()

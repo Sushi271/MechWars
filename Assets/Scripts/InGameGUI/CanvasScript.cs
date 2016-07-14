@@ -17,6 +17,10 @@ namespace MechWars.InGameGUI
 
         List<Button> buttons;
 
+        public GameObject debugInfo;
+        public GameObject debugInfoBack;
+        bool debugInfoActive;
+
         void Start()
         {
             buttons = new List<Button>();
@@ -112,6 +116,11 @@ namespace MechWars.InGameGUI
                     }
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.F1))
+                debugInfoActive = !debugInfoActive;
+            debugInfo.SetActive(debugInfoActive);
+            debugInfoBack.SetActive(debugInfoActive);
         }
 
         void OnDestroy()

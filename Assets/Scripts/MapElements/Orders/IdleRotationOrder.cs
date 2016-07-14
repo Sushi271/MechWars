@@ -28,17 +28,18 @@ namespace MechWars.MapElements.Orders
             if (HasSubOrder || State == OrderState.Stopping) return;
 
             IRotatable rotatedObject = null;
-            if (MapElement.CanRotateItself && MapElement.attackHead != null)
+            var head = MapElement.attackHead as HorizontalAttackHead;
+            if (MapElement.CanRotateItself && head != null)
             {
                 var r = Random.Range(0f, 1f);
                 if (r <= attackHeadRotationProbability)
-                    rotatedObject = MapElement.attackHead;
+                    rotatedObject = head;
                 else rotatedObject = MapElement;
             }
             else if (MapElement.CanRotateItself)
                 rotatedObject = MapElement;
-            else if (MapElement.attackHead != null)
-                rotatedObject = MapElement.attackHead;
+            else if (head != null)
+                rotatedObject = head;
 
             if (rotatedObject != null)
             {

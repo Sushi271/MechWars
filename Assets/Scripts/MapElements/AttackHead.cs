@@ -1,22 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace MechWars.MapElements
 {
-    public class AttackHead : MonoBehaviour, IRotatable
+    public class AttackHead : MonoBehaviour
     {
-        public GameObject tip;
+        public List<GameObject> tips;
 
-        public float Rotation
-        {
-            get { return transform.rotation.eulerAngles.y; }
-            set
-            {
-                var ea = transform.rotation.eulerAngles;
-                ea.y = value;
-                transform.rotation = Quaternion.Euler(ea);
-            }
-        }
-
-        public Vector3 TipPosition { get { return tip.transform.position; } }
+        public IEnumerable<Vector3> TipsPositions { get { return from t in tips select t.transform.position; } }
     }
 }

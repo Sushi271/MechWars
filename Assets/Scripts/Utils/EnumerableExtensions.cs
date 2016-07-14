@@ -154,13 +154,35 @@ namespace MechWars.Utils
             return set.RemoveWhere(i => !predicate(i));
         }
 
-        public static Vector2 Average<TSource>(this IEnumerable<TSource> source, System.Func<TSource, Vector2> selector)
+        public static Vector2 Average2<TSource>(this IEnumerable<TSource> source, System.Func<TSource, Vector2> selector)
+        {
+            return source.Select(o => selector(o)).Average2();
+        }
+
+        public static Vector2 Average2(this IEnumerable<Vector2> source)
         {
             var sum = Vector2.zero;
             int count = 0;
             foreach (var item in source)
             {
-                sum += selector(item);
+                sum += item;
+                count += 1;
+            }
+            return sum / count;
+        }
+
+        public static Vector3 Average3<TSource>(this IEnumerable<TSource> source, System.Func<TSource, Vector3> selector)
+        {
+            return source.Select(o => selector(o)).Average3();
+        }
+
+        public static Vector3 Average3(this IEnumerable<Vector3> source)
+        {
+            var sum = Vector3.zero;
+            int count = 0;
+            foreach (var item in source)
+            {
+                sum += item;
                 count += 1;
             }
             return sum / count;

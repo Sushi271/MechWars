@@ -1,6 +1,7 @@
 ﻿using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
@@ -112,7 +113,7 @@ namespace MechWars.MapElements.Orders
             }
             else
             {
-                Destination = Targets.Average(t => t.Coords).Round();
+                Destination = Targets.Average2(t => t.Coords).Round();
                 if (moveOrder != null)
                     moveOrder.Destination = Destination;
             }

@@ -16,7 +16,6 @@ namespace MechWars.MapElements.Attacks
         void Update()
         {
             var dr = Time.deltaTime * Velocity;
-            var oldPos = transform.position;
             transform.position += dr;
 
             currentLifetime += Time.deltaTime;
@@ -29,7 +28,7 @@ namespace MechWars.MapElements.Attacks
             if (hit) return;
             hit = true;
 
-            if (Target.Alive)
+            if (!Target.Dying)
             {
                 var hitPoints = Target.Stats[StatNames.HitPoints];
                 if (hitPoints != null)

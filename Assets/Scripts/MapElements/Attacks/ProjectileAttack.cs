@@ -1,5 +1,7 @@
 ﻿using MechWars.MapElements.Statistics;
 using MechWars.Utils;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MechWars.MapElements.Attacks
@@ -8,13 +10,13 @@ namespace MechWars.MapElements.Attacks
     {
         public Projectile projectilePrefab;
         public float startingSpeed;
-        
+
         public override Vector2 GetDirection(MapElement attacker, MapElement target, Vector2 aim)
         {
             var data = CalculateStartingVelocity(attacker.transform.position, target, aim);
             return data.startingVelocity.AsHorizontalVector2();
         }
-        
+
         public override void Execute(MapElement attacker, MapElement target, Vector2 aim)
         {
             if (projectilePrefab == null)
@@ -24,19 +26,33 @@ namespace MechWars.MapElements.Attacks
             if (firepower == null)
                 throw new System.Exception(string.Format("MapElement {0} has no {1} Stat.", attacker, StatNames.Firepower));
 
-            // it gives different result than in GetDirection(), because RotateOrder is Finished
-            var worldStartingPosition = attacker.attackHead != null ?
-                attacker.attackHead.TipPosition : attacker.transform.position;
-            var data = CalculateStartingVelocity(worldStartingPosition, target, aim);
+            IEnumerable<Vector3> startingPositions;
+            Quaternion startingRotation;
+            if (attacker.attackHead != null)
+            {
+                startingPositions = attacker.attackHead.TipsPositions;
+                startingRotation = attacker.attackHead.transform.rotation;
+            }
+            else
+            {
+                startingPositions = attacker.transform.position.AsEnumerable();
+                startingRotation = attacker.transform.rotation;
+            }
 
-            var projectile = Instantiate(projectilePrefab);
-            projectile.transform.SetParent(attacker.army.transform);
-            projectile.transform.position = worldStartingPosition;
-            projectile.transform.rotation = attacker.transform.rotation;
-            projectile.Velocity = data.startingVelocity;
-            projectile.Lifetime = data.timeToHit;
-            projectile.Firepower = firepower.Value;
-            projectile.Target = target;
+            foreach (var p in startingPositions)
+            {
+                // it gives different result than in GetDirection(), because RotateOrder is Finished
+                var data = CalculateStartingVelocity(p, target, aim);
+
+                var projectile = Instantiate(projectilePrefab);
+                projectile.transform.SetParent(attacker.army.transform);
+                projectile.transform.position = p;
+                projectile.transform.rotation = startingRotation;
+                projectile.Velocity = data.startingVelocity;
+                projectile.Lifetime = data.timeToHit;
+                projectile.Firepower = firepower.Value;
+                projectile.Target = target;
+            }
         }
 
         StartingData CalculateStartingVelocity(Vector3 worldStartingPosition, MapElement target, Vector2 aim)
@@ -85,11 +101,11 @@ namespace MechWars.MapElements.Attacks
                     }
                 }
             }
-                
+
 
             return data;
         }
-        
+
         struct StartingData
         {
             public Vector3 startingVelocity;

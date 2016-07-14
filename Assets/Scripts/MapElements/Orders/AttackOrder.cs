@@ -17,7 +17,7 @@ namespace MechWars.MapElements.Orders
         public override string Name { get { return "Attack"; } }
         public MapElement Target { get; private set; }
 
-        IVector2 Aim { get { return Target.GetClosestFieldTo(MapElement.Coords); } }
+        Vector2 Aim { get { return Target.GetClosestFieldTo(MapElement.Coords); } }
 
         public AttackOrder(MapElement mapElement, MapElement target)
             : base(mapElement)
@@ -104,6 +104,13 @@ namespace MechWars.MapElements.Orders
                 var direction = attack.GetDirection(MapElement, Target, Aim);
                 var angle = UnityExtensions.AngleFromToXZ(Vector2.up, direction);
                 rotateOrder.TargetRotation = angle;
+
+                if (attack.PitchAdjustable)
+                {
+                    var headPitch = attack.GetHeadPitch(MapElement, Target, Aim);
+                    rotateOrder.RotatesVertically = true;
+                    rotateOrder.TargetHeadPitch = headPitch;
+                }
             }
         }
 

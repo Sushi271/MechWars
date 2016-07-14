@@ -5,8 +5,6 @@ namespace MechWars.PlayerInput
 {
     public class PlayerMouse
     {
-        InputController inputController;
-
         public Vector2 Position { get { return Input.mousePosition; } }
         public MapRaycast MapRaycast { get; private set; }
 
@@ -15,8 +13,6 @@ namespace MechWars.PlayerInput
 
         public PlayerMouse(InputController inputController)
         {
-            this.inputController = inputController;
-
             MapRaycast = new MapRaycast(this);
 
             Left = new PlayerMouseButton(inputController, 0);

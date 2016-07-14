@@ -167,6 +167,23 @@ namespace MechWars.MapElements
         public virtual bool CanRotateItself { get { return false; } }
 
         public event LifeEndingEventHandler LifeEnding;
+        
+        public float HeadPitch
+        {
+            get
+            {
+                var vertical = attackHead as VerticalAttackHead;
+                if (vertical == null) return 0;
+                return vertical.Pitch;
+            }
+            set
+            {
+                var vertical = attackHead as VerticalAttackHead;
+                if (vertical == null)
+                    throw new System.InvalidOperationException("Cannot set HeadPitch - AttackHead must be Vertical.");
+                vertical.Pitch = value;
+            }
+        }
 
         public MapElement()
         {
@@ -415,7 +432,7 @@ namespace MechWars.MapElements
         protected virtual void UpdateAlive()
         {
             if (!Dying || !Alive) return;
-            Alive = OrderQueue.OrderCount == 0;
+            Alive = !(OrderQueue.OrderCount == 0);
         }
 
         protected virtual void OnLifeEnd()

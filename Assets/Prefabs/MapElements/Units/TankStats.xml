@@ -1,0 +1,10 @@
+<Stats>
+    <Stat name="Movement speed" value="2.5" />
+    <Stat name="Rotation speed" value="0.5" />
+    <Stat name="Attack head rotation speed" value="1.5" />
+    <Stat name="Hit points" value="500" max_value="500" />
+    <Stat name="Firepower" value="40" />
+    <Stat name="Attack speed" value="0.5" />
+    <Stat name="Attack range" value="6" />
+    <Stat name="View range" value="6" />
+</Stats>
