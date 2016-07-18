@@ -11,9 +11,9 @@ namespace MechWars.MapElements.Orders
 
         public MapElement Target { get; private set; }
         public Attack Attack { get; private set; }
-        public Vector2 Aim { get; set; }
+        public Vector3 Aim { get; set; }
 
-        public SingleAttackOrder(MapElement mapElement, MapElement target, Attack attack, Vector2 aim)
+        public SingleAttackOrder(MapElement mapElement, MapElement target, Attack attack, Vector3 aim)
             : base(mapElement)
         {
             Target = target;
@@ -26,7 +26,7 @@ namespace MechWars.MapElements.Orders
             TryFail(OrderResultAsserts.AssertMapElementIsNotDying(Target));
             TryFail(OrderResultAsserts.AssertMapElementCanBeAttacked(Target));
             TryFail(OrderResultAsserts.AssertMapElementHasAttack(MapElement, Attack));
-            TryFail(OrderResultAsserts.AssertPositionInAttackRange(MapElement, Aim));
+            TryFail(OrderResultAsserts.AssertAimInAttackRange(MapElement, Aim));
             if (Failed) return;
             
             attackAnimation = new AttackAnimation(Attack);

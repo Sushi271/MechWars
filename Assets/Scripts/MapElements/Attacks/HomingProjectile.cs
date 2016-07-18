@@ -94,8 +94,7 @@ namespace MechWars.MapElements.Attacks
         {
             if (hit) return;
             hit = true;
-
-            // TODO: aoe damage
+            
             var coords = transform.position.AsHorizontalVector2();
             var xFrom = Mathf.RoundToInt(coords.x - damageRadius);
             var xTo = Mathf.RoundToInt(coords.x + damageRadius);
@@ -122,7 +121,7 @@ namespace MechWars.MapElements.Attacks
                 var hitPoints = dc.Stats[StatNames.HitPoints];
                 if (hitPoints == null) continue;
 
-                var pos = dc.GetClosestFieldTo(coords);
+                var pos = dc.GetClosestAimTo(coords).AsHorizontalVector2();
                 var dist = Vector2.Distance(pos, coords);
                 if (dist >= damageRadius)
                     continue;

@@ -8,7 +8,6 @@ namespace MechWars.MapElements.Orders
         public override string Name { get { return "Idle"; } }
 
         public MapElement AutoAttackTarget { get; private set; }
-        IVector2 AutoAttackTargetClosestCoords { get { return AutoAttackTarget.GetClosestFieldTo(MapElement.Coords); } }
 
         IdleRotationOrder idleRotationOrder;
         AttackOrder attackOrder;

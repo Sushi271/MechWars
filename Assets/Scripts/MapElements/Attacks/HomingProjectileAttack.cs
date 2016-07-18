@@ -14,14 +14,14 @@ namespace MechWars.MapElements.Attacks
         
         public override bool PitchAdjustable { get { return true; } }
 
-        public override float GetHeadPitch(MapElement mapElement, MapElement target, Vector2 aim)
+        public override float GetHeadPitch(MapElement mapElement, MapElement target, Vector3 aim)
         {
             float longDistancePitch = 30;
 
             float shortDistance = 3;
             float shortDistancePitch = 70;
 
-            float distance = (mapElement.Coords - aim).magnitude;
+            float distance = (mapElement.Coords - aim.AsHorizontalVector2()).magnitude;
             float pitch;
             if (distance <= shortDistance)
                 pitch = -shortDistancePitch;
@@ -35,7 +35,7 @@ namespace MechWars.MapElements.Attacks
             return pitch;
         }
 
-        public override void Execute(MapElement attacker, MapElement target, Vector2 aim)
+        public override void Execute(MapElement attacker, MapElement target, Vector3 aim)
         {
             if (projectilePrefab == null)
                 throw new System.Exception(string.Format("HomingProjectile prefab is null ({0}).", attacker));
@@ -65,7 +65,7 @@ namespace MechWars.MapElements.Attacks
                 projectile.transform.position = p;
                 projectile.transform.rotation = startingRotation;
                 projectile.Firepower = firepower.Value / count;
-                projectile.Aim = aim.AsHorizontalVector3() + Vector3.up * target.yToAim;
+                projectile.Aim = aim;
                 projectile.Velocity = (startingRotation * Vector3.forward).normalized * startingSpeed;
             }
         }

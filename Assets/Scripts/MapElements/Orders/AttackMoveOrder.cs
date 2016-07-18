@@ -11,7 +11,6 @@ namespace MechWars.MapElements.Orders
         public Unit Unit { get; private set; }
 
         public MapElement AttackTarget { get; private set; }
-        IVector2 AttackTargetClosestCoords { get { return AttackTarget.GetClosestFieldTo(Unit.Coords); } }
 
         IVector2 Destination { get; set; }
 

@@ -11,13 +11,13 @@ namespace MechWars.MapElements.Attacks
         public Projectile projectilePrefab;
         public float startingSpeed;
 
-        public override Vector2 GetDirection(MapElement attacker, MapElement target, Vector2 aim)
+        public override Vector2 GetDirection(MapElement attacker, MapElement target, Vector3 aim)
         {
             var data = CalculateStartingVelocity(attacker.transform.position, target, aim);
             return data.startingVelocity.AsHorizontalVector2();
         }
 
-        public override void Execute(MapElement attacker, MapElement target, Vector2 aim)
+        public override void Execute(MapElement attacker, MapElement target, Vector3 aim)
         {
             if (projectilePrefab == null)
                 throw new System.Exception(string.Format("Projectile prefab is null ({0}).", attacker));
@@ -55,10 +55,10 @@ namespace MechWars.MapElements.Attacks
             }
         }
 
-        StartingData CalculateStartingVelocity(Vector3 worldStartingPosition, MapElement target, Vector2 aim)
+        StartingData CalculateStartingVelocity(Vector3 worldStartingPosition, MapElement target, Vector3 aim)
         {
             var A = worldStartingPosition;
-            var B = aim.AsHorizontalVector3() + Vector3.up * target.yToAim;
+            var B = aim;
             var AB = B - A;
             var ABLen = AB.magnitude;
 

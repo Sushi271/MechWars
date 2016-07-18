@@ -18,11 +18,13 @@ namespace MechWars.MapElements
         public string mapElementName;
         public int id;
         public Army army;
+
         public TextAsset shapeFile;
         public TextAsset statsFile;
-        public float yToAim;
         public float displaySize = 1;
         public float displayYOffset = 0;
+
+        public List<GameObject> aims;
 
         public int resourceValue;
         public int additionalResourceValue;
@@ -300,7 +302,7 @@ namespace MechWars.MapElements
 
         public bool HasMapElementInRange(MapElement other, string rangeStatName)
         {
-            var position = other.GetClosestFieldTo(Coords);
+            var position = other.GetClosestAimTo(Coords).AsHorizontalVector2();
             return HasPositionInRange(position, rangeStatName);
         }
 
@@ -313,12 +315,35 @@ namespace MechWars.MapElements
                 var dr = position - c;
                 var len = dr.magnitude;
                 if (len < drLen)
+                {
                     drLen = len;
-                target = c;
+                    target = c;
+                }
             }
             if (target == null)
                 throw new System.Exception(string.Format(
                     "Cannot get closest aim target - AllCoords returns empty list ({0}).", this));
+            return target.Value;
+        }
+        
+        public Vector3 GetClosestAimTo(Vector2 position)
+        {
+            float drLen = Mathf.Infinity;
+            Vector3? target = null;
+            if (aims.Empty())
+                throw new System.Exception(string.Format(
+                    "Cannot get closest aim target - aims list is empty ({0}).", this));
+            foreach (var a in aims)
+            {
+                var aPos = a.transform.position;
+                var dr = position - aPos.AsHorizontalVector2();
+                var len = dr.magnitude;
+                if (len < drLen)
+                {
+                    drLen = len;
+                    target = aPos;
+                }
+            }
             return target.Value;
         }
 

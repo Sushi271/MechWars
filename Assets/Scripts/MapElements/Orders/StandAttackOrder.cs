@@ -8,6 +8,7 @@ namespace MechWars.MapElements.Orders
     public class StandAttackOrder : ComplexOrder
     {
         // TODO: Why there is RotateOrder inside this? Attack rotates anyway!
+        // - Because if target is out of range, it will be "tracked"
 
         public override string Name { get { return "StandAttack"; } }
         
@@ -18,8 +19,7 @@ namespace MechWars.MapElements.Orders
         {
             get
             {
-                // TODO: replace with "Aim"s
-                var targetCoords = CurrentTarget.GetClosestFieldTo(MapElement.Coords);
+                var targetCoords = CurrentTarget.GetClosestAimTo(MapElement.Coords).AsHorizontalVector2();
                 var direction = targetCoords - MapElement.Coords;
                 var angle = UnityExtensions.AngleFromToXZ(Vector2.up, direction);
                 return angle;

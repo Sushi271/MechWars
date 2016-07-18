@@ -5,7 +5,7 @@ namespace MechWars.MapElements.Attacks
 {
     public class InstantAttack : Attack
     {
-        public override void Execute(MapElement attacker, MapElement target, Vector2 aim)
+        public override void Execute(MapElement attacker, MapElement target, Vector3 aim)
         {
             var firepower = attacker.Stats[StatNames.Firepower];
             var hitPoints = target.Stats[StatNames.HitPoints];

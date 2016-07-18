@@ -82,11 +82,12 @@ namespace MechWars.MapElements.Orders
             return null;
         }
 
-        public static FailOrderResult AssertPositionInAttackRange(MapElement mapElement, Vector2 position)
+        public static FailOrderResult AssertAimInAttackRange(MapElement mapElement, Vector3 aim)
         {
-            if (!mapElement.HasPositionInRange(position, StatNames.AttackRange))
+            if (!mapElement.HasPositionInRange(aim.AsHorizontalVector2(), StatNames.AttackRange))
                 return new FailOrderResult(string.Format(
-                    "Position {0} is not in MapElement {1} attack range."));
+                    "Aim {0} is not in MapElement {1} attack range.",
+                    aim, mapElement));
             return null;
         }
 
