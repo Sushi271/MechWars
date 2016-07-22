@@ -77,8 +77,17 @@ namespace MechWars.MapElements.Orders
         {
             if (!mapElement.GetComponents<Attack>().Any(a => a == attack))
                 return new FailOrderResult(string.Format(
-                    "MapElement {0} does not have given attack (of type {1}).",
+                    "MapElement {0} does not have given Attack (of type {1}).",
                     mapElement, attack.GetType()));
+            return null;
+        }
+
+        public static FailOrderResult AssertMapElementHasReadiedAttack(MapElement mapElement)
+        {
+            if (mapElement.ReadiedAttack == null)
+                return new FailOrderResult(string.Format(
+                    "MapElement {0} does not have any Attack ready.",
+                    mapElement));
             return null;
         }
 

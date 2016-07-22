@@ -7,12 +7,8 @@ namespace MechWars.MapElements.Orders
 {
     public class AttackOrder : ComplexOrder
     {
-        Attack attack;
-
         RotateOrder rotateOrder;
         SingleAttackOrder singleAttackOrder;
-
-        float cooldown;
 
         public override string Name { get { return "Attack"; } }
         public MapElement Target { get; private set; }
@@ -38,17 +34,12 @@ namespace MechWars.MapElements.Orders
 
             if (!Target.Dying)
             {
-                if (attack == null)
-                    attack = MapElement.PickAttack();
+                if (MapElement.ReadiedAttack == null)
+                    MapElement.ReadyAttack();
                 if (rotateOrder == null)
                 {
                     rotateOrder = new RotateOrder(MapElement, true);
                     GiveSubOrder(rotateOrder);
-                }
-                if (cooldown > 0)
-                {
-                    cooldown -= Time.deltaTime;
-                    cooldown = Mathf.Clamp(cooldown, 0, cooldown);
                 }
             }
             else Succeed();
@@ -78,28 +69,22 @@ namespace MechWars.MapElements.Orders
             if (SubOrder == rotateOrder)
             {
                 rotateOrder = null;
-                if (cooldown == 0)
+                if (MapElement.AttackCooldown == 0)
                 {
                     var aim = Target.GetClosestAimTo(MapElement.Coords);
-                    singleAttackOrder = new SingleAttackOrder(MapElement, Target, attack, aim);
+                    singleAttackOrder = new SingleAttackOrder(MapElement, Target, aim);
                     GiveSubOrder(singleAttackOrder);
                 }
             }
             else if (SubOrder == singleAttackOrder)
-            {
                 singleAttackOrder = null;
-                attack = null;
-                var attackSpeedStat = MapElement.Stats[StatNames.AttackSpeed];
-                if (attackSpeedStat == null)
-                    cooldown = 1;
-                else cooldown = 1 / attackSpeedStat.Value;
-            }
         }
 
         void UpdateRotateOrdersProperties()
         {
             if (rotateOrder != null)
             {
+                var attack = MapElement.ReadiedAttack;
                 var aim = Target.GetClosestAimTo(MapElement.Coords);
                 var direction = attack.GetDirection(MapElement, Target, aim);
                 var angle = UnityExtensions.AngleFromToXZ(Vector2.up, direction);

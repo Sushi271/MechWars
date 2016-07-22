@@ -168,8 +168,11 @@ namespace MechWars.MapElements
         public virtual bool CanBeEscorted { get { return false; } }
         public virtual bool CanRotateItself { get { return false; } }
 
+        public Attack ReadiedAttack { get; private set; }
+        public float AttackCooldown { get; private set; }
+
         public event LifeEndingEventHandler LifeEnding;
-        
+
         public float HeadPitch
         {
             get
@@ -190,7 +193,7 @@ namespace MechWars.MapElements
         public MapElement()
         {
             if (isShadow) return;
-            
+
             Stats = new Stats(this);
             alive = true;
 
@@ -325,7 +328,7 @@ namespace MechWars.MapElements
                     "Cannot get closest aim target - AllCoords returns empty list ({0}).", this));
             return target.Value;
         }
-        
+
         public Vector3 GetClosestAimTo(Vector2 position)
         {
             float drLen = Mathf.Infinity;
@@ -383,7 +386,7 @@ namespace MechWars.MapElements
                 from c in CoordsInRangeSquare(range.Value)
                 where Vector2.Distance(c, Coords) <= range.Value
                 let me = Globals.FieldReservationMap[c]
-                where me!= null && me is T
+                where me != null && me is T
                 let tme = (T)me
                 where predicate(tme)
                 where HasMapElementInRange(tme, rangeStatName)
@@ -410,11 +413,55 @@ namespace MechWars.MapElements
                     yield return new IVector2(x, y);
         }
 
-        public Attack PickAttack()
+        public void ReadyAttack()
         {
             var attacks = GetComponents<Attack>();
             int idx = Random.Range(0, attacks.Length);
-            return attacks[idx];
+            ReadiedAttack = attacks[idx];
+        }
+        
+        AttackAnimation currentAttackAnimation;
+        System.Action attackFinishCallback;
+
+        public void MakeAttack(MapElement target, Vector3 aim, System.Action attackFinishCallback = null)
+        {
+            if (ReadiedAttack == null)
+                throw new System.Exception("Cannot call MakeAttack before calling ReadyAttack.");
+            if (AttackCooldown > 0)
+                throw new System.Exception("Cannot call MakeAttack if AttackCooldown > 0.");
+
+            currentAttackAnimation = new AttackAnimation(ReadiedAttack);
+            currentAttackAnimation.Execute += () => ReadiedAttack.Execute(this, target, aim);
+
+            this.attackFinishCallback = attackFinishCallback;
+
+            var attackSpeedStat = Stats[StatNames.AttackSpeed];
+            if (attackSpeedStat == null)
+                AttackCooldown = 1;
+            else AttackCooldown = 1 / attackSpeedStat.Value;
+        }
+
+        void UpdateAttack()
+        {
+            if (currentAttackAnimation == null && AttackCooldown > 0)
+            {
+                AttackCooldown -= Time.deltaTime;
+                AttackCooldown = Mathf.Clamp(AttackCooldown, 0, AttackCooldown);
+            }
+
+            if (currentAttackAnimation != null)
+            {
+                if (!currentAttackAnimation.Playing && !currentAttackAnimation.Finished)
+                    currentAttackAnimation.Play();
+                currentAttackAnimation.Update();
+                if (currentAttackAnimation.Finished)
+                {
+                    ReadiedAttack = null;
+                    currentAttackAnimation = null;
+                    if (attackFinishCallback != null)
+                        attackFinishCallback();
+                }
+            }
         }
 
         void Update()
@@ -437,6 +484,8 @@ namespace MechWars.MapElements
                 }
                 lastArmy = army;
             }
+
+            UpdateAttack();
 
             if (OrderQueue.Enabled)
                 OrderQueue.Update();
