@@ -35,6 +35,7 @@ namespace MechWars
         //=====================================================================================
 
         public bool debugComplexOrderStrings;
+        public float aggroScanInterval = 1;
 
         List<Counter> DEBUG_counters;
         public static List<Counter> DEBUG_Counters { get { return Instance.DEBUG_counters; } }

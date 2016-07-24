@@ -21,6 +21,8 @@ namespace MechWars.MapElements.Orders
         MoveOrder moveOrder;
         AttackOrder attackOrder;
 
+        float nextAggroScanIn;
+
         public EscortOrder(Unit unit, IEnumerable<Unit> targets)
             : base(unit)
         {
@@ -50,13 +52,25 @@ namespace MechWars.MapElements.Orders
 
             if (SubOrder == moveOrder)
             {
-                if (DestinationInRange)
+                if (nextAggroScanIn > 0)
+                {
+                    nextAggroScanIn -= Time.deltaTime;
+                    if (nextAggroScanIn < 0)
+                        nextAggroScanIn = 0;
+                }
+                if (DestinationInRange && nextAggroScanIn == 0)
                 {
                     var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
                     if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
+                    {
                         AttackTarget = closest;
-                    if (AttackTarget != null)
                         moveOrder.Stop();
+                    }
+                    else
+                    {
+                        var interval = Globals.Instance.aggroScanInterval;
+                        nextAggroScanIn = Random.Range(0.9f * interval, 1.1f * interval);
+                    }
                 }
             }
             else if (SubOrder == attackOrder)

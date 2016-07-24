@@ -1,6 +1,6 @@
 ﻿using MechWars.MapElements.Statistics;
 using MechWars.Utils;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
@@ -16,6 +16,8 @@ namespace MechWars.MapElements.Orders
 
         MoveOrder moveOrder;
         FollowAttackOrder followAttackOrder;
+
+        float nextAggroScanIn;
 
         public AttackMoveOrder(Unit unit, IVector2 destination)
             : base(unit)
@@ -38,11 +40,26 @@ namespace MechWars.MapElements.Orders
 
             if (SubOrder == moveOrder)
             {
-                var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
-                if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
-                    AttackTarget = closest;
-                if (AttackTarget != null)
-                    moveOrder.Stop();
+                if (nextAggroScanIn > 0)
+                {
+                    nextAggroScanIn -= Time.deltaTime;
+                    if (nextAggroScanIn < 0)
+                        nextAggroScanIn = 0;
+                }
+                if (nextAggroScanIn == 0)
+                {
+                    var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                    if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
+                    {
+                        AttackTarget = closest;
+                        moveOrder.Stop();
+                    }
+                    else
+                    {
+                        var interval = Globals.Instance.aggroScanInterval;
+                        nextAggroScanIn = Random.Range(0.9f * interval, 1.1f * interval);
+                    }
+                }
             }
         }
 

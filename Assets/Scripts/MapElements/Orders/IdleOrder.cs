@@ -1,5 +1,6 @@
 ﻿using MechWars.MapElements.Statistics;
 using MechWars.Utils;
+using UnityEngine;
 
 namespace MechWars.MapElements.Orders
 {
@@ -12,6 +13,8 @@ namespace MechWars.MapElements.Orders
         IdleRotationOrder idleRotationOrder;
         AttackOrder attackOrder;
 
+        float nextAggroScanIn;
+
         public IdleOrder(MapElement mapElement)
             : base(mapElement)
         {
@@ -21,19 +24,32 @@ namespace MechWars.MapElements.Orders
         {
             idleRotationOrder = new IdleRotationOrder(MapElement);
             GiveSubOrder(idleRotationOrder);
+            
+            nextAggroScanIn = Random.Range(0, Globals.Instance.aggroScanInterval);
         }
 
         protected override void OnSubOrderUpdating()
         {
             if (SubOrder == idleRotationOrder)
             {
-                if (MapElement.CanAttack)
+                if (nextAggroScanIn > 0)
+                {
+                    nextAggroScanIn -= Time.deltaTime;
+                    if (nextAggroScanIn < 0)
+                        nextAggroScanIn = 0;
+                }
+                if (MapElement.CanAttack && nextAggroScanIn == 0)
                 {
                     var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
                     if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
                         AutoAttackTarget = closest;
                     if (AutoAttackTarget != null && !AutoAttackTarget.Dying)
                         idleRotationOrder.Stop();
+                    else
+                    {
+                        var interval = Globals.Instance.aggroScanInterval;
+                        nextAggroScanIn = Random.Range(0.9f * interval, 1.1f * interval);
+                    }
                 }
             }
             else if (SubOrder == attackOrder)
