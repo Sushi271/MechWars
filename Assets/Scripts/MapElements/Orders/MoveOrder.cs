@@ -65,7 +65,7 @@ namespace MechWars.MapElements.Orders
         {
             if (SubOrder == singleMoveOrder)
             {
-                if (Globals.FieldReservationMap.FieldOccupiedFor(MapElement, singleMoveOrder.Destination))
+                if (Globals.Map.FieldOccupiedFor(MapElement, singleMoveOrder.Destination))
                 {
                     CalculatePath();
                     singleMoveOrder.LastMinuteChangeDestination(path.First.Next.Coords.Vector);

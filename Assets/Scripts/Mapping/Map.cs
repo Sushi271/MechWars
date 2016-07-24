@@ -1,16 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using MechWars.MapElements;
 using MechWars.Utils;
 using UnityEngine;
 
-namespace MechWars.Pathfinding
+namespace MechWars.Mapping
 {
-    public class FieldReservationMap : MonoBehaviour
+    public class Map : MonoBehaviour
     {
-        public int Width { get; private set; }
-        public int Height { get; private set; }
-        public IVector2 Size { get { return new IVector2(Width, Height); } }
+        public int Size { get; private set; }
 
         Dictionary<MapElement, List<IVector2>> reservationDictionary;
         public List<IVector2> this[MapElement me]
@@ -29,30 +26,31 @@ namespace MechWars.Pathfinding
         MapElement[,] reservationTable;
         public MapElement this[int x, int y]
         {
-            get { return !CoordsInside(x, y) ? null : reservationTable[x, y]; }
+            get { return !IsInBounds(x, y) ? null : reservationTable[x, y]; }
             private set
             {
-                if (CoordsInside(x, y))
+                if (IsInBounds(x, y))
                     reservationTable[x, y] = value;
             }
         
         }
+
         public MapElement this[IVector2 coords]
         {
             get { return this[coords.X, coords.Y]; }
             private set { this[coords.X, coords.Y] = value; }
         }
-
-        public bool CoordsInside(IVector2 coords)
+        
+        public bool IsInBounds(IVector2 coords)
         {
-            return CoordsInside(coords.X, coords.Y);
+            return IsInBounds(coords.X, coords.Y);
         }
 
-        public bool CoordsInside(int x, int y)
+        public bool IsInBounds(int x, int y)
         {
             return
-                0 <= x && x < Width &&
-                0 <= y && y < Height;
+                0 <= x && x < Size &&
+                0 <= y && y < Size;
         }
 
         public bool FieldOccupiedFor(MapElement mapElement, IVector2 coords)
@@ -65,9 +63,8 @@ namespace MechWars.Pathfinding
         {
             reservationDictionary = new Dictionary<MapElement, List<IVector2>>();
 
-            Width = Globals.MapSettings.Width;
-            Height = Globals.MapSettings.Height;
-            reservationTable = new MapElement[Width, Height];
+            Size = Globals.MapSettings.Size;
+            reservationTable = new MapElement[Size, Size];
         }
 
         public void MakeReservation(MapElement mapElement, IVector2 coords)
@@ -117,6 +114,11 @@ namespace MechWars.Pathfinding
             foreach (var r in reservations)
                 this[r] = null;
             reservationDictionary.Remove(mapElement);
+        }
+
+        public QuadTree CreateQuadTree()
+        {
+            return new QuadTree(new SquareBounds(new IVector2(), Size));
         }
     }
 }

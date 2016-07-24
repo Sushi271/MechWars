@@ -29,8 +29,9 @@ namespace MechWars.MapElements.Orders
             {
                 if (MapElement.CanAttack)
                 {
-                    // TODO: PickClosestEnemyInRange causes major FPS problem
-                    AutoAttackTarget = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                    var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                    if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
+                        AutoAttackTarget = closest;
                     if (AutoAttackTarget != null && !AutoAttackTarget.Dying)
                         idleRotationOrder.Stop();
                 }

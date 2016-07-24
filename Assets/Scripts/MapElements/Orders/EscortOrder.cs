@@ -52,7 +52,9 @@ namespace MechWars.MapElements.Orders
             {
                 if (DestinationInRange)
                 {
-                    AttackTarget = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                    var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
+                    if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
+                        AttackTarget = closest;
                     if (AttackTarget != null)
                         moveOrder.Stop();
                 }

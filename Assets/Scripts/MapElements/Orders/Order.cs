@@ -1,4 +1,6 @@
-﻿namespace MechWars.MapElements.Orders
+﻿using UnityEngine;
+
+namespace MechWars.MapElements.Orders
 {
     public abstract class Order
     {
@@ -135,6 +137,8 @@
         public virtual void Terminate()
         {
             OnTerminating();
+            Debug.LogError(string.Format("Order {0} of {1} terminated: {2}",
+                Name, MapElement, Result.Message));
             State = OrderState.Terminated;
         }
 

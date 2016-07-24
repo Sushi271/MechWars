@@ -1,37 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using MechWars.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace MechWars
+namespace MechWars.Mapping
 {
     public class MapSettings : MonoBehaviour
     {
         public Spectator spectator;
 
-        public int mapWidth = 64;
-        public int mapHeight = 64;
+        public int size = 64;
 
         public float startingBuildingProgress = 0.1f;
 
         public List<Player> players;
         public List<GameObject> armyObjects;
 
-        public int Width
+        public int Size
         {
             get
             {
-                if (mapWidth <= 0)
-                    mapWidth = 1;
-                return mapWidth;
-            }
-        }
-
-        public int Height
-        {
-            get
-            {
-                if (mapHeight <= 0)
-                    mapHeight = 1;
-                return mapHeight;
+                if (size <= 0)
+                    size = 1;
+                return size;
             }
         }
 
@@ -39,6 +29,9 @@ namespace MechWars
         {
             if (spectator == null)
                 throw new System.Exception("MapSettings.Spectator is NULL.");
+            if (!size.IsPowerOfTwo())
+                throw new System.Exception(string.Format(
+                    "Map size must be a power of two, but it is {0}.", size));
         }
     }
 }

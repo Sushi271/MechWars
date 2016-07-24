@@ -73,7 +73,7 @@ namespace MechWars.Pathfinding
 
         public override int GetHashCode()
         {
-            return (Globals.MapSettings.Width * Y) + X;
+            return (Globals.Map.Size * Y) + X;
         }
 
         public override bool Equals(object obj)
@@ -94,13 +94,13 @@ namespace MechWars.Pathfinding
             get
             {
                 var _this = this;
-                var mapSettings = Globals.MapSettings;
+                var map = Globals.Map;
                 return
                     from nd in neighbourDeltas
                     let cp = _this + nd
                     where
-                        0 <= cp.X && cp.X < mapSettings.Width &&
-                        0 <= cp.Y && cp.Y < mapSettings.Height
+                        0 <= cp.X && cp.X < map.Size &&
+                        0 <= cp.Y && cp.Y < map.Size
                     select cp;
             }
         }

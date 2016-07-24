@@ -2,6 +2,7 @@
 using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Statistics;
+using MechWars.Mapping;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace MechWars.MapElements
 
         public bool isShadow;
 
-        bool reservationInitialized;
+        bool mapInitialized;
 
         public Stats Stats { get; private set; }
         bool statsRead;
@@ -225,7 +226,7 @@ namespace MechWars.MapElements
             UpdateDying();
             UpdateAlive();
 
-            InitializeReservation();
+            InitializeMap();
             InitializeMinimapMarker();
         }
 
@@ -291,16 +292,25 @@ namespace MechWars.MapElements
             }
         }
 
-        public void InitializeReservation()
+        public void InitializeMap()
         {
-            if (reservationInitialized) return;
+            if (mapInitialized) return;
 
             var occupiedFields = AllCoords;
             foreach (var coord in occupiedFields)
-            {
-                Globals.FieldReservationMap.MakeReservation(this, coord);
-            }
-            reservationInitialized = true;
+                Globals.Map.MakeReservation(this, coord);
+
+            InitializeInQuadTree();
+
+            mapInitialized = true;
+        }
+
+        protected virtual void InitializeInQuadTree()
+        {
+        }
+
+        protected virtual void FinalizeInQuadTree()
+        {
         }
 
         public bool HasMapElementInRange(MapElement other, string rangeStatName)
@@ -362,55 +372,56 @@ namespace MechWars.MapElements
 
         public Resource PickClosestResourceInRange(string rangeStatName)
         {
-            return PickClosestMapElementInRange<Resource>(rangeStatName, r => r.value > 0);
+            var rangeStat = Stats[rangeStatName];
+            if (rangeStat == null) return null;
+            var range = rangeStat.Value;
+
+            var roundRange = Mathf.RoundToInt(range);
+            var bounds = new SquareBounds(Coords.Round() - new IVector2(roundRange, roundRange), roundRange * 2 + 1);
+            var mapElements = (
+                from qtme in Globals.QuadTreeMap.ResourcesQuadTree.QueryRange(bounds)
+                where !qtme.MapElement.Dying
+                select qtme.MapElement)
+                .Distinct();
+
+            if (mapElements.Empty()) return null;
+            var closest = mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
+            if (HasMapElementInRange(closest, rangeStatName))
+                return (Resource)closest;
+            return null;
         }
 
         public MapElement PickClosestEnemyInRange(string rangeStatName)
         {
-            return PickClosestMapElementInRange<MapElement>(rangeStatName, me => me.army != null && me.army != army && !me.Dying);
-        }
+            var rangeStat = Stats[rangeStatName];
+            if (rangeStat == null) return null;
+            var range = rangeStat.Value;
 
-        public T PickClosestMapElementInRange<T>(string rangeStatName)
-            where T : MapElement
-        {
-            return PickClosestMapElementInRange<T>(rangeStatName, me => true);
-        }
+            var roundRange = Mathf.RoundToInt(range);
+            var bounds = new SquareBounds(Coords.Round() - new IVector2(roundRange, roundRange), roundRange * 2 + 1);
+            var mapElements = (
+                from kv in Globals.QuadTreeMap.ArmyQuadTrees
+                where kv.Key != army
+                let qt = kv.Value
+                select (
+                    from qtme in qt.QueryRange(bounds)
+                    where !qtme.MapElement.Dying
+                    select qtme.MapElement)
+                    .Distinct())
+                .SelectMany(x => x);
 
-        public T PickClosestMapElementInRange<T>(string rangeStatName, System.Func<T, bool> predicate)
-            where T : MapElement
-        {
-            var range = Stats[rangeStatName];
-            if (range == null) return null;
-
-            var mapElements =
-                from c in CoordsInRangeSquare(range.Value)
-                where Vector2.Distance(c, Coords) <= range.Value
-                let me = Globals.FieldReservationMap[c]
-                where me != null && me is T
-                let tme = (T)me
-                where predicate(tme)
-                where HasMapElementInRange(tme, rangeStatName)
-                select tme;
-            return PickClosestMapElementFrom(mapElements);
+            if (mapElements.Empty()) return null;
+            var closest = mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
+            if (HasMapElementInRange(closest, rangeStatName))
+                return closest;
+            return null;
         }
 
         public T PickClosestMapElementFrom<T>(IEnumerable<T> mapElements)
             where T : MapElement
         {
             if (mapElements.Empty()) return null;
-            return mapElements.SelectMin(me => Vector2.Distance(Coords, me.GetClosestFieldTo(Coords)));
-        }
-
-        IEnumerable<IVector2> CoordsInRangeSquare(float range)
-        {
-            int xFrom = Mathf.CeilToInt(X - range);
-            int xTo = Mathf.FloorToInt(X + range);
-            int yFrom = Mathf.CeilToInt(Y - range);
-            int yTo = Mathf.FloorToInt(Y + range);
-
-            for (int y = yFrom; y <= yTo; y++)
-                for (int x = xFrom; x <= xTo; x++)
-                    yield return new IVector2(x, y);
+            return mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
         }
 
         public void ReadyAttack()
@@ -419,7 +430,7 @@ namespace MechWars.MapElements
             int idx = Random.Range(0, attacks.Length);
             ReadiedAttack = attacks[idx];
         }
-        
+
         AttackAnimation currentAttackAnimation;
         System.Action attackFinishCallback;
 
@@ -519,7 +530,8 @@ namespace MechWars.MapElements
 
             if (!Globals.Destroyed)
             {
-                Globals.FieldReservationMap.ReleaseReservations(this);
+                FinalizeInQuadTree();
+                Globals.Map.ReleaseReservations(this);
                 Globals.MapElementsDatabase.Delete(this);
             }
 
@@ -581,7 +593,7 @@ namespace MechWars.MapElements
                 var resource = gameObject.GetComponent<Resource>();
                 resource.Coords = allCoords[i];
                 resource.value = values[i];
-                resource.InitializeReservation();
+                resource.InitializeMap();
             }
         }
 

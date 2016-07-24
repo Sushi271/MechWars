@@ -38,8 +38,11 @@ namespace MechWars.MapElements.Orders
             
             Speed = speedStat.Value;
 
-            Globals.FieldReservationMap.MakeReservation(MapElement, Destination);
-            Globals.FieldReservationMap.ReleaseReservation(MapElement, MapElement.Coords.Round());
+            var qt = Globals.QuadTreeMap.ArmyQuadTrees[MapElement.army];
+            qt.Remove(MapElement);
+            Globals.Map.MakeReservation(MapElement, Destination);
+            Globals.Map.ReleaseReservation(MapElement, MapElement.Coords.Round());
+            qt.Insert(MapElement);
 
             Unit.SetMove(this);
         }

@@ -52,7 +52,7 @@ namespace MechWars.PlayerInput
             {
                 PreciseCoords = new Vector2(hitInfo.point.x, hitInfo.point.z);
                 Coords = PreciseCoords.Value.Round();
-                MapElement = Globals.FieldReservationMap[Coords.Value];
+                MapElement = Globals.Map[Coords.Value];
             }
         }
     }

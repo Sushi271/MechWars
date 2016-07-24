@@ -49,7 +49,7 @@ namespace MechWars.MapElements
                 foreach (var d in deltas)
                 {
                     var field = c + d;
-                    if (Globals.FieldReservationMap[field] != this)
+                    if (Globals.Map[field] != this)
                         allNeighbourFields.Add(field);
                 }
         }
@@ -64,6 +64,16 @@ namespace MechWars.MapElements
         protected override float GetMarkerHeight()
         {
             return 1;
+        }
+
+        protected override void InitializeInQuadTree()
+        {
+            Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
+        }
+
+        protected override void FinalizeInQuadTree()
+        {
+            Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
         }
 
         protected override void OnUpdate()
@@ -93,7 +103,7 @@ namespace MechWars.MapElements
 
             var freeNeighbourFields =
                 (from n in allNeighbourFields
-                 where Globals.FieldReservationMap[n] == null
+                 where Globals.Map[n] == null
                  select n).ToList();
             if (freeNeighbourFields.Count == 0)
                 return null;
@@ -104,7 +114,7 @@ namespace MechWars.MapElements
             gameObject.transform.position = new Vector3(field.X, 0, field.Y);
             gameObject.name = unit.gameObject.name;
             var newUnit = gameObject.GetComponent<Unit>();
-            newUnit.InitializeReservation();
+            newUnit.InitializeMap();
             newUnit.army = army;
 
             return newUnit;
@@ -133,7 +143,7 @@ namespace MechWars.MapElements
             }
 
             prefab.Coords = location;
-            if (prefab.AllCoords.Any(c => Globals.FieldReservationMap[c]))
+            if (prefab.AllCoords.Any(c => Globals.Map[c]))
             {
                 throw new System.Exception(string.Format(
                     "Cannot construct Building {0} in location {1} - it's occupied.", prefab, location));
@@ -147,7 +157,7 @@ namespace MechWars.MapElements
             gameObject.name = prefab.gameObject.name;
 
             var building = gameObject.GetComponent<Building>();
-            building.InitializeReservation();
+            building.InitializeMap();
             building.army = army;
             building.resourceValue = startCost;
             building.ReadStats();

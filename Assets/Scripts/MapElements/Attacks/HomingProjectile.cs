@@ -105,8 +105,8 @@ namespace MechWars.MapElements.Attacks
             for (int x = xFrom; x <= xTo; x++)
                 for (int y = yFrom; y <= yTo; y++)
                 {
-                    var map = Globals.FieldReservationMap;
-                    if (!map.CoordsInside(x, y))
+                    var map = Globals.Map;
+                    if (!map.IsInBounds(x, y))
                         continue;
                     var candidate = map[x, y];
                     if (candidate != null)

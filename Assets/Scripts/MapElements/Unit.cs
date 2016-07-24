@@ -33,6 +33,16 @@ namespace MechWars.MapElements
             return 3;
         }
 
+        protected override void InitializeInQuadTree()
+        {
+            Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
+        }
+
+        protected override void FinalizeInQuadTree()
+        {
+            Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
+        }
+
         public bool SetMove(SingleMoveOrder singleMoveOrder)
         {
             if (Move != null || singleMoveOrder.State != OrderState.BrandNew)

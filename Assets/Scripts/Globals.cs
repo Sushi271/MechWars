@@ -2,6 +2,9 @@
 using MechWars.Pathfinding;
 using UnityEngine;
 using MechWars.MapElements.WallNeighbourhoods;
+using System.Collections.Generic;
+using MechWars.Utils;
+using MechWars.Mapping;
 
 namespace MechWars
 {
@@ -32,6 +35,9 @@ namespace MechWars
         //=====================================================================================
 
         public bool debugComplexOrderStrings;
+
+        List<Counter> DEBUG_counters;
+        public static List<Counter> DEBUG_Counters { get { return Instance.DEBUG_counters; } }
         
         public static Spectator Spectator { get { return Destroyed ? null : MapSettings.spectator; } }
         public static Player HumanPlayer { get { return Spectator == null ? null : Spectator.player; } }
@@ -60,12 +66,21 @@ namespace MechWars
             }
         }
 
-        static FieldReservationMap fieldReservationMap;
-        public static FieldReservationMap FieldReservationMap
+        static Map map;
+        public static Map Map
         {
             get
             {
-                return TryLazyGetGlobalsComponent(ref fieldReservationMap);
+                return TryLazyGetGlobalsComponent(ref map);
+            }
+        }
+
+        static QuadTreeMap quadTreeMap;
+        public static QuadTreeMap QuadTreeMap
+        {
+            get
+            {
+                return TryLazyGetGlobalsComponent(ref quadTreeMap);
             }
         }
 
@@ -109,6 +124,8 @@ namespace MechWars
         void Start()
         {
             Destroyed = false;
+            DEBUG_counters = new List<Counter>();
+            DEBUG_counters.Add(new Counter());
         }
 
         void OnDestroy()

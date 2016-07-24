@@ -22,7 +22,7 @@ namespace MechWars.Pathfinding
             this.start = start;
             this.target = target;
 
-            var reservation = Globals.FieldReservationMap[target.Vector];
+            var reservation = Globals.Map[target.Vector];
             if (reservation != null && reservation != orderedMapElement)
                 target = DesignateAlternateTarget(false);
 
@@ -51,7 +51,7 @@ namespace MechWars.Pathfinding
                 foreach (var n in current.CoordPair.Neighbours)
                 {
                     if (evaluated.ContainsKey(n)) continue;
-                    if (Globals.FieldReservationMap[n.Vector] != null) continue;
+                    if (Globals.Map[n.Vector] != null) continue;
 
                     var deltaDist = CoordPair.Distance(current.CoordPair, n);
                     var newDistance = current.Distance + deltaDist;
@@ -136,7 +136,7 @@ namespace MechWars.Pathfinding
                 }
                 else
                 {
-                    fieldAccessible = Globals.FieldReservationMap[current.CoordPair.Vector] == null;
+                    fieldAccessible = Globals.Map[current.CoordPair.Vector] == null;
                     alt = new CoordPairNode<float>(current.CoordPair) { Distance = CoordPair.Distance(start, current.CoordPair) };
                 }
 

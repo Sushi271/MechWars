@@ -15,10 +15,10 @@ namespace MechWars.MapElements.WallNeighbourhoods
             var mapElement = GetComponent<MapElement>();
             var coords = mapElement.Coords.Round();
 
-            var up = Globals.FieldReservationMap[coords.X, coords.Y + 1];
-            var down = Globals.FieldReservationMap[coords.X, coords.Y - 1];
-            var right = Globals.FieldReservationMap[coords.X + 1, coords.Y];
-            var left = Globals.FieldReservationMap[coords.X - 1, coords.Y];
+            var up = Globals.Map[coords.X, coords.Y + 1];
+            var down = Globals.Map[coords.X, coords.Y - 1];
+            var right = Globals.Map[coords.X + 1, coords.Y];
+            var left = Globals.Map[coords.X - 1, coords.Y];
 
             var neighbourhood = new WallNeighbourhood(
                 up is Building,

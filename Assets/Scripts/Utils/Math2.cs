@@ -16,5 +16,10 @@
         {
             return ((((number + 180) % 360) + 360) % 360) - 180;
         }
+
+        public static bool IsPowerOfTwo(this int x)
+        {
+            return (x & (x - 1)) == 0;
+        }
     }
 }

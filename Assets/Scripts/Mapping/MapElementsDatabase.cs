@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MechWars
+namespace MechWars.Mapping
 {
     public class MapElementsDatabase
     {

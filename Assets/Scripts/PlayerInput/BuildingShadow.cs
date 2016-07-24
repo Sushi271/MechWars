@@ -103,7 +103,7 @@ namespace MechWars.PlayerInput
             bool isOccupied = false;
             foreach (var c in allCoords) //dla każdego c we współrzędnych, które zajmie budynek
             {
-                if (Globals.FieldReservationMap[c] != null) // jeżeli choć jedno z pól jest zajete
+                if (Globals.Map[c] != null) // jeżeli choć jedno z pól jest zajete
                 {
                     isOccupied = true;
                     break;

@@ -32,6 +32,16 @@ namespace MechWars.MapElements
             return 2;
         }
 
+        protected override void InitializeInQuadTree()
+        {
+            Globals.QuadTreeMap.ResourcesQuadTree.Insert(this);
+        }
+
+        protected override void FinalizeInQuadTree()
+        {
+            Globals.QuadTreeMap.ResourcesQuadTree.Remove(this);
+        }
+
         protected override void OnUpdate()
         {
             base.OnUpdate();

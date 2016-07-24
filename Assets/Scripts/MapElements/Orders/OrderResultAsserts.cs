@@ -111,7 +111,7 @@ namespace MechWars.MapElements.Orders
 
         public static FailOrderResult AssertDestinationIsInsideMap(IVector2 destination)
         {
-            if (!Globals.FieldReservationMap.CoordsInside(destination))
+            if (!Globals.Map.IsInBounds(destination))
                 return new FailOrderResult(string.Format(
                     "Destination {0} is outside of map.",
                     destination));
@@ -120,7 +120,7 @@ namespace MechWars.MapElements.Orders
 
         public static FailOrderResult AssertDestinationIsNotOccupied(MapElement mapElement, IVector2 destination)
         {
-            if (Globals.FieldReservationMap.FieldOccupiedFor(mapElement, destination))
+            if (Globals.Map.FieldOccupiedFor(mapElement, destination))
                 return new FailOrderResult(string.Format(
                     "Destination {0} is occupied for MapElement {1}.",
                     destination, mapElement));
