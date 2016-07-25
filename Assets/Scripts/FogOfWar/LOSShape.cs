@@ -27,10 +27,6 @@ namespace MechWars.FogOfWar
         {
             get { return shape[x, y]; }
         }
-        public bool this[IVector2 coords]
-        {
-            get { return this[coords.X, coords.Y]; }
-        }
 
         public LOSShape(float radius, MapElementShape mapElementShape)
         {

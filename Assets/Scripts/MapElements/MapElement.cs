@@ -301,6 +301,7 @@ namespace MechWars.MapElements
                 Globals.Map.MakeReservation(this, coord);
 
             InitializeInQuadTree();
+            InitializeInVisibilityTable();
 
             mapInitialized = true;
         }
@@ -310,6 +311,14 @@ namespace MechWars.MapElements
         }
 
         protected virtual void FinalizeInQuadTree()
+        {
+        }
+
+        protected virtual void InitializeInVisibilityTable()
+        {
+        }
+
+        protected virtual void FinalizeInVisibilityTable()
         {
         }
 
@@ -531,6 +540,7 @@ namespace MechWars.MapElements
             if (!Globals.Destroyed)
             {
                 FinalizeInQuadTree();
+                FinalizeInVisibilityTable();
                 Globals.Map.ReleaseReservations(this);
                 Globals.MapElementsDatabase.Delete(this);
             }

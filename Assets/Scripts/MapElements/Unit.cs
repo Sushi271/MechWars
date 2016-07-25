@@ -35,12 +35,26 @@ namespace MechWars.MapElements
 
         protected override void InitializeInQuadTree()
         {
-            Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
+            if (army != null)
+                Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
         }
 
         protected override void FinalizeInQuadTree()
         {
-            Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
+            if (army != null)
+                Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
+        }
+
+        protected override void InitializeInVisibilityTable()
+        {
+            if (army != null)
+                army.VisibilityTable.IncreaseVisibility(this);
+        }
+
+        protected override void FinalizeInVisibilityTable()
+        {
+            if (army != null)
+                army.VisibilityTable.DecreaseVisibility(this);
         }
 
         public bool SetMove(SingleMoveOrder singleMoveOrder)

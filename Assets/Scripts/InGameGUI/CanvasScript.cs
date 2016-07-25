@@ -122,6 +122,13 @@ namespace MechWars.InGameGUI
                 debugInfoActive = !debugInfoActive;
             debugInfo.SetActive(debugInfoActive);
             debugInfoBack.SetActive(debugInfoActive);
+
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                var army = Globals.HumanArmy;
+                if (army != null)
+                    Debug.Log(army.VisibilityTable.ToString());
+            }
         }
 
         void OnDestroy()

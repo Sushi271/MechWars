@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MechWars.MapElements;
 using UnityEngine;
+using MechWars.FogOfWar;
 
 namespace MechWars
 {
@@ -10,6 +11,8 @@ namespace MechWars
         public HashSet<Unit> Units { get; private set; }
         public HashSet<Building> Buildings { get; private set; }
         public TechnologyController Technologies { get; private set; }
+
+        public VisibilityTable VisibilityTable { get; private set; }
 
         public event System.Action OnBuildingConstructionFinished;
 
@@ -29,6 +32,11 @@ namespace MechWars
             Units = new HashSet<Unit>();
             Buildings = new HashSet<Building>();
             Technologies = new TechnologyController(this);
+        }
+
+        void Start()
+        {
+            VisibilityTable = new VisibilityTable(this);
         }
 
         public void AddMapElement(MapElement mapElement)

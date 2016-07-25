@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace MechWars.MapElements
+namespace MechWars
 {
     public class Marker : MonoBehaviour
     {

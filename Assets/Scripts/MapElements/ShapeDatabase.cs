@@ -1,7 +1,7 @@
 ﻿using MechWars.MapElements;
 using System.Collections.Generic;
 
-namespace MechWars.MapElements
+namespace MechWars
 {
     public class ShapeDatabase
     {

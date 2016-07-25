@@ -42,6 +42,8 @@ namespace MechWars.MapElements.Orders
             qt.Remove(MapElement);
             Globals.Map.MakeReservation(MapElement, Destination);
             Globals.Map.ReleaseReservation(MapElement, MapElement.Coords.Round());
+            MapElement.army.VisibilityTable.DecreaseVisibility(MapElement);
+            MapElement.army.VisibilityTable.IncreaseVisibility(MapElement, Destination.X, Destination.Y);
             qt.Insert(MapElement);
 
             Unit.SetMove(this);

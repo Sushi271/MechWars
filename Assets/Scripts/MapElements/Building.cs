@@ -76,6 +76,18 @@ namespace MechWars.MapElements
             Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
         }
 
+        protected override void InitializeInVisibilityTable()
+        {
+            if (army != null)
+                army.VisibilityTable.IncreaseVisibility(this);
+        }
+
+        protected override void FinalizeInVisibilityTable()
+        {
+            if (army != null)
+                army.VisibilityTable.DecreaseVisibility(this);
+        }
+
         protected override void OnUpdate()
         {
             base.OnUpdate();
