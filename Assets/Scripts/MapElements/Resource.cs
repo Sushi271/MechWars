@@ -32,12 +32,12 @@ namespace MechWars.MapElements
             return 2;
         }
 
-        protected override void InitializeInQuadTree()
+        protected override void InitializeInQuadTree(Army army)
         {
             Globals.QuadTreeMap.ResourcesQuadTree.Insert(this);
         }
 
-        protected override void FinalizeInQuadTree()
+        protected override void FinalizeInQuadTree(Army army)
         {
             Globals.QuadTreeMap.ResourcesQuadTree.Remove(this);
         }

@@ -33,25 +33,25 @@ namespace MechWars.MapElements
             return 3;
         }
 
-        protected override void InitializeInQuadTree()
+        protected override void InitializeInQuadTree(Army army)
         {
             if (army != null)
                 Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
         }
 
-        protected override void FinalizeInQuadTree()
+        protected override void FinalizeInQuadTree(Army army)
         {
             if (army != null)
                 Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
         }
 
-        protected override void InitializeInVisibilityTable()
+        protected override void InitializeInVisibilityTable(Army army)
         {
             if (army != null)
                 army.VisibilityTable.IncreaseVisibility(this);
         }
 
-        protected override void FinalizeInVisibilityTable()
+        protected override void FinalizeInVisibilityTable(Army army)
         {
             if (army != null)
                 army.VisibilityTable.DecreaseVisibility(this);

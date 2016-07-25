@@ -66,23 +66,25 @@ namespace MechWars.MapElements
             return 1;
         }
 
-        protected override void InitializeInQuadTree()
+        protected override void InitializeInQuadTree(Army army)
         {
-            Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
+            if (army != null)
+                Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
         }
 
-        protected override void FinalizeInQuadTree()
+        protected override void FinalizeInQuadTree(Army army)
         {
-            Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
+            if (army != null)
+                Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
         }
 
-        protected override void InitializeInVisibilityTable()
+        protected override void InitializeInVisibilityTable(Army army)
         {
             if (army != null)
                 army.VisibilityTable.IncreaseVisibility(this);
         }
 
-        protected override void FinalizeInVisibilityTable()
+        protected override void FinalizeInVisibilityTable(Army army)
         {
             if (army != null)
                 army.VisibilityTable.DecreaseVisibility(this);
@@ -169,10 +171,10 @@ namespace MechWars.MapElements
             gameObject.name = prefab.gameObject.name;
 
             var building = gameObject.GetComponent<Building>();
-            building.InitializeMap();
             building.army = army;
             building.resourceValue = startCost;
             building.ReadStats();
+            building.InitializeMap();
 
             var buildingProduct = new BuildingProduct(building, args.Cost, args.ProductionTime);
 

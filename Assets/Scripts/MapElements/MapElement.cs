@@ -2,7 +2,6 @@
 using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Statistics;
-using MechWars.Mapping;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -300,25 +299,22 @@ namespace MechWars.MapElements
             foreach (var coord in occupiedFields)
                 Globals.Map.MakeReservation(this, coord);
 
-            InitializeInQuadTree();
-            InitializeInVisibilityTable();
-
             mapInitialized = true;
         }
 
-        protected virtual void InitializeInQuadTree()
+        protected virtual void InitializeInQuadTree(Army army)
         {
         }
 
-        protected virtual void FinalizeInQuadTree()
+        protected virtual void FinalizeInQuadTree(Army army)
         {
         }
 
-        protected virtual void InitializeInVisibilityTable()
+        protected virtual void InitializeInVisibilityTable(Army army)
         {
         }
 
-        protected virtual void FinalizeInVisibilityTable()
+        protected virtual void FinalizeInVisibilityTable(Army army)
         {
         }
 
@@ -498,9 +494,17 @@ namespace MechWars.MapElements
                 if (CanAddToArmy)
                 {
                     if (lastArmy != null)
+                    {
+                        FinalizeInQuadTree(lastArmy);
+                        FinalizeInVisibilityTable(lastArmy);
                         lastArmy.RemoveMapElement(this);
+                    }
                     if (army != null)
+                    {
                         army.AddMapElement(this);
+                        InitializeInQuadTree(army);
+                        InitializeInVisibilityTable(army);
+                    }
                 }
                 lastArmy = army;
             }
@@ -539,8 +543,8 @@ namespace MechWars.MapElements
 
             if (!Globals.Destroyed)
             {
-                FinalizeInQuadTree();
-                FinalizeInVisibilityTable();
+                FinalizeInQuadTree(army);
+                FinalizeInVisibilityTable(army);
                 Globals.Map.ReleaseReservations(this);
                 Globals.MapElementsDatabase.Delete(this);
             }
