@@ -5,6 +5,7 @@ using MechWars.MapElements.WallNeighbourhoods;
 using System.Collections.Generic;
 using MechWars.Utils;
 using MechWars.Mapping;
+using MechWars.FogOfWar;
 
 namespace MechWars
 {
@@ -119,6 +120,10 @@ namespace MechWars
         ShapeDatabase shapeDatabase;
         public static ShapeDatabase ShapeDatabase { get { return LazyGetGlobalsField(
             ref Instance.shapeDatabase, o => new ShapeDatabase()); } }
+        
+        LOSShapeDatabase losShapeDatabase;
+        public static LOSShapeDatabase LOSShapeDatabase { get { return LazyGetGlobalsField(
+            ref Instance.losShapeDatabase, o => new LOSShapeDatabase()); } }
 
         //===== PRIVATE =======================================================================
 

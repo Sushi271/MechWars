@@ -1,6 +1,6 @@
 ﻿using MechWars.Utils;
 
-namespace MechWars.Mapping
+namespace MechWars.Utils
 {
     public struct SquareBounds
     {
