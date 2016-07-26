@@ -14,6 +14,12 @@ namespace MechWars
             InputController = new InputController(this);
         }
 
+        void Start()
+        {
+            var army = Globals.HumanArmy;
+            if (army != null) army.actionsVisible = true;
+        }
+
         void Update()
         {
             InputController.Update();

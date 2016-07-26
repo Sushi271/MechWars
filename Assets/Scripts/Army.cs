@@ -2,6 +2,7 @@
 using MechWars.MapElements;
 using UnityEngine;
 using MechWars.FogOfWar;
+using MechWars.Mapping;
 
 namespace MechWars
 {
@@ -13,10 +14,14 @@ namespace MechWars
         public TechnologyController Technologies { get; private set; }
 
         public VisibilityTable VisibilityTable { get; private set; }
+        public QuadTree ResourcesQuadTree { get; private set; }
+        public QuadTree EnemiesQuadTree { get; private set; }
 
         public event System.Action OnBuildingConstructionFinished;
 
         public string armyName;
+
+        public bool actionsVisible;
 
         public int resources;
 
@@ -37,6 +42,8 @@ namespace MechWars
         void Start()
         {
             VisibilityTable = new VisibilityTable(this);
+            ResourcesQuadTree = Globals.Map.CreateQuadTree();
+            EnemiesQuadTree = Globals.Map.CreateQuadTree();
         }
 
         public void AddMapElement(MapElement mapElement)

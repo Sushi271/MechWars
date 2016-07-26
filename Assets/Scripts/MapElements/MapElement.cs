@@ -1,7 +1,9 @@
-﻿using MechWars.MapElements.Attacks;
+﻿using MechWars.FogOfWar;
+using MechWars.MapElements.Attacks;
 using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Statistics;
+using MechWars.Mapping;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -162,6 +164,29 @@ namespace MechWars.MapElements
 
         protected virtual bool CanAddToArmy { get { return false; } }
         public virtual bool Selectable { get { return false; } }
+
+        bool visibleToSpectator;
+        public bool VisibleToSpectator
+        {
+            get { return visibleToSpectator; }
+            private set
+            {
+                visibleToSpectator = value;
+
+                var renderers = gameObject.GetComponentsInChildren<Renderer>();
+                foreach (var r in renderers) r.enabled = value;
+
+                if (!value && Selectable)
+                {
+                    var selMonitor = Globals.Spectator.InputController.SelectionMonitor;
+                    if (selMonitor.IsSelected(this))
+                        selMonitor.Deselect(this.AsEnumerable());
+                }
+            }
+        }
+        protected virtual bool CreateVisibilityGhost { get { return true; } }
+        protected Dictionary<Army, bool> VisibleToArmies { get; private set; }
+
         public bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
         public bool CanEscort { get { return orderActions.Any(oa => oa.IsEscort); } }
         public virtual bool CanBeAttacked { get { return false; } }
@@ -227,6 +252,11 @@ namespace MechWars.MapElements
 
             InitializeMap();
             InitializeMinimapMarker();
+
+            VisibleToSpectator = false;
+            VisibleToArmies = new Dictionary<Army, bool>();
+            foreach (var a in Globals.Armies)
+                VisibleToArmies[a] = false;
         }
 
         void InitializeMinimapMarker()
@@ -302,14 +332,6 @@ namespace MechWars.MapElements
             mapInitialized = true;
         }
 
-        protected virtual void InitializeInQuadTree()
-        {
-        }
-
-        protected virtual void FinalizeInQuadTree()
-        {
-        }
-
         protected virtual void InitializeInVisibilityTable()
         {
         }
@@ -377,26 +399,16 @@ namespace MechWars.MapElements
 
         public Resource PickClosestResourceInRange(string rangeStatName)
         {
-            var rangeStat = Stats[rangeStatName];
-            if (rangeStat == null) return null;
-            var range = rangeStat.Value;
-
-            var roundRange = Mathf.RoundToInt(range);
-            var bounds = new SquareBounds(Coords.Round() - new IVector2(roundRange, roundRange), roundRange * 2 + 1);
-            var mapElements = (
-                from qtme in Globals.QuadTreeMap.ResourcesQuadTree.QueryRange(bounds)
-                where !qtme.MapElement.Dying
-                select qtme.MapElement)
-                .Distinct();
-
-            if (mapElements.Empty()) return null;
-            var closest = mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
-            if (HasMapElementInRange(closest, rangeStatName))
-                return (Resource)closest;
-            return null;
+            return PickClosestMapElementInRange<Resource>(rangeStatName, Army.ResourcesQuadTree);
         }
 
         public MapElement PickClosestEnemyInRange(string rangeStatName)
+        {
+            return PickClosestMapElementInRange<MapElement>(rangeStatName, Army.EnemiesQuadTree);
+        }
+
+        T PickClosestMapElementInRange<T>(string rangeStatName, QuadTree searchedQuadTree)
+            where T : MapElement
         {
             var rangeStat = Stats[rangeStatName];
             if (rangeStat == null) return null;
@@ -405,20 +417,15 @@ namespace MechWars.MapElements
             var roundRange = Mathf.RoundToInt(range);
             var bounds = new SquareBounds(Coords.Round() - new IVector2(roundRange, roundRange), roundRange * 2 + 1);
             var mapElements = (
-                from kv in Globals.QuadTreeMap.ArmyQuadTrees
-                where kv.Key != Army
-                let qt = kv.Value
-                select (
-                    from qtme in qt.QueryRange(bounds)
-                    where !qtme.MapElement.Dying
-                    select qtme.MapElement)
-                    .Distinct())
-                .SelectMany(x => x);
+                from qtme in searchedQuadTree.QueryRange(bounds)
+                where !qtme.MapElement.Dying
+                select qtme.MapElement)
+                .Distinct();
 
             if (mapElements.Empty()) return null;
             var closest = mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
             if (HasMapElementInRange(closest, rangeStatName))
-                return closest;
+                return (T)closest;
             return null;
         }
 
@@ -457,6 +464,61 @@ namespace MechWars.MapElements
             else AttackCooldown = 1 / attackSpeedStat.Value;
         }
 
+        void Update()
+        {
+            if (isShadow) return;
+
+            OnUpdate();
+        }
+
+        protected virtual void OnUpdate()
+        {
+            if (Army != nextArmy)
+                UpdateArmy();
+
+            UpdateVisibilityToSpectator();
+            UpdateArmiesQuadTrees();
+
+            if (CanAttack)
+                UpdateAttack();
+
+            if (OrderQueue.Enabled)
+                OrderQueue.Update();
+
+            UpdateDying();
+            UpdateAlive();
+        }
+
+        void UpdateArmy()
+        {
+            if (CanAddToArmy)
+            {
+                if (Army != null)
+                {
+                    FinalizeInVisibilityTable();
+                    Army.RemoveMapElement(this);
+                }
+                Army = nextArmy;
+                if (Army != null)
+                {
+                    Army.AddMapElement(this);
+                    InitializeInVisibilityTable();
+                }
+            }
+        }
+
+        void UpdateVisibilityToSpectator()
+        {
+            VisibleToSpectator = Globals.Armies
+                .Where(a => a.actionsVisible)
+                .Any(a => AllCoords
+                    .Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible));
+        }
+
+        protected virtual void UpdateArmiesQuadTrees()
+        {
+        }
+
         void UpdateAttack()
         {
             if (currentAttackAnimation == null && AttackCooldown > 0)
@@ -476,48 +538,6 @@ namespace MechWars.MapElements
                     currentAttackAnimation = null;
                     if (attackFinishCallback != null)
                         attackFinishCallback();
-                }
-            }
-        }
-
-        void Update()
-        {
-            if (isShadow) return;
-
-            OnUpdate();
-        }
-
-        protected virtual void OnUpdate()
-        {
-            if (Army != nextArmy)
-                UpdateArmy();
-
-            if (CanAttack)
-                UpdateAttack();
-
-            if (OrderQueue.Enabled)
-                OrderQueue.Update();
-
-            UpdateDying();
-            UpdateAlive();
-        }
-
-        void UpdateArmy()
-        {
-            if (CanAddToArmy)
-            {
-                if (Army != null)
-                {
-                    FinalizeInQuadTree();
-                    FinalizeInVisibilityTable();
-                    Army.RemoveMapElement(this);
-                }
-                Army = nextArmy;
-                if (Army != null)
-                {
-                    Army.AddMapElement(this);
-                    InitializeInQuadTree();
-                    InitializeInVisibilityTable();
                 }
             }
         }
@@ -547,7 +567,6 @@ namespace MechWars.MapElements
 
             if (!Globals.Destroyed)
             {
-                FinalizeInQuadTree();
                 FinalizeInVisibilityTable();
                 Globals.Map.ReleaseReservations(this);
                 Globals.MapElementsDatabase.Delete(this);

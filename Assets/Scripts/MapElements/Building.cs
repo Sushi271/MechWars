@@ -1,4 +1,5 @@
-﻿using MechWars.MapElements.Orders;
+﻿using MechWars.FogOfWar;
+using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.MapElements.Orders.Products;
 using MechWars.MapElements.Statistics;
@@ -37,6 +38,13 @@ namespace MechWars.MapElements
         {
             base.OnStart();
 
+            var particleManager = gameObject.GetComponent<ParticleManager>();
+            if (particleManager != null)
+                foreach (var pg in particleManager.particleGroups)
+                {
+                    pg.Enabled = false;
+                }
+
             if (!UnderConstruction) OrderQueue.Enable();
 
             InitializeNeighbourFields();
@@ -64,18 +72,6 @@ namespace MechWars.MapElements
         protected override float GetMarkerHeight()
         {
             return 1;
-        }
-
-        protected override void InitializeInQuadTree()
-        {
-            if (Army != null)
-                Globals.QuadTreeMap.ArmyQuadTrees[Army].Insert(this);
-        }
-
-        protected override void FinalizeInQuadTree()
-        {
-            if (Army != null)
-                Globals.QuadTreeMap.ArmyQuadTrees[Army].Remove(this);
         }
 
         protected override void InitializeInVisibilityTable()
@@ -106,6 +102,22 @@ namespace MechWars.MapElements
                     {
                         pg.Enabled = true;
                     }
+            }
+        }
+
+        protected override void UpdateArmiesQuadTrees()
+        {
+            foreach (var a in Globals.Armies)
+            {
+                if (a == Army) continue;
+
+                var visible = AllCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
+                if (visible != VisibleToArmies[a])
+                {
+                    VisibleToArmies[a] = visible;
+                    if (visible) a.EnemiesQuadTree.Insert(this);
+                    else a.EnemiesQuadTree.Remove(this);
+                }
             }
         }
 
@@ -185,13 +197,6 @@ namespace MechWars.MapElements
                 throw new System.Exception(string.Format(
                     "Building {0} doesn't have {1} Stat.", prefab, StatNames.HitPoints));
             hpStat.Value = bci.TotalProgress * hpStat.MaxValue;
-
-            var particleManager = gameObject.GetComponent<ParticleManager>();
-            if (particleManager != null)
-                foreach (var pg in particleManager.particleGroups)
-                {
-                    pg.Enabled = false;
-                }
 
             return buildingProduct;
         }

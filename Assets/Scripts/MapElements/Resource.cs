@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using MechWars.FogOfWar;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +22,6 @@ namespace MechWars.MapElements
 
             startValue = value;
             if (startValue == 0) startValue = 1;
-            InitializeInQuadTree();
         }
 
         protected override Sprite GetMarkerImage()
@@ -33,22 +34,26 @@ namespace MechWars.MapElements
             return 2;
         }
 
-        protected override void InitializeInQuadTree()
-        {
-            Globals.QuadTreeMap.ResourcesQuadTree.Insert(this);
-        }
-
-        protected override void FinalizeInQuadTree()
-        {
-            Globals.QuadTreeMap.ResourcesQuadTree.Remove(this);
-        }
-
         protected override void OnUpdate()
         {
             base.OnUpdate();
 
             var scale = Mathf.Pow(Size, 1 / 3f);
             transform.localScale = new Vector3(scale, scale, scale);
+        }
+
+        protected override void UpdateArmiesQuadTrees()
+        {
+            foreach (var a in Globals.Armies)
+            {
+                var visible = AllCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
+                if (visible != VisibleToArmies[a])
+                {
+                    VisibleToArmies[a] = visible;
+                    if (visible) a.ResourcesQuadTree.Insert(this);
+                    else a.ResourcesQuadTree.Remove(this);
+                }
+            }
         }
 
         public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)

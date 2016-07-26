@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using MechWars.Utils;
+using System.Linq;
+using UnityEngine;
 
 namespace MechWars.FogOfWar
 {
@@ -23,19 +25,28 @@ namespace MechWars.FogOfWar
 
         void PaintVisiblity()
         {
-            var army = Globals.HumanArmy;
-            if (army == null) return;
-
             var size = Globals.MapSettings.Size;
             var pixels = texture.GetPixels();
+
+            var visibleArmies = Globals.Armies.Where(a => a.actionsVisible);
+            var noArmies = visibleArmies.Empty();
 
             for (int y = 0; y < size; y++)
                 for (int x = 0; x < size; x++)
                 {
-                    var visibility = army.VisibilityTable[x, y];
-                    var alpha =
-                        visibility == Visibility.Visible ? 0 :
-                        visibility == Visibility.Fogged ? 0.5f : 1;
+                    var alpha = 1f;
+                    if (!noArmies)
+                    {
+                        var visibility = visibleArmies
+                            .Select(a => a.VisibilityTable[x, y])
+                            .Aggregate((v1, v2) =>
+                                v1 == Visibility.Visible || v2 == Visibility.Visible ? Visibility.Visible :
+                                v1 == Visibility.Fogged || v2 == Visibility.Fogged ? Visibility.Fogged :
+                                Visibility.Unknown);
+                        alpha =
+                           visibility == Visibility.Visible ? 0f :
+                           visibility == Visibility.Fogged ? 0.5f : 1f;
+                    }
                     Color color = new Color(0, 0, 0, alpha);
                     pixels[y * size + x] = color;
                 }

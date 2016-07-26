@@ -112,6 +112,7 @@ namespace MechWars.PlayerInput
         void FilterHoverCandidates(HashSet<MapElement> candidates)
         {
             inputController.BehaviourDeterminant.FilterHoverCandidates(candidates);
+            candidates.RemoveWhere(me => !me.VisibleToSpectator);
         }
 
         void UpdateHoveredMapElements(HashSet<MapElement> candidates)

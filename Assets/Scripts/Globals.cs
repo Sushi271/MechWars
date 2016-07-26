@@ -45,6 +45,15 @@ namespace MechWars
         public static Player HumanPlayer { get { return Spectator == null ? null : Spectator.player; } }
         public static Army HumanArmy { get { return HumanPlayer == null ? null : HumanPlayer.army; } }
 
+        public static IEnumerable<Army> Armies
+        {
+            get
+            {
+                foreach (var p in MapSettings.players)
+                    yield return p.army;
+            }
+        }
+
         public static GameObject MainCameraObject { get { return GameObject.FindGameObjectWithTag(Tag.MainCamera); } }
         public static GameObject GUICameraObject { get { return GameObject.FindGameObjectWithTag(Tag.GUICamera); } }
         public static Camera MainCamera { get { return MainCameraObject.GetComponent<Camera>(); } }
@@ -74,15 +83,6 @@ namespace MechWars
             get
             {
                 return TryLazyGetGlobalsComponent(ref map);
-            }
-        }
-
-        static QuadTreeMap quadTreeMap;
-        public static QuadTreeMap QuadTreeMap
-        {
-            get
-            {
-                return TryLazyGetGlobalsComponent(ref quadTreeMap);
             }
         }
 
