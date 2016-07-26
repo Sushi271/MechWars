@@ -67,7 +67,7 @@ namespace MechWars.MapElements.Orders
                 }
 
                 progress -= intProgress;
-                Deposit.army.resources += intProgress;
+                Deposit.Army.resources += intProgress;
                 carriedResourceStat.Value -= intProgress;
                 Unit.additionalResourceValue -= intProgress;
             }

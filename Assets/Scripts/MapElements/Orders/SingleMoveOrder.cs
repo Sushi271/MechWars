@@ -38,12 +38,12 @@ namespace MechWars.MapElements.Orders
             
             Speed = speedStat.Value;
 
-            var qt = Globals.QuadTreeMap.ArmyQuadTrees[MapElement.army];
+            var qt = Globals.QuadTreeMap.ArmyQuadTrees[MapElement.Army];
             qt.Remove(MapElement);
             Globals.Map.MakeReservation(MapElement, Destination);
             Globals.Map.ReleaseReservation(MapElement, MapElement.Coords.Round());
-            MapElement.army.VisibilityTable.DecreaseVisibility(MapElement);
-            MapElement.army.VisibilityTable.IncreaseVisibility(MapElement, Destination.X, Destination.Y);
+            MapElement.Army.VisibilityTable.DecreaseVisibility(MapElement);
+            MapElement.Army.VisibilityTable.IncreaseVisibility(MapElement, Destination.X, Destination.Y);
             qt.Insert(MapElement);
 
             Unit.SetMove(this);

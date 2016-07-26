@@ -20,6 +20,7 @@ namespace MechWars.MapElements
 
             startValue = value;
             if (startValue == 0) startValue = 1;
+            InitializeInQuadTree();
         }
 
         protected override Sprite GetMarkerImage()
@@ -32,12 +33,12 @@ namespace MechWars.MapElements
             return 2;
         }
 
-        protected override void InitializeInQuadTree(Army army)
+        protected override void InitializeInQuadTree()
         {
             Globals.QuadTreeMap.ResourcesQuadTree.Insert(this);
         }
 
-        protected override void FinalizeInQuadTree(Army army)
+        protected override void FinalizeInQuadTree()
         {
             Globals.QuadTreeMap.ResourcesQuadTree.Remove(this);
         }

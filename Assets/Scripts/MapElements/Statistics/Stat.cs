@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using UnityEngine;
 
 namespace MechWars.MapElements.Statistics
 {
@@ -14,10 +13,10 @@ namespace MechWars.MapElements.Statistics
             get
             {
                 var val = value;
-                if (limited || Owner.army == null) return value;
+                if (limited || Owner.Army == null) return value;
 
                 var bonuses =
-                    from b in Owner.army.Technologies.GetBonusesFor(Owner)
+                    from b in Owner.Army.Technologies.GetBonusesFor(Owner)
                     where b.statName == Name
                     orderby b.order, b.type
                     select b;
@@ -49,10 +48,10 @@ namespace MechWars.MapElements.Statistics
             get
             {
                 var val = maxValue;
-                if (!limited || Owner.army == null) return maxValue;
+                if (!limited || Owner.Army == null) return maxValue;
 
                 var bonuses =
-                    from b in Owner.army.Technologies.GetBonusesFor(Owner)
+                    from b in Owner.Army.Technologies.GetBonusesFor(Owner)
                     where b.statName == Name
                     orderby b.order, b.type
                     select b;

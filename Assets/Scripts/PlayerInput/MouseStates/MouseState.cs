@@ -31,7 +31,7 @@ namespace MechWars.PlayerInput.MouseStates
             var selected = InputController.SelectionMonitor.SelectedMapElements;
             foreach (var me in selected)
             {
-                if (me.army != Globals.HumanArmy) continue;
+                if (me.Army != Globals.HumanArmy) continue;
 
                 var result = me.orderActions.FirstOrAnother(types.Select(
                     t => new System.Func<OrderAction, bool>(oa => oa.GetType() == t)).ToArray());

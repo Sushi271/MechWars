@@ -44,7 +44,7 @@ namespace MechWars.PlayerInput.MouseStates
             if (mapElement != null)
             {
                 handled = true;
-                if (mapElement.CanBeAttacked && mapElement.army != null && mapElement.army != Globals.HumanArmy)
+                if (mapElement.CanBeAttacked && mapElement.Army != null && mapElement.Army != Globals.HumanArmy)
                     GiveOrdersIfPossible(
                         typeof(FollowAttackOrderAction),
                         typeof(StandAttackOrderAction),

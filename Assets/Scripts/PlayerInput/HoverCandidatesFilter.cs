@@ -12,12 +12,12 @@ namespace MechWars.PlayerInput
             candidates.RemoveWhere(me => !me.Selectable);
             if (candidates.Empty()) return;
 
-            var armies = candidates.SelectDistinct(me => me.army);
+            var armies = candidates.SelectDistinct(me => me.Army);
             var army = armies.FirstOrAnother(
                 a => a == Globals.HumanArmy,
                 a => a != null,
                 a => a == null).Result;
-            candidates.RemoveWhere(me => me.army != army);
+            candidates.RemoveWhere(me => me.Army != army);
             // candidates cannot be empty after this - no return
 
             System.Func<MapElement, bool> interMultiSelectable = me => me is Unit || me.CanAttack;
@@ -50,16 +50,16 @@ namespace MechWars.PlayerInput
 
             var selected = Globals.Spectator.InputController.SelectionMonitor.SelectedMapElements;
             Army army;
-            if (!selected.Empty()) army = selected.First().army;
+            if (!selected.Empty()) army = selected.First().Army;
             else
             {
-                var armies = candidates.SelectDistinct(me => me.army);
+                var armies = candidates.SelectDistinct(me => me.Army);
                 army = armies.FirstOrAnother(
                     a => a == Globals.HumanArmy,
                     a => a != null,
                     a => a == null).Result;
             }
-            candidates.RemoveWhere(me => me.army != army);
+            candidates.RemoveWhere(me => me.Army != army);
             // candidates cannot be empty after this - no return
 
             System.Func<MapElement, bool> interMultiSelectable = me => me is Unit || me.CanAttack;
@@ -104,12 +104,12 @@ namespace MechWars.PlayerInput
             candidates.RemoveWhere(me => !me.CanBeAttacked);
             if (candidates.Empty()) return;
             
-            var armies = candidates.SelectDistinct(me => me.army);
+            var armies = candidates.SelectDistinct(me => me.Army);
             var army = armies.FirstOrAnother(
                 a => a != null && a != Globals.HumanArmy,
                 a => a == null,
                 a => a == Globals.HumanArmy).Result;
-            candidates.RemoveWhere(me => me.army != army);
+            candidates.RemoveWhere(me => me.Army != army);
         }
 
         public static void Escort(HashSet<MapElement> candidates)
@@ -121,7 +121,7 @@ namespace MechWars.PlayerInput
                 return;
             }
 
-            candidates.RemoveWhere(me => !me.CanBeEscorted || me.army != Globals.HumanArmy);
+            candidates.RemoveWhere(me => !me.CanBeEscorted || me.Army != Globals.HumanArmy);
         }
 
         internal static void LookAt(HashSet<MapElement> candidates)

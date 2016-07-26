@@ -101,11 +101,11 @@ namespace MechWars.InGameGUI
             Texture mainTexture;
             Texture sideTexture;
             Texture topTexture;
-            if (mapElement.army != null)
+            if (mapElement.Army != null)
             {
-                mainTexture = mapElement.army.hpBarMain;
-                sideTexture = mapElement.army.hpBarSide;
-                topTexture = mapElement.army.hpBarTop;
+                mainTexture = mapElement.Army.hpBarMain;
+                sideTexture = mapElement.Army.hpBarSide;
+                topTexture = mapElement.Army.hpBarTop;
             }
             else
             {

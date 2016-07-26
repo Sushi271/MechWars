@@ -13,11 +13,11 @@ namespace MechWars.MapElements
 {
     public class MapElement : MonoBehaviour, IRotatable
     {
-        Army lastArmy;
-
         public string mapElementName;
         public int id;
-        public Army army;
+
+        public Army nextArmy;
+        public Army Army { get; private set; }
 
         public TextAsset shapeFile;
         public TextAsset statsFile;
@@ -216,11 +216,11 @@ namespace MechWars.MapElements
         {
             id = NewId;
 
-            Globals.MapElementsDatabase.Insert(this);
-            if (army != null && CanAddToArmy)
-                army.AddMapElement(this);
-
             ReadStats();
+
+            Globals.MapElementsDatabase.Insert(this);
+            if (nextArmy != null)
+                UpdateArmy();
 
             UpdateDying();
             UpdateAlive();
@@ -302,19 +302,19 @@ namespace MechWars.MapElements
             mapInitialized = true;
         }
 
-        protected virtual void InitializeInQuadTree(Army army)
+        protected virtual void InitializeInQuadTree()
         {
         }
 
-        protected virtual void FinalizeInQuadTree(Army army)
+        protected virtual void FinalizeInQuadTree()
         {
         }
 
-        protected virtual void InitializeInVisibilityTable(Army army)
+        protected virtual void InitializeInVisibilityTable()
         {
         }
 
-        protected virtual void FinalizeInVisibilityTable(Army army)
+        protected virtual void FinalizeInVisibilityTable()
         {
         }
 
@@ -406,7 +406,7 @@ namespace MechWars.MapElements
             var bounds = new SquareBounds(Coords.Round() - new IVector2(roundRange, roundRange), roundRange * 2 + 1);
             var mapElements = (
                 from kv in Globals.QuadTreeMap.ArmyQuadTrees
-                where kv.Key != army
+                where kv.Key != Army
                 let qt = kv.Value
                 select (
                     from qtme in qt.QueryRange(bounds)
@@ -489,33 +489,37 @@ namespace MechWars.MapElements
 
         protected virtual void OnUpdate()
         {
-            if (lastArmy != army)
-            {
-                if (CanAddToArmy)
-                {
-                    if (lastArmy != null)
-                    {
-                        FinalizeInQuadTree(lastArmy);
-                        FinalizeInVisibilityTable(lastArmy);
-                        lastArmy.RemoveMapElement(this);
-                    }
-                    if (army != null)
-                    {
-                        army.AddMapElement(this);
-                        InitializeInQuadTree(army);
-                        InitializeInVisibilityTable(army);
-                    }
-                }
-                lastArmy = army;
-            }
+            if (Army != nextArmy)
+                UpdateArmy();
 
-            UpdateAttack();
+            if (CanAttack)
+                UpdateAttack();
 
             if (OrderQueue.Enabled)
                 OrderQueue.Update();
 
             UpdateDying();
             UpdateAlive();
+        }
+
+        void UpdateArmy()
+        {
+            if (CanAddToArmy)
+            {
+                if (Army != null)
+                {
+                    FinalizeInQuadTree();
+                    FinalizeInVisibilityTable();
+                    Army.RemoveMapElement(this);
+                }
+                Army = nextArmy;
+                if (Army != null)
+                {
+                    Army.AddMapElement(this);
+                    InitializeInQuadTree();
+                    InitializeInVisibilityTable();
+                }
+            }
         }
 
         protected void UpdateDying()
@@ -538,13 +542,13 @@ namespace MechWars.MapElements
             if (LifeEnding != null)
                 LifeEnding(this);
 
-            if (army != null && CanAddToArmy)
-                army.RemoveMapElement(this);
+            if (Army != null && CanAddToArmy)
+                Army.RemoveMapElement(this);
 
             if (!Globals.Destroyed)
             {
-                FinalizeInQuadTree(army);
-                FinalizeInVisibilityTable(army);
+                FinalizeInQuadTree();
+                FinalizeInVisibilityTable();
                 Globals.Map.ReleaseReservations(this);
                 Globals.MapElementsDatabase.Delete(this);
             }
@@ -632,7 +636,7 @@ namespace MechWars.MapElements
             sb
                 .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
                 .AppendLine(string.Format("Coords: {0}", Coords))
-                .AppendLine(string.Format("Army: {0}", army == null ? "NONE" : army.armyName))
+                .AppendLine(string.Format("Army: {0}", Army == null ? "NONE" : Army.armyName))
                 .AppendLine(string.Format("Can attack: {0}", CanAttack))
                 .AppendLine(string.Format("Resource value: {0} + {1}", resourceValue, additionalResourceValue))
                 .AppendLine(string.Format("Stats ({0}):", Stats.Count));

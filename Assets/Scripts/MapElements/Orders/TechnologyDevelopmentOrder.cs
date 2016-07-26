@@ -28,7 +28,7 @@ namespace MechWars.MapElements.Orders
             TryFail(OrderResultAsserts.AssertIsNotNull(DevelopedTechnology, "Developed Technology"));
             if (Failed) return;
 
-            ConstructingBuilding.army.Technologies.StartDeveloping(DevelopedTechnology);
+            ConstructingBuilding.Army.Technologies.StartDeveloping(DevelopedTechnology);
             productionOrder = new ProductionOrder(ConstructingBuilding, technologyProduct);
             GiveSubOrder(productionOrder);
         }
@@ -58,13 +58,13 @@ namespace MechWars.MapElements.Orders
         void Develop()
         {
             var technologyGO = Object.Instantiate(DevelopedTechnology.gameObject);
-            ConstructingBuilding.army.Technologies.FinishDeveloping(technologyGO.GetComponent<Technology>());
+            ConstructingBuilding.Army.Technologies.FinishDeveloping(technologyGO.GetComponent<Technology>());
             ConstructingBuilding.additionalResourceValue = 0;
         }
 
         void Cancel()
         {
-            ConstructingBuilding.army.Technologies.CancelDeveloping(DevelopedTechnology);
+            ConstructingBuilding.Army.Technologies.CancelDeveloping(DevelopedTechnology);
         }
 
         protected override string SpecificsToStringCore()

@@ -34,7 +34,7 @@ namespace MechWars.MapElements.Orders
                 return;
             }
 
-            var army = Building.army;
+            var army = Building.Army;
             if (resourcesDepleted)
             {
                 if (army.resources > 0)
@@ -87,7 +87,7 @@ namespace MechWars.MapElements.Orders
         {
             if (DontRevert) return;
 
-            Building.army.resources += Paid;
+            Building.Army.resources += Paid;
             Paid = 0;
             progress = 0;
         }

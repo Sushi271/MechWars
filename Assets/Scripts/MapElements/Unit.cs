@@ -23,8 +23,8 @@ namespace MechWars.MapElements
 
         protected override Sprite GetMarkerImage()
         {
-            if (army != null)
-                return army.unitMarker;
+            if (Army != null)
+                return Army.unitMarker;
             return Globals.Textures.neutralUnitMarker;
         }
 
@@ -33,28 +33,28 @@ namespace MechWars.MapElements
             return 3;
         }
 
-        protected override void InitializeInQuadTree(Army army)
+        protected override void InitializeInQuadTree()
         {
-            if (army != null)
-                Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
+            if (Army != null)
+                Globals.QuadTreeMap.ArmyQuadTrees[Army].Insert(this);
         }
 
-        protected override void FinalizeInQuadTree(Army army)
+        protected override void FinalizeInQuadTree()
         {
-            if (army != null)
-                Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
+            if (Army != null)
+                Globals.QuadTreeMap.ArmyQuadTrees[Army].Remove(this);
         }
 
-        protected override void InitializeInVisibilityTable(Army army)
+        protected override void InitializeInVisibilityTable()
         {
-            if (army != null)
-                army.VisibilityTable.IncreaseVisibility(this);
+            if (Army != null)
+                Army.VisibilityTable.IncreaseVisibility(this);
         }
 
-        protected override void FinalizeInVisibilityTable(Army army)
+        protected override void FinalizeInVisibilityTable()
         {
-            if (army != null)
-                army.VisibilityTable.DecreaseVisibility(this);
+            if (Army != null)
+                Army.VisibilityTable.DecreaseVisibility(this);
         }
 
         public bool SetMove(SingleMoveOrder singleMoveOrder)

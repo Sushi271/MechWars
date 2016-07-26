@@ -61,7 +61,7 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnSubOrderStopped()
         {
-            ConstructedBuilding.army = null;
+            ConstructedBuilding.nextArmy = null;
             Succeed();
         }
 

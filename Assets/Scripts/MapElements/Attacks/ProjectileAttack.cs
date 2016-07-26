@@ -45,7 +45,7 @@ namespace MechWars.MapElements.Attacks
                 var data = CalculateStartingVelocity(p, target, aim);
 
                 var projectile = Instantiate(projectilePrefab);
-                projectile.transform.SetParent(attacker.army.transform);
+                projectile.transform.SetParent(attacker.Army.transform);
                 projectile.transform.position = p;
                 projectile.transform.rotation = startingRotation;
                 projectile.Velocity = data.startingVelocity;

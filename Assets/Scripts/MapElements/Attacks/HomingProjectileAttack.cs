@@ -61,7 +61,7 @@ namespace MechWars.MapElements.Attacks
             foreach (var p in startingPositions)
             {
                 var projectile = Instantiate(projectilePrefab);
-                projectile.transform.SetParent(attacker.army.transform);
+                projectile.transform.SetParent(attacker.Army.transform);
                 projectile.transform.position = p;
                 projectile.transform.rotation = startingRotation;
                 projectile.Firepower = firepower.Value / count;

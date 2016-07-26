@@ -56,8 +56,8 @@ namespace MechWars.MapElements
 
         protected override Sprite GetMarkerImage()
         {
-            if (army != null)
-                return army.buildingMarker;
+            if (Army != null)
+                return Army.buildingMarker;
             return Globals.Textures.neutralBuildingMarker;
         }
 
@@ -66,28 +66,28 @@ namespace MechWars.MapElements
             return 1;
         }
 
-        protected override void InitializeInQuadTree(Army army)
+        protected override void InitializeInQuadTree()
         {
-            if (army != null)
-                Globals.QuadTreeMap.ArmyQuadTrees[army].Insert(this);
+            if (Army != null)
+                Globals.QuadTreeMap.ArmyQuadTrees[Army].Insert(this);
         }
 
-        protected override void FinalizeInQuadTree(Army army)
+        protected override void FinalizeInQuadTree()
         {
-            if (army != null)
-                Globals.QuadTreeMap.ArmyQuadTrees[army].Remove(this);
+            if (Army != null)
+                Globals.QuadTreeMap.ArmyQuadTrees[Army].Remove(this);
         }
 
-        protected override void InitializeInVisibilityTable(Army army)
+        protected override void InitializeInVisibilityTable()
         {
-            if (army != null)
-                army.VisibilityTable.IncreaseVisibility(this);
+            if (Army != null)
+                Army.VisibilityTable.IncreaseVisibility(this);
         }
 
-        protected override void FinalizeInVisibilityTable(Army army)
+        protected override void FinalizeInVisibilityTable()
         {
-            if (army != null)
-                army.VisibilityTable.DecreaseVisibility(this);
+            if (Army != null)
+                Army.VisibilityTable.DecreaseVisibility(this);
         }
 
         protected override void OnUpdate()
@@ -128,8 +128,8 @@ namespace MechWars.MapElements
             gameObject.transform.position = new Vector3(field.X, 0, field.Y);
             gameObject.name = unit.gameObject.name;
             var newUnit = gameObject.GetComponent<Unit>();
+            newUnit.nextArmy = Army;
             newUnit.InitializeMap();
-            newUnit.army = army;
 
             return newUnit;
         }
@@ -144,13 +144,13 @@ namespace MechWars.MapElements
                 throw new System.Exception(string.Format(
                     "Building {0} cannot construct Building {1}", this, args.Building));
 
-            if (!args.CheckRequirements(army))
+            if (!args.CheckRequirements(Army))
                 throw new System.Exception(string.Format(
                     "Building {0} is not meeting requirements to construct Building {1}", this, args.Building));
 
             var prefab = args.Building;
             int startCost = args.StartCost;
-            if (startCost > army.resources)
+            if (startCost > Army.resources)
             {
                 Debug.Log(string.Format("Not enough resources to start Building {0} construction", prefab));
                 return null;
@@ -163,7 +163,7 @@ namespace MechWars.MapElements
                     "Cannot construct Building {0} in location {1} - it's occupied.", prefab, location));
             }
 
-            army.resources -= startCost;
+            Army.resources -= startCost;
 
             var gameObject = Instantiate(prefab.gameObject);
             gameObject.transform.parent = transform.parent;
@@ -171,7 +171,7 @@ namespace MechWars.MapElements
             gameObject.name = prefab.gameObject.name;
 
             var building = gameObject.GetComponent<Building>();
-            building.army = army;
+            building.nextArmy = Army;
             building.resourceValue = startCost;
             building.ReadStats();
             building.InitializeMap();

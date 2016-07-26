@@ -54,12 +54,12 @@ namespace MechWars.InGameGUI
                 if (building != null && !building.UnderConstruction)
                 {
                     var productionOAs = building.orderActions.OfType<UnitProductionOrderAction>()
-                        .Where(poa => poa.CheckRequirements(building.army)).ToList();
+                        .Where(poa => poa.CheckRequirements(building.Army)).ToList();
                     var constructionOAs = building.orderActions.OfType<BuildingConstructionOrderAction>()
-                        .Where(coa => coa.CheckRequirements(building.army)).ToList();
+                        .Where(coa => coa.CheckRequirements(building.Army)).ToList();
                     var developmentOAs = building.orderActions.OfType<TechnologyDevelopmentOrderAction>()
-                        .Where(doa => building.army.Technologies.CanDevelop(doa.technology))
-                        .Where(doa => doa.CheckRequirements(building.army)).ToList();
+                        .Where(doa => building.Army.Technologies.CanDevelop(doa.technology))
+                        .Where(doa => doa.CheckRequirements(building.Army)).ToList();
                     var count = productionOAs.Count + constructionOAs.Count + developmentOAs.Count;
 
                     float margin = 4;
@@ -139,14 +139,14 @@ namespace MechWars.InGameGUI
 
         void SubscribeEvents(Building building)
         {
-            if (building != null && building.army != null)
-                building.army.Technologies.OnTechnologyDevelopmentChanged += InvokeRefreshBuildingGUI;
+            if (building != null && building.Army != null)
+                building.Army.Technologies.OnTechnologyDevelopmentChanged += InvokeRefreshBuildingGUI;
         }
 
         void UnsubscribeEvents(Building building)
         {
-            if (building != null && building.army != null)
-                building.army.Technologies.OnTechnologyDevelopmentChanged -= InvokeRefreshBuildingGUI;
+            if (building != null && building.Army != null)
+                building.Army.Technologies.OnTechnologyDevelopmentChanged -= InvokeRefreshBuildingGUI;
         }
 
         void InvokeRefreshBuildingGUI()
