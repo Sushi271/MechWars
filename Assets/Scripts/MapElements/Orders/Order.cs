@@ -138,7 +138,7 @@ namespace MechWars.MapElements.Orders
         {
             OnTerminating();
             Debug.LogError(string.Format("Order {0} of {1} terminated: {2}",
-                Name, MapElement, Result.Message));
+                Name, MapElement, Result != null ? Result.Message : "NULL"));
             State = OrderState.Terminated;
         }
 
