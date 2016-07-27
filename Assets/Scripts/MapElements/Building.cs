@@ -23,12 +23,7 @@ namespace MechWars.MapElements
         public override bool CanBeAttacked { get { return true; } }
 
         HashSet<IVector2> allNeighbourFields;
-
-        public Building()
-        {
-            allNeighbourFields = new HashSet<IVector2>();
-        }
-
+        
         protected override OrderQueue CreateOrderQueue(bool enabled = false)
         {
             return base.CreateOrderQueue(enabled);
@@ -52,6 +47,7 @@ namespace MechWars.MapElements
 
         void InitializeNeighbourFields()
         {
+            allNeighbourFields = new HashSet<IVector2>();
             var deltas = UnityExtensions.NeighbourDeltas;
             foreach (var c in AllCoords)
                 foreach (var d in deltas)

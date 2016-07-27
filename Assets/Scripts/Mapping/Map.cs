@@ -2,6 +2,7 @@
 using MechWars.MapElements;
 using MechWars.Utils;
 using UnityEngine;
+using System.Linq;
 
 namespace MechWars.Mapping
 {
@@ -32,7 +33,14 @@ namespace MechWars.Mapping
                 if (IsInBounds(x, y))
                     reservationTable[x, y] = value;
             }
-        
+        }
+
+        List<MapElement>[,] ghostsTable;
+        public IEnumerable<MapElement> GetGhosts(int x, int y)
+        {
+            if (!IsInBounds(x, y) ||
+                ghostsTable[x, y] == null) return Enumerable.Empty<MapElement>();
+            return ghostsTable[x, y];
         }
 
         public MapElement this[IVector2 coords]
@@ -65,6 +73,7 @@ namespace MechWars.Mapping
 
             Size = Globals.MapSettings.Size;
             reservationTable = new MapElement[Size, Size];
+            ghostsTable = new List<MapElement>[Size, Size];
         }
 
         public void MakeReservation(MapElement mapElement, IVector2 coords)
@@ -114,6 +123,33 @@ namespace MechWars.Mapping
             foreach (var r in reservations)
                 this[r] = null;
             reservationDictionary.Remove(mapElement);
+        }
+
+        public void AddGhost(MapElement ghost)
+        {
+            var occupiedFields = ghost.AllCoords;
+            foreach (var coord in occupiedFields)
+            {
+                var list = ghostsTable[coord.X, coord.Y];
+                if (list == null)
+                {
+                    list = new List<MapElement>();
+                    ghostsTable[coord.X, coord.Y] = list;
+                }
+                list.Add(ghost);
+            }
+        }
+
+        public void RemoveGhost(MapElement ghost)
+        {
+            var occupiedFields = ghost.AllCoords;
+            foreach (var coord in occupiedFields)
+            {
+                var list = ghostsTable[coord.X, coord.Y];
+                list.Remove(ghost);
+                if (list.Empty())
+                    ghostsTable[coord.X, coord.Y] = null;
+            }
         }
 
         public QuadTree CreateQuadTree()

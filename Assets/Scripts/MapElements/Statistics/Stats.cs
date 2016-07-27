@@ -6,8 +6,7 @@ namespace MechWars.MapElements.Statistics
     public class Stats : IEnumerable<KeyValuePair<string, Stat>>
     {
         Dictionary<string, Stat> attributes;
-
-        public MapElement Owner { get; private set; }
+        
         public int Count { get { return attributes.Count; } }
 
         public Stat this[string name]
@@ -30,15 +29,9 @@ namespace MechWars.MapElements.Statistics
             }
         }
 
-        public Stats(MapElement owner)
+        public Stats()
         {
             attributes = new Dictionary<string, Stat>();
-            Owner = owner;
-        }
-
-        public Stats(Stats stats)
-        {
-            attributes = new Dictionary<string, Stat>(stats.attributes);
         }
 
         public void Add(Stat attribute)
@@ -59,6 +52,16 @@ namespace MechWars.MapElements.Statistics
         public void Clear()
         {
             attributes.Clear();
+        }
+
+        public Stats Clone(MapElement newOwner)
+        {
+            var newStats = new Stats();
+            foreach (var kv in attributes)
+            {
+                newStats[kv.Key] = this[kv.Key].Clone(newOwner);
+            }
+            return newStats;
         }
 
         public IEnumerator<KeyValuePair<string, Stat>> GetEnumerator()

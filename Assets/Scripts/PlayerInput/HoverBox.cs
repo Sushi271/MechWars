@@ -5,6 +5,7 @@ using System.Linq;
 using MechWars.GLRendering;
 using MechWars.MapElements;
 using UnityEngine;
+using MechWars.Utils;
 
 namespace MechWars.PlayerInput
 {
@@ -58,6 +59,7 @@ namespace MechWars.PlayerInput
                 MapElementsInside.Remove(rme);
             foreach (var c in newMapElementsInside)
                 MapElementsInside.Add(c);
+            Debug.Log(MapElementsInside.ToDebugMessage());
         }
 
         void UpdateSize()

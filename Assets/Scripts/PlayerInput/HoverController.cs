@@ -69,8 +69,9 @@ namespace MechWars.PlayerInput
         
         void UpdateRaycastHover(HashSet<MapElement> candidates)
         {
-            if (inputController.Mouse.MapRaycast.MapElement != null)
-                candidates.Add(inputController.Mouse.MapRaycast.MapElement);
+            var raycast = inputController.Mouse.MapRaycast;
+            if (raycast.MapElement != null) candidates.Add(raycast.MapElement);
+            foreach (var g in raycast.Ghosts) candidates.Add(g);
         }
 
         void ManageHoverBox(HashSet<MapElement> candidates)
@@ -120,19 +121,26 @@ namespace MechWars.PlayerInput
             var toRemove = new HashSet<MapElement>(hoveredMapElements);
             toRemove.ExceptWith(candidates);
             foreach (var me in toRemove)
-                me.LifeEnding -= MapElement_LifeEnding;
+            {
+                if (!me.IsGhost) me.LifeEnding -= MapElement_LifeEnding;
+                else me.GhostLifeEnding -= MapElement_LifeEnding;
+            }
             hoveredMapElements.ExceptWith(toRemove);
 
             var toAdd = new HashSet<MapElement>(candidates);
             toAdd.ExceptWith(hoveredMapElements);
             foreach (var me in toAdd)
-                me.LifeEnding += MapElement_LifeEnding;
+            {
+                if (!me.IsGhost) me.LifeEnding += MapElement_LifeEnding;
+                else me.GhostLifeEnding += MapElement_LifeEnding;
+            }
             hoveredMapElements.UnionWith(toAdd);
         }
 
         private void MapElement_LifeEnding(MapElement sender)
         {
-            sender.LifeEnding -= MapElement_LifeEnding;
+            if (!sender.IsGhost) sender.LifeEnding -= MapElement_LifeEnding;
+            else sender.GhostLifeEnding -= MapElement_LifeEnding;
             hoveredMapElements.Remove(sender);
             if (HoverBox != null)
                 HoverBox.MapElementsInside.Remove(sender);

@@ -82,6 +82,16 @@ namespace MechWars.MapElements.Statistics
             if (value > MaxValue) value = MaxValue;
         }
 
+        public Stat Clone(MapElement newOwner)
+        {
+            var stat = new Stat(Name, newOwner);
+            stat.limited = limited;
+            stat.maxValue = maxValue;
+            stat.value = value;
+            stat.CorrectValue();
+            return stat;
+        }
+
         public override string ToString()
         {
             return string.Format("Attribute: {0}, Value: {1}, MaxValue: {2}, Limited: {3}", Name, Value, MaxValue, Limited);

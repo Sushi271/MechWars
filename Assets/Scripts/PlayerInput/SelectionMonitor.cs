@@ -28,7 +28,10 @@ namespace MechWars.PlayerInput
             var toAdd = new HashSet<MapElement>(mapElements);
             toAdd.ExceptWith(selectedMapElements);
             foreach (var me in toAdd)
-                me.LifeEnding += MapElement_LifeEnding;
+            {
+                if (!me.IsGhost) me.LifeEnding += MapElement_LifeEnding;
+                else me.GhostLifeEnding += MapElement_LifeEnding;
+            }
             selectedMapElements.UnionWith(toAdd);
         }
 
@@ -39,7 +42,10 @@ namespace MechWars.PlayerInput
             var toRemove = new HashSet<MapElement>(mapElements);
             toRemove.Intersect(selectedMapElements);
             foreach (var me in toRemove)
-                me.LifeEnding -= MapElement_LifeEnding;
+            {
+                if (!me.IsGhost) me.LifeEnding -= MapElement_LifeEnding;
+                else me.GhostLifeEnding -= MapElement_LifeEnding;
+            }
             selectedMapElements.ExceptWith(mapElements);
         }
 
@@ -63,7 +69,10 @@ namespace MechWars.PlayerInput
         public void ClearSelection()
         {
             foreach (var me in selectedMapElements)
-                me.LifeEnding -= MapElement_LifeEnding;
+            {
+                if (!me.IsGhost) me.LifeEnding -= MapElement_LifeEnding;
+                else me.GhostLifeEnding -= MapElement_LifeEnding;
+            }
             selectedMapElements.Clear();
         }
 

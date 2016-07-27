@@ -56,7 +56,7 @@ namespace MechWars
                 Buildings.Add(building);
                 building.OnConstructionFinished += Building_OnConstructionFinished;
             }
-            else Debug.LogWarning("MapElement to add to army must be either of type Unit or Building.");
+            else Debug.LogWarning("In order to add MapElement to Army, it must be either of type Unit or Building.");
         }
 
         public void RemoveMapElement(MapElement mapElement)
@@ -69,7 +69,7 @@ namespace MechWars
                 Buildings.Remove(building);
                 building.OnConstructionFinished -= Building_OnConstructionFinished;
             }
-            else Debug.LogWarning("MapElement to remove from army must be either of type Unit or Building.");
+            else Debug.LogWarning("In order to remove MapElement from Army, it must be either of type Unit or Building.");
         }
 
         private void Building_OnConstructionFinished()

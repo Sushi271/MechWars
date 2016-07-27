@@ -1,6 +1,7 @@
 ﻿using MechWars.MapElements;
 using MechWars.Utils;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,6 +13,7 @@ namespace MechWars.PlayerInput
 
         public bool GUIHit { get; private set; }
         public MapElement MapElement { get; private set; }
+        public MapElement[] Ghosts { get; private set; }
         public Vector2? PreciseCoords { get; private set; }
         public IVector2? Coords { get; private set; }
 
@@ -23,8 +25,6 @@ namespace MechWars.PlayerInput
         public void Update()
         {
             var ray = Camera.main.ScreenPointToRay(mouse.Position);
-
-            RaycastHit hitInfo;
             
             GUIHit = false;
             MapElement = null;
@@ -35,24 +35,43 @@ namespace MechWars.PlayerInput
 
             var results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, results);
-            Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.UI));
-            
             if (!results.Empty())
-                GUIHit = true;
-            else if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements)))
             {
-                var go = hitInfo.collider.gameObject;
-                MapElement = go.GetComponentInParent<MapElement>();
-                if (MapElement == null)
-                    throw new System.Exception("Non-MapElement GameObject is in MapElements layer.");
-                PreciseCoords = MapElement.Coords;
-                Coords = PreciseCoords.Value.Round();
+                GUIHit = true;
+                return;
             }
-            else if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain)))
+
+            RaycastHit[] hitInfos = Physics.RaycastAll(ray, Mathf.Infinity, LayerMask.GetMask(Layer.MapElements));
+            if (hitInfos.Length > 0)
+            {
+                var mapElements = hitInfos.SelectDistinct(
+                    hi => hi.collider.gameObject.GetComponentInParent<MapElement>()).ToArray();
+                if (mapElements.Any(me => me == null))
+                    throw new System.Exception("Non-MapElement GameObject is in MapElements layer.");
+                mapElements = mapElements.Where(me => me.VisibleToSpectator).ToArray();
+
+                var closestHI = hitInfos.SelectMin(hi => hi.distance);
+                var closestME = closestHI.collider.gameObject.GetComponentInParent<MapElement>();
+                mapElements = mapElements.Where(me => me.id == closestME.id).ToArray();
+
+                PreciseCoords = new Vector2(closestHI.point.x, closestHI.point.z);
+                Coords = PreciseCoords.Value.Round();
+                MapElement = mapElements.FirstOrDefault(me => !me.IsGhost);
+                Ghosts = mapElements.Where(me => me.IsGhost).ToArray();
+
+                return;
+            }
+
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain)))
             {
                 PreciseCoords = new Vector2(hitInfo.point.x, hitInfo.point.z);
                 Coords = PreciseCoords.Value.Round();
                 MapElement = Globals.Map[Coords.Value];
+                Ghosts = Globals.Map.GetGhosts(Coords.Value.X, Coords.Value.Y).ToArray();
+
+                if (MapElement != null && !MapElement.VisibleToSpectator)
+                    MapElement = null;
             }
         }
     }
