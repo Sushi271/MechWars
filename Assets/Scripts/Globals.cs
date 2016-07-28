@@ -112,11 +112,7 @@ namespace MechWars
                 return TryLazyGetGlobalsComponent(ref wallNeighbourhoodDictionary);
             }
         }
-
-        MapElementsDatabase mapElementsDatabase;
-        public static MapElementsDatabase MapElementsDatabase { get { return LazyGetGlobalsField(
-            ref Instance.mapElementsDatabase, o => new MapElementsDatabase()); } }
-
+        
         ShapeDatabase shapeDatabase;
         public static ShapeDatabase ShapeDatabase { get { return LazyGetGlobalsField(
             ref Instance.shapeDatabase, o => new ShapeDatabase()); } }

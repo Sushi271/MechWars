@@ -42,7 +42,7 @@ namespace MechWars.MapElements
 
         public bool IsGhost { get; private set; }
         MapElement originalMapElement;
-        Army observingArmy;
+        protected Army ObservingArmy { get; private set; }
         Dictionary<Army, MapElement> ghosts;
 
         bool mapInitialized;
@@ -221,7 +221,7 @@ namespace MechWars.MapElements
         {
             IsGhost = true;
             this.originalMapElement = originalMapElement;
-            this.observingArmy = observingArmy;
+            this.ObservingArmy = observingArmy;
         }
 
         void Start()
@@ -242,8 +242,7 @@ namespace MechWars.MapElements
 
                 Stats = new Stats();
                 ReadStats();
-
-                Globals.MapElementsDatabase.Insert(this);
+                
                 if (nextArmy != null)
                     UpdateArmy();
 
@@ -273,7 +272,7 @@ namespace MechWars.MapElements
                 VisibleToSpectator = true;
                 VisibleToArmies = new Dictionary<Army, bool>();
                 foreach (var a in Globals.Armies)
-                    VisibleToArmies[a] = a == observingArmy;
+                    VisibleToArmies[a] = a == ObservingArmy;
             }
         }
 
@@ -515,6 +514,7 @@ namespace MechWars.MapElements
                 if (Army != nextArmy)
                     UpdateArmy();
 
+                // TODO: kolejnosc obslugi QuadTree: MapElement i jego Ghost nie moga sie tam znalezc jednoczesnie bo bedzie bubu
                 if (CreateGhostWhenFogged)
                     UpdateGhosts();
                 UpdateVisibilityToSpectator();
@@ -532,9 +532,9 @@ namespace MechWars.MapElements
             else
             {
                 // Ghost version
-                var ghostAlive = observingArmy.actionsVisible && AllCoords
-                    .Where(c => observingArmy.VisibilityTable[c.X, c.Y] != Visibility.Visible)
-                    .Any(c => observingArmy.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
+                var ghostAlive = ObservingArmy.actionsVisible && AllCoords
+                    .Where(c => ObservingArmy.VisibilityTable[c.X, c.Y] != Visibility.Visible)
+                    .Any(c => ObservingArmy.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
                 if (!ghostAlive)
                 {
                     if (GhostLifeEnding != null)
@@ -593,7 +593,7 @@ namespace MechWars.MapElements
 
         private void Ghost_GhostLifeEnding(MapElement ghost)
         {
-            ghosts[ghost.observingArmy] = null;
+            ghosts[ghost.ObservingArmy] = null;
 
             if (Selectable)
             {
@@ -662,7 +662,6 @@ namespace MechWars.MapElements
                 FinalizeInVisibilityTable();
                 RemoveFromQuadTrees();
                 Globals.Map.ReleaseReservations(this);
-                Globals.MapElementsDatabase.Delete(this);
             }
 
             if (!suspendDestroy) Destroy(gameObject);

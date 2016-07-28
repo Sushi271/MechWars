@@ -201,8 +201,7 @@ namespace MechWars.MapElements.Orders
 
         Building PickDeposit()
         {
-            var buildings = Globals.MapElementsDatabase.Buildings;
-            var deposits = buildings.Where(b => b.Army == Unit.Army
+            var deposits = Unit.Army.Buildings.Where(b => b.Army == Unit.Army
                 && b.isResourceDeposit && !b.UnderConstruction && !b.Dying);
             if (deposits.Count() == 0) return null;
 
