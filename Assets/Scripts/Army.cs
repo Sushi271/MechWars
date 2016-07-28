@@ -15,6 +15,7 @@ namespace MechWars
 
         public VisibilityTable VisibilityTable { get; private set; }
         public QuadTree ResourcesQuadTree { get; private set; }
+        public QuadTree AlliesQuadTree { get; private set; }
         public QuadTree EnemiesQuadTree { get; private set; }
 
         public event System.Action OnBuildingConstructionFinished;
@@ -43,6 +44,7 @@ namespace MechWars
         {
             VisibilityTable = new VisibilityTable(this);
             ResourcesQuadTree = Globals.Map.CreateQuadTree();
+            AlliesQuadTree = Globals.Map.CreateQuadTree();
             EnemiesQuadTree = Globals.Map.CreateQuadTree();
         }
 

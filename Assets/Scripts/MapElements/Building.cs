@@ -105,14 +105,13 @@ namespace MechWars.MapElements
         {
             foreach (var a in Globals.Armies)
             {
-                if (a == Army) continue;
-
                 var visible = AllCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
                 if (visible != VisibleToArmies[a])
                 {
                     VisibleToArmies[a] = visible;
-                    if (visible) a.EnemiesQuadTree.Insert(this);
-                    else a.EnemiesQuadTree.Remove(this);
+                    var quadTree = a == Army ? a.AlliesQuadTree : a.EnemiesQuadTree;
+                    if (visible) quadTree.Insert(this);
+                    else quadTree.Remove(this);
                 }
             }
         }
