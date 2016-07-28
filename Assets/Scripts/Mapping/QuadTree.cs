@@ -21,7 +21,7 @@ namespace MechWars.Mapping
 
         public QuadTree(SquareBounds bounds)
         {
-            if (!bounds.Size.IsPowerOfTwo())
+            if (!bounds.SquareSize.IsPowerOfTwo())
                 throw new System.Exception("QuadTree Bounds size must be power of two.");
             this.bounds = bounds;
         }
@@ -65,10 +65,10 @@ namespace MechWars.Mapping
 
         void Subdivide()
         {
-            if (bounds.Size == 1)
+            if (bounds.SquareSize == 1)
                 throw new System.Exception("Cannot subdivide, because Bounds size is 1 (undividable).");
 
-            var dividedSize = bounds.Size / 2;
+            var dividedSize = bounds.SquareSize / 2;
             var halfwayX = bounds.Location.X + dividedSize;
             var halfwayY = bounds.Location.Y + dividedSize;
 
@@ -152,7 +152,7 @@ namespace MechWars.Mapping
             return true;
         }
 
-        public List<QuadTreeMapElement> QueryRange(SquareBounds range)
+        public List<QuadTreeMapElement> QueryRange(IRectangleBounds range)
         {
             var mapElements = new List<QuadTreeMapElement>();
 

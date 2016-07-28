@@ -71,9 +71,10 @@ namespace MechWars.MapElements
 
         protected override void UpdateArmiesQuadTrees()
         {
+            var coordsList = Globals.Map[this];
             foreach (var a in Globals.Armies)
             {
-                var visible = AllCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
+                var visible = coordsList.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
                 if (visible != VisibleToArmies[a])
                 {
                     VisibleToArmies[a] = visible;
@@ -82,6 +83,17 @@ namespace MechWars.MapElements
                     else quadTree.Remove(this);
                 }
             }
+        }
+
+        protected override void RemoveFromQuadTrees()
+        {
+            var coordsList = Globals.Map[this];
+            foreach (var a in Globals.Armies)
+                if (VisibleToArmies[a])
+                {
+                    var quadTree = a == Army ? a.AlliesQuadTree : a.EnemiesQuadTree;
+                    quadTree.Remove(this);
+                }
         }
 
         public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)

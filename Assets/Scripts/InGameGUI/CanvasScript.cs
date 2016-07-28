@@ -127,7 +127,7 @@ namespace MechWars.InGameGUI
             {
                 var army = Globals.HumanArmy;
                 if (army != null)
-                    Debug.Log(army.AlliesQuadTree.ToString());
+                    Debug.Log(army.EnemiesQuadTree.ToString());
             }
         }
 

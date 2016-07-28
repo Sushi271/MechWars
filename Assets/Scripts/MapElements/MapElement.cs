@@ -182,7 +182,7 @@ namespace MechWars.MapElements
             }
         }
         protected virtual bool CreateGhostWhenFogged { get { return true; } }
-        protected Dictionary<Army, bool> VisibleToArmies { get; private set; }
+        public Dictionary<Army, bool> VisibleToArmies { get; private set; }
 
         public bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
         public bool CanEscort { get { return orderActions.Any(oa => oa.IsEscort); } }
@@ -660,6 +660,7 @@ namespace MechWars.MapElements
             if (!Globals.Destroyed)
             {
                 FinalizeInVisibilityTable();
+                RemoveFromQuadTrees();
                 Globals.Map.ReleaseReservations(this);
                 Globals.MapElementsDatabase.Delete(this);
             }
@@ -670,6 +671,11 @@ namespace MechWars.MapElements
 
             if (OrderQueue.Enabled)
                 OrderQueue.Terminate();
+        }
+
+        protected virtual void RemoveFromQuadTrees()
+        {
+
         }
 
         void TurnIntoResource()

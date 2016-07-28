@@ -55,6 +55,14 @@ namespace MechWars.MapElements
             }
         }
 
+        protected override void RemoveFromQuadTrees()
+        {
+            var coordsList = Globals.Map[this];
+            foreach (var a in Globals.Armies)
+                if (VisibleToArmies[a])
+                    a.ResourcesQuadTree.Remove(this);
+        }
+
         public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
             base.DEBUG_PrintStatus(sb)
