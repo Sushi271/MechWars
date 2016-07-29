@@ -41,27 +41,35 @@ namespace MechWars.InGameGUI
                 throw new System.Exception(string.Format(
                     "Field \"Display Size\" on MapElement {0} must be greater than 0.", mapElement));
 
-            float r = mapElement.displaySize / 2;
-            Vector3 mapElementPos = mapElement.transform.position + Vector3.up * mapElement.displayYOffset;
-            Vector3 top = mapElementPos + vy * r;
-            Vector3 bottom = mapElementPos - vy * r;
-            Vector3 left = mapElementPos - vx * r;
-            Vector3 right = mapElementPos + vx * r;
+            try
+            {
+                float r = mapElement.displaySize / 2;
+                Vector3 mapElementPos = mapElement.transform.position + Vector3.up * mapElement.displayYOffset;
+                Vector3 top = mapElementPos + vy * r;
+                Vector3 bottom = mapElementPos - vy * r;
+                Vector3 left = mapElementPos - vx * r;
+                Vector3 right = mapElementPos + vx * r;
 
-            Top = Screen.height - cam.WorldToScreenPoint(top).y;
-            Bottom = Screen.height - cam.WorldToScreenPoint(bottom).y;
-            Left = cam.WorldToScreenPoint(left).x;
-            Right = cam.WorldToScreenPoint(right).x;
-            Width = Right - Left;
-            Height = Top - Bottom;
+                Top = Screen.height - cam.WorldToScreenPoint(top).y;
+                Bottom = Screen.height - cam.WorldToScreenPoint(bottom).y;
+                Left = cam.WorldToScreenPoint(left).x;
+                Right = cam.WorldToScreenPoint(right).x;
+                Width = Right - Left;
+                Height = Top - Bottom;
 
-            Vector3 center3 = cam.WorldToScreenPoint(mapElementPos);
-            Center = new Vector2(center3.x, center3.y);
-            Location = new Vector2(Left, Bottom);
-            Size = new Vector2(Width, Height);
+                Vector3 center3 = cam.WorldToScreenPoint(mapElementPos);
+                Center = new Vector2(center3.x, center3.y);
+                Location = new Vector2(Left, Bottom);
+                Size = new Vector2(Width, Height);
 
-            Vector3 camToMapElement = mapElementPos - camPos;
-            Distance = camToMapElement.magnitude;
+                Vector3 camToMapElement = mapElementPos - camPos;
+                Distance = camToMapElement.magnitude;
+            }
+            catch
+            {
+                int x = 5;
+                int y = x;
+            }
         }
     }
 }

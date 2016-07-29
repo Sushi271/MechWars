@@ -39,6 +39,9 @@ namespace MechWars.MapElements.Attacks
                 startingRotation = attacker.transform.rotation;
             }
 
+            if (target.IsGhost && target.OriginalMapElement != null)
+                target = target.OriginalMapElement;
+
             foreach (var p in startingPositions)
             {
                 // it gives different result than in GetDirection(), because RotateOrder is Finished

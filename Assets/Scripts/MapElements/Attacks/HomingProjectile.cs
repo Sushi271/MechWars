@@ -1,4 +1,5 @@
-﻿using MechWars.MapElements.Statistics;
+﻿using MechWars.FogOfWar;
+using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,24 @@ namespace MechWars.MapElements.Attacks
 
         float armTime = 0.5f;
 
+        bool visibleToSpectator;
+        bool VisibleToSpectator
+        {
+            get { return visibleToSpectator; }
+            set
+            {
+                if (visibleToSpectator == value) return;
+
+                visibleToSpectator = value;
+
+                var renderers = gameObject.GetComponentsInChildren<Renderer>();
+                foreach (var r in renderers) r.enabled = value;
+            }
+        }
+
         void Start()
         {
+            visibleToSpectator = true;
             UpdateAngles();
         }
 
@@ -43,6 +60,8 @@ namespace MechWars.MapElements.Attacks
 
         void Update()
         {
+            UpdateVisibilityToSpectator();
+
             float horAnglePerSec = 270;
             float vertAnglePerSec = 120;
 
@@ -82,6 +101,15 @@ namespace MechWars.MapElements.Attacks
                 armTime -= Time.deltaTime;
                 if (armTime < 0) armTime = 0;
             }
+        }
+
+        void UpdateVisibilityToSpectator()
+        {
+            var coords = transform.position.AsHorizontalVector2().Round();
+            
+            VisibleToSpectator = Globals.Map.IsInBounds(coords) && Globals.Armies
+                .Where(a => a.actionsVisible)
+                .Any(a => a.VisibilityTable[coords.X, coords.Y] == Visibility.Visible);
         }
 
         void OnTriggerEnter(Collider other)
@@ -135,6 +163,7 @@ namespace MechWars.MapElements.Attacks
             }
 
             var explosion = Instantiate(explosionPrefab);
+            explosion.GetComponent<RocketExplosion>().radius = damageRadius;
             explosion.transform.SetParent(transform.parent);
             explosion.transform.position = coords.AsHorizontalVector3();
             explosion.transform.localScale =

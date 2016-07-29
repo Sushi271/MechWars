@@ -20,6 +20,7 @@ namespace MechWars.PlayerInput
         public MapRaycast(PlayerMouse mouse)
         {
             this.mouse = mouse;
+            Ghosts = new MapElement[0];
         }
 
         public void Update()
@@ -28,6 +29,7 @@ namespace MechWars.PlayerInput
             
             GUIHit = false;
             MapElement = null;
+            Ghosts = new MapElement[0];
             PreciseCoords = null;
             Coords = null;
 

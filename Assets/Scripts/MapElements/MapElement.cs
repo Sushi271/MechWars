@@ -40,7 +40,7 @@ namespace MechWars.MapElements
 
         public bool isShadow;
 
-        MapElement originalMapElement;
+        public MapElement OriginalMapElement { get;  private set;}
         MapElementGhostSnapshot ghostSnapshot;
         public bool IsGhost { get; private set; }
         protected Army ObservingArmy { get; private set; }
@@ -168,6 +168,8 @@ namespace MechWars.MapElements
             get { return visibleToSpectator; }
             private set
             {
+                if (visibleToSpectator == value) return;
+
                 visibleToSpectator = value;
 
                 var renderers = gameObject.GetComponentsInChildren<Renderer>();
@@ -224,7 +226,7 @@ namespace MechWars.MapElements
         public void MakeItGhost(MapElement originalMapElement, Army observingArmy)
         {
             IsGhost = true;
-            this.originalMapElement = originalMapElement;
+            this.OriginalMapElement = originalMapElement;
             MakeSnapshotOf(originalMapElement);
             ObservingArmy = observingArmy;
             addGhostToQuadTree = true;
@@ -237,6 +239,7 @@ namespace MechWars.MapElements
 
         void Start()
         {
+            visibleToSpectator = true;
             if (isShadow) return;
             OnStart();
         }
@@ -685,11 +688,16 @@ namespace MechWars.MapElements
             if (!ghostRemoved)
             {
                 ghostRemoved = true;
-                originalMapElement = null;
-
+                OriginalMapElement = null;
+                
                 RemoveGhostFromQuadTree();
                 if (GhostLifeEnding != null)
                     GhostLifeEnding(this);
+
+                var selMonitor = Globals.Spectator.InputController.SelectionMonitor;
+                if (selMonitor.IsSelected(this))
+                    selMonitor.Deselect(this.AsEnumerable());
+
                 Globals.Map.RemoveGhost(this);
                 Destroy(gameObject);
             }
@@ -719,7 +727,7 @@ namespace MechWars.MapElements
             if (CanHaveGhosts)
                 foreach (var g in ghosts.Values)
                     if (g != null)
-                        g.originalMapElement = null;
+                        g.OriginalMapElement = null;
 
             if (!Globals.Destroyed)
             {

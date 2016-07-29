@@ -96,7 +96,6 @@ namespace MechWars.PlayerInput
                 MapElementsInside.Remove(rme);
             foreach (var c in newMapElementsInside)
                 MapElementsInside.Add(c);
-            Debug.Log(MapElementsInside.ToDebugMessage());
         }
 
         void UpdateSize()
