@@ -40,9 +40,12 @@ namespace MechWars.MapElements
 
         public bool isShadow;
 
-        public bool IsGhost { get; private set; }
         MapElement originalMapElement;
+        MapElementGhostSnapshot ghostSnapshot;
+        public bool IsGhost { get; private set; }
         protected Army ObservingArmy { get; private set; }
+        bool addGhostToQuadTree;
+        bool ghostRemoved;
         Dictionary<Army, MapElement> ghosts;
 
         bool mapInitialized;
@@ -176,12 +179,13 @@ namespace MechWars.MapElements
                     if (selMonitor.IsSelected(this))
                     {
                         selMonitor.Deselect(this.AsEnumerable());
-                        selMonitor.Select(ghosts.Values.Where(g => g != null));
+                        if (CanHaveGhosts && !IsGhost)
+                            selMonitor.Select(ghosts.Values.Where(g => g != null));
                     }
                 }
             }
         }
-        protected virtual bool CreateGhostWhenFogged { get { return true; } }
+        protected virtual bool CanHaveGhosts { get { return true; } }
         public Dictionary<Army, bool> VisibleToArmies { get; private set; }
 
         public bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
@@ -221,7 +225,14 @@ namespace MechWars.MapElements
         {
             IsGhost = true;
             this.originalMapElement = originalMapElement;
-            this.ObservingArmy = observingArmy;
+            MakeSnapshotOf(originalMapElement);
+            ObservingArmy = observingArmy;
+            addGhostToQuadTree = true;
+        }
+
+        protected virtual void MakeSnapshotOf(MapElement originalMapElement)
+        {
+            ghostSnapshot = new MapElementGhostSnapshot(originalMapElement, this);
         }
 
         void Start()
@@ -240,9 +251,8 @@ namespace MechWars.MapElements
 
                 OrderQueue = CreateOrderQueue();
 
-                Stats = new Stats();
                 ReadStats();
-                
+
                 if (nextArmy != null)
                     UpdateArmy();
 
@@ -254,25 +264,30 @@ namespace MechWars.MapElements
 
                 VisibleToSpectator = false;
                 VisibleToArmies = new Dictionary<Army, bool>();
-                ghosts = new Dictionary<Army, MapElement>();
                 foreach (var a in Globals.Armies)
-                {
                     VisibleToArmies[a] = false;
-                    ghosts[a] = null;
+
+                if (CanHaveGhosts)
+                {
+                    ghosts = new Dictionary<Army, MapElement>();
+                    foreach (var a in Globals.Armies)
+                        ghosts[a] = null;
                 }
             }
             else
             {
                 // Ghost version
-                Stats = originalMapElement.Stats.Clone(this);
-                nextArmy = Army = originalMapElement.Army;
+                Stats = ghostSnapshot.Stats;
+                nextArmy = Army = ghostSnapshot.Army;
 
                 Globals.Map.AddGhost(this);
 
-                VisibleToSpectator = true;
+                VisibleToSpectator = ObservingArmy.actionsVisible;
                 VisibleToArmies = new Dictionary<Army, bool>();
                 foreach (var a in Globals.Armies)
+                {
                     VisibleToArmies[a] = a == ObservingArmy;
+                }
             }
         }
 
@@ -314,13 +329,13 @@ namespace MechWars.MapElements
             return 0;
         }
 
-        public void ReadStats(bool force = false)
+        public void ReadStats()
         {
-            if (statsFile == null) return;
-            if (!force && statsRead) return;
+            if (statsRead) return;
             statsRead = true;
+            Stats = new Stats();
 
-            Stats.Clear();
+            if (statsFile == null) return;
 
             var xml = new XmlDocument();
             xml.LoadXml(statsFile.text);
@@ -514,11 +529,11 @@ namespace MechWars.MapElements
                 if (Army != nextArmy)
                     UpdateArmy();
 
-                // TODO: kolejnosc obslugi QuadTree: MapElement i jego Ghost nie moga sie tam znalezc jednoczesnie bo bedzie bubu
-                if (CreateGhostWhenFogged)
-                    UpdateGhosts();
-                UpdateVisibilityToSpectator();
+                if (CanHaveGhosts) UpdateGhosts();
                 UpdateArmiesQuadTrees();
+                if (CanHaveGhosts) AddGhostsToQuadTrees();
+
+                UpdateVisibilityToSpectator();
 
                 if (CanAttack)
                     UpdateAttack();
@@ -532,16 +547,12 @@ namespace MechWars.MapElements
             else
             {
                 // Ghost version
-                var ghostAlive = ObservingArmy.actionsVisible && AllCoords
+                VisibleToSpectator = ObservingArmy.actionsVisible;
+                var ghostFogged = AllCoords // none are visible but at least one is fogged
                     .Where(c => ObservingArmy.VisibilityTable[c.X, c.Y] != Visibility.Visible)
                     .Any(c => ObservingArmy.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
-                if (!ghostAlive)
-                {
-                    if (GhostLifeEnding != null)
-                        GhostLifeEnding(this);
-                    Globals.Map.RemoveGhost(this);
-                    Destroy(gameObject);
-                }
+                if (!ghostFogged)
+                    RemoveGhost();
             }
         }
 
@@ -575,24 +586,37 @@ namespace MechWars.MapElements
         {
             foreach (var a in Globals.Armies)
             {
-                var createGhost =
-                    a.actionsVisible && ghosts[a] == null && AllCoords
-                    .Where(c => a.VisibilityTable[c.X, c.Y] != Visibility.Visible)
-                    .Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
-                if (createGhost)
+                var isVisible = AllCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
+                var isFogged = !isVisible && AllCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
+                
+                if (isVisible != VisibleToArmies[a] && isFogged && ghosts[a] == null)
                 {
                     var ghostObject = Instantiate(gameObject);
                     ghostObject.transform.parent = transform.parent;
+                    ghostObject.name = string.Format("{0} [GHOST]", name);
                     var ghost = ghostObject.GetComponent<MapElement>();
                     ghost.MakeItGhost(this, a);
                     ghost.GhostLifeEnding += Ghost_GhostLifeEnding;
                     ghosts[a] = ghost;
                 }
+                else if (isVisible && ghosts[a] != null)
+                {
+                    ghosts[a].RemoveGhost();
+                    ghosts[a] = null;
+                }
             }
+        }
+
+        void AddGhostsToQuadTrees()
+        {
+            foreach (var g in ghosts.Values)
+                if (g != null && g.addGhostToQuadTree)
+                    g.AddGhostToQuadTree();
         }
 
         private void Ghost_GhostLifeEnding(MapElement ghost)
         {
+            ghost.GhostLifeEnding -= Ghost_GhostLifeEnding;
             ghosts[ghost.ObservingArmy] = null;
 
             if (Selectable)
@@ -605,6 +629,13 @@ namespace MechWars.MapElements
 
         protected virtual void UpdateArmiesQuadTrees()
         {
+            var coordsList = Globals.Map[this];
+            foreach (var a in Globals.Armies)
+            {
+                var visible = coordsList.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
+                if (visible != VisibleToArmies[a])
+                    VisibleToArmies[a] = visible;
+            }
         }
 
         void UpdateAttack()
@@ -645,6 +676,32 @@ namespace MechWars.MapElements
             Alive = !(OrderQueue.OrderCount == 0);
         }
 
+        void RemoveGhost()
+        {
+            if (!IsGhost)
+                throw new System.InvalidOperationException("Cannot call this method on non-Ghost MapElement.");
+            if (!ghostRemoved)
+            {
+                ghostRemoved = true;
+                originalMapElement = null;
+
+                RemoveGhostFromQuadTree();
+                if (GhostLifeEnding != null)
+                    GhostLifeEnding(this);
+                Globals.Map.RemoveGhost(this);
+                Destroy(gameObject);
+            }
+        }
+
+        protected virtual void AddGhostToQuadTree()
+        {
+            addGhostToQuadTree = false;
+        }
+
+        protected virtual void RemoveGhostFromQuadTree()
+        {
+        }
+
         #endregion
 
         #region Finalizing
@@ -656,6 +713,11 @@ namespace MechWars.MapElements
 
             if (Army != null && CanAddToArmy)
                 Army.RemoveMapElement(this);
+
+            if (CanHaveGhosts)
+                foreach (var g in ghosts.Values)
+                    if (g != null)
+                        g.originalMapElement = null;
 
             if (!Globals.Destroyed)
             {
@@ -674,7 +736,6 @@ namespace MechWars.MapElements
 
         protected virtual void RemoveFromQuadTrees()
         {
-
         }
 
         void TurnIntoResource()
@@ -753,8 +814,6 @@ namespace MechWars.MapElements
 
         public virtual StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
-            if (IsGhost)
-                sb.AppendLine("GHOST");
             sb
                 .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
                 .AppendLine(string.Format("Coords: {0}", Coords))

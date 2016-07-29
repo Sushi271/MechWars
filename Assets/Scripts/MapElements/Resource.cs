@@ -55,6 +55,18 @@ namespace MechWars.MapElements
             }
         }
 
+        protected override void AddGhostToQuadTree()
+        {
+            base.AddGhostToQuadTree();
+            ObservingArmy.ResourcesQuadTree.Insert(this);
+        }
+
+        protected override void RemoveGhostFromQuadTree()
+        {
+            base.RemoveGhostFromQuadTree();
+            ObservingArmy.ResourcesQuadTree.Remove(this);
+        }
+
         protected override void RemoveFromQuadTrees()
         {
             var coordsList = Globals.Map[this];

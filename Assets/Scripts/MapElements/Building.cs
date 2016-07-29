@@ -23,10 +23,18 @@ namespace MechWars.MapElements
         public override bool CanBeAttacked { get { return true; } }
 
         HashSet<IVector2> allNeighbourFields;
+
+        BuildingGhostSnapshot buildingGhostSnapshot;
         
         protected override OrderQueue CreateOrderQueue(bool enabled = false)
         {
             return base.CreateOrderQueue(enabled);
+        }
+        
+        protected override void MakeSnapshotOf(MapElement originalMapElement)
+        {
+            base.MakeSnapshotOf(originalMapElement);
+            buildingGhostSnapshot = new BuildingGhostSnapshot((Building)originalMapElement, this);
         }
 
         protected override void OnStart()
@@ -39,10 +47,13 @@ namespace MechWars.MapElements
                 {
                     pg.Enabled = false;
                 }
-
-            if (!UnderConstruction) OrderQueue.Enable();
-
+            
             InitializeNeighbourFields();
+
+            if (IsGhost)
+                ConstructionInfo = buildingGhostSnapshot.ConstructionInfo;
+
+            if (!IsGhost && !UnderConstruction) OrderQueue.Enable();
         }
 
         void InitializeNeighbourFields()
@@ -126,6 +137,18 @@ namespace MechWars.MapElements
                     var quadTree = a == Army ? a.AlliesQuadTree : a.EnemiesQuadTree;
                     quadTree.Remove(this);
                 }
+        }
+
+        protected override void AddGhostToQuadTree()
+        {
+            base.AddGhostToQuadTree();
+            ObservingArmy.EnemiesQuadTree.Insert(this);
+        }
+
+        protected override void RemoveGhostFromQuadTree()
+        {
+            base.RemoveGhostFromQuadTree();
+            ObservingArmy.EnemiesQuadTree.Remove(this);
         }
 
         public Unit Spawn(Unit unit)
@@ -229,7 +252,7 @@ namespace MechWars.MapElements
                     .AppendLine(string.Format("    Paid/Cost: {0} / {1} ({2:P1})", ConstructionInfo.Paid, ConstructionInfo.Cost, ConstructionInfo.TotalProgress))
                     .Append(string.Format("    Construction time: {0}", ConstructionInfo.ConstructionTime));
             }
-            else DEBUG_PrintOrders(sb);
+            else if (!IsGhost) DEBUG_PrintOrders(sb);
 
             return sb;
         }

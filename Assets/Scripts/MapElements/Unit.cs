@@ -10,7 +10,7 @@ namespace MechWars.MapElements
     {
 
         protected override bool CanAddToArmy { get { return true; } }
-        protected override bool CreateGhostWhenFogged { get { return false; } }
+        protected override bool CanHaveGhosts { get { return false; } }
         public override bool Selectable { get { return true; } }
         public override bool CanBeAttacked { get { return true; } }
         public override bool CanBeEscorted { get { return true; } }

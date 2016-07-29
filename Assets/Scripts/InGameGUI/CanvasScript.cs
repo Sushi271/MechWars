@@ -51,7 +51,7 @@ namespace MechWars.InGameGUI
                 }
                 buttons.Clear();
 
-                if (building != null && !building.UnderConstruction)
+                if (building != null && !building.UnderConstruction && !building.IsGhost && building.Army == Globals.HumanArmy)
                 {
                     var productionOAs = building.orderActions.OfType<UnitProductionOrderAction>()
                         .Where(poa => poa.CheckRequirements(building.Army)).ToList();
@@ -103,7 +103,7 @@ namespace MechWars.InGameGUI
                         buttons.Add(button);
                     }
 
-                    if (count > 0 || (!building.UnderConstruction && building.OrderQueue.OrderCount > 0))
+                    if (count > 0 || (!building.UnderConstruction && building.OrderQueue != null && building.OrderQueue.OrderCount > 0))
                     {
                         var button = Instantiate(buttonPrefab);
                         var rectTransform = button.GetComponent<RectTransform>();

@@ -18,5 +18,11 @@ namespace MechWars.MapElements
             Paid = alreadyPaid;
             TotalProgress = (float)Paid / Cost;
         }
+
+        public BuildingConstructionInfo Clone(Building newBuilding)
+        {
+            return new BuildingConstructionInfo(
+                BuildingProduct.Clone(newBuilding), Paid);
+        }
     }
 }

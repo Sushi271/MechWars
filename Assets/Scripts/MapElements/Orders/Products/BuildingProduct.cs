@@ -14,5 +14,10 @@
         {
             return string.Format("{0} [ {1} ]", base.ToString(), Building);
         }
+
+        public BuildingProduct Clone(Building newBuilding)
+        {
+            return new BuildingProduct(newBuilding, Cost, ProductionTime);
+        }
     }
 }
