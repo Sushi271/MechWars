@@ -125,9 +125,9 @@ namespace MechWars.InGameGUI
 
             if (Input.GetKeyDown(KeyCode.F2))
             {
-                var army = Globals.HumanArmy;
+                var army = Globals.Armies.First(a => a.name == "Autobots");
                 if (army != null)
-                    Debug.Log(army.EnemiesQuadTree.ToString());
+                    Debug.Log(army.ResourcesQuadTree.ToString());
             }
         }
 

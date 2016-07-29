@@ -35,6 +35,18 @@ namespace MechWars.Mapping
             }
         }
 
+
+        Dictionary<MapElement, List<IVector2>> ghostDictionary;
+        public List<IVector2> GetGhostPositions(MapElement ghost)
+        {
+            if (ghost == null)
+                throw new System.Exception("Cannot get positions for NULL Ghost.");
+            List<IVector2> positions;
+            var success = ghostDictionary.TryGetValue(ghost, out positions);
+            if (!success) return new List<IVector2>();
+            else return positions;
+        }
+
         List<MapElement>[,] ghostsTable;
         public IEnumerable<MapElement> GetGhosts(int x, int y)
         {
@@ -70,6 +82,7 @@ namespace MechWars.Mapping
         void Start()
         {
             reservationDictionary = new Dictionary<MapElement, List<IVector2>>();
+            ghostDictionary = new Dictionary<MapElement, List<IVector2>>();
 
             Size = Globals.MapSettings.Size;
             reservationTable = new MapElement[Size, Size];
@@ -127,7 +140,7 @@ namespace MechWars.Mapping
 
         public void AddGhost(MapElement ghost)
         {
-            var occupiedFields = ghost.AllCoords;
+            var occupiedFields = ghost.AllCoords.ToList();
             foreach (var coord in occupiedFields)
             {
                 var list = ghostsTable[coord.X, coord.Y];
@@ -138,6 +151,7 @@ namespace MechWars.Mapping
                 }
                 list.Add(ghost);
             }
+            ghostDictionary[ghost] = new List<IVector2>(occupiedFields);
         }
 
         public void RemoveGhost(MapElement ghost)
@@ -150,6 +164,7 @@ namespace MechWars.Mapping
                 if (list.Empty())
                     ghostsTable[coord.X, coord.Y] = null;
             }
+            ghostDictionary.Remove(ghost);
         }
 
         public QuadTree CreateQuadTree()

@@ -548,7 +548,7 @@ namespace MechWars.MapElements
             {
                 // Ghost version
                 VisibleToSpectator = ObservingArmy.actionsVisible;
-                var ghostFogged = AllCoords // none are visible but at least one is fogged
+                var ghostFogged = Globals.Map.GetGhostPositions(this) // none are visible but at least one is fogged
                     .Where(c => ObservingArmy.VisibilityTable[c.X, c.Y] != Visibility.Visible)
                     .Any(c => ObservingArmy.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
                 if (!ghostFogged)
@@ -586,8 +586,9 @@ namespace MechWars.MapElements
         {
             foreach (var a in Globals.Armies)
             {
-                var isVisible = AllCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
-                var isFogged = !isVisible && AllCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
+                var allCoords = Globals.Map[this];
+                var isVisible = allCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
+                var isFogged = !isVisible && allCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
                 
                 if (isVisible != VisibleToArmies[a] && isFogged && ghosts[a] == null)
                 {
@@ -598,6 +599,7 @@ namespace MechWars.MapElements
                     ghost.MakeItGhost(this, a);
                     ghost.GhostLifeEnding += Ghost_GhostLifeEnding;
                     ghosts[a] = ghost;
+                    Globals.Map.AddGhost(ghost);
                 }
                 else if (isVisible && ghosts[a] != null)
                 {

@@ -28,7 +28,10 @@ namespace MechWars.Mapping
 
         public void Insert(MapElement mapElement)
         {
-            var coordsList = Globals.Map[mapElement];
+            List<IVector2> coordsList;
+            if (!mapElement.IsGhost)
+                coordsList = Globals.Map[mapElement];
+            else coordsList = Globals.Map.GetGhostPositions(mapElement);
             foreach (var c in coordsList)
                 InsertCore(new QuadTreeMapElement(mapElement, c));
         }
@@ -49,7 +52,6 @@ namespace MechWars.Mapping
                     return true;
                 }
                 else if (
-                    QuadTreeMapElement.MapElement == mapElement &&
                     QuadTreeMapElement.Coords == coords)
                     throw new System.Exception("Cannot insert MapElement twice into the same coords.");
                 else Subdivide();
@@ -88,7 +90,10 @@ namespace MechWars.Mapping
 
         public void Remove(MapElement mapElement)
         {
-            var coordsList = Globals.Map[mapElement];
+            List<IVector2> coordsList;
+            if (!mapElement.IsGhost)
+                coordsList = Globals.Map[mapElement];
+            else coordsList = Globals.Map.GetGhostPositions(mapElement);
             foreach (var c in coordsList)
                 RemoveCore(c);
         }
