@@ -7,7 +7,7 @@ namespace MechWars.MapElements.Orders
     public class IdleOrder : ComplexOrder
     {
         public override string Name { get { return "Idle"; } }
-        
+
         public MapElement AutoAttackTarget { get; private set; }
 
         IdleRotationOrder idleRotationOrder;
@@ -26,14 +26,13 @@ namespace MechWars.MapElements.Orders
         {
             idleRotationOrder = new IdleRotationOrder(MapElement);
             GiveSubOrder(idleRotationOrder);
-
+            
             nextScanIn = Random.Range(0, Globals.Instance.autoAttackScanInterval);
         }
 
         protected override void OnUpdate()
         {
-            if (AutoAttackTarget != null)
-            //if (!AutoAttackTarget.IsTrueNull())
+            if (!AutoAttackTarget.IsTrueNull())
                 CorrectTarget();
         }
 
@@ -41,8 +40,7 @@ namespace MechWars.MapElements.Orders
         {
             if (!AutoAttackTarget.IsGhost)
             {
-                if (AutoAttackTarget.Dying)
-                    return;
+                if (AutoAttackTarget.Dying) return;
 
                 var targetVisible = AutoAttackTarget.VisibleToArmies[MapElement.Army];
                 if (targetVisible) return;
@@ -82,7 +80,6 @@ namespace MechWars.MapElements.Orders
                         idleRotationOrder.Stop();
                     else
                     {
-                        AutoAttackTarget = null;
                         var interval = Globals.Instance.autoAttackScanInterval;
                         nextScanIn = Random.Range(0.9f * interval, 1.1f * interval);
                     }

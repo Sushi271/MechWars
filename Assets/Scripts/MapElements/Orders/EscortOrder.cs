@@ -45,7 +45,7 @@ namespace MechWars.MapElements.Orders
         protected override void OnUpdate()
         {
             UpdateEscortData();
-            if (AttackTarget != null)
+            if (AttackTarget.IsTrueNull())
                 CorrectTarget();
         }
 
