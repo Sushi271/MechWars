@@ -17,6 +17,12 @@ namespace MechWars.MapElements
     {
         #region Fields & Properties
 
+        static MapElement @null = new MapElement();
+        public static MapElement Null { get { return @null; } }
+
+        public bool IsNull { get { return this == Null; } }
+        public bool IsNotNull { get { return !IsNull; } }
+
         public string mapElementName;
         public int id;
 
@@ -40,7 +46,7 @@ namespace MechWars.MapElements
 
         public bool isShadow;
 
-        public MapElement OriginalMapElement { get;  private set;}
+        public MapElement OriginalMapElement { get; private set; } // correct this shit for IsNull
         MapElementGhostSnapshot ghostSnapshot;
         public bool IsGhost { get; private set; }
         protected Army ObservingArmy { get; private set; }
@@ -226,7 +232,7 @@ namespace MechWars.MapElements
         public void MakeItGhost(MapElement originalMapElement, Army observingArmy)
         {
             IsGhost = true;
-            this.OriginalMapElement = originalMapElement;
+            OriginalMapElement = originalMapElement;
             MakeSnapshotOf(originalMapElement);
             ObservingArmy = observingArmy;
             addGhostToQuadTree = true;
@@ -240,6 +246,7 @@ namespace MechWars.MapElements
         void Start()
         {
             visibleToSpectator = true;
+            OriginalMapElement = Null;
             if (isShadow) return;
             OnStart();
         }
@@ -274,7 +281,7 @@ namespace MechWars.MapElements
                 {
                     Ghosts = new Dictionary<Army, MapElement>();
                     foreach (var a in Globals.Armies)
-                        Ghosts[a] = null;
+                        Ghosts[a] = Null;
                 }
             }
             else
@@ -445,7 +452,7 @@ namespace MechWars.MapElements
 
         public Resource PickClosestResourceInRange(string rangeStatName)
         {
-            return PickClosestMapElementInRange<Resource>(rangeStatName, Army.ResourcesQuadTree);
+            return (Resource)PickClosestMapElementInRange<Resource>(rangeStatName, Army.ResourcesQuadTree);
         }
 
         public MapElement PickClosestEnemyInRange(string rangeStatName, bool onlyAggressive = false)
@@ -453,11 +460,11 @@ namespace MechWars.MapElements
             return PickClosestMapElementInRange<MapElement>(rangeStatName, Army.EnemiesQuadTree, onlyAggressive);
         }
 
-        T PickClosestMapElementInRange<T>(string rangeStatName, QuadTree searchedQuadTree, bool onlyAggressive = false)
+        MapElement PickClosestMapElementInRange<T>(string rangeStatName, QuadTree searchedQuadTree, bool onlyAggressive = false)
             where T : MapElement
         {
             var rangeStat = Stats[rangeStatName];
-            if (rangeStat == null) return null;
+            if (rangeStat == null) return Null;
             var range = rangeStat.Value;
 
             var roundRange = Mathf.RoundToInt(range);
@@ -469,17 +476,17 @@ namespace MechWars.MapElements
                 select qtme.MapElement)
                 .Distinct();
 
-            if (mapElements.Empty()) return null;
+            if (mapElements.Empty()) return Null;
             var closest = mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
             if (HasMapElementInRange(closest, rangeStatName))
                 return (T)closest;
-            return null;
+            return Null;
         }
 
-        public T PickClosestMapElementFrom<T>(IEnumerable<T> mapElements)
+        public MapElement PickClosestMapElementFrom<T>(IEnumerable<T> mapElements)
             where T : MapElement
         {
-            if (mapElements.Empty()) return null;
+            if (mapElements.Empty()) return Null;
             return mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
         }
 
@@ -593,8 +600,8 @@ namespace MechWars.MapElements
                 var allCoords = Globals.Map[this];
                 var isVisible = allCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
                 var isFogged = !isVisible && allCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
-                
-                if (isVisible != VisibleToArmies[a] && isFogged && Ghosts[a] == null)
+
+                if (isVisible != VisibleToArmies[a] && isFogged && Ghosts[a] == Null)
                 {
                     var ghostObject = Instantiate(gameObject);
                     ghostObject.transform.parent = transform.parent;
@@ -605,25 +612,22 @@ namespace MechWars.MapElements
                     Ghosts[a] = ghost;
                     Globals.Map.AddGhost(ghost);
                 }
-                else if (isVisible && Ghosts[a] != null)
-                {
+                else if (isVisible && Ghosts[a] != Null)
                     Ghosts[a].RemoveGhost();
-                    Ghosts[a] = null;
-                }
             }
         }
 
         void AddGhostsToQuadTrees()
         {
             foreach (var g in Ghosts.Values)
-                if (g != null && g.addGhostToQuadTree)
+                if (g != Null && g.addGhostToQuadTree)
                     g.AddGhostToQuadTree();
         }
 
         private void Ghost_GhostLifeEnding(MapElement ghost)
         {
             ghost.GhostLifeEnding -= Ghost_GhostLifeEnding;
-            Ghosts[ghost.ObservingArmy] = null;
+            Ghosts[ghost.ObservingArmy] = Null;
 
             if (Selectable)
             {
@@ -726,8 +730,8 @@ namespace MechWars.MapElements
 
             if (CanHaveGhosts)
                 foreach (var g in Ghosts.Values)
-                    if (g != null)
-                        g.OriginalMapElement = null;
+                    if (g != Null)
+                        g.OriginalMapElement = Null;
 
             if (!Globals.Destroyed)
             {
@@ -805,12 +809,13 @@ namespace MechWars.MapElements
         bool suspendDestroy;
         void OnDestroy()
         {
-            if (isShadow || IsGhost) return;
-
-            suspendDestroy = true;
-            if (!Dying) Dying = true;
-            if (Alive) Alive = false;
-            suspendDestroy = false;
+            if (!isShadow && !IsGhost)
+            {
+                suspendDestroy = true;
+                if (!Dying) Dying = true;
+                if (Alive) Alive = false;
+                suspendDestroy = false;
+            }
         }
 
         #endregion

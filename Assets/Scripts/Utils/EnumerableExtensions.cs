@@ -82,7 +82,18 @@ namespace MechWars.Utils
         {
             return !enumerable.Any(predicate);
         }
-        
+
+        public static T FirstOr<T>(this IEnumerable<T> enumerable, T another)
+        {
+            T item = another;
+            foreach (var i in enumerable)
+            {
+                item = i;
+                break;
+            }
+            return item;
+        }            
+
         public static FirstOrAnotherResult<T> FirstOrAnother<T>(this IEnumerable<T> enumerable,
             params System.Func<T, bool>[] predicates)
         {
