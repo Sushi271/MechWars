@@ -7,9 +7,6 @@ namespace MechWars.MapElements
 {
     public class Resource : MapElement
     {
-        static Resource @null = new Resource();
-        public static new Resource Null { get { return @null; } }
-
         public int value;
         int startValue;
 

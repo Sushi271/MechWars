@@ -16,13 +16,7 @@ namespace MechWars.MapElements
     public class MapElement : MonoBehaviour, IRotatable
     {
         #region Fields & Properties
-
-        static MapElement @null = new MapElement();
-        public static MapElement Null { get { return @null; } }
-
-        public bool IsNull { get { return this == Null; } }
-        public bool IsNotNull { get { return !IsNull; } }
-
+        
         public string mapElementName;
         public int id;
 
@@ -246,7 +240,6 @@ namespace MechWars.MapElements
         void Start()
         {
             visibleToSpectator = true;
-            OriginalMapElement = Null;
             if (isShadow) return;
             OnStart();
         }
@@ -281,7 +274,7 @@ namespace MechWars.MapElements
                 {
                     Ghosts = new Dictionary<Army, MapElement>();
                     foreach (var a in Globals.Armies)
-                        Ghosts[a] = Null;
+                        Ghosts[a] = null;
                 }
             }
             else
@@ -464,7 +457,7 @@ namespace MechWars.MapElements
             where T : MapElement
         {
             var rangeStat = Stats[rangeStatName];
-            if (rangeStat == null) return Null;
+            if (rangeStat == null) return null;
             var range = rangeStat.Value;
 
             var roundRange = Mathf.RoundToInt(range);
@@ -476,17 +469,17 @@ namespace MechWars.MapElements
                 select qtme.MapElement)
                 .Distinct();
 
-            if (mapElements.Empty()) return Null;
+            if (mapElements.Empty()) return null;
             var closest = mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
             if (HasMapElementInRange(closest, rangeStatName))
                 return (T)closest;
-            return Null;
+            return null;
         }
 
         public MapElement PickClosestMapElementFrom<T>(IEnumerable<T> mapElements)
             where T : MapElement
         {
-            if (mapElements.Empty()) return Null;
+            if (mapElements.Empty()) return null;
             return mapElements.SelectMin(me => Vector2.SqrMagnitude(Coords - me.GetClosestFieldTo(Coords)));
         }
 
@@ -601,7 +594,7 @@ namespace MechWars.MapElements
                 var isVisible = allCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
                 var isFogged = !isVisible && allCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
 
-                if (isVisible != VisibleToArmies[a] && isFogged && Ghosts[a] == Null)
+                if (isVisible != VisibleToArmies[a] && isFogged && Ghosts[a] == null)
                 {
                     var ghostObject = Instantiate(gameObject);
                     ghostObject.transform.parent = transform.parent;
@@ -612,7 +605,7 @@ namespace MechWars.MapElements
                     Ghosts[a] = ghost;
                     Globals.Map.AddGhost(ghost);
                 }
-                else if (isVisible && Ghosts[a] != Null)
+                else if (isVisible && Ghosts[a] != null)
                     Ghosts[a].RemoveGhost();
             }
         }
@@ -620,14 +613,14 @@ namespace MechWars.MapElements
         void AddGhostsToQuadTrees()
         {
             foreach (var g in Ghosts.Values)
-                if (g != Null && g.addGhostToQuadTree)
+                if (g != null && g.addGhostToQuadTree)
                     g.AddGhostToQuadTree();
         }
 
         private void Ghost_GhostLifeEnding(MapElement ghost)
         {
             ghost.GhostLifeEnding -= Ghost_GhostLifeEnding;
-            Ghosts[ghost.ObservingArmy] = Null;
+            Ghosts[ghost.ObservingArmy] = null;
 
             if (Selectable)
             {
@@ -730,8 +723,8 @@ namespace MechWars.MapElements
 
             if (CanHaveGhosts)
                 foreach (var g in Ghosts.Values)
-                    if (g != Null)
-                        g.OriginalMapElement = Null;
+                    if (g != null)
+                        g.OriginalMapElement = null;
 
             if (!Globals.Destroyed)
             {

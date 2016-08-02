@@ -20,7 +20,6 @@ namespace MechWars.MapElements.Orders
         public IdleOrder(MapElement mapElement)
             : base(mapElement)
         {
-            AutoAttackTarget = MapElement.Null;
         }
 
         protected override void OnStart()
@@ -33,7 +32,7 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnUpdate()
         {
-            if (AutoAttackTarget.IsNotNull)
+            if (AutoAttackTarget != null)
                 CorrectTarget();
         }
 
@@ -50,7 +49,7 @@ namespace MechWars.MapElements.Orders
                 if (AutoAttackTarget.CanHaveGhosts)
                 {
                     var ghost = AutoAttackTarget.Ghosts[MapElement.Army];
-                    if (ghost.IsNull)
+                    if (ghost == null)
                         throw new System.Exception("AutoAttackTarget has no Ghost, though it CanHaveGhosts and it's not visible by attacker Army.");
                     AutoAttackTarget = ghost;
                 }
@@ -76,14 +75,13 @@ namespace MechWars.MapElements.Orders
                 if (MapElement.CanAttack && nextScanIn == 0)
                 {
                     var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
-                    if (closest.IsNotNull && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
+                    if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
                         AutoAttackTarget = closest;
-                    if (AutoAttackTarget.IsNotNull && !AutoAttackTarget.Dying)
+                    if (AutoAttackTarget != null && !AutoAttackTarget.Dying)
                         idleRotationOrder.Stop();
                     else
                     {
-                        AutoAttackTarget = MapElement.Null;
-
+                        AutoAttackTarget = null;
                         var interval = Globals.Instance.autoAttackScanInterval;
                         nextScanIn = Random.Range(0.9f * interval, 1.1f * interval);
                     }
@@ -91,7 +89,7 @@ namespace MechWars.MapElements.Orders
             }
             else if (SubOrder == attackOrder)
             {
-                if (lostTrack || AutoAttackTarget.IsNull || AutoAttackTarget.Dying ||
+                if (lostTrack || AutoAttackTarget == null || AutoAttackTarget.Dying ||
                     !MapElement.HasMapElementInRange(AutoAttackTarget, StatNames.AttackRange))
                     attackOrder.Stop();
             }
@@ -104,12 +102,12 @@ namespace MechWars.MapElements.Orders
             {
                 lostTrack = false;
                 attackOrder = null;
-                AutoAttackTarget = MapElement.Null;
+                AutoAttackTarget = null;
             }
 
             if (State != OrderState.Stopping)
             {
-                if (AutoAttackTarget.IsNotNull && !AutoAttackTarget.Dying &&
+                if (AutoAttackTarget != null && !AutoAttackTarget.Dying &&
                     MapElement.HasMapElementInRange(AutoAttackTarget, StatNames.AttackRange))
                 {
                     attackOrder = new AttackOrder(MapElement, AutoAttackTarget);
@@ -132,7 +130,7 @@ namespace MechWars.MapElements.Orders
 
         protected override string SpecificsToStringCore()
         {
-            if (AutoAttackTarget.IsNull) return base.SpecificsToStringCore();
+            if (AutoAttackTarget == null) return base.SpecificsToStringCore();
             return string.Format("CurrentTarget: {0}", AutoAttackTarget);
         }
     }

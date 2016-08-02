@@ -36,7 +36,7 @@ namespace MechWars.InGameGUI
                 throw new System.Exception("Globals.Spectator is NULL.");
 
             var inputController = Globals.Spectator.InputController;
-            var selBuilding = inputController.SelectionMonitor.SelectedMapElements.FirstOr(MapElement.Null) as Building;
+            var selBuilding = inputController.SelectionMonitor.SelectedMapElements.FirstOrDefault() as Building;
             if (selBuilding != building || refreshBuildingGUI)
             {
                 refreshBuildingGUI = false;
@@ -52,7 +52,7 @@ namespace MechWars.InGameGUI
                 }
                 buttons.Clear();
 
-                if (building != MapElement.Null && !building.UnderConstruction && !building.IsGhost && building.Army == Globals.HumanArmy)
+                if (building != null && !building.UnderConstruction && !building.IsGhost && building.Army == Globals.HumanArmy)
                 {
                     var productionOAs = building.orderActions.OfType<UnitProductionOrderAction>()
                         .Where(poa => poa.CheckRequirements(building.Army)).ToList();
@@ -140,13 +140,13 @@ namespace MechWars.InGameGUI
 
         void SubscribeEvents(Building building)
         {
-            if (building != MapElement.Null && building.Army != null)
+            if (building != null && building.Army != null)
                 building.Army.Technologies.OnTechnologyDevelopmentChanged += InvokeRefreshBuildingGUI;
         }
 
         void UnsubscribeEvents(Building building)
         {
-            if (building != MapElement.Null && building.Army != null)
+            if (building != null && building.Army != null)
                 building.Army.Technologies.OnTechnologyDevelopmentChanged -= InvokeRefreshBuildingGUI;
         }
 
