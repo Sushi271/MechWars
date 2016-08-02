@@ -65,5 +65,10 @@ namespace MechWars.Utils
         {
             return string.Format("P: {0}\nR: {1}\nS: {2}", transform.localPosition, transform.localRotation, transform.localScale);
         }
+
+        public static bool IsTrueNull(this UnityEngine.Object obj)
+        {
+            return (object)obj == null;
+        }
     }
 }
