@@ -17,7 +17,9 @@ namespace MechWars.MapElements.Orders
         MoveOrder moveOrder;
         FollowAttackOrder followAttackOrder;
 
-        float nextAggroScanIn;
+        float nextAutoAttackScanIn;
+
+        bool lostTrack;
 
         public AttackMoveOrder(Unit unit, IVector2 destination)
             : base(unit)
@@ -34,19 +36,50 @@ namespace MechWars.MapElements.Orders
             GiveNewSubOrder();
         }
 
+        protected override void OnUpdate()
+        {
+            if (AttackTarget != null)
+                CorrectTarget();
+        }
+
+        void CorrectTarget()
+        {
+            if (!AttackTarget.IsGhost)
+            {
+                if (AttackTarget.Dying) return;
+
+                var targetVisible = AttackTarget.VisibleToArmies[MapElement.Army];
+                if (targetVisible) return;
+
+                if (AttackTarget.CanHaveGhosts)
+                {
+                    var ghost = AttackTarget.Ghosts[MapElement.Army];
+                    if (ghost == null)
+                        throw new System.Exception("AttackTarget has no Ghost, though it CanHaveGhosts and it's not visible by attacker Army.");
+                    AttackTarget = ghost;
+                }
+                else lostTrack = true;
+            }
+            else
+            {
+                if (!AttackTarget.GhostRemoved) return;
+                AttackTarget = AttackTarget.OriginalMapElement;
+            }
+        }
+
         protected override void OnSubOrderUpdating()
         {
             if (SubOrder.State == OrderState.Stopping) return;
 
             if (SubOrder == moveOrder)
             {
-                if (nextAggroScanIn > 0)
+                if (nextAutoAttackScanIn > 0)
                 {
-                    nextAggroScanIn -= Time.deltaTime;
-                    if (nextAggroScanIn < 0)
-                        nextAggroScanIn = 0;
+                    nextAutoAttackScanIn -= Time.deltaTime;
+                    if (nextAutoAttackScanIn < 0)
+                        nextAutoAttackScanIn = 0;
                 }
-                if (nextAggroScanIn == 0)
+                if (nextAutoAttackScanIn == 0)
                 {
                     var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
                     if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
@@ -56,10 +89,15 @@ namespace MechWars.MapElements.Orders
                     }
                     else
                     {
-                        var interval = Globals.Instance.aggroScanInterval;
-                        nextAggroScanIn = Random.Range(0.9f * interval, 1.1f * interval);
+                        var interval = Globals.Instance.autoAttackScanInterval;
+                        nextAutoAttackScanIn = Random.Range(0.9f * interval, 1.1f * interval);
                     }
                 }
+            }
+            else if (SubOrder == followAttackOrder)
+            {
+                if (lostTrack)
+                    followAttackOrder.Stop();
             }
         }
 
@@ -68,6 +106,7 @@ namespace MechWars.MapElements.Orders
             if (SubOrder == moveOrder) moveOrder = null;
             else if (SubOrder == followAttackOrder)
             {
+                lostTrack = false;
                 followAttackOrder = null;
                 AttackTarget = null;
             }

@@ -8,9 +8,8 @@ namespace MechWars.MapElements
 {
     public class Unit : MapElement
     {
-
         protected override bool CanAddToArmy { get { return true; } }
-        protected override bool CanHaveGhosts { get { return false; } }
+        public override bool CanHaveGhosts { get { return false; } }
         public override bool Selectable { get { return true; } }
         public override bool CanBeAttacked { get { return true; } }
         public override bool CanBeEscorted { get { return true; } }

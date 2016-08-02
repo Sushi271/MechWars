@@ -47,6 +47,45 @@ namespace MechWars.MapElements.Orders
         protected override void OnUpdate()
         {
             Targets.RemoveWhere(t => t.Dying);
+            CorrectTargets();
+        }
+
+        void CorrectTargets()
+        {
+            var toRemove = new HashSet<MapElement>();
+            var toAdd = new HashSet<MapElement>();
+            foreach (var t in Targets)
+            {
+                if (!t.IsGhost)
+                {
+                    var targetVisible = t.VisibleToArmies[MapElement.Army];
+                    if (targetVisible) continue;
+
+                    if (t.CanHaveGhosts)
+                    {
+                        var ghost = t.Ghosts[MapElement.Army];
+                        if (ghost == null)
+                            throw new System.Exception("Target has no Ghost, though it CanHaveGhosts and it's not visible by attacker Army.");
+                        toAdd.Add(ghost);
+                        if (t == CurrentTarget)
+                            CurrentTarget = ghost;
+                    }
+                    toRemove.Add(t);
+                }
+                else
+                {
+                    if (!t.GhostRemoved) continue;
+                    if (t.OriginalMapElement != null)
+                        toAdd.Add(t.OriginalMapElement);
+                    toRemove.Add(t);
+                    if (t == CurrentTarget)
+                        CurrentTarget = t.OriginalMapElement;
+                }
+            }
+            Targets.ExceptWith(toRemove);
+            Targets.UnionWith(toAdd);
+            if (CurrentTarget == null)
+                UpdateCurrentTarget();
         }
 
         protected override void OnSubOrderUpdating()

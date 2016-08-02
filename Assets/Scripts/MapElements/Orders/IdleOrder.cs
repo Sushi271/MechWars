@@ -1,5 +1,4 @@
 ﻿using MechWars.MapElements.Statistics;
-using MechWars.Utils;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
@@ -13,7 +12,9 @@ namespace MechWars.MapElements.Orders
         IdleRotationOrder idleRotationOrder;
         AttackOrder attackOrder;
 
-        float nextAggroScanIn;
+        float nextScanIn;
+
+        bool lostTrack;
 
         public IdleOrder(MapElement mapElement)
             : base(mapElement)
@@ -25,20 +26,51 @@ namespace MechWars.MapElements.Orders
             idleRotationOrder = new IdleRotationOrder(MapElement);
             GiveSubOrder(idleRotationOrder);
             
-            nextAggroScanIn = Random.Range(0, Globals.Instance.aggroScanInterval);
+            nextScanIn = Random.Range(0, Globals.Instance.autoAttackScanInterval);
+        }
+
+        protected override void OnUpdate()
+        {
+            if (AutoAttackTarget != null)
+                CorrectTarget();
+        }
+
+        void CorrectTarget()
+        {
+            if (!AutoAttackTarget.IsGhost)
+            {
+                if (AutoAttackTarget.Dying) return;
+
+                var targetVisible = AutoAttackTarget.VisibleToArmies[MapElement.Army];
+                if (targetVisible) return;
+
+                if (AutoAttackTarget.CanHaveGhosts)
+                {
+                    var ghost = AutoAttackTarget.Ghosts[MapElement.Army];
+                    if (ghost == null)
+                        throw new System.Exception("AutoAttackTarget has no Ghost, though it CanHaveGhosts and it's not visible by attacker Army.");
+                    AutoAttackTarget = ghost;
+                }
+                else lostTrack = true;
+            }
+            else
+            {
+                if (!AutoAttackTarget.GhostRemoved) return;
+                AutoAttackTarget = AutoAttackTarget.OriginalMapElement;
+            }
         }
 
         protected override void OnSubOrderUpdating()
         {
             if (SubOrder == idleRotationOrder)
             {
-                if (nextAggroScanIn > 0)
+                if (nextScanIn > 0)
                 {
-                    nextAggroScanIn -= Time.deltaTime;
-                    if (nextAggroScanIn < 0)
-                        nextAggroScanIn = 0;
+                    nextScanIn -= Time.deltaTime;
+                    if (nextScanIn < 0)
+                        nextScanIn = 0;
                 }
-                if (MapElement.CanAttack && nextAggroScanIn == 0)
+                if (MapElement.CanAttack && nextScanIn == 0)
                 {
                     var closest = MapElement.PickClosestEnemyInRange(StatNames.AttackRange);
                     if (closest != null && MapElement.HasMapElementInRange(closest, StatNames.AttackRange))
@@ -47,14 +79,15 @@ namespace MechWars.MapElements.Orders
                         idleRotationOrder.Stop();
                     else
                     {
-                        var interval = Globals.Instance.aggroScanInterval;
-                        nextAggroScanIn = Random.Range(0.9f * interval, 1.1f * interval);
+                        var interval = Globals.Instance.autoAttackScanInterval;
+                        nextScanIn = Random.Range(0.9f * interval, 1.1f * interval);
                     }
                 }
             }
             else if (SubOrder == attackOrder)
             {
-                if (AutoAttackTarget.Dying || !MapElement.HasMapElementInRange(AutoAttackTarget, StatNames.AttackRange))
+                if (lostTrack || AutoAttackTarget.Dying ||
+                    !MapElement.HasMapElementInRange(AutoAttackTarget, StatNames.AttackRange))
                     attackOrder.Stop();
             }
         }
@@ -62,7 +95,12 @@ namespace MechWars.MapElements.Orders
         protected override void OnSubOrderStopped()
         {
             if (SubOrder == idleRotationOrder) idleRotationOrder = null;
-            else if (SubOrder == attackOrder) attackOrder = null;
+            else if (SubOrder == attackOrder)
+            {
+                lostTrack = false;
+                attackOrder = null;
+                AutoAttackTarget = null;
+            }
 
             if (State != OrderState.Stopping)
             {

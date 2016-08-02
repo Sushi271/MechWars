@@ -45,8 +45,8 @@ namespace MechWars.MapElements
         public bool IsGhost { get; private set; }
         protected Army ObservingArmy { get; private set; }
         bool addGhostToQuadTree;
-        bool ghostRemoved;
-        Dictionary<Army, MapElement> ghosts;
+        public bool GhostRemoved { get; private set; }
+        public Dictionary<Army, MapElement> Ghosts { get; private set; }
 
         bool mapInitialized;
 
@@ -182,12 +182,12 @@ namespace MechWars.MapElements
                     {
                         selMonitor.Deselect(this.AsEnumerable());
                         if (CanHaveGhosts && !IsGhost)
-                            selMonitor.Select(ghosts.Values.Where(g => g != null));
+                            selMonitor.Select(Ghosts.Values.Where(g => g != null));
                     }
                 }
             }
         }
-        protected virtual bool CanHaveGhosts { get { return true; } }
+        public virtual bool CanHaveGhosts { get { return true; } }
         public Dictionary<Army, bool> VisibleToArmies { get; private set; }
 
         public bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
@@ -272,9 +272,9 @@ namespace MechWars.MapElements
 
                 if (CanHaveGhosts)
                 {
-                    ghosts = new Dictionary<Army, MapElement>();
+                    Ghosts = new Dictionary<Army, MapElement>();
                     foreach (var a in Globals.Armies)
-                        ghosts[a] = null;
+                        Ghosts[a] = null;
                 }
             }
             else
@@ -448,12 +448,12 @@ namespace MechWars.MapElements
             return PickClosestMapElementInRange<Resource>(rangeStatName, Army.ResourcesQuadTree);
         }
 
-        public MapElement PickClosestEnemyInRange(string rangeStatName)
+        public MapElement PickClosestEnemyInRange(string rangeStatName, bool onlyAggressive = false)
         {
-            return PickClosestMapElementInRange<MapElement>(rangeStatName, Army.EnemiesQuadTree);
+            return PickClosestMapElementInRange<MapElement>(rangeStatName, Army.EnemiesQuadTree, onlyAggressive);
         }
 
-        T PickClosestMapElementInRange<T>(string rangeStatName, QuadTree searchedQuadTree)
+        T PickClosestMapElementInRange<T>(string rangeStatName, QuadTree searchedQuadTree, bool onlyAggressive = false)
             where T : MapElement
         {
             var rangeStat = Stats[rangeStatName];
@@ -465,6 +465,7 @@ namespace MechWars.MapElements
             var mapElements = (
                 from qtme in searchedQuadTree.QueryRange(bounds)
                 where !qtme.MapElement.Dying
+                where !onlyAggressive || qtme.MapElement.CanAttack
                 select qtme.MapElement)
                 .Distinct();
 
@@ -593,7 +594,7 @@ namespace MechWars.MapElements
                 var isVisible = allCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible);
                 var isFogged = !isVisible && allCoords.Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Fogged);
                 
-                if (isVisible != VisibleToArmies[a] && isFogged && ghosts[a] == null)
+                if (isVisible != VisibleToArmies[a] && isFogged && Ghosts[a] == null)
                 {
                     var ghostObject = Instantiate(gameObject);
                     ghostObject.transform.parent = transform.parent;
@@ -601,20 +602,20 @@ namespace MechWars.MapElements
                     var ghost = ghostObject.GetComponent<MapElement>();
                     ghost.MakeItGhost(this, a);
                     ghost.GhostLifeEnding += Ghost_GhostLifeEnding;
-                    ghosts[a] = ghost;
+                    Ghosts[a] = ghost;
                     Globals.Map.AddGhost(ghost);
                 }
-                else if (isVisible && ghosts[a] != null)
+                else if (isVisible && Ghosts[a] != null)
                 {
-                    ghosts[a].RemoveGhost();
-                    ghosts[a] = null;
+                    Ghosts[a].RemoveGhost();
+                    Ghosts[a] = null;
                 }
             }
         }
 
         void AddGhostsToQuadTrees()
         {
-            foreach (var g in ghosts.Values)
+            foreach (var g in Ghosts.Values)
                 if (g != null && g.addGhostToQuadTree)
                     g.AddGhostToQuadTree();
         }
@@ -622,7 +623,7 @@ namespace MechWars.MapElements
         private void Ghost_GhostLifeEnding(MapElement ghost)
         {
             ghost.GhostLifeEnding -= Ghost_GhostLifeEnding;
-            ghosts[ghost.ObservingArmy] = null;
+            Ghosts[ghost.ObservingArmy] = null;
 
             if (Selectable)
             {
@@ -685,14 +686,13 @@ namespace MechWars.MapElements
         {
             if (!IsGhost)
                 throw new System.InvalidOperationException("Cannot call this method on non-Ghost MapElement.");
-            if (!ghostRemoved)
+            if (!GhostRemoved)
             {
-                ghostRemoved = true;
-                OriginalMapElement = null;
-                
-                RemoveGhostFromQuadTree();
                 if (GhostLifeEnding != null)
                     GhostLifeEnding(this);
+
+                GhostRemoved = true;
+                RemoveGhostFromQuadTree();
 
                 var selMonitor = Globals.Spectator.InputController.SelectionMonitor;
                 if (selMonitor.IsSelected(this))
@@ -725,7 +725,7 @@ namespace MechWars.MapElements
                 Army.RemoveMapElement(this);
 
             if (CanHaveGhosts)
-                foreach (var g in ghosts.Values)
+                foreach (var g in Ghosts.Values)
                     if (g != null)
                         g.OriginalMapElement = null;
 
