@@ -66,7 +66,10 @@ namespace MechWars
         public void FinishDeveloping(Technology technology)
         {
             CancelDeveloping(technology);
+
+            technology.OnTechnologyDeveloping(Army);
             developedTechnologies.Add(technology);
+            technology.OnTechnologyDeveloped(Army);
         }
 
         public IEnumerable<StatBonus> GetBonusesFor(MapElement receiver)

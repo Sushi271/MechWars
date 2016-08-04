@@ -8,19 +8,37 @@ namespace MechWars.MapElements
     public class Resource : MapElement
     {
         public int value;
-        int startValue;
+        public int MaxValue { get; private set; }
 
-        public float Size { get { return 1.0f * value / startValue; } }
+        public float Size { get { return 1.0f * value / MaxValue; } }
         public override float? LifeValue { get { return value; } }
 
         public override bool Selectable { get { return true; } }
+
+        ResourceGhostSnapshot resourceGhostSnapshot;
+
+        protected override void MakeSnapshotOf(MapElement originalMapElement)
+        {
+            base.MakeSnapshotOf(originalMapElement);
+            resourceGhostSnapshot = new ResourceGhostSnapshot((Resource)originalMapElement, this);
+        }
 
         protected override void OnStart()
         {
             base.OnStart();
 
-            startValue = value;
-            if (startValue == 0) startValue = 1;
+            if (IsGhost)
+                ForceDifferentMaxValue(resourceGhostSnapshot.MaxValue);
+            else MaxValue = value;
+
+            if (MaxValue == 0) MaxValue = 1;
+        }
+
+        void ForceDifferentMaxValue(int maxValue)
+        {
+            if (maxValue < value)
+                maxValue = value;
+            this.MaxValue = maxValue;
         }
 
         protected override Sprite GetMarkerImage()
@@ -79,7 +97,7 @@ namespace MechWars.MapElements
         {
             base.DEBUG_PrintStatus(sb)
                 .AppendLine()
-                .Append(string.Format("Resources: {0} / {1} ({2:P1})", value, startValue, (float)value / startValue));
+                .Append(string.Format("Resources: {0} / {1} ({2:P1})", value, MaxValue, (float)value / MaxValue));
             return sb;
         }
     }

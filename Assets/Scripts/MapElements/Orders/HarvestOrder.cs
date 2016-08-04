@@ -1,7 +1,5 @@
 ﻿using MechWars.MapElements.Statistics;
 using MechWars.Utils;
-using System.Collections.Generic;
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -28,7 +26,7 @@ namespace MechWars.MapElements.Orders
         public Building Deposit { get; private set; }
 
         IVector2 DepositClosestCoords { get { return Deposit.GetClosestFieldTo(Unit.Coords); } }
-        
+
         IVector2? resourceCoords;
 
         MoveOrder moveOrder;
@@ -69,22 +67,43 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnUpdate()
         {
-            if (Resource != null && Resource.value == 0)
-                Resource = null;
-            if (Deposit != null && Deposit.Dying)
+            if (!Resource.IsTrueNull())
+            {
+                CorrectResource();
+                if (Resource.value == 0)
+                    Resource = null;
+            }
+            if (!Deposit.IsTrueNull() && Deposit.Dying)
                 Deposit = null;
+        }
+
+        void CorrectResource()
+        {
+            if (!Resource.IsGhost)
+            {
+                if (Resource.Dying) return;
+
+                var targetVisible = Resource.VisibleToArmies[MapElement.Army];
+                if (targetVisible) return;
+                
+                var ghost = Resource.Ghosts[MapElement.Army];
+                if (ghost == null)
+                    throw new System.Exception("Resource has no Ghost, though it CanHaveGhosts and it's not visible by harvesting Army.");
+                Resource = (Resource)ghost;
+            }
+            else
+            {
+                if (!Resource.GhostRemoved) return;
+                Resource = (Resource)Resource.OriginalMapElement;
+            }
         }
 
         protected override void OnSubOrderUpdating()
         {
-            if (SubOrder == moveOrder)
-            {
-                if (mode == HarvestMode.Deposit)
-                {
-                    if (Deposit == null)
-                        moveOrder.Stop();
-                }
-            }
+            if (SubOrder == moveOrder && 
+                mode == HarvestMode.Deposit &&
+                Deposit == null)
+                    moveOrder.Stop();
         }
 
         protected override void OnSubOrderStopped()
@@ -92,7 +111,7 @@ namespace MechWars.MapElements.Orders
             if (SubOrder == moveOrder) moveOrder = null;
             else if (SubOrder == collectOrder) collectOrder = null;
             else if (SubOrder == depositOrder) depositOrder = null;
-            
+
             if (State != OrderState.Stopped)
                 GiveNewSubOrder();
         }

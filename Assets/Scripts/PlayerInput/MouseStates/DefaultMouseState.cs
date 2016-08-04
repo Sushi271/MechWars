@@ -36,8 +36,9 @@ namespace MechWars.PlayerInput.MouseStates
         {
             var hovered = InputController.HoverController.HoveredMapElements;
             if (hovered.HasAtLeast(2))
-                throw new System.Exception("The game reached an invalid state: " +
-                    "handling automatic order, while there are more than 1 hovered MapElements.");
+                throw new System.Exception(string.Format("The game reached an invalid state: " +
+                    "handling automatic order, while there are more than 1 hovered MapElements. " +
+                    "List of hovered MapElements: {0}", hovered.ToDebugMessage()));
             var mapElement = hovered.FirstOrDefault();
 
             bool handled = false;
