@@ -35,7 +35,7 @@ namespace MechWars.PlayerInput.MouseStates
 
                 var result = me.orderActions.FirstOrAnother(types.Select(
                     t => new System.Func<OrderAction, bool>(
-                        oa => { Debug.Log(oa.GetType()); Debug.Log(t); return oa.GetType() == t; })).ToArray());
+                        oa => oa.GetType() == t)).ToArray());
                 if (!result.Found) continue;
 
                 var orderAction = result.Result;

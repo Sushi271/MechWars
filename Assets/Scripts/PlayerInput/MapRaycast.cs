@@ -65,7 +65,7 @@ namespace MechWars.PlayerInput
             }
 
             RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.Terrain)))
+            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask(Layer.GameplayArea)))
             {
                 PreciseCoords = new Vector2(hitInfo.point.x, hitInfo.point.z);
                 Coords = PreciseCoords.Value.Round();
