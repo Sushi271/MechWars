@@ -11,12 +11,12 @@ namespace MechWars.MapElements.Attacks
     {
         bool hit;
         float currentLifetime;
-        
+
         public MapElement Target { get; set; }
         public Vector3 Velocity { get; set; }
         public float Firepower { get; set; }
         public float Lifetime { get; set; }
-        
+
         bool visibleToSpectator;
         bool VisibleToSpectator
         {
@@ -64,9 +64,10 @@ namespace MechWars.MapElements.Attacks
 
             if (!Target.Dying)
             {
-                if (Target.IsGhost && Target.OriginalMapElement != null)
-                    Target = Target.OriginalMapElement;
-                else Target = null;
+                if (Target.IsGhost)
+                    if (Target.OriginalMapElement != null)
+                        Target = Target.OriginalMapElement;
+                    else Target = null;
 
                 if (Target != null)
                 {
