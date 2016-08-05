@@ -60,7 +60,7 @@ namespace MechWars.PlayerInput
                 Coords = PreciseCoords.Value.Round();
                 MapElement = mapElements.FirstOrDefault(me => !me.IsGhost);
                 Ghosts = mapElements.Where(me => me.IsGhost).ToArray();
-
+                
                 return;
             }
 

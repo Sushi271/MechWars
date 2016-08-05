@@ -6,5 +6,6 @@
         public const string MapElements = "MapElements";
         public const string UI = "UI";
         public const string HoverBoxRaycast = "HoverBoxRaycast";
+        public const string BuildingShadow = "BuildingShadow";
     }
 }

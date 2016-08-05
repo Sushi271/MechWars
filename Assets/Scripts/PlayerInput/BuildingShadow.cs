@@ -1,5 +1,6 @@
 ﻿using MechWars.MapElements;
 using MechWars.MapElements.Orders.Actions;
+using MechWars.Utils;
 using System.Linq;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace MechWars.PlayerInput
             prefab = orderAction.building;
 
             shadow = Object.Instantiate(prefab.gameObject).GetComponent<Building>();
-            shadow.gameObject.layer = 0;
+            shadow.gameObject.SetLayerRecursively(LayerMask.NameToLayer(Layer.BuildingShadow));
             shadow.gameObject.name = prefab.gameObject.name + " shadow";
             shadow.isShadow = true;
             var rs = shadow.GetComponentsInChildren<Renderer>();

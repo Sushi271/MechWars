@@ -66,9 +66,18 @@ namespace MechWars.Utils
             return string.Format("P: {0}\nR: {1}\nS: {2}", transform.localPosition, transform.localRotation, transform.localScale);
         }
 
-        public static bool IsTrueNull(this UnityEngine.Object obj)
+        public static bool IsTrueNull(this Object obj)
         {
             return (object)obj == null;
+        }
+
+        public static void SetLayerRecursively(this GameObject obj, int layer)
+        {
+            if (obj == null) return;
+            foreach (var t in obj.GetComponentsInChildren<Transform>(true))
+            {
+                t.gameObject.layer = layer;
+            }
         }
     }
 }
