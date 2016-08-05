@@ -15,7 +15,7 @@ namespace MechWars.PlayerInput
         bool destroyed;
 
         public bool InsideMap { get; private set; }
-        public bool PositionOccupied { get; private set; }
+        public bool CannotBuild { get; private set; }
 
         public Vector2 Position { get; private set; }
 
@@ -101,18 +101,23 @@ namespace MechWars.PlayerInput
 
             shadow.Coords = Position; //ustawienie shadowowi snapowane współrzędne
             var allCoords = shadow.AllCoords.ToList();
-            bool isOccupied = false;
+            bool cannotBuild = false;
             foreach (var c in allCoords) //dla każdego c we współrzędnych, które zajmie budynek
             {
                 if (Globals.Map[c] != null) // jeżeli choć jedno z pól jest zajete
                 {
-                    isOccupied = true;
+                    cannotBuild = true;
+                    break;
+                }
+                if (!inputController.ConstructionRange.FieldInRange(c)) // lub jest poza zasiegiem
+                {
+                    cannotBuild = true;
                     break;
                 }
             }
             // powyżej prosi się o Any() z lambdą z LInQ, ale to Twój kod :P - Sushi
-
-            PositionOccupied = isOccupied;
+            
+            CannotBuild = cannotBuild;
             shadow.transform.position = new Vector3(Position.x, 0, Position.y);
         }
 
@@ -124,7 +129,7 @@ namespace MechWars.PlayerInput
                 r.enabled = InsideMap; // zeby zniknal
                 var m = r.material;
                 var col = m.color;
-                col.g = col.b = PositionOccupied ? 0 : 1; // na czerwono
+                col.g = col.b = CannotBuild ? 0 : 1; // na czerwono
                 m.color = col;
             }
         }

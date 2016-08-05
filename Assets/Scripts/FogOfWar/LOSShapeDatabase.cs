@@ -5,25 +5,25 @@ namespace MechWars.FogOfWar
 {
     public class LOSShapeDatabase
     {
-        Dictionary<float, Dictionary<MapElementShape, LOSShape>> shapes;
+        Dictionary<float, Dictionary<MapElementShape, MapElementSurroundingShape>> shapes;
 
-        public LOSShape this[float radius, MapElementShape mes]
+        public MapElementSurroundingShape this[float radius, MapElementShape mes]
         {
             get
             {
-                Dictionary<MapElementShape, LOSShape> innerDict = null;
+                Dictionary<MapElementShape, MapElementSurroundingShape> innerDict = null;
                 var success = shapes.TryGetValue(radius, out innerDict);
                 if (!success)
                 {
-                    innerDict = new Dictionary<MapElementShape, LOSShape>();
+                    innerDict = new Dictionary<MapElementShape, MapElementSurroundingShape>();
                     shapes[radius] = innerDict;
                 }
 
-                LOSShape shape = null;
+                MapElementSurroundingShape shape = null;
                 success = innerDict.TryGetValue(mes, out shape);
                 if (!success)
                 {
-                    shape = new LOSShape(radius, mes);
+                    shape = new MapElementSurroundingShape(radius, mes);
                     innerDict[mes] = shape;
                 }
                 return shape;
@@ -32,7 +32,7 @@ namespace MechWars.FogOfWar
 
         public LOSShapeDatabase()
         {
-            shapes = new Dictionary<float, Dictionary<MapElementShape, LOSShape>>();
+            shapes = new Dictionary<float, Dictionary<MapElementShape, MapElementSurroundingShape>>();
         }
         
         public void Clear()

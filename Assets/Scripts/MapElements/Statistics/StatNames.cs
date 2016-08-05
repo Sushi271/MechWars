@@ -14,5 +14,6 @@
         public static string DepositRate = "Deposit rate";
         public static string CarriedResource = "Carried resource";
         public static string ViewRange = "View range";
+        public static string ConstructionRange = "Construction range";
     }
 }

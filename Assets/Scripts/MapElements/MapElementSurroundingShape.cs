@@ -1,12 +1,11 @@
 ﻿using MechWars.Utils;
-using MechWars.MapElements;
 using UnityEngine;
 using System.Linq;
 using System.Text;
 
-namespace MechWars.FogOfWar
+namespace MechWars.MapElements
 {
-    public class LOSShape
+    public class MapElementSurroundingShape
     {
         public float DeltaXNeg { get { return (1 - Width) * 0.5f; } }
         public float DeltaXPos { get { return (Width - 1) * 0.5f; } }
@@ -28,7 +27,7 @@ namespace MechWars.FogOfWar
             get { return shape[x, y]; }
         }
 
-        public LOSShape(float radius, MapElementShape mapElementShape)
+        public MapElementSurroundingShape(float radius, MapElementShape mapElementShape)
         {
             Radius = radius;
             MapElementShape = mapElementShape;

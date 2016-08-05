@@ -12,6 +12,8 @@ namespace MechWars
 
         [PrefabType(PrefabType.Other)]
         public GameObject marker;
+        [PrefabType(PrefabType.Other)]
+        public GameObject constructionRange;
         [PrefabType(PrefabType.Resource)]
         public GameObject resource1;
         [PrefabType(PrefabType.Resource)]

@@ -26,7 +26,7 @@ namespace MechWars.MapElements.Orders.Actions
                 return false;
             }
 
-            if (orderActionArgs.BuildingPlacement.PositionOccupied)
+            if (orderActionArgs.BuildingPlacement.CannotBuild)
             {
                 Debug.Log(string.Format("Cannot place building {0} in location {1} - it's occupied.",
                     building, orderActionArgs.BuildingPlacement.Position));

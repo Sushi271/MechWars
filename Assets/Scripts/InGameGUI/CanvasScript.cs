@@ -91,6 +91,7 @@ namespace MechWars.InGameGUI
                             {
                                 inputController.CarriedOrderAction = coa;
                                 inputController.CreateShadow(coa);
+                                inputController.CreateConstructionRange(building);
                             }));
                         }
                         else

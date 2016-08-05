@@ -41,7 +41,7 @@ namespace MechWars.FogOfWar
             fieldsSeenByUnits[x, y]++;
         }
 
-        void IncreaseVisibility(float x, float y, LOSShape shape)
+        void IncreaseVisibility(float x, float y, MapElementSurroundingShape shape)
         {
             for (int rx = (int)(x + shape.DeltaXNeg), i = 0; rx <= (int)(x + shape.DeltaXPos); rx++, i++)
                 for (int ry = (int)(y + shape.DeltaYNeg), j = 0; ry <= (int)(y + shape.DeltaYPos); ry++, j++)
@@ -73,17 +73,12 @@ namespace MechWars.FogOfWar
             fieldsSeenByUnits[x, y]--;
         }
 
-        void DecreaseVisibility(float x, float y, LOSShape shape)
+        void DecreaseVisibility(float x, float y, MapElementSurroundingShape shape)
         {
             for (int rx = (int)(x + shape.DeltaXNeg), i = 0; rx <= (int)(x + shape.DeltaXPos); rx++, i++)
                 for (int ry = (int)(y + shape.DeltaYNeg), j = 0; ry <= (int)(y + shape.DeltaYPos); ry++, j++)
                     if (shape[i, j]) DecreaseVisibility(rx, ry);
         }
-
-        // TODO:
-        // Change visibility when moving
-        // Change visibility when upgrade
-        // Check if it works
 
         public void DecreaseVisibility(MapElement mapElement)
         {

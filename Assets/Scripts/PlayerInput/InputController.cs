@@ -1,8 +1,8 @@
 ﻿using MechWars.MapElements.Orders.Actions;
 using MechWars.PlayerInput.MouseStates;
 using MechWars.Utils;
-using System.Linq;
 using UnityEngine;
+using MechWars.MapElements;
 
 namespace MechWars.PlayerInput
 {
@@ -32,6 +32,7 @@ namespace MechWars.PlayerInput
         public bool CarriesOrderAction { get { return CarriedOrderAction != null; } }
 
         public BuildingShadow BuildingShadow { get; private set; }
+        public ConstructionRange ConstructionRange { get; private set; }
 
         public Color FramesColor { get { return BehaviourDeterminant.FramesColor; } }
         public Color HoverBoxColor { get { return BehaviourDeterminant.HoverBoxColor; } }
@@ -87,6 +88,23 @@ namespace MechWars.PlayerInput
             }
         }
 
+        public void CreateConstructionRange(Building constructingBuilding)
+        {
+            var constRangeObj = Object.Instantiate(Globals.Prefabs.constructionRange);
+            ConstructionRange = constRangeObj.GetComponent<ConstructionRange>();
+            ConstructionRange.transform.position = Vector3.zero;
+            ConstructionRange.constructingBuilding = constructingBuilding;
+        }
+
+        public void DestroyConstructionRange()
+        {
+            if (!ConstructionRange.IsTrueNull())
+            {
+                Object.Destroy(ConstructionRange.gameObject);
+                ConstructionRange = null;
+            }
+        }
+
         bool executeOnUp;
         void HandleCarriedOrderAction()
         {
@@ -100,6 +118,7 @@ namespace MechWars.PlayerInput
             {
                 CarriedOrderAction = null;
                 DestroyShadow();
+                DestroyConstructionRange();
                 executeOnUp = false;
             }
 
@@ -126,6 +145,7 @@ namespace MechWars.PlayerInput
                         {
                             CarriedOrderAction = null;
                             DestroyShadow();
+                            DestroyConstructionRange();
                         }
                     }
                 }
