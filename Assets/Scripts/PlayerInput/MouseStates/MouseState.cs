@@ -34,7 +34,8 @@ namespace MechWars.PlayerInput.MouseStates
                 if (me.Army != Globals.HumanArmy) continue;
 
                 var result = me.orderActions.FirstOrAnother(types.Select(
-                    t => new System.Func<OrderAction, bool>(oa => oa.GetType() == t)).ToArray());
+                    t => new System.Func<OrderAction, bool>(
+                        oa => { Debug.Log(oa.GetType()); Debug.Log(t); return oa.GetType() == t; })).ToArray());
                 if (!result.Found) continue;
 
                 var orderAction = result.Result;
