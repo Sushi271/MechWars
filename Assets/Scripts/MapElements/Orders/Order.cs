@@ -134,11 +134,13 @@ namespace MechWars.MapElements.Orders
         {
         }
 
-        public virtual void Terminate()
+        public void Terminate(string explicitReason = null)
         {
             OnTerminating();
             Debug.LogError(string.Format("Order {0} of {1} terminated: {2}",
-                Name, MapElement, Result != null ? Result.Message : "NULL"));
+                Name, MapElement,
+                    explicitReason != null ? explicitReason :
+                    Result != null ? Result.Message : "NULL"));
             State = OrderState.Terminated;
         }
 

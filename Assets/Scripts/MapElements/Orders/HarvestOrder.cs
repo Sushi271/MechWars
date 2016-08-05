@@ -112,7 +112,7 @@ namespace MechWars.MapElements.Orders
             else if (SubOrder == collectOrder) collectOrder = null;
             else if (SubOrder == depositOrder) depositOrder = null;
 
-            if (State != OrderState.Stopped)
+            if (State != OrderState.Stopping && !InFinalState)
                 GiveNewSubOrder();
         }
 

@@ -38,7 +38,7 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnUpdate()
         {
-            if (AttackTarget.IsTrueNull())
+            if (!AttackTarget.IsTrueNull())
                 CorrectTarget();
         }
 

@@ -156,7 +156,7 @@ namespace MechWars.MapElements.Orders
             }
 
             foreach (var o in queue)
-                o.Terminate();
+                o.Terminate("OrderQueue terminated.");
             queue.Clear();
         }
 

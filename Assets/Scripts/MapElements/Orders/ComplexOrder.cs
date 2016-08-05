@@ -119,10 +119,11 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnTerminating()
         {
+            string reason = "Parent order terminated.";
             if (NextSubOrder != null)
-                NextSubOrder.Terminate();
+                NextSubOrder.Terminate(reason);
             if (SubOrder != null)
-                SubOrder.Terminate();
+                SubOrder.Terminate(reason);
         }
 
         protected sealed override string SpecificsToString()
