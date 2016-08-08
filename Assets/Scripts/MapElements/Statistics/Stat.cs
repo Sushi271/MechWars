@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace MechWars.MapElements.Statistics
 {
@@ -10,8 +12,7 @@ namespace MechWars.MapElements.Statistics
         // TODO: zrobić po tej stronie zaciąganie bonusów tylko gdy w StatChangesTable nie ma wpisanego siebie samego
 
         int lastUpdate = -1;
-
-        float baseValue;
+        
         float baseMaxValue;
 
         float value;
@@ -19,17 +20,10 @@ namespace MechWars.MapElements.Statistics
         {
             get
             {
-                var val = value;
-                if (limited || Owner.Army == null) return value;
-
-                var bonuses =
-                    from b in Owner.Army.Technologies.GetBonusesFor(Owner)
-                    where b.statName == Name
-                    orderby b.order, b.type
-                    select b;
-                foreach (var b in bonuses)
-                    val = b.ApplyTo(val);
-                return val;
+                if (lastUpdate == Time.frameCount) return value;
+                lastUpdate = Time.frameCount;
+                UpdateValues();
+                return value;
             }
             set
             {
@@ -54,50 +48,61 @@ namespace MechWars.MapElements.Statistics
         {
             get
             {
-                var val = maxValue;
-                if (!limited || Owner.Army == null) return maxValue;
+                if (lastUpdate == Time.frameCount) return maxValue;
+                lastUpdate = Time.frameCount;
+                UpdateValues();
+                return maxValue;
+            }
+        }
 
-                var bonuses =
-                    from b in Owner.Army.Technologies.GetBonusesFor(Owner)
-                    where b.statName == Name
-                    orderby b.order, b.type
-                    select b;
-                foreach (var b in bonuses)
-                    val = b.ApplyTo(val);
-                return val;
-            }
-            set
-            {
-                if (value < 0) maxValue = 0;
-                else maxValue = value;
-                CorrectValue();
-            }
+        void UpdateValues()
+        {
+            if (Owner.Army == null) return;
+
+            var set = Owner.Army.Technologies.StatChangesTable[Owner.mapElementName, Name];
+            if (set.Contains(this)) return;
+            set.Add(this);
+
+            var valueShortage = maxValue - value;
+            maxValue = baseMaxValue;
+
+            var bonuses =
+                from b in Owner.Army.Technologies.GetBonusesFor(Owner)
+                where b.statName == Name
+                orderby b.order, b.type
+                select b;
+            foreach (var b in bonuses)
+                maxValue = b.ApplyTo(maxValue);
+            
+            value = maxValue - valueShortage;
         }
 
         public bool HasMaxValue {  get { return Limited && Value == MaxValue; } }
 
-        public Stat(string name, MapElement owner, float baseValue, float baseMaxValue)
+        public Stat(string name, MapElement owner, float baseMaxValue, float startValue, bool limited)
         {
             Name = name;
             Owner = owner;
-            this.baseValue = baseValue;
+
             this.baseMaxValue = baseMaxValue;
+
+            maxValue = baseMaxValue;
+            value = startValue;
+            this.limited = limited;
+
+            CorrectValue();
         }
 
         void CorrectValue()
         {
             if (value < 0) value = 0;
             if (!limited) return;
-            if (value > MaxValue) value = MaxValue;
+            if (value > maxValue) value = maxValue;
         }
 
         public Stat Clone(MapElement newOwner)
         {
-            var stat = new Stat(Name, newOwner, baseValue, baseMaxValue);
-            stat.limited = limited;
-            stat.maxValue = maxValue;
-            stat.value = value;
-            stat.CorrectValue();
+            var stat = new Stat(Name, newOwner, baseMaxValue, baseMaxValue - (maxValue - value), limited);
             return stat;
         }
 

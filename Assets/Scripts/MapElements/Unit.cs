@@ -97,6 +97,7 @@ namespace MechWars.MapElements
 
         public override StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
+            if (Dying) return sb;
             base.DEBUG_PrintStatus(sb)
                 .AppendLine();
             DEBUG_PrintOrders(sb);

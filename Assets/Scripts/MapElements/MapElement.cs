@@ -353,10 +353,7 @@ namespace MechWars.MapElements
                 var limited = e.HasAttribute("max_value");
                 float maxValue = 0;
                 if (limited) maxValue = float.Parse(e.GetAttribute("max_value"));
-                Stat attribute = new Stat(name, this);
-                attribute.MaxValue = maxValue;
-                attribute.Value = value;
-                attribute.Limited = limited;
+                Stat attribute = new Stat(name, this, maxValue, value, limited);
                 Stats.Add(attribute);
             }
         }
@@ -822,6 +819,7 @@ namespace MechWars.MapElements
 
         public virtual StringBuilder DEBUG_PrintStatus(StringBuilder sb)
         {
+            if (Dying) return sb;
             sb
                 .AppendLine(string.Format("{0} {1}", GetType().Name, ToString()))
                 .AppendLine(string.Format("Coords: {0}", Coords))
