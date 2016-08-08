@@ -1,9 +1,9 @@
 <Stats>
-    <Stat name="Movement speed" value="3.5" />
+    <Stat name="Movement speed" value="3" />
     <Stat name="Rotation speed" value="1.5" />
     <Stat name="Hit points" value="120" max_value="120" />
-    <Stat name="Firepower" value="2" />
+    <Stat name="Firepower" value="5" />
     <Stat name="Attack speed" value="10" />
-    <Stat name="Attack range" value="4" />
-    <Stat name="View range" value="6" />
+    <Stat name="Attack range" value="3" />
+    <Stat name="View range" value="4" />
 </Stats>

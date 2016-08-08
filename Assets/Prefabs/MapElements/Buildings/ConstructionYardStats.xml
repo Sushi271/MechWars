@@ -1,5 +1,5 @@
 <Stats>
-    <Stat name="Hit points" value="1000" max_value="1000" />
+    <Stat name="Hit points" value="3500" max_value="3500" />
     <Stat name="View range" value="5" />
     <Stat name="Construction range" value="15" />
 </Stats>

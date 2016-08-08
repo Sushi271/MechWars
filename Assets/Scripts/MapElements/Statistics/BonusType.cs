@@ -1,4 +1,4 @@
-﻿namespace MechWars.MapElements
+﻿namespace MechWars.MapElements.Statistics
 {
     public enum BonusType
     {

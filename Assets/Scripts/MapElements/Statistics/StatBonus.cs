@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MechWars.MapElements
+namespace MechWars.MapElements.Statistics
 {
     public class StatBonus : MonoBehaviour
     {

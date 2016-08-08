@@ -1,7 +1,9 @@
 ﻿using MechWars.MapElements;
+using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace MechWars
 {
@@ -21,6 +23,8 @@ namespace MechWars
             }
         }
 
+        public StatChangesTable StatChangesTable { get; private set; }
+
         public event System.Action OnTechnologyDevelopmentChanged;
 
         public TechnologyController(Army army)
@@ -29,6 +33,8 @@ namespace MechWars
             developedTechnologies = new HashSet<Technology>();
 
             Army = army;
+
+            StatChangesTable = new StatChangesTable();
         }
 
         public bool CanDevelop(Technology technology)
@@ -69,7 +75,14 @@ namespace MechWars
 
             technology.OnTechnologyDeveloping(Army);
             developedTechnologies.Add(technology);
+            UpdateStatChangesTable(technology);
             technology.OnTechnologyDeveloped(Army);
+        }
+        
+        void UpdateStatChangesTable(Technology technology)
+        {
+            foreach (var b in technology.bonuses)
+                StatChangesTable[b.receiver.mapElementName, b.statName].Clear();
         }
 
         public IEnumerable<StatBonus> GetBonusesFor(MapElement receiver)

@@ -7,6 +7,13 @@ namespace MechWars.MapElements.Statistics
         public string Name { get; private set; }
         public MapElement Owner { get; private set; }
 
+        // TODO: zrobić po tej stronie zaciąganie bonusów tylko gdy w StatChangesTable nie ma wpisanego siebie samego
+
+        int lastUpdate = -1;
+
+        float baseValue;
+        float baseMaxValue;
+
         float value;
         public float Value
         {
@@ -69,10 +76,12 @@ namespace MechWars.MapElements.Statistics
 
         public bool HasMaxValue {  get { return Limited && Value == MaxValue; } }
 
-        public Stat(string name, MapElement owner)
+        public Stat(string name, MapElement owner, float baseValue, float baseMaxValue)
         {
             Name = name;
             Owner = owner;
+            this.baseValue = baseValue;
+            this.baseMaxValue = baseMaxValue;
         }
 
         void CorrectValue()
@@ -84,7 +93,7 @@ namespace MechWars.MapElements.Statistics
 
         public Stat Clone(MapElement newOwner)
         {
-            var stat = new Stat(Name, newOwner);
+            var stat = new Stat(Name, newOwner, baseValue, baseMaxValue);
             stat.limited = limited;
             stat.maxValue = maxValue;
             stat.value = value;

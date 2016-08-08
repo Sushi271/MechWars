@@ -1,6 +1,6 @@
 <Stats>
-    <Stat name="Movement speed" value="5" />
+    <Stat name="Movement speed" value="4" />
     <Stat name="Rotation speed" value="4" />
     <Stat name="Hit points" value="65" max_value="65" />
-    <Stat name="View range" value="9" />
+    <Stat name="View range" value="7" />
 </Stats>
