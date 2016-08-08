@@ -159,6 +159,7 @@ namespace MechWars.MapElements
 
             var freeNeighbourFields =
                 (from n in allNeighbourFields
+                 where Globals.Map.IsInBounds(n)
                  where Globals.Map[n] == null
                  select n).ToList();
             if (freeNeighbourFields.Count == 0)

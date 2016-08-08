@@ -82,7 +82,12 @@ namespace MechWars
         void UpdateStatChangesTable(Technology technology)
         {
             foreach (var b in technology.bonuses)
-                StatChangesTable[b.receiver.mapElementName, b.statName].Clear();
+            {
+                var set = StatChangesTable[b.receiver.mapElementName, b.statName];
+                foreach (var stat in set)
+                    stat.Invalidate();
+                set.Clear();
+            }
         }
 
         public IEnumerable<StatBonus> GetBonusesFor(MapElement receiver)

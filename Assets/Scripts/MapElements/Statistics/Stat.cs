@@ -8,9 +8,7 @@ namespace MechWars.MapElements.Statistics
     {
         public string Name { get; private set; }
         public MapElement Owner { get; private set; }
-
-        // TODO: zrobić po tej stronie zaciąganie bonusów tylko gdy w StatChangesTable nie ma wpisanego siebie samego
-
+        
         int lastUpdate = -1;
         
         float baseMaxValue;
@@ -55,28 +53,6 @@ namespace MechWars.MapElements.Statistics
             }
         }
 
-        void UpdateValues()
-        {
-            if (Owner.Army == null) return;
-
-            var set = Owner.Army.Technologies.StatChangesTable[Owner.mapElementName, Name];
-            if (set.Contains(this)) return;
-            set.Add(this);
-
-            var valueShortage = maxValue - value;
-            maxValue = baseMaxValue;
-
-            var bonuses =
-                from b in Owner.Army.Technologies.GetBonusesFor(Owner)
-                where b.statName == Name
-                orderby b.order, b.type
-                select b;
-            foreach (var b in bonuses)
-                maxValue = b.ApplyTo(maxValue);
-            
-            value = maxValue - valueShortage;
-        }
-
         public bool HasMaxValue {  get { return Limited && Value == MaxValue; } }
 
         public Stat(string name, MapElement owner, float baseMaxValue, float startValue, bool limited)
@@ -98,6 +74,33 @@ namespace MechWars.MapElements.Statistics
             if (value < 0) value = 0;
             if (!limited) return;
             if (value > maxValue) value = maxValue;
+        }
+
+        void UpdateValues()
+        {
+            if (Owner.Army == null) return;
+
+            var set = Owner.Army.Technologies.StatChangesTable[Owner.mapElementName, Name];
+            if (set.Contains(this)) return;
+            set.Add(this);
+
+            var valueShortage = maxValue - value;
+            maxValue = baseMaxValue;
+
+            var bonuses =
+                from b in Owner.Army.Technologies.GetBonusesFor(Owner)
+                where b.statName == Name
+                orderby b.order, b.type
+                select b;
+            foreach (var b in bonuses)
+                maxValue = b.ApplyTo(maxValue);
+
+            value = maxValue - valueShortage;
+        }
+
+        public void Invalidate()
+        {
+            lastUpdate = -1;
         }
 
         public Stat Clone(MapElement newOwner)

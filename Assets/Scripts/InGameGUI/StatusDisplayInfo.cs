@@ -65,10 +65,12 @@ namespace MechWars.InGameGUI
                 Vector3 camToMapElement = mapElementPos - camPos;
                 Distance = camToMapElement.magnitude;
             }
-            catch
+            catch (System.Exception e)
             {
+                var exc = e;
                 int x = 5;
                 int y = x;
+                throw e;
             }
         }
     }

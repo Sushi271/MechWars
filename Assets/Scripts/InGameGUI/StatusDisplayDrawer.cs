@@ -40,9 +40,12 @@ namespace MechWars.InGameGUI
 
             foreach (var kv in all)
             {
-                var statusDisplay = new StatusDisplayInfo(kv.Key, kv.Value.Hovered, kv.Value.Selected);
-                DrawBorder(statusDisplay);
-                DrawHealthBar(statusDisplay);
+                if (kv.Key != null)
+                {
+                    var statusDisplay = new StatusDisplayInfo(kv.Key, kv.Value.Hovered, kv.Value.Selected);
+                    DrawBorder(statusDisplay);
+                    DrawHealthBar(statusDisplay);
+                }
             }
         }
 

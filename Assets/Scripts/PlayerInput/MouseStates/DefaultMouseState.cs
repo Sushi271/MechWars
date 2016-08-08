@@ -54,10 +54,15 @@ namespace MechWars.PlayerInput.MouseStates
                     GiveOrdersIfPossible(
                         typeof(HarvestResourceOrderAction),
                         typeof(MoveOrderAction));
-                else if (mapElement is Building && (mapElement as Building).isResourceDeposit)
-                    GiveOrdersIfPossible(
-                        typeof(HarvestRefineryOrderAction),
-                        typeof(MoveOrderAction));
+                else if (mapElement is Building)
+                {
+                    var b = (Building)mapElement;
+                    if (b.isResourceDeposit && !b.UnderConstruction)
+                        GiveOrdersIfPossible(
+                            typeof(HarvestRefineryOrderAction),
+                            typeof(MoveOrderAction));
+                    else handled = false;
+                }
                 else handled = false;
             }
             if (!handled)
