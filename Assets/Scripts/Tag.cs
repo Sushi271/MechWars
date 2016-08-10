@@ -5,5 +5,6 @@
         public const string Globals = "Globals";
         public const string MainCamera = "MainCamera";
         public const string GUICamera = "GUICamera";
+        public const string MapDesignElement = "MapDesignElement";
     }
 }
