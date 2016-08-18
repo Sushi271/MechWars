@@ -1,4 +1,4 @@
-﻿namespace MechWars.AI.Goals
+﻿namespace MechWars.AI.Agents.Goals
 {
     public enum GoalState
     {

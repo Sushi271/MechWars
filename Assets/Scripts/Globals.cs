@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using MechWars.Utils;
 using MechWars.Mapping;
 using MechWars.FogOfWar;
+using System.IO;
+using MechWars.AI.Regions;
 
 namespace MechWars
 {
@@ -36,6 +38,7 @@ namespace MechWars
         //=====================================================================================
 
         public bool debugComplexOrderStrings;
+        public string aiMessageLogFileName;
         public float autoAttackScanInterval = 1;
 
         List<Counter> DEBUG_counters;
@@ -128,6 +131,9 @@ namespace MechWars
             Destroyed = false;
             DEBUG_counters = new List<Counter>();
             DEBUG_counters.Add(new Counter());
+
+            var fs = new FileStream(aiMessageLogFileName, FileMode.Create);
+            fs.Close();
         }
 
         void OnDestroy()
