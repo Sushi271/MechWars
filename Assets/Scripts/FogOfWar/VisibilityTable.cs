@@ -16,10 +16,17 @@ namespace MechWars.FogOfWar
         {
             get
             {
-                return
-                    !fieldsUncovered[x, y] ? Visibility.Unknown :
-                    fieldsSeenByUnits[x, y] == 0 ? Visibility.Fogged :
-                    Visibility.Visible;
+                try
+                {
+                    return
+                        !fieldsUncovered[x, y] ? Visibility.Unknown :
+                        fieldsSeenByUnits[x, y] == 0 ? Visibility.Fogged :
+                        Visibility.Visible;
+                }
+                catch
+                {
+                    throw new System.Exception(string.Format("OutOfRange: [{0}, {1}]", x, y));
+                }
             }
         }
 
