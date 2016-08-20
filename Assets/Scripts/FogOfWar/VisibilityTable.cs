@@ -1,5 +1,6 @@
 ﻿using MechWars.MapElements;
 using MechWars.MapElements.Statistics;
+using MechWars.Utils;
 using System.Text;
 
 namespace MechWars.FogOfWar
@@ -11,6 +12,8 @@ namespace MechWars.FogOfWar
 
         bool[,] fieldsUncovered;
         int[,] fieldsSeenByUnits;
+
+        public event VisibilityChangedEventHandler VisibilityChanged;
 
         public Visibility this[int x, int y]
         {
@@ -39,20 +42,25 @@ namespace MechWars.FogOfWar
             fieldsSeenByUnits = new int[Size, Size];
         }
 
-        void IncreaseVisibility(int x, int y)
+        void IncreaseVisibilityOfTile(int x, int y)
         {
             if (x < 0 || Size <= x ||
                 y < 0 || Size <= y) return;
 
+            bool justUncovered = !fieldsUncovered[x, y];
             fieldsUncovered[x, y] = true;
             fieldsSeenByUnits[x, y]++;
+
+            if (VisibilityChanged != null)
+                if (justUncovered) VisibilityChanged(new IVector2(x, y), Visibility.Unknown, Visibility.Visible);
+                else VisibilityChanged(new IVector2(x, y), Visibility.Fogged, Visibility.Visible);
         }
 
         void IncreaseVisibility(float x, float y, MapElementSurroundingShape shape)
         {
-            for (int rx = (int)(x + shape.DeltaXNeg), i = 0; rx <= (int)(x + shape.DeltaXPos); rx++, i++)
-                for (int ry = (int)(y + shape.DeltaYNeg), j = 0; ry <= (int)(y + shape.DeltaYPos); ry++, j++)
-                    if (shape[i, j]) IncreaseVisibility(rx, ry);
+            for (int rx = shape.GetXMin(x), i = 0; rx <= shape.GetXMax(x); rx++, i++)
+                for (int ry = shape.GetYMin(y), j = 0; ry <= shape.GetYMax(y); ry++, j++)
+                    if (shape[i, j]) IncreaseVisibilityOfTile(rx, ry);
         }
 
         public void IncreaseVisibility(MapElement mapElement)
@@ -72,19 +80,22 @@ namespace MechWars.FogOfWar
             IncreaseVisibility(x, y, losShape);
         }
 
-        void DecreaseVisibility(int x, int y)
+        void DecreaseVisibilityOfTile(int x, int y)
         {
             if (x < 0 || Size <= x ||
                 y < 0 || Size <= y) return;
 
             fieldsSeenByUnits[x, y]--;
+
+            if (VisibilityChanged != null && fieldsSeenByUnits[x, y] == 0)
+                VisibilityChanged(new IVector2(x, y), Visibility.Visible, Visibility.Fogged);
         }
 
         void DecreaseVisibility(float x, float y, MapElementSurroundingShape shape)
         {
-            for (int rx = (int)(x + shape.DeltaXNeg), i = 0; rx <= (int)(x + shape.DeltaXPos); rx++, i++)
-                for (int ry = (int)(y + shape.DeltaYNeg), j = 0; ry <= (int)(y + shape.DeltaYPos); ry++, j++)
-                    if (shape[i, j]) DecreaseVisibility(rx, ry);
+            for (int rx = shape.GetXMin(x), i = 0; rx <= shape.GetXMax(x); rx++, i++)
+                for (int ry = shape.GetYMin(y), j = 0; ry <= shape.GetYMax(y); ry++, j++)
+                    if (shape[i, j]) DecreaseVisibilityOfTile(rx, ry);
         }
 
         public void DecreaseVisibility(MapElement mapElement)

@@ -15,6 +15,8 @@ namespace MechWars.AI.Agents
         public AIBrain Brain { get; private set; }
         public Agent Parent { get; private set; }
 
+        public FilteringMapProxy MapProxy { get { return Brain.MapProxy; } }
+
         public MainAgent MainAgent { get { return Brain.MainAgent; } }
         public ReconAgent Recon { get { return MainAgent.Recon; } }
         public KnowledgeAgent Knowledge { get { return MainAgent.Knowledge; } }

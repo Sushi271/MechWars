@@ -68,6 +68,26 @@ namespace MechWars.MapElements
                 }
         }
 
+        public int GetXMin(float xMiddle)
+        {
+            return (int)(xMiddle + DeltaXNeg);
+        }
+        
+        public int GetXMax(float xMiddle)
+        {
+            return (int)(xMiddle + DeltaXPos);
+        }
+
+        public int GetYMin(float yMiddle)
+        {
+            return (int)(yMiddle + DeltaYNeg);
+        }
+
+        public int GetYMax(float yMiddle)
+        {
+            return (int)(yMiddle + DeltaYPos);
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();

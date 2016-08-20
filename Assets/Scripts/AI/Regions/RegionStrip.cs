@@ -13,8 +13,8 @@ namespace MechWars.AI.Regions
         public int Count { get { return parts.Count; } }
         public bool Empty { get { return Count == 0; } }
 
-        public int Start { get { return parts[0].Start; } }
-        public int End { get { return parts[Count - 1].End; } }
+        public int Start { get { AssertNotEmpty(); return parts[0].Start; } }
+        public int End { get { AssertNotEmpty(); return parts[Count - 1].End; } }
 
         public RegionStripPart this[int idx]
         {
@@ -68,6 +68,8 @@ namespace MechWars.AI.Regions
 
         public void RemoveTile(int y)
         {
+            AssertNotEmpty();
+
             int index;
             RegionStripPart part = null;
             for (index = 0; index < parts.Count; index++)
@@ -98,15 +100,21 @@ namespace MechWars.AI.Regions
         {
             var sb = new StringBuilder()
                 .AppendFormat("Count({0}), ", Count)
-                .AppendFormat("Empty({0}), ", Empty)
+                .AppendFormat("Empty({0}), ", Empty);
+            if (!Empty) sb
                 .AppendFormat("Start({0}), ", Start)
-                .AppendFormat("End({0}), ", End)
-                .Append("Parts: ");
+                .AppendFormat("End({0}), ", End);
 
+            sb.Append("Parts: ");
             for (int i = 0; i < Count; i++)
                 sb.AppendFormat("[{0}..{1}]", parts[i].Start, parts[i].End);
 
             return sb.ToString();
+        }
+
+        void AssertNotEmpty()
+        {
+            if (Empty) throw new System.Exception("RegionStrip is empty.");
         }
     }
 }

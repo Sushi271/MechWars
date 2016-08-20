@@ -199,6 +199,25 @@ namespace MechWars.Utils
             return sum / count;
         }
 
+        public static Rect AsBounds(this IEnumerable<Vector2> source)
+        {
+            var minX = float.MaxValue;
+            var minY = float.MaxValue;
+            var maxX = float.MinValue;
+            var maxY = float.MinValue;
+            foreach (var p in source)
+            {
+                if (p.x < minX) minX = p.x;
+                if (p.y < minY) minY = p.y;
+                if (p.x > maxX) maxX = p.x;
+                if (p.y > maxY) maxY = p.y;
+            }
+            var w = maxX - minX;
+            var h = maxY - minY;
+
+            return new Rect(minX, minY, w, h);
+        }
+
         public static string ToDebugMessage<T>(this IEnumerable<T> enumerable)
         {
             return enumerable.AllToString(i => i == null ? "NULL" : i.ToString());
@@ -207,6 +226,20 @@ namespace MechWars.Utils
         public static string AllToString<T>(this IEnumerable<T> enumerable, System.Func<T, string> serializer)
         {
             return string.Format("[ {0} ]", string.Join(", ", enumerable.Select(i => serializer(i)).ToArray()));
+        }
+
+        public static IEnumerable<T> SubRange<T>(this IList<T> list, int idxFrom)
+        {
+            return list.SubRange(idxFrom, list.Count - 1);
+        }
+
+        public static IEnumerable<T> SubRange<T>(this IList<T> list, int idxFrom, int idxTo)
+        {
+            if (idxFrom < 0) idxFrom = 0;
+            if (idxTo >= list.Count) idxTo = list.Count - 1;
+
+            for (int i = idxFrom; i <= idxTo; i++)
+                yield return list[i];
         }
     }
 }

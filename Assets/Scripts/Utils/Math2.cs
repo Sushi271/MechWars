@@ -21,5 +21,33 @@
         {
             return (x & (x - 1)) == 0;
         }
+
+        public static float Reciproc(this float x)
+        {
+            return 1 / x;
+        }
+
+        public static float Reciproc(this int x)
+        {
+            return ((float)x).Reciproc();
+        }
+
+        public static bool IsBetween(this System.IComparable number, System.IComparable a, System.IComparable b)
+        {
+            int comparedToA = number.CompareTo(a);
+            int comparedToB = number.CompareTo(b);
+            return
+                0 < comparedToA && comparedToB < 0 ||
+                0 < comparedToB && comparedToA < 0;
+        }
+
+        public static bool IsBetweenOrEquals(this System.IComparable number, System.IComparable a, System.IComparable b)
+        {
+            int comparedToA = number.CompareTo(a);
+            int comparedToB = number.CompareTo(b);
+            return
+                0 <= comparedToA && comparedToB <= 0 ||
+                0 <= comparedToB && comparedToA <= 0;
+        }
     }
 }

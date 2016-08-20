@@ -34,8 +34,8 @@ namespace MechWars.MapElements
 
             inRange = new bool[surroundingShape.Width, surroundingShape.Height];
             tiles = new GameObject[surroundingShape.Width, surroundingShape.Height];
-            for (int rx = (int)(x + surroundingShape.DeltaXNeg), i = 0; rx <= (int)(x + surroundingShape.DeltaXPos); rx++, i++)
-                for (int ry = (int)(y + surroundingShape.DeltaYNeg), j = 0; ry <= (int)(y + surroundingShape.DeltaYPos); ry++, j++)
+            for (int rx = surroundingShape.GetXMin(x), i = 0; rx <= surroundingShape.GetXMax(x); rx++, i++)
+                for (int ry = surroundingShape.GetYMin(y), j = 0; ry <= surroundingShape.GetYMax(y); ry++, j++)
                     if (surroundingShape[i, j]) tiles[i, j] = CreateTile(rx, ry);
         }
 
@@ -54,9 +54,9 @@ namespace MechWars.MapElements
 
             var x = constructingBuilding.Coords.x;
             var y = constructingBuilding.Coords.y;
-
-            for (int rx = (int)(x + surroundingShape.DeltaXNeg), i = 0; rx <= (int)(x + surroundingShape.DeltaXPos); rx++, i++)
-                for (int ry = (int)(y + surroundingShape.DeltaYNeg), j = 0; ry <= (int)(y + surroundingShape.DeltaYPos); ry++, j++)
+            
+            for (int rx = surroundingShape.GetXMin(x), i = 0; rx <= surroundingShape.GetXMax(x); rx++, i++)
+                for (int ry = surroundingShape.GetYMin(y), j = 0; ry <= surroundingShape.GetYMax(y); ry++, j++)
                 {
                     if (tiles[i, j] == null) continue;
                     if (rx < 0 || Globals.Map.Size <= rx ||

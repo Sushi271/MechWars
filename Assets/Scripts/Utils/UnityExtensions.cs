@@ -79,5 +79,77 @@ namespace MechWars.Utils
                 t.gameObject.layer = layer;
             }
         }
+
+        public static bool LiesOnSegment(this Vector2 point, Vector2 a, Vector2 b, float tolerance = 0)
+        {
+            var aToB = b - a;
+            bool onLine;
+            if (aToB.x == 0)
+                onLine = Mathf.Abs(a.x - point.x) <= tolerance;
+            else
+                onLine = Mathf.Abs((point.x - a.x) / aToB.x - (point.y - a.y) / aToB.y) <= tolerance;
+            if (!onLine) return false;
+            return point.x.IsBetweenOrEquals(a.x, b.x);
+        }
+
+        public static bool SegmentsIntersectOrCover(Vector2 start1, Vector2 end1, Vector2 start2, Vector2 end2)
+        {
+            Vector2 v1 = end1 - start1;
+            Vector2 v2 = end2 - start2;
+            if (v1.normalized == v2.normalized)
+                return
+                    start1.LiesOnSegment(start2, end2, 0.0001f) ||
+                    end1.LiesOnSegment(start2, end2, 0.0001f);
+
+            var intersection = NonParalellLinesIntersection(start1, end1, start2, end2);
+            bool result =
+                intersection.x.IsBetweenOrEquals(start1.x, end1.x) &&
+                intersection.x.IsBetweenOrEquals(start2.x, end2.x) &&
+                intersection.y.IsBetweenOrEquals(start1.y, end1.y) &&
+                intersection.y.IsBetweenOrEquals(start2.y, end2.y);
+            return result;
+        }
+
+        public static Vector2 NonParalellLinesIntersection(Vector2 start1, Vector2 end1, Vector2 start2, Vector2 end2)
+        {
+            Vector2 v1 = end1 - start1;
+            Vector2 v2 = end2 - start2;
+
+            bool line1Vertical = v1.x == 0;
+            float cross1 = v1.Cross2(start1);
+            float a1 = !line1Vertical ? v1.y / v1.x : 0;
+            float b1 = !line1Vertical ? cross1 / v1.x : 0;
+            float x1 = line1Vertical ? start1.x : 0;
+
+            bool line2Vertical = v2.x == 0;
+            float cross2 = v2.Cross2(start2);
+            float a2 = !line2Vertical ? v2.y / v2.x : 0;
+            float b2 = !line2Vertical ? cross2 / v2.x : 0;
+            float x2 = line2Vertical ? start2.x : 0;
+            
+            // both cannot be vertical because they're not parelell, so there are 3 cases:
+            if (line1Vertical)
+                return new Vector2(x1, a2 * x1 + b2);
+            else if (line2Vertical)
+                return new Vector2(x2, a1 * x2 + b1);
+            else
+            {
+                var x = (b1 - b2) / (a2 - a1);
+                var y = a1 * x + b1;
+                return new Vector2(x, y);
+            }
+        }
+
+        public static float Cross2(this Vector2 v1, Vector2 v2)
+        {
+            return v1.x * v2.y - v1.y * v2.x;
+        }
+
+        public static bool ContainsWithBorder(this Rect rect, Vector2 point)
+        {
+            return rect.Contains(point) ||
+                point.y == rect.yMax && rect.xMin <= point.x && point.x <= rect.xMax ||
+                point.x == rect.xMax && rect.yMin <= point.y && point.y <= rect.yMax;
+        }
     }
 }

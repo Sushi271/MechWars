@@ -19,13 +19,39 @@ namespace MechWars.AI.Regions
         public int Left { get { return RelativeLeft + Offset; } }
         public int Right { get { return RelativeRight + Offset; } }
 
+        public int Area { get; private set; }
+
+        public IEnumerable<IVector2> AllTiles
+        {
+            get
+            {
+                for (int i = RelativeLeft, x = Left; x <= Right; i++, x++)
+                {
+                    var strip = GetStrip(i);
+                    for (int j = 0; j < strip.Count; j++)
+                    {
+                        var stripPart = strip[j];
+                        for (int y = stripPart.Start; y <= strip.End; y++)
+                            yield return new IVector2(x, y);
+                    }
+                }
+            }
+        }
+        
+        public event System.Action RegionChanged;
+
         public Region()
         {
             leftList = new List<RegionStrip>();
             rightList = new List<RegionStrip>();
         }
 
-        public List<RegionStrip> AddTile(int x, int y)
+        public void AddTile(IVector2 tile)
+        {
+            AddTile(tile.X, tile.Y);
+        }
+
+        public void AddTile(int x, int y)
         {
             if (Width == 0)
                 Offset = x;
@@ -38,7 +64,9 @@ namespace MechWars.AI.Regions
                 list.Add(new RegionStrip());
 
             list[idx].AddTile(y);
-            return list;
+            Area++;
+
+            if (RegionChanged != null) RegionChanged();
         }
 
         public void RemoveTile(int x, int y)
@@ -54,9 +82,12 @@ namespace MechWars.AI.Regions
                 throw new System.Exception("Tile at [{0}, {1}] is not inside region.");
 
             list[idx].RemoveTile(y);
-            TrimList(list);
+            Area--;
 
+            TrimList(list);
             Normalize();
+
+            if (RegionChanged != null) RegionChanged();
         }
 
         public bool IsInside(IVector2 point)
