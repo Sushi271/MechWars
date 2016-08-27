@@ -38,7 +38,7 @@ namespace MechWars.AI
                     var mapElement = Globals.Map[x, y];
                     if (mapElement != null && mapElement.VisibleToArmies[army])
                         return mapElement;
-                    return Globals.Map.GetGhosts(x, y).FirstOrDefault(me => me.Army == army);
+                    return Globals.Map.GetGhosts(x, y).FirstOrDefault(me => me.ObservingArmy == army);
                 }
                 return null;
             }

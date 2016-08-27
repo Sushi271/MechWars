@@ -92,8 +92,5 @@ namespace MechWars.AI.Agents
                     MyBase.RemoveBuilding(MyBase[tile]);
             }
         }
-
-        // TODO:
-        // agenci => przerwania jeśli priorytet zadania ważniejszy
     }
 }

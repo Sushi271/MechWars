@@ -47,6 +47,12 @@ namespace MechWars.Mapping
             else return positions;
         }
 
+        public bool ContainsGhost(MapElement ghost)
+        {
+            if (ghost == null) return false;
+            return ghostDictionary.ContainsKey(ghost);
+        }
+
         List<MapElement>[,] ghostsTable;
         public IEnumerable<MapElement> GetGhosts(int x, int y)
         {

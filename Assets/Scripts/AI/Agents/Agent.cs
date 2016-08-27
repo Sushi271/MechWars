@@ -25,6 +25,7 @@ namespace MechWars.AI.Agents
         public KnowledgeAgent Knowledge { get { return MainAgent.Knowledge; } }
         public ReconAgent Recon { get { return MainAgent.Recon; } }
         public ConstructionAgent Construction { get { return MainAgent.Construction; } }
+        public ProductionAgent Production { get { return MainAgent.Production; } }
 
         public bool Started { get; private set; }
         public bool Finished { get; private set; }
@@ -94,6 +95,11 @@ namespace MechWars.AI.Agents
         protected void Finish()
         {
             Finished = true;
+        }
+
+        public void GiveGoal(Goal goal)
+        {
+            Goals.Add(goal);
         }
 
         protected void SendMessage(Agent receiver, string messageName, params string[] args)

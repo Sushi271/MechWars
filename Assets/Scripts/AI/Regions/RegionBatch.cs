@@ -1,4 +1,6 @@
-﻿namespace MechWars.AI.Regions
+﻿using MechWars.Utils;
+
+namespace MechWars.AI.Regions
 {
     public class RegionBatch : IRegionBatch
     {
@@ -20,8 +22,16 @@
 
         public void UpdateBatch()
         {
-            Hull = new RegionHull(Region);
-            ConvexHull = new RegionConvexHull(Hull);
+            if (Region.AllTiles.Empty())
+            {
+                Hull = null;
+                ConvexHull = null;
+            }
+            else
+            {
+                Hull = new RegionHull(Region);
+                ConvexHull = new RegionConvexHull(Hull);
+            }
         }
 
         private void Region_RegionChanged()

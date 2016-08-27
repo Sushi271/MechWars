@@ -122,6 +122,13 @@ namespace MechWars.AI.Regions
             return false;
         }
 
+        public float GetDistanceTo(Vector2 point)
+        {
+            float distance;
+            GetPointClosestTo(point, out distance);
+            return distance;
+        }
+
         public Vector2 GetPointClosestTo(Vector2 point)
         {
             float distance;

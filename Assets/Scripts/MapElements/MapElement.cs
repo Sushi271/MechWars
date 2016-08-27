@@ -43,7 +43,7 @@ namespace MechWars.MapElements
         public MapElement OriginalMapElement { get; private set; } // correct this shit for IsNull
         MapElementGhostSnapshot ghostSnapshot;
         public bool IsGhost { get; private set; }
-        protected Army ObservingArmy { get; private set; }
+        public Army ObservingArmy { get; private set; }
         bool addGhostToQuadTree;
         public bool GhostRemoved { get; private set; }
         public Dictionary<Army, MapElement> Ghosts { get; private set; }
@@ -283,7 +283,8 @@ namespace MechWars.MapElements
                 Stats = ghostSnapshot.Stats;
                 nextArmy = Army = ghostSnapshot.Army;
 
-                Globals.Map.AddGhost(this);
+                if (!Globals.Map.ContainsGhost(this))
+                    Globals.Map.AddGhost(this);
 
                 VisibleToSpectator = ObservingArmy.actionsVisible;
                 VisibleToArmies = new Dictionary<Army, bool>();
@@ -681,11 +682,6 @@ namespace MechWars.MapElements
         {
             if (!Dying || !Alive) return;
             Alive = !(OrderQueue.OrderCount == 0);
-
-            if (firstUpdate)
-                foreach (var kv in VisibleToArmies)
-                    if (kv.Value)
-                        kv.Key.InvokeOnVisibleMapElementDied(this);
         }
 
         void RemoveGhost()
@@ -748,6 +744,10 @@ namespace MechWars.MapElements
 
             if (OrderQueue.Enabled)
                 OrderQueue.Terminate();
+            
+            foreach (var kv in VisibleToArmies)
+                if (kv.Value)
+                    kv.Key.InvokeOnVisibleMapElementDied(this);
         }
 
         protected virtual void RemoveFromQuadTrees()

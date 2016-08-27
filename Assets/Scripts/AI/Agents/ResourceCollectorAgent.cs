@@ -1,4 +1,5 @@
-﻿using MechWars.MapElements;
+﻿using MechWars.AI.Agents.Goals;
+using MechWars.MapElements;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,18 +33,19 @@ namespace MechWars.AI.Agents
             }
             else refineryOnTheWay = false;
 
-            var allHarvesters = Knowledge.UnitAgents[AIName.Harvester];
-            if (Harvesters.Count == 0)
-            {
-                // TODO: Request for production of Harvesters
-            }
-
+            PerformEvery(1, TryRequestForHarvesterProduction);
             PerformEvery(1, TryRequestForResourceSearch);
 
             var resRegions = Knowledge.Resources.Regions;
-            if (!resRegions.Empty() && !Harvesters.Empty())
+            if (!resRegions.Empty())
             {
-
+                var freeHarvesters = Knowledge.UnitAgents[AIName.Harvester].Where(h => !h.Busy);
+                foreach (var h in freeHarvesters)
+                {
+                    h.Take(this);
+                    Harvesters.Add(h);
+                    h.GiveGoal(new HarvestGoal(h, this));
+                }
             }
         }
 
@@ -92,11 +94,11 @@ namespace MechWars.AI.Agents
         {
             var allHarvesters = Knowledge.UnitAgents[AIName.Harvester];
             if (allHarvesters.Empty())
-                SendMessage(Construction, AIName.ProduceMeUnits, "0", AIName.Harvester);
+                SendMessage(Production, AIName.ProduceMeUnits, "0", AIName.Harvester);
             else if (allHarvesters.HasAtLeast(3))
-                SendMessage(Construction, AIName.ProduceMeUnits, "1", AIName.Harvester);
+                SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Harvester);
             else if (allHarvesters.HasAtLeast(10))
-                SendMessage(Construction, AIName.ProduceMeUnits, "2", AIName.Harvester);
+                SendMessage(Production, AIName.ProduceMeUnits, "2", AIName.Harvester);
         }
     }
 }
