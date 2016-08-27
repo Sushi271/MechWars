@@ -1,28 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using MechWars.MapElements;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MechWars.AI
 {
-    public class MapElementKind
+    public class MapElementKind : IKind
     {
         public string Name { get; private set; }
+        public MapElement MapElement { get; private set; }
+        public MapElementShape Shape { get; private set; }
 
-        Dictionary<string, MapElementPurpose> abilities;
+        public Dictionary<string, MapElementPurpose> Purposes { get; private set; }
+        public List<CreationMethod> CreationMethods { get; private set; }
 
-        public MapElementKind(string name, params MapElementPurpose[] abilities)
+        public MapElementKind(MapElement mapElement, MapElementShape shape, params MapElementPurpose[] purposes)
         {
-            Name = name;
-            this.abilities = new Dictionary<string, MapElementPurpose>();
-            foreach (var a in abilities)
-                this.abilities.Add(a.Name, a);
+            Name = mapElement.mapElementName;
+            MapElement = mapElement;
+            Shape = shape;
+            Purposes = new Dictionary<string, MapElementPurpose>();
+            foreach (var a in purposes)
+                Purposes.Add(a.Name, a);
+            CreationMethods = new List<CreationMethod>();
 
-            NormalizeAbilities();
+            NormalizePurposes();
         }
 
-        void NormalizeAbilities()
+        void NormalizePurposes()
         {
-            var sum = abilities.Sum(kv => kv.Value.Value);
-            foreach (var a in abilities.Values)
+            var sum = Purposes.Sum(kv => kv.Value.Value);
+            foreach (var a in Purposes.Values)
                 a.Value /= sum;
         }
     }

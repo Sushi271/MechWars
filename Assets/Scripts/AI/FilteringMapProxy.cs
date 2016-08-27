@@ -34,7 +34,12 @@ namespace MechWars.AI
                 if (army.VisibilityTable[x, y] == Visibility.Visible)
                     return Globals.Map[x, y];
                 if (army.VisibilityTable[x, y] == Visibility.Fogged)
+                {
+                    var mapElement = Globals.Map[x, y];
+                    if (mapElement != null && mapElement.VisibleToArmies[army])
+                        return mapElement;
                     return Globals.Map.GetGhosts(x, y).FirstOrDefault(me => me.Army == army);
+                }
                 return null;
             }
         }

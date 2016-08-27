@@ -523,6 +523,7 @@ namespace MechWars.MapElements
             OnUpdate();
         }
 
+        bool firstUpdate = true;
         protected virtual void OnUpdate()
         {
             if (!IsGhost)
@@ -542,6 +543,11 @@ namespace MechWars.MapElements
                 if (OrderQueue.Enabled)
                     OrderQueue.Update();
 
+                if (firstUpdate)
+                    foreach (var kv in VisibleToArmies)
+                        if (kv.Value)
+                            kv.Key.InvokeOnVisibleMapElementCreated(this);
+
                 UpdateDying();
                 UpdateAlive();
             }
@@ -555,6 +561,7 @@ namespace MechWars.MapElements
                 if (!ghostFogged)
                     RemoveGhost();
             }
+            firstUpdate = false;
         }
 
         void UpdateArmy()
@@ -661,7 +668,7 @@ namespace MechWars.MapElements
             }
         }
 
-        protected void UpdateDying()
+        void UpdateDying()
         {
             if (!Dying && LifeValue == 0)
             {
@@ -670,10 +677,15 @@ namespace MechWars.MapElements
             }
         }
 
-        protected virtual void UpdateAlive()
+        void UpdateAlive()
         {
             if (!Dying || !Alive) return;
             Alive = !(OrderQueue.OrderCount == 0);
+
+            if (firstUpdate)
+                foreach (var kv in VisibleToArmies)
+                    if (kv.Value)
+                        kv.Key.InvokeOnVisibleMapElementDied(this);
         }
 
         void RemoveGhost()

@@ -8,6 +8,8 @@
 
         public bool SuspendUpdateBatch { get; set; }
 
+        public IRegionBatch ConcatenatedInto { get; set; }
+
         public RegionBatch(bool suspendUpdateBatch = false)
         {
             Region = new Region();

@@ -19,6 +19,8 @@ namespace MechWars
         public QuadTree EnemiesQuadTree { get; private set; }
 
         public event System.Action OnBuildingConstructionFinished;
+        public event System.Action<MapElement> OnVisibleMapElementCreated;
+        public event System.Action<MapElement> OnVisibleMapElementDied;
 
         public string armyName;
 
@@ -72,6 +74,18 @@ namespace MechWars
                 building.OnConstructionFinished -= Building_OnConstructionFinished;
             }
             else Debug.LogWarning("In order to remove MapElement from Army, it must be either of type Unit or Building.");
+        }
+
+        public void InvokeOnVisibleMapElementCreated(MapElement mapElement)
+        {
+            if (OnVisibleMapElementCreated != null)
+                OnVisibleMapElementCreated(mapElement);
+        }
+
+        public void InvokeOnVisibleMapElementDied(MapElement mapElement)
+        {
+            if (OnVisibleMapElementDied != null)
+                OnVisibleMapElementDied(mapElement);
         }
 
         private void Building_OnConstructionFinished()

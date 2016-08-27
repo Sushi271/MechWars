@@ -1,10 +1,10 @@
 ﻿namespace MechWars.AI.Agents.Goals
 {
-    public abstract class UnitGoal : Goal
+    public abstract class UnitAgentGoal : Goal
     {
         public UnitAgent UnitAgent { get; private set; }
 
-        public UnitGoal(string name, UnitAgent unitAgent)
+        public UnitAgentGoal(string name, UnitAgent unitAgent)
             : base(name, unitAgent)
         {
             UnitAgent = unitAgent;

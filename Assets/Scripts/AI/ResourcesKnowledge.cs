@@ -59,32 +59,49 @@ namespace MechWars.AI
 
         void UpdateResourceRegions(int x, int y, ResourceInfo oldValue, ResourceInfo newValue)
         {
-            var others = FindSurroundingResourceInfos(x, y, newValue);
+            if (oldValue != null) RemoveFromRegion(x, y, oldValue);
+            if (newValue != null) AddToRegion(x, y, newValue);
+        }
+
+        void AddToRegion(int x, int y, ResourceInfo resource)
+        {
+            var others = FindSurroundingResourceInfos(x, y, resource);
             var regionBatches = others.SelectDistinct(ri => ri.RegionBatch);
-            if (oldValue == null)
+
+            if (resource.RegionBatch != null)
+                throw new System.Exception("Called UpdateResourceRegions with newValue, which is already in some Region.");
+
+            ResourceRegionBatch regionBatch;
+            if (regionBatches.Empty())
             {
-                if (newValue.RegionBatch != null)
-                    throw new System.Exception("Called UpdateResourceRegions with newValue, which is already in some Region.");
-
-                ResourceRegionBatch regionBatch;
-                if (regionBatches.Empty())
-                {
-                    regionBatch = new ResourceRegionBatch(knowledge.Brain);
-                    resourceRegions.Add(regionBatch);
-                }
-                else regionBatch = regionBatches.First();
-
-                newValue.RegionBatch = regionBatch;
-                regionBatch.Resources.Add(newValue);
-                regionBatch.Region.AddTile(x, y);
-
-                if (regionBatches.HasAtLeast(2))
-                {
-                    var newRegionBatch = regionBatches.ConcatBatches(knowledge.Brain);
-                    resourceRegions.ExceptWith(regionBatches);
-                    resourceRegions.Add(newRegionBatch);
-                }
+                regionBatch = new ResourceRegionBatch(knowledge.Brain);
+                resourceRegions.Add(regionBatch);
             }
+            else regionBatch = regionBatches.First();
+
+            resource.RegionBatch = regionBatch;
+            regionBatch.Resources.Add(resource);
+            regionBatch.Region.AddTile(x, y);
+
+            if (regionBatches.HasAtLeast(2))
+            {
+                var newRegionBatch = regionBatches.ConcatBatches(knowledge.Brain);
+                resourceRegions.ExceptWith(regionBatches);
+                resourceRegions.Add(newRegionBatch);
+            }
+        }
+
+        void RemoveFromRegion(int x, int y, ResourceInfo resource)
+        {
+            var rb = resource.RegionBatch;
+            resource.RegionBatch = null;
+            rb.Resources.Remove(resource);
+            rb.Region.RemoveTile(resource.Location.X, resource.Location.Y);
+
+            if (rb.RegionEmpty)
+                resourceRegions.Remove(rb);
+
+            // No region splitting cause it's too complicated problem
         }
 
         List<ResourceInfo> FindSurroundingResourceInfos(int x, int y, ResourceInfo reference)

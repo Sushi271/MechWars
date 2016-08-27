@@ -69,6 +69,11 @@ namespace MechWars.AI.Regions
             if (RegionChanged != null) RegionChanged();
         }
 
+        public void RemoveTile(IVector2 tile)
+        {
+            RemoveTile(tile.X, tile.Y);
+        }
+
         public void RemoveTile(int x, int y)
         {
             if (Width == 0)
@@ -243,6 +248,16 @@ namespace MechWars.AI.Regions
                 list = rightList;
             }
             return idx;
+        }
+
+        public int CalculateVerticalStart()
+        {
+            return leftList.Concat(rightList).Min(s => s.Start);
+        }
+
+        public int CalculateVerticalEnd()
+        {
+            return leftList.Concat(rightList).Max(s => s.End);
         }
 
         public override string ToString()

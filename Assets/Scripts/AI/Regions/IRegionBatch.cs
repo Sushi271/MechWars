@@ -8,6 +8,8 @@
 
         bool SuspendUpdateBatch { get; set; }
 
+        IRegionBatch ConcatenatedInto { get; set; }
+
         void UpdateBatch();
     }
 }

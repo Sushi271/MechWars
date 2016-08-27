@@ -1,6 +1,4 @@
-﻿using MechWars.AI.Agents;
-
-namespace MechWars.AI.Agents.Goals
+﻿namespace MechWars.AI.Agents.Goals
 {
     public abstract class Goal
     {

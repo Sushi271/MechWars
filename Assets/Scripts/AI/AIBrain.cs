@@ -19,6 +19,8 @@ namespace MechWars.AI
 
         public MapElementSurroundingShape ResourceRegionDetectionShape { get; private set; }
 
+        public MapElementPrefabList MapElementPrefabList { get { return GetComponent<MapElementPrefabList>(); } }
+
         void Start()
         {
             agentsToAdd = new HashSet<Agent>();

@@ -1,6 +1,4 @@
-﻿using MechWars.MapElements.Statistics;
-
-namespace MechWars.MapElements
+﻿namespace MechWars.MapElements
 {
     public class BuildingGhostSnapshot
     {

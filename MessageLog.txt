@@ -1,1 +1,1819 @@
-0.02: Agent "ResourceCollector" ==> Agent "DataAcquirer", Name: "FindMeResources", Args: "0"
+0.02: Agent "ResourceCollector" ==> Agent "Construction", Name: "Build me Refinery", Args: "0", "Refinery"
+0.02: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.3533334: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.3533334: Agent "Construction" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.3533334: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.4004254: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.4004254: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.4353586: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.4353586: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.4684734: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.4684734: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.5041267: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.5041267: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.5531394: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.5531394: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.6610924: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.6610924: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.6914665: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.6914665: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.7334242: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.7334242: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.7655746: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.7655746: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.7959739: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.7959739: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.8232719: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.8232719: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.8591664: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.8591664: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.8861176: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.8861176: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.9169018: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.9169018: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.9555375: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.9555375: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+0.9832281: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+0.9832281: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.015479: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.015479: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.057797: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.057797: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.204913: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.204913: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.229334: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.229334: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.289138: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.289138: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.322798: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.322798: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.36605: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.36605: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.405275: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.405275: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.433184: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.433184: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.46089: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.46089: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.502131: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.502131: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.538949: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.538949: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.573297: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.573297: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.613925: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.613925: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.645126: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.645126: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.672718: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.672718: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.701584: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.701584: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.765282: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.765282: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.795932: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.795932: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.829687: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.829687: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.876497: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.876497: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.904356: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.904356: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.932988: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.932988: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+1.970242: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+1.970242: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.002786: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.002786: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.036542: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.036542: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.083841: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.083841: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.119965: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.119965: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.155435: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.155435: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.198152: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.198152: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.229944: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.229944: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.266685: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.266685: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.31405: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.31405: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.366782: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.366782: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.396317: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.396317: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.431308: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.431308: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.465179: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.465179: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.504224: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.504224: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.553527: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.553527: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.586652: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.586652: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.61833: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.61833: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.649826: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.649826: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.686237: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.686237: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.716855: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.716855: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.74477: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.74477: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.781874: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.781874: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.81163: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.81163: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.839137: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.839137: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.87921: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.87921: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.93276: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.93276: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.956227: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.956227: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+2.993876: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+2.993876: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.025245: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.025245: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.057782: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.057782: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.09686: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.09686: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.12047: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.12047: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.150256: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.150256: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.18526: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.18526: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.211219: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.211219: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.244749: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.244749: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.290786: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.290786: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.328169: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.328169: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.358917: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.358917: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.397752: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.397752: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.424384: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.424384: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.455141: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.455141: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.486147: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.486147: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.524331: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.524331: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.556952: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.556952: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.586849: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.586849: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.629458: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.629458: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.677694: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.677694: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.702062: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.702062: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.732544: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.732544: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.84561: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.84561: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.87964: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.87964: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.92516: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.92516: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.954249: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.954249: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+3.984324: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+3.984324: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.024683: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.024683: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.076988: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.076988: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.10104: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.10104: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.136132: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.136132: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.165222: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.165222: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.198472: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.198472: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.238624: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.238624: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.274847: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.274847: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.307851: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.307851: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.351884: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.351884: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.387926: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.387926: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.419799: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.419799: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.449395: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.449395: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.488326: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.488326: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.520121: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.520121: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.550463: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.550463: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.588498: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.588498: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.616661: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.616661: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.647983: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.647983: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.686147: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.686147: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.718543: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.718543: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.748123: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.748123: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.78762: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.78762: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.818914: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.818914: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.851682: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.851682: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.891809: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.891809: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.923544: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.923544: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.957492: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.957492: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+4.999314: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+4.999314: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.032141: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.032141: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.066436: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.066436: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.104836: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.104836: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.134625: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.134625: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.165448: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.165448: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.226663: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.226663: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.248356: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.248356: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.275979: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.275979: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.314813: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.314813: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.344548: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.344548: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.37581: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.37581: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.407308: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.407308: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.452617: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.452617: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.489337: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.489337: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.518358: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.518358: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.559227: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.559227: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.591704: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.591704: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.622873: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.622873: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.662418: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.662418: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.691914: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.691914: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.724146: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.724146: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.765504: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.765504: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.796023: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.796023: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.827925: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.827925: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.868932: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.868932: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.901395: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.901395: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.93246: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.93246: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+5.970694: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+5.970694: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.001301: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.001301: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.033213: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.033213: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.069422: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.069422: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.102331: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.102331: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.134091: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.134091: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.169825: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.169825: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.203588: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.203588: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.233268: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.233268: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.267262: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.267262: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.307495: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.307495: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.359523: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.359523: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.378463: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.378463: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.412035: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.412035: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.444435: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.444435: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.474793: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.474793: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.516708: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.516708: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.557231: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.557231: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.589441: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.589441: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.63158: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.63158: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.663386: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.663386: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.692986: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.692986: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.730844: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.730844: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.762426: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.762426: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.795678: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.795678: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.834117: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.834117: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.865013: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.865013: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.896401: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.896401: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.936253: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.936253: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.967975: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.967975: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+6.999262: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+6.999262: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.036929: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.036929: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.069403: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.069403: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.100786: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.100786: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.132001: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.132001: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.171354: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.171354: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.200196: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.200196: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.231382: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.231382: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.27165: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.27165: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.30208: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.30208: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.33197: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.33197: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.372353: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.372353: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.401814: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.401814: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.432178: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.432178: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.496791: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.496791: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.519377: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.519377: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.550735: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.550735: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.592034: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.592034: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.640017: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.640017: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.669661: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.669661: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.707023: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.707023: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.737698: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.737698: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.769411: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.769411: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.810259: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.810259: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.842521: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.842521: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.873729: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.873729: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.911206: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.911206: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.943933: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.943933: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+7.977715: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+7.977715: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.008618: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.008618: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.048689: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.048689: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.080419: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.080419: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.113411: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.113411: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.151009: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.151009: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.183989: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.183989: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.215535: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.215535: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.253407: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.253407: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.284691: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.284691: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.314446: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.314446: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.354287: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.354287: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.384912: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.384912: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.415853: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.415853: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.453732: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.453732: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.484301: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.484301: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.513107: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.513107: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.551588: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.551588: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.583879: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.583879: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.635804: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.635804: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.666094: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.666094: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.724743: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.724743: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.752393: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.752393: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.790572: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.790572: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.818932: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.818932: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.848537: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.848537: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.876678: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.876678: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.91112: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.91112: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.942962: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.942962: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+8.973238: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+8.973238: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.114234: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.114234: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.139918: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.139918: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.172483: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.172483: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.209082: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.209082: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.23966: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.23966: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.269326: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.269326: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.304144: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.304144: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.331985: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.331985: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.36063: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.36063: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.398342: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.398342: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.426471: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.426471: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.45608: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.45608: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.491715: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.491715: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.520237: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.520237: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.553504: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.553504: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.591243: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.591243: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.627822: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.627822: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.65951: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.65951: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.698056: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.698056: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.727396: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.727396: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.784435: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.784435: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.814898: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.814898: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.854606: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.854606: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.888087: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.888087: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.918259: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.918259: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.960507: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.960507: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+9.989022: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+9.989022: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.01996: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.01996: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.05986: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.05986: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.09194: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.09194: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.12141: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.12141: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.16068: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.16068: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.19011: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.19011: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.22088: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.22088: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.26002: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.26002: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.28964: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.28964: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.31867: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.31867: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.35738: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.35738: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.38754: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.38754: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.41752: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.41752: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.45512: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.45512: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.48783: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.48783: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.51821: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.51821: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.54952: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.54952: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.58846: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.58846: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.62061: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.62061: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.64985: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.64985: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.69151: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.69151: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.72398: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.72398: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.75335: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.75335: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.79118: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.79118: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.82391: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.82391: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.85995: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.85995: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.89994: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.89994: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.95092: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.95092: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+10.97306: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+10.97306: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.01523: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.01523: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.04285: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.04285: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.07436: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.07436: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.11612: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.11612: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.14408: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.14408: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.17801: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.17801: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.20922: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.20922: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.23933: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.23933: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.26652: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.26652: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.3019: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.3019: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.33418: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.33418: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.36617: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.36617: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.39453: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.39453: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.43811: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.43811: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.46778: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.46778: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.49939: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.49939: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.53933: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.53933: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.57274: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.57274: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.60469: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.60469: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.64284: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.64284: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.67992: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.67992: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.71089: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.71089: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.74852: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.74852: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.77821: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.77821: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.80892: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.80892: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.84835: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.84835: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.87769: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.87769: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.90931: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.90931: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.95588: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.95588: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+11.99148: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+11.99148: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.01962: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.01962: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.08098: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.08098: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.10166: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.10166: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.13142: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.13142: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.1721: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.1721: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.20064: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.20064: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.23109: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.23109: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.26256: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.26256: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.30161: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.30161: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.33118: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.33118: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.36328: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.36328: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.40226: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.40226: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.43211: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.43211: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.46042: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.46042: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.61929: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.61929: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.65754: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.65754: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.68702: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.68702: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.7218: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.7218: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.75209: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.75209: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.78246: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.78246: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.81684: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.81684: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.84634: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.84634: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.87636: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.87636: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.91414: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.91414: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.94265: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.94265: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+12.97297: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+12.97297: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.01344: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.01344: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.04801: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.04801: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.08389: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.08389: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.11454: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.11454: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.15701: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.15701: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.18477: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.18477: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.23688: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.23688: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.26822: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.26822: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.29712: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.29712: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.32703: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.32703: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.362: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.362: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.39588: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.39588: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.42353: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.42353: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.57593: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.57593: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.61362: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.61362: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.64269: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.64269: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.6815: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.6815: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.71015: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.71015: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.7391: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.7391: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.77888: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.77888: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.80784: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.80784: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.83806: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.83806: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.8766: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.8766: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.90539: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.90539: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.93558: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.93558: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+13.97217: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+13.97217: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.00126: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.00126: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.03157: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.03157: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.06314: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.06314: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.10082: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.10082: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.13488: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.13488: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.1665: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.1665: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.20285: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.20285: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.23396: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.23396: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.26416: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.26416: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.29985: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.29985: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.32782: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.32782: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.38196: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.38196: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.41511: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.41511: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.44007: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.44007: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.47019: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.47019: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.50777: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.50777: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.53516: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.53516: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.56408: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.56408: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.60166: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.60166: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.62739: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.62739: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.65965: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.65965: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.69394: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.69394: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.72215: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.72215: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.75098: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.75098: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.78078: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.78078: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.81625: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.81625: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.84636: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.84636: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.87662: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.87662: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.91337: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.91337: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.9445: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.9445: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+14.97357: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+14.97357: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.00901: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.00901: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.03986: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.03986: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.06859: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.06859: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.11072: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.11072: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.14126: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.14126: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.17427: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.17427: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.21625: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.21625: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.24658: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.24658: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.27476: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.27476: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.31179: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.31179: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.34079: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.34079: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.3701: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.3701: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.40552: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.40552: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.43132: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.43132: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.4598: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.4598: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.52205: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.52205: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.54382: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.54382: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.57422: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.57422: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.60467: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.60467: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.64052: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.64052: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.67167: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.67167: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.69956: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.69956: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.73794: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.73794: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.76855: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.76855: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.79896: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.79896: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.83581: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.83581: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.86653: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.86653: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.8974: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.8974: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.93558: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.93558: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.96448: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.96448: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+15.9987: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+15.9987: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.03406: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.03406: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.06546: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.06546: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.09525: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.09525: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.13578: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.13578: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.16218: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.16218: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.19068: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.19068: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.22707: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.22707: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.25725: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.25725: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.28917: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.28917: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.33013: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.33013: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.36953: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.36953: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.39876: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.39876: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.4289: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.4289: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.46624: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.46624: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.49611: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.49611: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.52306: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.52306: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.56217: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.56217: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.59168: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.59168: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.62384: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.62384: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.68446: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.68446: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.70464: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.70464: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.73362: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.73362: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.76895: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.76895: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.79829: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.79829: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.82794: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.82794: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.86686: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.86686: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.89837: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.89837: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.95666: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.95666: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+16.99359: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+16.99359: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.02165: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.02165: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.05656: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.05656: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.09693: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.09693: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.12504: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.12504: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.15691: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.15691: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.18891: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.18891: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.22517: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.22517: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.25807: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.25807: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.28838: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.28838: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.32577: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.32577: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.36052: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.36052: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.39543: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.39543: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.43655: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.43655: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.46628: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.46628: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.49605: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.49605: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.53115: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.53115: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.56053: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.56053: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.59157: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.59157: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.62741: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.62741: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.65673: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.65673: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.68751: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.68751: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.72702: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.72702: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.75861: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.75861: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.80809: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.80809: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.83696: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.83696: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.86377: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.86377: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.8953: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.8953: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.93159: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.93159: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.97026: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.97026: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+17.99644: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+17.99644: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.02501: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.02501: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.06314: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.06314: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.09433: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.09433: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.12456: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.12456: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.16135: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.16135: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.19253: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.19253: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.21901: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.21901: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.25599: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.25599: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.28525: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.28525: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.31592: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.31592: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.35337: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.35337: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.38363: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.38363: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.41376: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.41376: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.55772: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.55772: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.58522: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.58522: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.61191: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.61191: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.64943: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.64943: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.67774: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.67774: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.70469: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.70469: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.73965: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.73965: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.76842: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.76842: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.79796: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.79796: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.82863: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.82863: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.88479: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.88479: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.91971: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.91971: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+18.97925: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+18.97925: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.01466: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.01466: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.05067: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.05067: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.08641: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.08641: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.12906: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.12906: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.16306: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.16306: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.19373: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.19373: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.23768: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.23768: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.27246: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.27246: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.30727: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.30727: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.35355: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.35355: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.38418: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.38418: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.51165: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.51165: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.55446: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.55446: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.58791: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.58791: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.61388: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.61388: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.64996: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.64996: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.68017: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.68017: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.71016: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.71016: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.74207: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.74207: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.77711: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.77711: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.80538: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.80538: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.83774: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.83774: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.8731: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.8731: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.90284: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.90284: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.9311: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.9311: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.96721: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.96721: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+19.9984: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+19.9984: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.02546: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.02546: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.06503: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.06503: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.11928: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.11928: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.13819: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.13819: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.17855: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.17855: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.20593: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.20593: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.23785: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.23785: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.27644: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.27644: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.30342: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.30342: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.33259: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.33259: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.36702: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.36702: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.39506: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.39506: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.42608: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.42608: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.45436: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.45436: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.49278: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.49278: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.52247: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.52247: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.55057: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.55057: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.59002: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.59002: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.62759: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.62759: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.66211: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.66211: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.69872: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.69872: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.7284: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.7284: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.75811: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.75811: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.79594: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.79594: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.82439: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.82439: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.85741: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.85741: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.8957: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.8957: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.92155: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.92155: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.94952: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.94952: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+20.98867: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+20.98867: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.01729: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.01729: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.04614: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.04614: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.08794: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.08794: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.11728: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.11728: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.14845: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.14845: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.18677: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.18677: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.23966: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.23966: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.26142: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.26142: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.29123: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.29123: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.32982: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.32982: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.36065: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.36065: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.39058: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.39058: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.4265: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.4265: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.4543: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.4543: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.48837: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.48837: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.52889: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.52889: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.55929: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.55929: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.59195: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.59195: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.6287: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.6287: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.65802: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.65802: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.69432: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.69432: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.73556: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.73556: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.76431: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.76431: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.79279: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.79279: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.83078: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.83078: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.86157: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.86157: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+21.88963: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+21.88963: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.03529: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.03529: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.06487: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.06487: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.0937: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.0937: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.12437: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.12437: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.16338: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.16338: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.19305: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.19305: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.2224: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.2224: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.25879: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.25879: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.28484: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.28484: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.3164: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.3164: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.35395: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.35395: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.40515: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.40515: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.42659: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.42659: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.46281: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.46281: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.49362: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.49362: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.52282: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.52282: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.56147: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.56147: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.59503: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.59503: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.62429: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.62429: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.66656: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.66656: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.69471: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.69471: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.72212: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.72212: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.76176: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.76176: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.79601: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.79601: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.82816: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.82816: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.85881: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.85881: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.89614: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.89614: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.92757: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.92757: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.95881: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.95881: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+22.99779: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+22.99779: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.02865: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.02865: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.05803: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.05803: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.09707: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.09707: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.12511: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.12511: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.15579: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.15579: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.19311: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.19311: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.22276: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.22276: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.25497: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.25497: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.29448: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.29448: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.32471: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.32471: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.3513: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.3513: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.3895: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.3895: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.41889: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.41889: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.44671: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.44671: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.48333: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.48333: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.53688: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.53688: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.55703: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.55703: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.59436: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.59436: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.62506: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.62506: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.65561: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.65561: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.68394: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.68394: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.71963: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.71963: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.74442: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.74442: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.77213: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.77213: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.81646: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.81646: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.84431: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.84431: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.87599: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.87599: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.92801: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.92801: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.95745: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.95745: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+23.98982: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+23.98982: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.02474: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.02474: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.05534: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.05534: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.08447: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.08447: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.12566: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.12566: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.15672: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.15672: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.18737: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.18737: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.22303: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.22303: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.25126: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.25126: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.28062: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.28062: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.315: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.315: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.33992: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.33992: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.37055: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.37055: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.4034: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.4034: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.44084: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.44084: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.46811: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.46811: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.49505: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.49505: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.53413: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.53413: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.56574: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.56574: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.59362: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.59362: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.62904: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.62904: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.68336: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.68336: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.70552: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.70552: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.7414: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.7414: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.77076: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.77076: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.80099: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.80099: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.84114: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.84114: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.87125: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.87125: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.90063: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.90063: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.94421: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.94421: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+24.98022: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+24.98022: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.01062: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.01062: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.04866: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.04866: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.07947: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.07947: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.11194: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.11194: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.14176: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.14176: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.18062: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.18062: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.20959: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.20959: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.24124: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.24124: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.27784: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.27784: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.30775: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.30775: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.33974: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.33974: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.37669: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.37669: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.40591: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.40591: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.43421: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.43421: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.47319: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.47319: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.50395: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.50395: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.53342: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.53342: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.57506: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.57506: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.60679: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.60679: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.63728: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.63728: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.67315: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.67315: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.70409: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.70409: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.73519: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.73519: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.77539: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.77539: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.82821: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.82821: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.85013: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.85013: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.88014: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.88014: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.91544: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.91544: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.94306: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.94306: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+25.97138: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+25.97138: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.00814: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.00814: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.04452: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.04452: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.07921: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.07921: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.11812: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.11812: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.14723: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.14723: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.17895: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.17895: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.21812: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.21812: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.24952: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.24952: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.27827: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.27827: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.31643: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.31643: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.34579: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.34579: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.37647: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.37647: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.41444: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.41444: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.43956: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.43956: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.4706: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.4706: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.50502: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.50502: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.53387: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.53387: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.56598: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.56598: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.6017: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.6017: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.63217: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.63217: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.66033: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.66033: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.69465: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.69465: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.73429: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.73429: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.76344: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.76344: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.79216: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.79216: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.83109: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.83109: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.86244: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.86244: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.8934: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.8934: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.93277: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.93277: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+26.98475: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+26.98475: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.00506: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.00506: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.03977: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.03977: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.07242: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.07242: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.10387: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.10387: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.1486: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.1486: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.17798: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.17798: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.20888: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.20888: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.24736: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.24736: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.27782: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.27782: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.30698: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.30698: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.34487: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.34487: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.37827: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.37827: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.40777: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.40777: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.43841: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.43841: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.47687: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.47687: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.50664: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.50664: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.53478: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.53478: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.57227: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.57227: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.60522: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.60522: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.6339: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.6339: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.67093: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.67093: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.69528: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.69528: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.72812: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.72812: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.7674: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.7674: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.79724: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.79724: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.8266: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.8266: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.86304: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.86304: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.88812: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.88812: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.91976: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.91976: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.95974: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.95974: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+27.99095: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+27.99095: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.01878: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.01878: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.05502: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.05502: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.08599: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.08599: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.13711: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.13711: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.15912: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.15912: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.1985: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.1985: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.23652: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.23652: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.27423: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.27423: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.31147: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.31147: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.34183: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.34183: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.36832: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.36832: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.40356: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.40356: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.43369: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.43369: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.46106: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.46106: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.49756: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.49756: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.5262: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.5262: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.55658: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.55658: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.59463: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.59463: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.6232: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.6232: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.65431: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.65431: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.68988: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.68988: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.7202: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.7202: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.7503: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.7503: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.78503: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.78503: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.81267: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.81267: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.84266: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.84266: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.87284: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.87284: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.91204: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.91204: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.94004: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.94004: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+28.96932: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+28.96932: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.0049: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.0049: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.03393: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.03393: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.06615: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.06615: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.10429: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.10429: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.13473: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.13473: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.16745: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.16745: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.20646: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.20646: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.25938: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.25938: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.28356: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.28356: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.32434: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.32434: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.35633: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.35633: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.38605: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.38605: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.4227: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.4227: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.45633: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.45633: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.48562: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.48562: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.52252: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.52252: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.55555: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.55555: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.5854: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.5854: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.61631: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.61631: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.65161: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.65161: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.68129: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.68129: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.71283: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.71283: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.75235: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.75235: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.77964: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.77964: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.81281: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.81281: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.85415: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.85415: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.88172: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.88172: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.91133: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.91133: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.95009: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.95009: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+29.97901: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+29.97901: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.00791: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.00791: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.04613: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.04613: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.07747: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.07747: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.10789: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.10789: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.14498: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.14498: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.17661: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.17661: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.20633: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.20633: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.2449: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.2449: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.27541: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.27541: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.30397: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.30397: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.33264: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.33264: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.37514: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.37514: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.43262: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.43262: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.45693: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.45693: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.49465: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.49465: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.61685: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.61685: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.64911: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.64911: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.68583: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.68583: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.71557: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.71557: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.74373: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.74373: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.78025: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.78025: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.81225: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.81225: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.83996: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.83996: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.87855: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.87855: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.91059: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.91059: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.93888: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.93888: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+30.97954: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+30.97954: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.0117: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.0117: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.03954: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.03954: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.07965: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.07965: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.11292: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.11292: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.14277: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.14277: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.17483: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.17483: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.21283: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.21283: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.24184: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.24184: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.27457: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.27457: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.3128: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.3128: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.34143: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.34143: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.37504: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.37504: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.41505: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.41505: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.44674: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.44674: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.48215: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.48215: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.52335: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.52335: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.57668: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.57668: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.60064: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.60064: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.63597: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.63597: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.66394: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.66394: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.68816: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.68816: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.72785: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.72785: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.76005: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.76005: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.79184: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.79184: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.82899: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.82899: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.8585: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.8585: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.88969: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.88969: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.91896: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.91896: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.95398: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.95398: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+31.98368: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+31.98368: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"
+32.12734: Agent "Recon" ==> Agent "ResourceCollector", Name: "Ok", Args: 
+32.12734: Agent "ResourceCollector" ==> Agent "Recon", Name: "Find me Resources", Args: "1"

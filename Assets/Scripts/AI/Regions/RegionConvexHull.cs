@@ -124,7 +124,17 @@ namespace MechWars.AI.Regions
 
         public Vector2 GetPointClosestTo(Vector2 point)
         {
-            if (Contains(point)) return point;
+            float distance;
+            return GetPointClosestTo(point, out distance);
+        }
+
+        public Vector2 GetPointClosestTo(Vector2 point, out float distance)
+        {
+            if (Contains(point))
+            {
+                distance = 0;
+                return point;
+            }
 
             Vector2 vertexBefore = default(Vector2);
             Vector2 closestVertex = default(Vector2);
@@ -145,17 +155,20 @@ namespace MechWars.AI.Regions
 
             var toPoint = point - closestVertex;
 
+            Vector2 closestPoint = closestVertex;
+
             var toBeforeNormalized = (vertexBefore - closestVertex).normalized;
             var castOnSegmentBefore = closestVertex + toBeforeNormalized * Vector2.Dot(toBeforeNormalized, toPoint);
-            if (castOnSegmentBefore == closestVertex) return closestVertex;
-            if (castOnSegmentBefore.LiesOnSegment(closestVertex, vertexBefore, 0.0001f)) return castOnSegmentBefore;
+            if (castOnSegmentBefore.LiesOnSegment(closestVertex, vertexBefore, 0.0001f)) closestPoint = castOnSegmentBefore;
+            else
+            {
+                var toAfterNormalized = (vertexAfter - closestVertex).normalized;
+                var castOnSegmentAfter = closestVertex + toAfterNormalized * Vector2.Dot(toAfterNormalized, toPoint);
+                if (castOnSegmentAfter.LiesOnSegment(closestVertex, vertexAfter, 0.0001f)) closestPoint = castOnSegmentAfter;
+            }
 
-            var toAfterNormalized = (vertexAfter - closestVertex).normalized;
-            var castOnSegmentAfter = closestVertex + toAfterNormalized * Vector2.Dot(toAfterNormalized, toPoint);
-            if (castOnSegmentAfter == closestVertex) return closestVertex;
-            if (castOnSegmentAfter.LiesOnSegment(closestVertex, vertexAfter, 0.0001f)) return castOnSegmentAfter;
-
-            return closestVertex;
+            distance = Vector2.Distance(point, closestPoint);
+            return closestPoint;
         }
 
         public override string ToString()

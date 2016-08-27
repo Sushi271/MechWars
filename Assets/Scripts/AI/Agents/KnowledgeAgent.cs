@@ -7,8 +7,13 @@ namespace MechWars.AI.Agents
     public class KnowledgeAgent : Agent
     {
         public MapElementKindDictionary MapElementKinds { get; private set; }
+        public TechnologyKindDictionary TechnologyKinds { get; private set; }
+        public CreationMethodDictionary CreationMethods { get; private set; }
+
         public UnitAgentDictionary UnitAgents { get; private set; }
+
         public ResourcesKnowledge Resources { get; private set; }
+        public MyBaseKnowledge MyBase { get; private set; }
 
         public KnowledgeAgent(AIBrain brain, MainAgent parent)
             : base("Knowledge", brain, parent)
@@ -17,17 +22,24 @@ namespace MechWars.AI.Agents
 
         protected override void OnStart()
         {
-            MapElementKinds = new MapElementKindDictionary();
-            UnitAgents = new UnitAgentDictionary();
+            MapElementKinds = new MapElementKindDictionary(Brain);
+            TechnologyKinds = new TechnologyKindDictionary(Brain);
+            CreationMethods = new CreationMethodDictionary(Brain);
+
+            UnitAgents = new UnitAgentDictionary(this);
+
             Resources = new ResourcesKnowledge(this);
+            MyBase = new MyBaseKnowledge(this);
 
             foreach (var u in Army.Units)
                 UnitAgents.Add(new UnitAgent(Brain, this, u));
             
             Army.VisibilityTable.VisibilityChanged += VisibilityTable_VisibilityChanged;
+            Army.OnVisibleMapElementCreated += Army_OnVisibleMapElementCreated;
+            Army.OnVisibleMapElementDied += Army_OnVisibleMapElementDied;
         }
 
-        private void VisibilityTable_VisibilityChanged(IVector2 tile, Visibility from, Visibility to)
+        void VisibilityTable_VisibilityChanged(IVector2 tile, Visibility from, Visibility to)
         {
             if (to == Visibility.Visible)
             {
@@ -52,6 +64,32 @@ namespace MechWars.AI.Agents
                             Resources[tile] = new ResourceInfo(MapProxy, tile);
                     }
                 }
+            }
+        }
+
+        void Army_OnVisibleMapElementCreated(MapElement mapElement)
+        {
+            var tile = mapElement.Coords.Round();
+            if (mapElement is Resource)
+                Resources[tile] = new ResourceInfo(MapProxy, tile);
+            else if (mapElement is Building)
+            {
+                var b = (Building)mapElement;
+                if (b.Army == Army)
+                    MyBase.AddBuilding(new BuildingInfo(MapProxy, b));
+            }
+        }
+
+        void Army_OnVisibleMapElementDied(MapElement mapElement)
+        {
+            var tile = mapElement.Coords.Round();
+            if (mapElement is Resource)
+                Resources[tile] = null;
+            else if (mapElement is Building)
+            {
+                var b = (Building)mapElement;
+                if (b.Army == Army)
+                    MyBase.RemoveBuilding(MyBase[tile]);
             }
         }
 

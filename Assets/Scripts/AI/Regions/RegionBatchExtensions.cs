@@ -25,6 +25,13 @@ namespace MechWars.AI.Regions
         {
             var concatenated = regionBatches.ConcatBatches(susp => new ResourceRegionBatch(brain, susp));
             concatenated.Resources.UnionWith(regionBatches.SelectMany(rb => rb.Resources));
+            foreach (var rb in regionBatches)
+            {
+                rb.Resources.Clear();
+                rb.ConcatenatedInto = concatenated;
+            }
+            foreach (var r in concatenated.Resources)
+                r.RegionBatch = concatenated;
             return concatenated;
         }
     }

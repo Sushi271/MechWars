@@ -10,12 +10,19 @@ namespace MechWars.AI.Agents
         public string Name { get; private set; }
         public string[] Arguments { get; private set; }
 
+        public Message InnerMessage { get; private set; }
+
         public Message(Agent sender, Agent receiver, string name, params string[] arguments)
         {
             Sender = sender;
             Receiver = receiver;
             Name = name;
             Arguments = arguments;
+        }
+        public Message(Agent sender, Agent receiver, string name, Message innerMessage, params string[] arguments)
+            : this(sender, receiver, name, arguments)
+        {
+            InnerMessage = innerMessage;
         }
 
         public override string ToString()
