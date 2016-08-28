@@ -8,7 +8,7 @@
         public string Name { get; private set; }
         public float Value { get; set; }
 
-        public MapElementPurpose(string name, float value)
+        MapElementPurpose(string name, float value)
         {
             Name = name;
             Value = value;

@@ -52,5 +52,10 @@ namespace MechWars.AI.Regions
         {
             RegionBatch.UpdateBatch();
         }
+
+        public bool HasResource(Resource resource)
+        {
+            return Resources.Any(ri => ri.Resource == resource);
+        }
     }
 }

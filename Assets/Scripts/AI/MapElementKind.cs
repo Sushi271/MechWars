@@ -32,5 +32,20 @@ namespace MechWars.AI
             foreach (var a in Purposes.Values)
                 a.Value /= sum;
         }
+
+        public float GetPurposeValue(string purposeName)
+        {
+            MapElementPurpose purpose;
+            var success = Purposes.TryGetValue(purposeName, out purpose);
+            if (!success) return 0;
+            return purpose.Value;
+        }
+
+        public bool HasPurpose(string purposeName)
+        {
+            MapElementPurpose purpose;
+            var success = Purposes.TryGetValue(purposeName, out purpose);
+            return success;
+        }
     }
 }

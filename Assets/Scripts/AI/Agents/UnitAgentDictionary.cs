@@ -25,6 +25,8 @@ namespace MechWars.AI.Agents
             get { return unitDict[unit]; }
         }
 
+        public IEnumerable<MapElementKind> Kinds { get { return kindDict.Keys; } }
+
         public UnitAgentDictionary(KnowledgeAgent knowledge)
         {
             this.knowledge = knowledge;

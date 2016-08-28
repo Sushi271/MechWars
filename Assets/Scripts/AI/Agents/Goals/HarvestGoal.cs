@@ -11,6 +11,7 @@ namespace MechWars.AI.Agents.Goals
     {
         ResourceCollectorAgent resourceCollector;
         OrderAction harvestOrderAction;
+        Resource currentResource;
 
         public ResourceRegionBatch HarvestedRegion { get; private set; }
 
@@ -32,53 +33,42 @@ namespace MechWars.AI.Agents.Goals
             if (HarvestedRegion != null && HarvestedRegion.RegionEmpty)
                 HarvestedRegion = null;
             if (HarvestedRegion == null)
-                PickHarvestedRegion();
-            if (HarvestedRegion == null)
-                return;
-
-            var unit = UnitAgent.Unit;
-            bool giveNewOrder = false;
-            if (unit.OrderQueue.CurrentOrder is HarvestOrder)
             {
-                var harvestOrder = (HarvestOrder)unit.OrderQueue.CurrentOrder;
-                if (HarvestedRegion.Resources.None(ri =>
-                {
-                    return ri.Resource == harvestOrder.Resource;
-                }))
-                    giveNewOrder = true;
+                HarvestedRegion = PickHarvestedRegion();
+                if (HarvestedRegion == null) return;
             }
-            else giveNewOrder = true;
 
-            if (giveNewOrder)
+            var currentOrder = UnitAgent.Unit.OrderQueue.CurrentOrder;
+            if (!(currentOrder is HarvestOrder))
+                GiveNewOrder();
+            else
             {
-                unit.OrderQueue.CancelAll();
-                var resInfo = HarvestedRegion.Resources.FirstOrDefault(ri =>
+                var harvestOrder = (HarvestOrder)currentOrder;
+                if (currentResource != harvestOrder.Resource)
                 {
-                    return ri.Resource != null;
-                });
-                if (resInfo != null)
-                {
-                    harvestOrderAction.GiveOrder(unit,
-                        new AIOrderActionArgs(Agent.Player, resInfo.Resource));
+                    currentResource = harvestOrder.Resource;
+                    if (!HarvestedRegion.HasResource(currentResource))
+                        GiveNewOrder();
                 }
             }
         }
 
-        void PickHarvestedRegion()
+        ResourceRegionBatch PickHarvestedRegion()
         {
             var resRegions = Agent.Knowledge.Resources.Regions;
             if (resRegions.Empty())
             {
                 Finish();
-                return;
+                return null;
             }
             var refineries = resourceCollector.Refineries;
             if (refineries.Empty())
-                HarvestedRegion = resRegions.SelectMin(r => r.ConvexHull.GetDistanceTo(UnitAgent.Unit.Coords));
+                return resRegions.SelectMin(r => r.ConvexHull.GetDistanceTo(UnitAgent.Unit.Coords));
             else
             {
                 Building refinery;
                 var minDist = float.MaxValue;
+                ResourceRegionBatch harvestedRegion = null;
                 foreach (var reg in resRegions)
                     foreach (var rfn in refineries)
                     {
@@ -88,9 +78,23 @@ namespace MechWars.AI.Agents.Goals
                         {
                             minDist = dist;
                             refinery = rfn;
-                            HarvestedRegion = reg;
+                            harvestedRegion = reg;
                         }
                     }
+                return harvestedRegion;
+            }
+        }
+
+        void GiveNewOrder()
+        {
+            var unit = UnitAgent.Unit;
+            unit.OrderQueue.CancelAll();
+            var resInfo = HarvestedRegion.Resources.FirstOrDefault(ri => ri.Resource != null);
+            if (resInfo != null)
+            {
+                harvestOrderAction.GiveOrder(unit,
+                    new AIOrderActionArgs(Agent.Player, resInfo.Resource));
+                currentResource = resInfo.Resource;
             }
         }
     }
