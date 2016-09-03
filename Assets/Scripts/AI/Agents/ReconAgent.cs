@@ -36,7 +36,8 @@ namespace MechWars.AI.Agents
                     var req = requests.FirstOrDefault(r => r.Name == AIName.FindMeResources);
                     if (req == null)
                     {
-                        requests.Add(new Request(message.Sender, message.Name, int.Parse(message.Arguments[0]), message));
+                        req = new Request(message.Sender, message.Name, int.Parse(message.Arguments[0]), message);
+                        requests.Add(req);
                         ReconUnits.Add(req, new RequestUnitAgentSet(this, req));
                     }
                     else req.Priority = int.Parse(message.Arguments[0]);
