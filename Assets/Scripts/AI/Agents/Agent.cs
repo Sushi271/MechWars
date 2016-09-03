@@ -33,6 +33,8 @@ namespace MechWars.AI.Agents
         public Player Player { get { return Brain.player; } }
         public Army Army { get { return Player == null ? null : Player.army; } }
 
+        public Goal CurrentGoal { get { return Goals.Count == 0 ? null : Goals[0]; } }
+
         public Agent(string name, AIBrain brain, Agent parent)
         {
             Name = name;
@@ -90,6 +92,8 @@ namespace MechWars.AI.Agents
         {
             foreach (var a in actionsToPerform.Values)
                 a.alreadyIncremented = false;
+            foreach (var a in argActionsToPerform.Values)
+                a.alreadyIncremented = false;
         }
 
         protected void Finish()
@@ -97,9 +101,10 @@ namespace MechWars.AI.Agents
             Finished = true;
         }
 
-        public void GiveGoal(Goal goal)
+        public void GiveGoal(Goal goal, float importance)
         {
             Goals.Add(goal);
+            goal.Importance = importance;
         }
 
         protected void SendMessage(Agent receiver, string messageName, params string[] args)

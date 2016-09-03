@@ -1,5 +1,6 @@
 ﻿using MechWars.MapElements;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MechWars.AI.Agents
 {
@@ -26,6 +27,7 @@ namespace MechWars.AI.Agents
         }
 
         public IEnumerable<MapElementKind> Kinds { get { return kindDict.Keys; } }
+        public IEnumerable<UnitAgent> All { get { return kindDict.Values.SelectMany(ua => ua); } }
 
         public UnitAgentDictionary(KnowledgeAgent knowledge)
         {

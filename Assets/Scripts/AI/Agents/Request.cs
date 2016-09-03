@@ -6,7 +6,7 @@ namespace MechWars.AI.Agents
     {
         public Agent RequestingAgent { get; private set; }
         public string Name { get; private set; }
-        public int Priority { get; private set; }
+        public int Priority { get; set; }
         public Message InnerMessage { get; private set; }
         public Vector2? Position { get; private set; }
 

@@ -3,6 +3,7 @@ using MechWars.MapElements;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace MechWars.AI.Agents
 {
@@ -13,11 +14,33 @@ namespace MechWars.AI.Agents
 
         bool refineryOnTheWay;
 
+        LerpFunc2 harvestingImportanceFunction;
+
+        public float HarvestingImportance { get; private set; }
+
         public ResourceCollectorAgent(AIBrain brain, MainAgent parent)
             : base("ResourceCollector", brain, parent)
         {
             Harvesters = new HashSet<UnitAgent>();
             Refineries = new HashSet<Building>();
+        }
+
+        protected override void OnStart()
+        {
+            ReadHarvestingImportanceFunction();
+        }
+
+        void ReadHarvestingImportanceFunction()
+        {
+            var txt = Brain.harvestingImportanceFunction;
+            if (txt == null) return;
+
+            harvestingImportanceFunction = new LerpFunc2(txt.bytes);
+            if (harvestingImportanceFunction.Invalid)
+            {
+                Debug.LogError("Failed to read harvestingImportanceFunction.");
+                harvestingImportanceFunction = null;
+            }
         }
 
         protected override void OnUpdate()
@@ -36,6 +59,11 @@ namespace MechWars.AI.Agents
             PerformEvery(1, TryRequestForHarvesterProduction);
             PerformEvery(1, TryRequestForResourceSearch);
 
+            HarvestingImportance = CalcHarvestingImportance();
+            foreach (var h in Harvesters)
+                if (h.CurrentGoal is HarvestGoal)
+                    h.CurrentGoal.Importance = HarvestingImportance;
+
             var resRegions = Knowledge.Resources.Regions;
             if (!resRegions.Empty())
             {
@@ -44,7 +72,7 @@ namespace MechWars.AI.Agents
                 {
                     h.Take(this);
                     Harvesters.Add(h);
-                    h.GiveGoal(new HarvestGoal(h, this));
+                    h.GiveGoal(new HarvestGoal(h, this), HarvestingImportance);
                 }
             }
         }
@@ -62,15 +90,17 @@ namespace MechWars.AI.Agents
                         StopPerform(RequestForRefineryConstruction);
                         refineryOnTheWay = true;
                     }
-                    else if (innerMessage.Name == AIName.FindMeResources)
-                        StopPerform(TryRequestForResourceSearch);
+                }
+                else if (message.Name == AIName.HandMeOnUnit)
+                {
+                    
                 }
             }
         }
 
         void UpdateRefineries()
         {
-            Refineries.RemoveWhere(r => r.Dying);            
+            Refineries.RemoveWhere(r => r.Dying);
             Refineries.UnionWith(Army.Buildings.Where(b => b.mapElementName == AIName.Refinery));
         }
 
@@ -99,6 +129,15 @@ namespace MechWars.AI.Agents
                 SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Harvester);
             else if (allHarvesters.HasAtLeast(10))
                 SendMessage(Production, AIName.ProduceMeUnits, "2", AIName.Harvester);
+        }
+
+        float CalcHarvestingImportance()
+        {
+            if (harvestingImportanceFunction == null) return 0;
+
+            float res = Army.resources;
+            float harv = Harvesters.Count;
+            return harvestingImportanceFunction[harv, res];
         }
     }
 }

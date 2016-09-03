@@ -10,6 +10,8 @@ namespace MechWars.AI
         public Player player;
 
         public float resourceRegionDistance = 2;
+        public TextAsset harvestingImportanceFunction;
+        public int reconGridPointCoverageRadius = 4;
 
         HashSet<Agent> agentsToAdd;
         HashSet<Agent> agents;

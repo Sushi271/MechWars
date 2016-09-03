@@ -4,6 +4,10 @@ namespace MechWars.AI.Agents
 {
     public class UnitAgent : Agent
     {
+        static int nextId;
+
+        public int Id { get; private set; }
+
         public MapElementKind Kind { get; private set; }
         public Unit Unit { get; private set; }
 
@@ -15,6 +19,7 @@ namespace MechWars.AI.Agents
         {
             Unit = unit;
             Kind = Knowledge.MapElementKinds[unit.mapElementName];
+            Id = nextId++;
         }
 
         protected override void OnStart()

@@ -5,6 +5,7 @@
         public string Name { get; private set; }
         public Agent Agent { get; private set; }
         public GoalState State { get; private set; }
+        public float Importance { get; set; }
 
         public bool InFinalState {  get { return State == GoalState.Finished || State == GoalState.Canceled; } }
 
@@ -52,7 +53,7 @@
         {
         }
 
-        protected void Finish()
+        public void Finish()
         {
             if (State != GoalState.Started)
                 throw new System.Exception("Finish can only be called after Start, when State is Started.");
