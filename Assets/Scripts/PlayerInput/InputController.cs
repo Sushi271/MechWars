@@ -109,11 +109,6 @@ namespace MechWars.PlayerInput
         void HandleCarriedOrderAction()
         {
             if (Mouse.Left.IsDown) executeOnUp = true;
-            if (Mouse.Right.IsDown)
-            {
-                int x = 5;
-                int y = x;
-            }
             if (Mouse.Right.IsDown || SelectionMonitor.SelectedMapElements.Empty())
             {
                 CarriedOrderAction = null;
