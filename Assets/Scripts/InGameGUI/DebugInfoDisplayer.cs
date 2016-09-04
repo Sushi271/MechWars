@@ -1,15 +1,13 @@
 ﻿using MechWars.Utils;
 using System.Linq;
 using System.Text;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
 {
-    public class DebugInfoDisplayer : MonoBehaviour
+    // InfoDisplayer z debugowym tekstem
+    public class DebugInfoDisplayer : InfoDisplayer
     {
-        public Canvas canvas;
-
         void Update()
         {
             var text = GetComponent<Text>();

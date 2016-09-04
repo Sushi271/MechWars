@@ -2,15 +2,16 @@
 
 namespace MechWars.InGameGUI
 {
-    public class DebugInfoDisplayerBackground : MonoBehaviour
+    // klasa odpowiadajaca za skalowanie tla do InfoDisplayer
+    public class InfoDisplayerBackground : MonoBehaviour
     {
-        public DebugInfoDisplayer debugInfoDisplayer;
+        public InfoDisplayer infoDisplayer;
         int padding = 3;
 
         void Update()
         {
             var thisTransform = GetComponent<RectTransform>();
-            var transf = debugInfoDisplayer.GetComponent<RectTransform>();
+            var transf = infoDisplayer.GetComponent<RectTransform>();
 
             thisTransform.position = new Vector3(
                 transf.position.x - padding,
