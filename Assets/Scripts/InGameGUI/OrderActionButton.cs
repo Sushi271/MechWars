@@ -2,13 +2,21 @@
 using MechWars.MapElements.Orders.Actions;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
 {
     public class OrderActionButton : MonoBehaviour
     {
+        public CanvasScript canvasScript;
+
         // akcja ktora dziala ten button
         public OrderAction orderAction;
+
+        public KeyCode hotkey;
+
+        [TextArea(3, 15)]
+        public string description;
 
         public void OnClick_ChangeCarriedOrderAction()
         {
@@ -37,6 +45,18 @@ namespace MechWars.InGameGUI
                 // wywołujemy akcję od razu
                 orderAction.GiveOrder(mapElement, inputController.OrderActionArgs);
             }
+        }
+
+        public void OnPointerEnter()
+        {
+            // na wejscie kursora ustawiamy canvasowi podswietlony button na TEN
+            canvasScript.SetHoveredButton(GetComponent<Button>());
+        }
+
+        public void OnPointerExit()
+        {
+            // na wyjscie kursora ustawiamy canvasowi podswietlony button na NULL (zaden)
+            canvasScript.SetHoveredButton(null);
         }
     }
 }
