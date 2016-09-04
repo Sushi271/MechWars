@@ -120,7 +120,7 @@ namespace MechWars.AI.Agents
                 let a = CalcSuitability(i, p)
                 orderby a descending
                 select new { Agent = ua, Suitability = a };
-            
+
             // If there are not enough scouts assigned to this Request
             for (; scoutsNeededLeft > 0; scoutsNeededLeft--)
             {
@@ -131,7 +131,7 @@ namespace MechWars.AI.Agents
                     {
                         SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Scout);
                         waitingForScout = true;
-                    }1  
+                    }
                     break;
                 }
                 else waitingForScout = false;
