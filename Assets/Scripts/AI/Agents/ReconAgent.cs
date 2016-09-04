@@ -124,17 +124,19 @@ namespace MechWars.AI.Agents
             // If there are not enough scouts assigned to this Request
             for (; scoutsNeededLeft > 0; scoutsNeededLeft--)
             {
+                // if there are no more scouts to take, send request for production
                 if (unitAgentsSuitabilities.Empty())
                 {
                     if (!waitingForScout)
                     {
                         SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Scout);
                         waitingForScout = true;
-                    }
+                    }1  
                     break;
                 }
                 else waitingForScout = false;
 
+                // this will take always the most suitable available non-taken UAS.
                 var uas = unitAgentsSuitabilities.First();
                 if (uas.Suitability >= 1 - scoutsImportance)
                 {
@@ -152,8 +154,6 @@ namespace MechWars.AI.Agents
                     }
                 }
             }
-
-            // TODO: TEST IENUMERABLE FIRST OVER CHANGING SEQUENCE
 
             if (waitingForScout)
             {
