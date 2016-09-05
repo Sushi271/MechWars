@@ -34,6 +34,7 @@ namespace MechWars.AI.Agents
         public Army Army { get { return Player == null ? null : Player.army; } }
 
         public Goal CurrentGoal { get { return Goals.Count == 0 ? null : Goals[0]; } }
+        public float CurrentGoalImportance { get { return CurrentGoal == null ? 0 : CurrentGoal.Importance; } }
 
         public Agent(string name, AIBrain brain, Agent parent)
         {

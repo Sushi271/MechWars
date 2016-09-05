@@ -1,4 +1,5 @@
 ﻿using MechWars.AI.Agents.Goals;
+using MechWars.AI.Regions;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,60 @@ namespace MechWars.AI.Agents
         List<Request> requests;
         public Dictionary<Request, RequestUnitAgentSet> ReconUnits { get; private set; }
 
+        public ReconRegionBatch[,] ReconRegions { get; private set; }
+        public int ReconRegionsSize { get; private set; }
+
+        public IEnumerable<ReconRegionBatch> AllReconRegions
+        {
+            get
+            {
+                for (int regY = 0; regY < ReconRegionsSize; regY++)
+                    for (int regX = 0; regX < ReconRegionsSize; regX++)
+                        yield return ReconRegions[regX, regY];
+            }
+        }
+        public int AllReconRegionsCount { get { return ReconRegionsSize * ReconRegionsSize; } }
+
         public ReconAgent(AIBrain brain, MainAgent parent)
             : base("Recon", brain, parent)
         {
             requests = new List<Request>();
             ReconUnits = new Dictionary<Request, RequestUnitAgentSet>();
+        }
+
+        protected override void OnStart()
+        {
+            GenerateReconRegions();
+        }
+
+        void GenerateReconRegions()
+        {
+            var size = Brain.reconRegionSize;
+            var mapSize = Globals.MapSettings.Size;
+            var count = Mathf.CeilToInt((float)mapSize / size);
+            ReconRegions = new ReconRegionBatch[count, count];
+            ReconRegionsSize = count;
+            for (int y = 0; y < mapSize; y++)
+            {
+                int regY = y / size;
+                for (int x = 0; x < mapSize; x++)
+                {
+                    int regX = x / size;
+                    var reg = ReconRegions[regX, regY];
+                    if (reg == null)
+                    {
+                        reg = new ReconRegionBatch(Brain, true);
+                        ReconRegions[regX, regY] = reg;
+                    }
+                    reg.Region.AddTile(x, y);
+                }
+            }
+            for (int regY = 0; regY < count; regY++)
+                for (int regX = 0; regX < count; regX++)
+                {
+                    ReconRegions[regX, regY].SuspendUpdateBatch = false;
+                    ReconRegions[regX, regY].UpdateBatch();
+                }
         }
 
         protected override void OnUpdate()
@@ -58,7 +108,8 @@ namespace MechWars.AI.Agents
                 requests.Remove(r);
         }
 
-        bool waitingForScout;
+        bool waitingForAnyScout;
+        bool waitingForNonBusyScout;
         int[] scoutsNeededByPriority = { 3, 1, 1 };
         float[] scoutsImportanceByPriority = { 0.8f, 0.6f, 0.35f };
 
@@ -79,14 +130,14 @@ namespace MechWars.AI.Agents
             // Send request for production of Scouts
             if (kinds.Empty())
             {
-                if (!waitingForScout)
+                if (!waitingForAnyScout)
                 {
                     SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Scout);
-                    waitingForScout = true;
+                    waitingForAnyScout = true;
                 }
                 return;
             }
-            else waitingForScout = false;
+            else waitingForAnyScout = false;
 
             // Determine how much scouts are needed and how important is their task
             int scoutsNeeded = scoutsNeededByPriority[r.Priority];
@@ -94,7 +145,7 @@ namespace MechWars.AI.Agents
 
             // Get UnitAgents currently assigned to this Request and update them
             var uaSet = ReconUnits[r];
-            uaSet.ReadyAgents(ua => new ReconGoal(ua), scoutsImportance);
+            uaSet.ReadyAgents(ua => new CoarseReconGoal(ua), scoutsImportance);
             foreach (var ua in uaSet.Ready)
                 ua.CurrentGoal.Importance = scoutsImportance;
 
@@ -116,10 +167,11 @@ namespace MechWars.AI.Agents
                 where !uaSet.All.Contains(ua)
                 let p = ua.Kind.GetPurposeValue(AIName.Scouting)
                 where p > 0
-                let i = ua.CurrentGoal.Importance
-                let a = CalcSuitability(i, p)
-                orderby a descending
-                select new { Agent = ua, Suitability = a };
+                let i = ua.CurrentGoalImportance
+                where i < scoutsImportance
+                let s = CalcSuitability(i, p)
+                orderby s descending
+                select new { Agent = ua, Suitability = s };
 
             // If there are not enough scouts assigned to this Request
             for (; scoutsNeededLeft > 0; scoutsNeededLeft--)
@@ -127,49 +179,68 @@ namespace MechWars.AI.Agents
                 // if there are no more scouts to take, send request for production
                 if (unitAgentsSuitabilities.Empty())
                 {
-                    if (!waitingForScout)
+                    if (!waitingForNonBusyScout)
                     {
                         SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Scout);
-                        waitingForScout = true;
+                        waitingForNonBusyScout = true;
                     }
                     break;
                 }
-                else waitingForScout = false;
-
-                // this will take always the most suitable available non-taken UAS.
+                else waitingForNonBusyScout = false;
+                
+                // look for the mose suitable agent that can be lend for the 
                 var uas = unitAgentsSuitabilities.First();
-                if (uas.Suitability >= 1 - scoutsImportance)
+                TakeAgentNowOrLater(uas.Agent, uaSet, scoutsImportance);
+            }
+            
+            // Get all UnitAgents assigned to this Request and sort them by their Purposes
+            var requestUnitAgentsPurposes =
+                from ua in uaSet.All
+                let p = ua.Kind.GetPurposeValue(AIName.Scouting)
+                orderby p descending
+                select new { Agent = ua, Purpose = p };
+
+            bool replaced;
+            do
+            {
+                replaced = false;
+                if (requestUnitAgentsPurposes.Empty()) return;
+                if (unitAgentsSuitabilities.Empty()) return;
+
+                var firstUAS = unitAgentsSuitabilities.First();
+                var lastRUAP = requestUnitAgentsPurposes.Last();
+                if (firstUAS.Suitability > lastRUAP.Purpose)
                 {
-                    var agent = uas.Agent;
-                    if (!agent.Busy)
-                    {
-                        agent.Take(this);
-                        agent.GiveGoal(new ReconGoal(agent), scoutsImportance);
-                        uaSet.AddAgent(agent);
-                    }
-                    else
-                    {
-                        uaSet.AddAgent(agent, true);
-                        SendMessage(agent.Owner, AIName.HandMeOnUnit, agent.Id.ToString());
-                    }
+                    replaced = true;
+
+                    lastRUAP.Agent.CurrentGoal.Cancel();
+                    lastRUAP.Agent.Release(this);
+                    uaSet.RemoveAgent(lastRUAP.Agent);
+
+                    TakeAgentNowOrLater(firstUAS.Agent, uaSet, scoutsImportance);
                 }
             }
-
-            if (waitingForScout)
-            {
-
-            }
-
-            // give them a new task - scout for resources
-            // every update update their scouting destination basing on generated grid
-            // grid must be generated from regions of unknown territory
-            // every update monitor the importance of this task, or consult it with ResCol
-            // release UAs once ResCol tells it's happy, or once better suited agents joined the army
+            while (replaced);
         }
 
         float CalcSuitability(float importance, float purpose)
         {
             return Mathf.Min(1 - importance, purpose);
+        }
+
+        void TakeAgentNowOrLater(UnitAgent agent, RequestUnitAgentSet uaSet, float scoutsImportance)
+        {
+            if (!agent.Busy)
+            {
+                agent.Take(this);
+                agent.GiveGoal(new CoarseReconGoal(agent), scoutsImportance);
+                uaSet.AddAgent(agent);
+            }
+            else
+            {
+                SendMessage(agent.Owner, AIName.HandMeOnUnit, agent.Id.ToString());
+                uaSet.AddAgent(agent, true);
+            }
         }
 
         void HandleReconUnits()

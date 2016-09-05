@@ -97,5 +97,10 @@ namespace MechWars.AI.Agents.Goals
                 currentResource = resInfo.Resource;
             }
         }
+
+        protected override void OnCanceled()
+        {
+            UnitAgent.Unit.OrderQueue.CancelAll();
+        }
     }
 }

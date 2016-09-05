@@ -11,6 +11,8 @@ namespace MechWars.AI
 
         public float resourceRegionDistance = 2;
         public TextAsset harvestingImportanceFunction;
+        public int reconRegionSize = 8;
+        public int coarseReconRegionPercentage = 90;
 
         HashSet<Agent> agentsToAdd;
         HashSet<Agent> agents;

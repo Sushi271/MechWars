@@ -60,6 +60,7 @@ namespace MechWars.AI.Agents
             PerformEvery(1, TryRequestForResourceSearch);
 
             HarvestingImportance = CalcHarvestingImportance();
+            //Debug.Log(HarvestingImportance);
             foreach (var h in Harvesters)
                 if (h.CurrentGoal is HarvestGoal)
                     h.CurrentGoal.Importance = HarvestingImportance;
@@ -93,7 +94,14 @@ namespace MechWars.AI.Agents
                 }
                 else if (message.Name == AIName.HandMeOnUnit)
                 {
-                    
+                    int id = int.Parse(message.Arguments[0]);
+                    var harv = Harvesters.FirstOrDefault(h => h.Id == id);
+                    if (harv != null)
+                    {
+                        Harvesters.Remove(harv);
+                        harv.CurrentGoal.Cancel();
+                        harv.HandOn(this, message.Sender);
+                    }
                 }
             }
         }

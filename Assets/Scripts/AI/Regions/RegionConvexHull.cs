@@ -47,11 +47,11 @@ namespace MechWars.AI.Regions
 
             if (!points.HasAtLeast(4)) return new List<Vector2>(sortedPoints);
 
-            var convexPoints = new List<Vector2>(sortedPoints.Length);
+            var convexPoints = new List<Vector2>(sortedPoints.Length + 1);
+            convexPoints.Add(anchor);
             convexPoints.Add(sortedPoints[0]);
-            convexPoints.Add(sortedPoints[1]);
 
-            for (int i = 2; i < sortedPoints.Length; i++)
+            for (int i = 1; i < sortedPoints.Length; i++)
             {
                 var p3 = sortedPoints[i];
                 bool leftTurn;
@@ -69,7 +69,8 @@ namespace MechWars.AI.Regions
                 }
                 while (!leftTurn && convexPoints.Count > 1);
 
-                convexPoints.Add(p3);
+                if (p3 != anchor)
+                    convexPoints.Add(p3);
             }
 
             return convexPoints;

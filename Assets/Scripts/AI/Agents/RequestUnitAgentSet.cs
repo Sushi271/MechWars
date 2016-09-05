@@ -24,7 +24,7 @@ namespace MechWars.AI.Agents
 
         public void AddAgent(UnitAgent agent, bool awaiting = false)
         {
-            if (!All.Contains(agent)) return;
+            if (All.Contains(agent)) return;
 
             if (awaiting) Awaiting.Add(agent);
             else Ready.Add(agent);
@@ -33,6 +33,8 @@ namespace MechWars.AI.Agents
 
         public void RemoveAgent(UnitAgent agent)
         {
+            if (!All.Contains(agent)) return;
+
             All.Remove(agent);
             Awaiting.Remove(agent);
             Ready.Remove(agent);

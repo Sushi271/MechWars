@@ -32,10 +32,15 @@
             if (Starting != null) Starting(this);
             OnStart();
             State = GoalState.Started;
+            OnStarted();
             if (Started != null) Started(this);
         }
 
         protected virtual void OnStart()
+        {
+        }
+
+        protected virtual void OnStarted()
         {
         }
 
@@ -58,23 +63,38 @@
             if (State != GoalState.Started)
                 throw new System.Exception("Finish can only be called after Start, when State is Started.");
 
+            OnFinishing();
             if (Finishing != null) Finishing(this);
             State = GoalState.Finished;
+            OnFinished();
             if (Finished != null) Finished(this);
+        }
+
+        protected virtual void OnFinishing()
+        {
+        }
+
+        protected virtual void OnFinished()
+        {
         }
 
         public void Cancel()
         {
-            if (State != GoalState.Finished)
+            if (State == GoalState.Finished)
                 throw new System.Exception("Cancel cannot be called after Finish, when State is Finished.");
-            
+
+            OnCanceling();
             if (Canceling != null) Canceling(this);
-            OnCancel();
             State = GoalState.Canceled;
+            OnCanceled();
             if (Canceled != null) Canceled(this);
         }
 
-        protected virtual void OnCancel()
+        protected virtual void OnCanceling()
+        {
+        }
+
+        protected virtual void OnCanceled()
         {
         }
     }

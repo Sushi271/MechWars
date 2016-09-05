@@ -90,7 +90,7 @@ namespace MechWars.Utils
                 var dimA1 = dim1[i1 - 1];
                 var dimB1 = dim1[i1];
 
-                var lerpRatio1 = (dim1Val - dimA1) / (dimB1 - dimB1);
+                var lerpRatio1 = (dim1Val - dimA1) / (dimB1 - dimA1);
                 var lerp01 = lerpA + lerpRatio1 * (lerpB - lerpA);
                 return lerp01;
             }
