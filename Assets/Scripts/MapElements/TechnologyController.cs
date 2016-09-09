@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace MechWars
+namespace MechWars.MapElements
 {
     public class TechnologyController
     {

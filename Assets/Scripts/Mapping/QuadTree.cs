@@ -51,8 +51,7 @@ namespace MechWars.Mapping
                     QuadTreeMapElement = quadTreeMapElement;
                     return true;
                 }
-                else if (
-                    QuadTreeMapElement.Coords == coords)
+                else if (QuadTreeMapElement.Coords == coords)
                     throw new System.Exception("Cannot insert MapElement twice into the same coords.");
                 else Subdivide();
             }

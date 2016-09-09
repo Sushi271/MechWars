@@ -22,22 +22,22 @@ namespace MechWars
         public List<GameObject> ResourcePrefabs { get { return GetPrefabByType(PrefabType.Resource); } }
         public GameObject RandomResourcePrefab { get { return random.Choice(ResourcePrefabs); } }
 
-        List<GameObject> GetPrefabByType(PrefabType prefabType)
+        public List<GameObject> GetPrefabByType(PrefabType prefabType)
         {
-            return (from f in typeof(Prefabs).GetFields(BindingFlags.Public | BindingFlags.Instance)
-                    let attrs = f.GetCustomAttributes(typeof(PrefabTypeAttribute), false)
-                    where
-                        attrs.Count() > 0 &&
-                        (attrs.First() as PrefabTypeAttribute).PrefabType == prefabType
-                    let v = f.GetValue(this)
-                    where v != null
-                    select v as GameObject)
-                   .ToList();
+            var fields = typeof(Prefabs).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            return
+                (from f in fields
+                 let attrs = f.GetCustomAttributes(typeof(PrefabTypeAttribute), false)
+                 where attrs.Count() > 0
+                 where (attrs.First() as PrefabTypeAttribute).PrefabType == prefabType
+                 let v = f.GetValue(this)
+                 where v != null
+                 select v as GameObject).ToList();
         }
 
         // ===========================================================================
 
-        enum PrefabType
+        public enum PrefabType
         {
             Resource,
             Other
