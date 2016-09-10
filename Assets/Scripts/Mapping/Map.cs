@@ -35,7 +35,6 @@ namespace MechWars.Mapping
             }
         }
 
-
         Dictionary<MapElement, List<IVector2>> ghostDictionary;
         public List<IVector2> GetGhostPositions(MapElement ghost)
         {
