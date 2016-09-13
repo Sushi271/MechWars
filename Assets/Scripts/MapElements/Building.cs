@@ -172,7 +172,7 @@ namespace MechWars.MapElements
             gameObject.name = unit.gameObject.name;
             var newUnit = gameObject.GetComponent<Unit>();
             newUnit.nextArmy = Army;
-            newUnit.InitializeMap();
+            newUnit.InitializeInMap();
 
             return newUnit;
         }
@@ -217,7 +217,7 @@ namespace MechWars.MapElements
             building.nextArmy = Army;
             building.resourceValue = startCost;
             building.ReadStats();
-            building.InitializeMap();
+            building.InitializeInMap();
 
             var buildingProduct = new BuildingProduct(building, args.Cost, args.ProductionTime);
 

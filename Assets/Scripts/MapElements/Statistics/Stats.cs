@@ -5,16 +5,16 @@ namespace MechWars.MapElements.Statistics
 {
     public class Stats : IEnumerable<KeyValuePair<string, Stat>>
     {
-        Dictionary<string, Stat> attributes;
+        Dictionary<string, Stat> statistics;
         
-        public int Count { get { return attributes.Count; } }
+        public int Count { get { return statistics.Count; } }
 
         public Stat this[string name]
         {
             get
             {
                 Stat a;
-                bool success = attributes.TryGetValue(name, out a);
+                bool success = statistics.TryGetValue(name, out a);
                 if (!success) return null;
                 return a;
             }
@@ -22,42 +22,42 @@ namespace MechWars.MapElements.Statistics
             {
                 if (value == null)
                 {
-                    if (attributes.ContainsKey(name))
-                        attributes.Remove(name);
+                    if (statistics.ContainsKey(name))
+                        statistics.Remove(name);
                 }
-                else attributes[name] = value;
+                else statistics[name] = value;
             }
         }
 
         public Stats()
         {
-            attributes = new Dictionary<string, Stat>();
+            statistics = new Dictionary<string, Stat>();
         }
 
-        public void Add(Stat attribute)
+        public void Add(Stat stat)
         {
-            attributes.Add(attribute.Name, attribute);
+            statistics.Add(stat.Name, stat);
         }
 
         public void Remove(string name)
         {
-            attributes.Remove(name);
+            statistics.Remove(name);
         }
 
         public bool ContainsKey(string newName)
         {
-            return attributes.ContainsKey(newName);
+            return statistics.ContainsKey(newName);
         }
 
         public void Clear()
         {
-            attributes.Clear();
+            statistics.Clear();
         }
 
         public Stats Clone(MapElement newOwner)
         {
             var newStats = new Stats();
-            foreach (var kv in attributes)
+            foreach (var kv in statistics)
             {
                 newStats[kv.Key] = this[kv.Key].Clone(newOwner);
             }
@@ -66,7 +66,7 @@ namespace MechWars.MapElements.Statistics
 
         public IEnumerator<KeyValuePair<string, Stat>> GetEnumerator()
         {
-            return attributes.GetEnumerator();
+            return statistics.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -11,7 +11,7 @@ namespace MechWars.MapElements
         public int MaxValue { get; private set; }
 
         public float Size { get { return 1.0f * value / MaxValue; } }
-        public override float? LifeValue { get { return value; } }
+        protected override float? LifeValue { get { return value; } }
 
         public override bool Selectable { get { return true; } }
 

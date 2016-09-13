@@ -16,7 +16,7 @@ namespace MechWars.MapElements
     public class MapElement : MonoBehaviour, IRotatable
     {
         #region Fields & Properties
-        
+
         public string mapElementName;
         public int id;
 
@@ -40,19 +40,6 @@ namespace MechWars.MapElements
 
         public bool isShadow;
 
-        public MapElement OriginalMapElement { get; private set; } // correct this shit for IsNull
-        MapElementGhostSnapshot ghostSnapshot;
-        public bool IsGhost { get; private set; }
-        public Army ObservingArmy { get; private set; }
-        bool addGhostToQuadTree;
-        public bool GhostRemoved { get; private set; }
-        public Dictionary<Army, MapElement> Ghosts { get; private set; }
-
-        bool mapInitialized;
-
-        public Stats Stats { get; private set; }
-        bool statsRead;
-
         static int LastId = 1;
         static int NewId
         {
@@ -62,32 +49,17 @@ namespace MechWars.MapElements
             }
         }
 
-        public float X
-        {
-            get { return transform.position.x; }
-            set
-            {
-                var pos = transform.position;
-                pos.x = value;
-                transform.position = pos;
-            }
-        }
+        public Stats Stats { get; private set; }
+        bool statsRead;
 
-        public float Y
-        {
-            get { return transform.position.z; }
-            set
-            {
-                var pos = transform.position;
-                pos.z = value;
-                transform.position = pos;
-            }
-        }
+        // Can be called on Ghost
+        public MapElementShape Shape { get { return Globals.ShapeDatabase[this]; } }
+
 
         // Can be called on Ghost
         public Vector2 Coords
         {
-            get { return new Vector2(X, Y); }
+            get { return new Vector2(transform.position.x, transform.position.z); }
             set
             {
                 var pos = transform.position;
@@ -130,10 +102,7 @@ namespace MechWars.MapElements
             }
         }
 
-        // Can be called on Ghost
-        public MapElementShape Shape { get { return Globals.ShapeDatabase[this]; } }
-
-        public virtual float? LifeValue
+        protected virtual float? LifeValue
         {
             get
             {
@@ -149,7 +118,7 @@ namespace MechWars.MapElements
         public bool Alive
         {
             get { return alive; }
-            protected set
+            private set
             {
                 if (!alive) return;
                 alive = value;
@@ -157,10 +126,40 @@ namespace MechWars.MapElements
             }
         }
 
+        public event LifeEndingEventHandler LifeEnding;
+        public event LifeEndingEventHandler GhostLifeEnding;
+
         public OrderQueue OrderQueue { get; private set; }
 
-        protected virtual bool CanAddToArmy { get { return false; } }
         public virtual bool Selectable { get { return false; } }
+        protected virtual bool CanAddToArmy { get { return false; } }
+        public virtual bool CanHaveGhosts { get { return true; } }
+        public virtual bool CanBeAttacked { get { return false; } }
+        public virtual bool CanBeEscorted { get { return false; } }
+        public virtual bool CanRotateItself { get { return false; } }
+
+        public bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
+        public bool CanEscort { get { return orderActions.Any(oa => oa.IsEscort); } }
+
+        public Attack ReadiedAttack { get; private set; }
+        public float AttackCooldown { get; private set; }
+
+        public float HeadPitch
+        {
+            get
+            {
+                var vertical = attackHead as VerticalAttackHead;
+                if (vertical == null) return 0;
+                return vertical.Pitch;
+            }
+            set
+            {
+                var vertical = attackHead as VerticalAttackHead;
+                if (vertical == null)
+                    throw new System.InvalidOperationException("Cannot set HeadPitch - AttackHead must be Vertical.");
+                vertical.Pitch = value;
+            }
+        }
 
         bool visibleToSpectator;
         public bool VisibleToSpectator
@@ -187,37 +186,15 @@ namespace MechWars.MapElements
                 }
             }
         }
-        public virtual bool CanHaveGhosts { get { return true; } }
         public Dictionary<Army, bool> VisibleToArmies { get; private set; }
 
-        public bool CanAttack { get { return orderActions.Any(oa => oa.IsAttack); } }
-        public bool CanEscort { get { return orderActions.Any(oa => oa.IsEscort); } }
-        public virtual bool CanBeAttacked { get { return false; } }
-        public virtual bool CanBeEscorted { get { return false; } }
-        public virtual bool CanRotateItself { get { return false; } }
-
-        public Attack ReadiedAttack { get; private set; }
-        public float AttackCooldown { get; private set; }
-
-        public event LifeEndingEventHandler LifeEnding;
-        public event LifeEndingEventHandler GhostLifeEnding;
-
-        public float HeadPitch
-        {
-            get
-            {
-                var vertical = attackHead as VerticalAttackHead;
-                if (vertical == null) return 0;
-                return vertical.Pitch;
-            }
-            set
-            {
-                var vertical = attackHead as VerticalAttackHead;
-                if (vertical == null)
-                    throw new System.InvalidOperationException("Cannot set HeadPitch - AttackHead must be Vertical.");
-                vertical.Pitch = value;
-            }
-        }
+        public MapElement OriginalMapElement { get; private set; } // correct this shit for IsNull
+        MapElementGhostSnapshot ghostSnapshot;
+        public bool IsGhost { get; private set; }
+        public Army ObservingArmy { get; private set; }
+        bool addGhostToQuadTree;
+        public bool GhostRemoved { get; private set; }
+        public Dictionary<Army, MapElement> Ghosts { get; private set; }
 
         #endregion
 
@@ -262,7 +239,7 @@ namespace MechWars.MapElements
                 UpdateDying();
                 UpdateAlive();
 
-                InitializeMap();
+                InitializeInMap();
                 InitializeMinimapMarker();
 
                 VisibleToSpectator = false;
@@ -359,15 +336,16 @@ namespace MechWars.MapElements
             }
         }
 
-        public void InitializeMap()
+        bool initializedInMap;
+        public void InitializeInMap()
         {
-            if (mapInitialized) return;
+            if (initializedInMap) return;
 
             var occupiedFields = AllCoords;
             foreach (var coord in occupiedFields)
                 Globals.Map.MakeReservation(this, coord);
 
-            mapInitialized = true;
+            initializedInMap = true;
         }
 
         protected virtual void InitializeInVisibilityTable()
@@ -536,7 +514,10 @@ namespace MechWars.MapElements
                 UpdateArmiesQuadTrees();
                 if (CanHaveGhosts) AddGhostsToQuadTrees();
 
-                UpdateVisibilityToSpectator();
+                VisibleToSpectator = Globals.Armies
+                    .Where(a => a.actionsVisible)
+                    .Any(a => AllCoords
+                        .Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible));
 
                 if (CanAttack)
                     UpdateAttack();
@@ -581,14 +562,6 @@ namespace MechWars.MapElements
                     InitializeInVisibilityTable();
                 }
             }
-        }
-
-        void UpdateVisibilityToSpectator()
-        {
-            VisibleToSpectator = Globals.Armies
-                .Where(a => a.actionsVisible)
-                .Any(a => AllCoords
-                    .Any(c => a.VisibilityTable[c.X, c.Y] == Visibility.Visible));
         }
 
         void UpdateGhosts()
@@ -744,7 +717,7 @@ namespace MechWars.MapElements
 
             if (OrderQueue.Enabled)
                 OrderQueue.Terminate();
-            
+
             foreach (var kv in VisibleToArmies)
                 if (kv.Value)
                     kv.Key.InvokeOnVisibleMapElementDied(this);
@@ -804,7 +777,7 @@ namespace MechWars.MapElements
                 var resource = gameObject.GetComponent<Resource>();
                 resource.Coords = allCoords[i];
                 resource.value = values[i];
-                resource.InitializeMap();
+                resource.InitializeInMap();
             }
         }
 
