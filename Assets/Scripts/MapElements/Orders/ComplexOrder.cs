@@ -50,29 +50,20 @@ namespace MechWars.MapElements.Orders
                 OnSubOrderUpdated();
             }
             if (SubOrder.State == OrderState.Finished)
-                SubOrderFinished();
+            {
+                OnSubOrderFinished();
+                AdvanceSubOrders();
+            }
             else if (SubOrder.State == OrderState.Stopped)
-                SubOrderStopped();
+            {
+                OnSubOrderStopped();
+                AdvanceSubOrders();
+            }
             else if (SubOrder.State == OrderState.Terminated)
-                SubOrderTerminated();
-        }
-
-        void SubOrderFinished()
-        {
-            OnSubOrderFinished();
-            AdvanceSubOrders();
-        }
-
-        void SubOrderStopped()
-        {
-            OnSubOrderStopped();
-            AdvanceSubOrders();
-        }
-
-        void SubOrderTerminated()
-        {
-            OnSubOrderTerminated();
-            AdvanceSubOrders();
+            {
+                OnSubOrderTerminated();
+                AdvanceSubOrders();
+            }
         }
 
         protected virtual void OnSubOrderStarting()
