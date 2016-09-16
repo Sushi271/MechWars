@@ -46,7 +46,6 @@ namespace MechWars.AI
 
         void Update()
         {
-
             agents.UnionWith(agentsToAdd);
             agentsToAdd.Clear();
             foreach (var a in agents)
