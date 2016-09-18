@@ -6,7 +6,7 @@
         public const string FindMeResources = "Find me Resources";
         public const string ConstructMeBuilding = "Build me Refinery";
         public const string ProduceMeUnits = "Produce me Units";
-        public const string HandMeOnUnit = "Hand on me Units";
+        public const string HandMeOnUnits = "Hand me on Units";
         public const string Ok = "Ok";
 
         // MapElement: Building

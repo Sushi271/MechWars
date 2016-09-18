@@ -202,6 +202,11 @@ namespace MechWars.AI.Agents
             return string.Format("Agent \"{0}\"", Name);
         }
 
+        public virtual bool MakeSureIfHandOn(UnitAgent unitAgent)
+        {
+            return false;
+        }
+
         class ActionToPerform
         {
             public float timeInterval;
