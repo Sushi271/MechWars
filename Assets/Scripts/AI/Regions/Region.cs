@@ -9,15 +9,16 @@ namespace MechWars.AI.Regions
     {
         List<RegionStrip> leftList;
         List<RegionStrip> rightList; // right list contains 0
-        
-        public int Width { get { return leftList.Count + rightList.Count; } }
-        public int Offset { get; private set; }
-        
-        public int RelativeRight { get { return rightList.Count - 1; } }
-        public int RelativeLeft { get { return -leftList.Count; } }
 
-        public int Left { get { return RelativeLeft + Offset; } }
-        public int Right { get { return RelativeRight + Offset; } }
+        int offset;
+
+        public int Width { get { return leftList.Count + rightList.Count; } }
+        
+        int RelativeRight { get { return rightList.Count - 1; } }
+        int RelativeLeft { get { return -leftList.Count; } }
+
+        public int Left { get { return RelativeLeft + offset; } }
+        public int Right { get { return RelativeRight + offset; } }
 
         public int Area { get; private set; }
 
@@ -54,9 +55,9 @@ namespace MechWars.AI.Regions
         public void AddTile(int x, int y)
         {
             if (Width == 0)
-                Offset = x;
+                offset = x;
 
-            int relativeX = x - Offset;
+            int relativeX = x - offset;
             List<RegionStrip> list;
             int idx = GetListAndIndex(relativeX, out list);
 
@@ -79,7 +80,7 @@ namespace MechWars.AI.Regions
             if (Width == 0)
                 throw new System.Exception("Region is empty.");
 
-            int relativeX = x - Offset;
+            int relativeX = x - offset;
             List<RegionStrip> list;
             int idx = GetListAndIndex(relativeX, out list);
 
@@ -102,7 +103,7 @@ namespace MechWars.AI.Regions
 
         public bool IsInside(int x, int y)
         {
-            int relativeX = x - Offset;
+            int relativeX = x - offset;
             List<RegionStrip> list;
             int idx = GetListAndIndex(relativeX, out list);
 
@@ -116,10 +117,10 @@ namespace MechWars.AI.Regions
                 list.RemoveAt(list.Count - 1);
         }
 
-        public void Normalize()
+        void Normalize()
         {
             if (Width == 0)
-                Offset = 0;
+                offset = 0;
             else
             {
                 if (rightList.Count == 0)
@@ -147,7 +148,7 @@ namespace MechWars.AI.Regions
             }
         }
 
-        public RegionStrip GetStrip(int relativeX)
+        RegionStrip GetStrip(int relativeX)
         {
             List<RegionStrip> list;
             int idx = GetListAndIndex(relativeX, out list);
@@ -190,7 +191,7 @@ namespace MechWars.AI.Regions
         {
             if (deltaOffset == 0) return;
 
-            Offset += deltaOffset;
+            offset += deltaOffset;
             var deltaStrips = -deltaOffset;
 
             int oldLeft = RelativeLeft;
@@ -211,9 +212,9 @@ namespace MechWars.AI.Regions
             Unnullify();
         }
 
-        public void ChangeOffset(int newOffset)
+        void ChangeOffset(int newOffset)
         {
-            MoveOffset(newOffset - Offset);
+            MoveOffset(newOffset - offset);
         }
 
         void MoveOneStrip(int stripIdx, int delta, ref bool putBack)
@@ -266,7 +267,7 @@ namespace MechWars.AI.Regions
 
             var sb = new StringBuilder()
                 .AppendFormatLine("Width: {0}", Width)
-                .AppendFormatLine("XOffset: {0}", Offset)
+                .AppendFormatLine("XOffset: {0}", offset)
                 .AppendFormatLine("RelativeLeft: {0}", RelativeLeft)
                 .AppendFormatLine("RelativeRight: {0}", RelativeRight)
                 .AppendFormatLine("Left: {0}", Left)

@@ -13,7 +13,7 @@ namespace MechWars.AI.Agents
         public UnitAgentDictionary UnitAgents { get; private set; }
 
         public ResourcesKnowledge Resources { get; private set; }
-        public MyBaseKnowledge MyBase { get; private set; }
+        public AllyBaseKnowledge MyBase { get; private set; }
 
         public KnowledgeAgent(AIBrain brain, MainAgent parent)
             : base("Knowledge", brain, parent)
@@ -29,7 +29,7 @@ namespace MechWars.AI.Agents
             UnitAgents = new UnitAgentDictionary(this);
 
             Resources = new ResourcesKnowledge(this);
-            MyBase = new MyBaseKnowledge(this);
+            MyBase = new AllyBaseKnowledge(this);
 
             foreach (var u in Army.Units)
                 UnitAgents.Add(new UnitAgent(Brain, this, u));

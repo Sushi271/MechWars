@@ -1,6 +1,7 @@
 ﻿using MechWars.AI.Regions;
 using MechWars.Utils;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
@@ -86,8 +87,13 @@ namespace MechWars.Editors
 
                     line = sr.ReadLine();
                 }
-                r.ChangeOffset(offset);
-                r.Normalize();
+
+                var regType = typeof(Region);
+                var changeOffsetMI = regType.GetMethod("ChangeOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                var normalizeMI = regType.GetMethod("Normalize", BindingFlags.NonPublic | BindingFlags.Instance);
+
+                changeOffsetMI.Invoke(r, new object[] { offset });
+                normalizeMI.Invoke(r, new object[] { });
                 region = r;
             }
             catch (System.Exception e)

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MechWars.AI
 {
-    public class MyBaseKnowledge
+    public class AllyBaseKnowledge
     {
         KnowledgeAgent knowledge;
         
@@ -22,25 +22,7 @@ namespace MechWars.AI
             get { return this[tile.X, tile.Y]; }
         }
 
-        public void AddBuilding(BuildingInfo info)
-        {
-            if (info.AllCoords.Any(c => this[c] != null))
-                throw new System.Exception("Cannot AddBuliding - at least one coord is not empty.");
-            foreach (var c in info.AllCoords)
-                buildingInfos[c.X, c.Y] = info;
-            AddToBaseRegion(info);
-        }
-
-        public void RemoveBuilding(BuildingInfo building)
-        {
-            if (building.AllCoords.All(c => this[c] == null))
-                throw new System.Exception("Cannot RemoveBuliding - none of its coords contain it.");
-            foreach (var c in building.AllCoords)
-                buildingInfos[c.X, c.Y] = null;
-            RemoveFromBaseRegion(building);
-        }
-
-        public MyBaseKnowledge(KnowledgeAgent knowledge)
+        public AllyBaseKnowledge(KnowledgeAgent knowledge)
         {
             this.knowledge = knowledge;
             
@@ -56,16 +38,28 @@ namespace MechWars.AI
                 AddBuilding(new BuildingInfo(knowledge.MapProxy, b));
         }
 
-        void AddToBaseRegion(BuildingInfo building)
+        public void AddBuilding(BuildingInfo building)
         {
+            if (building.AllCoords.Any(c => this[c] != null))
+                throw new System.Exception("Cannot AddBuliding - at least one coord is not empty.");
+
+            foreach (var c in building.AllCoords)
+                buildingInfos[c.X, c.Y] = building;
+
             building.RegionBatch = BaseRegion;
             BaseRegion.Buildings.Add(building);
             foreach (var c in building.AllCoords)
                 BaseRegion.Region.AddTile(c);
         }
 
-        void RemoveFromBaseRegion(BuildingInfo building)
+        public void RemoveBuilding(BuildingInfo building)
         {
+            if (building.AllCoords.All(c => this[c] == null))
+                throw new System.Exception("Cannot RemoveBuliding - none of its coords contain it.");
+
+            foreach (var c in building.AllCoords)
+                buildingInfos[c.X, c.Y] = null;
+
             building.RegionBatch = null;
             BaseRegion.Buildings.Remove(building);
             foreach (var c in building.AllCoords)

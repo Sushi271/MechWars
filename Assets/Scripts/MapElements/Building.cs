@@ -40,14 +40,7 @@ namespace MechWars.MapElements
         protected override void OnStart()
         {
             base.OnStart();
-
-            var particleManager = gameObject.GetComponent<ParticleManager>();
-            if (particleManager != null)
-                foreach (var pg in particleManager.particleGroups)
-                {
-                    pg.Enabled = false;
-                }
-            
+                        
             InitializeNeighbourFields();
 
             if (IsGhost)
@@ -99,17 +92,7 @@ namespace MechWars.MapElements
 
             if (UnderConstruction)
                 transform.localScale = new Vector3(1, ConstructionInfo.TotalProgress, 1);
-            else
-            {
-                transform.localScale = Vector3.one;
-
-                var particleManager = GetComponent<ParticleManager>();
-                if (particleManager != null)
-                    foreach (var pg in particleManager.particleGroups)
-                    {
-                        pg.Enabled = true;
-                    }
-            }
+            else transform.localScale = Vector3.one;
         }
 
         protected override void UpdateArmiesQuadTrees()

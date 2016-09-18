@@ -1,6 +1,5 @@
 ﻿using MechWars.AI.Agents.Goals;
 using MechWars.Utils;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

@@ -5,22 +5,26 @@ namespace MechWars.MapElements
 {
     public class ParticleGroup : MonoBehaviour
     {
-        public string name;
+        bool active;
+
+        public Building building;
         public List<ParticleSystem> particles;
 
-        bool enabled = true;
-        public bool Enabled
+        void Start()
         {
-            get { return enabled; }
-            set
+            foreach (var ps in particles)
+                ps.Stop();
+        }
+
+        void Update()
+        {
+            if (building == null) return;
+
+            if (!active && !building.UnderConstruction)
             {
-                if (value == enabled)
-                    return;
-                enabled = value;
+                active = true;
                 foreach (var ps in particles)
-                {
-                    ps.gameObject.SetActive(value);
-                }
+                    ps.Play();
             }
         }
     }
