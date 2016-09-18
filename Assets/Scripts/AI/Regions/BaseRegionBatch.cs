@@ -14,8 +14,6 @@ namespace MechWars.AI.Regions
         public RegionConvexHull ConvexHull { get { return RegionBatch.ConvexHull; } }
 
         public HashSet<BuildingInfo> Buildings { get; private set; }
-
-        public bool RegionEmpty { get { return Region.AllTiles.Empty(); } }
         
         public bool SuspendUpdateBatch
         {

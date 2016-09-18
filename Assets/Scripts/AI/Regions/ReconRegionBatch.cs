@@ -16,10 +16,6 @@ namespace MechWars.AI.Regions
         public RegionHull Hull { get { return RegionBatch.Hull; } }
         public RegionConvexHull ConvexHull { get { return RegionBatch.ConvexHull; } }
 
-        public HashSet<ResourceInfo> Resources { get; private set; }
-
-        public bool RegionEmpty { get { return Region.AllTiles.Empty(); } }
-
         public bool EntirelyExplored { get; private set; }
         public int UnknownTilesCount
         {
@@ -50,7 +46,6 @@ namespace MechWars.AI.Regions
             this.brain = brain;
 
             RegionBatch = new RegionBatch(suspendUpdateBatch);
-            Resources = new HashSet<ResourceInfo>();
         }
 
         public void UpdateBatch()

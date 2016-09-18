@@ -9,26 +9,29 @@ namespace MechWars.AI.Agents
 {
     public class ReconAgent : Agent
     {
+        HashSet<UnitAgent> awaitingNoLongerNeededUnitAgents;
+
         List<Request> requests;
         public Dictionary<Request, RequestUnitAgentSet> ReconUnits { get; private set; }
 
         public ReconRegionBatch[,] ReconRegions { get; private set; }
-        public int ReconRegionsSize { get; private set; }
+        public int ReconRegionsTableSize { get; private set; }
 
         public IEnumerable<ReconRegionBatch> AllReconRegions
         {
             get
             {
-                for (int regY = 0; regY < ReconRegionsSize; regY++)
-                    for (int regX = 0; regX < ReconRegionsSize; regX++)
+                for (int regY = 0; regY < ReconRegionsTableSize; regY++)
+                    for (int regX = 0; regX < ReconRegionsTableSize; regX++)
                         yield return ReconRegions[regX, regY];
             }
         }
-        public int AllReconRegionsCount { get { return ReconRegionsSize * ReconRegionsSize; } }
 
         public ReconAgent(AIBrain brain, MainAgent parent)
             : base("Recon", brain, parent)
         {
+            awaitingNoLongerNeededUnitAgents = new HashSet<UnitAgent>();
+
             requests = new List<Request>();
             ReconUnits = new Dictionary<Request, RequestUnitAgentSet>();
         }
@@ -44,7 +47,7 @@ namespace MechWars.AI.Agents
             var mapSize = Globals.MapSettings.Size;
             var count = Mathf.CeilToInt((float)mapSize / size);
             ReconRegions = new ReconRegionBatch[count, count];
-            ReconRegionsSize = count;
+            ReconRegionsTableSize = count;
             for (int y = 0; y < mapSize; y++)
             {
                 int regY = y / size;
@@ -72,8 +75,6 @@ namespace MechWars.AI.Agents
         {
             ProcessMessages();
             ProcessRequests();
-
-            HandleReconUnits();
         }
 
         void ProcessMessages()
@@ -119,7 +120,7 @@ namespace MechWars.AI.Agents
             var r = concreteArgs.request;
             var processed = concreteArgs.processed;
 
-            // All available MapElementKinds of UnitAgents suitable for Scouting
+            // Get all available MapElementKinds of UnitAgents suitable for Scouting
             var kinds =
                 from k in Knowledge.UnitAgents.Kinds
                 let p = k.GetPurposeValue(AIName.Scouting)
@@ -127,7 +128,7 @@ namespace MechWars.AI.Agents
                 orderby p descending
                 select k;
 
-            // Send request for production of Scouts
+            // Send request for production of Scouts if no kinds
             if (kinds.Empty())
             {
                 if (!waitingForAnyScout)
@@ -139,7 +140,7 @@ namespace MechWars.AI.Agents
             }
             else waitingForAnyScout = false;
 
-            // Determine how much scouts are needed and how important is their task
+            // Determine how many scouts are needed and how important is their task
             int scoutsNeeded = scoutsNeededByPriority[r.Priority];
             float scoutsImportance = scoutsImportanceByPriority[r.Priority];
 
@@ -149,10 +150,10 @@ namespace MechWars.AI.Agents
             foreach (var ua in uaSet.Ready)
                 ua.CurrentGoal.Importance = scoutsImportance;
 
-            // How much more scouts are needed
+            // Determine how many more scouts are needed
             int scoutsNeededLeft = scoutsNeeded - uaSet.All.Count;
 
-            // If there are too much scouts assigned to this Request
+            // Release surplus scouts
             for (; scoutsNeededLeft < 0; scoutsNeededLeft++)
             {
                 var toRemove = uaSet.All.SelectMin(ua => ua.Kind.GetPurposeValue(AIName.Scouting));
@@ -173,10 +174,10 @@ namespace MechWars.AI.Agents
                 orderby s descending
                 select new { Agent = ua, Suitability = s };
 
-            // If there are not enough scouts assigned to this Request
+            // As long as there is not enough scouts assigned to this Request
             for (; scoutsNeededLeft > 0; scoutsNeededLeft--)
             {
-                // if there are no more scouts to take, send request for production
+                // Send request for production of more scours, if there are no more scouts to take
                 if (unitAgentsSuitabilities.Empty())
                 {
                     if (!waitingForNonBusyScout)
@@ -188,7 +189,7 @@ namespace MechWars.AI.Agents
                 }
                 else waitingForNonBusyScout = false;
                 
-                // look for the mose suitable agent that can be lend for the 
+                // Look for the most suitable UnitAgent, that can be taken
                 var uas = unitAgentsSuitabilities.First();
                 TakeAgentNowOrLater(uas.Agent, uaSet, scoutsImportance);
             }
@@ -200,6 +201,7 @@ namespace MechWars.AI.Agents
                 orderby p descending
                 select new { Agent = ua, Purpose = p };
 
+            // Replace current UnitAgents with more suitable if available
             bool replaced;
             do
             {
@@ -221,6 +223,35 @@ namespace MechWars.AI.Agents
                 }
             }
             while (replaced);
+
+            // Determine total map exploration percentage
+            float sum = 0;
+            float total = 0;
+            foreach (var rb in AllReconRegions)
+            {
+                sum += rb.ExplorationPercentage;
+                total++;
+            }
+            float totalExplorationPercentage = sum / total;
+
+            // If coarse is recon done, finish request and release all agents
+            if (totalExplorationPercentage >= Brain.coarseReconRegionPercentage)
+            {
+                processed.Add(r);
+                foreach (var ua in uaSet.Ready)
+                {
+                    ua.CurrentGoal.Cancel();
+                    ua.Release(this);
+                }
+                foreach (var ua in uaSet.Awaiting)
+                    awaitingNoLongerNeededUnitAgents.Add(ua);
+                uaSet.Clear();
+            }
+        }
+
+        public override bool MakeSureIfHandOn(UnitAgent unitAgent)
+        {
+            return awaitingNoLongerNeededUnitAgents.Remove(unitAgent);
         }
 
         float CalcSuitability(float importance, float purpose)
@@ -238,14 +269,9 @@ namespace MechWars.AI.Agents
             }
             else
             {
-                SendMessage(agent.Owner, AIName.HandMeOnUnit, agent.Id.ToString());
+                SendMessage(agent.Owner, AIName.HandMeOnUnits, agent.Id.ToString());
                 uaSet.AddAgent(agent, true);
             }
-        }
-
-        void HandleReconUnits()
-        {
-
         }
 
         class ProcessFindMeResourcesArgs

@@ -40,6 +40,13 @@ namespace MechWars.AI.Agents
             Ready.Remove(agent);
         }
 
+        public void Clear()
+        {
+            var allCopy = new HashSet<UnitAgent>(All);
+            foreach (var ua in allCopy)
+                RemoveAgent(ua);
+        }
+
         public void ReadyAgents(System.Func<UnitAgent, Goal> goalCtor, float importance)
         {
             var agentsToReady = new List<UnitAgent>(Awaiting.Count);

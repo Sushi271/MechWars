@@ -22,10 +22,6 @@ namespace MechWars.AI.Agents
             Id = nextId++;
         }
 
-        protected override void OnStart()
-        {
-        }
-
         protected override void OnUpdate()
         {
             if (Unit.Dying)
