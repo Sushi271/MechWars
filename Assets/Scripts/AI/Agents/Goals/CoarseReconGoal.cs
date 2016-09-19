@@ -27,27 +27,6 @@ namespace MechWars.AI.Agents.Goals
             TakeNextReconRegion();
         }
 
-        void TakeNextReconRegion()
-        {
-            var recRegs = Agent.Recon.AllReconRegions;
-            var sortedRecRegs =
-                from reg in recRegs
-                where !visited.Contains(reg)
-                where reg.ExplorationPercentage < Agent.Brain.coarseReconRegionPercentage
-                orderby CalculateOrderBaseSelfSum(reg)
-                select reg;
-            var otherUnitAgents = Agent.Recon.ReconUnits
-                .SelectMany(kv => kv.Value.Ready)
-                .Where(ua => ua != UnitAgent)
-                .Where(ua => ua.CurrentGoal != null)
-                .Where(ua => ((CoarseReconGoal)ua.CurrentGoal).CurrentReconRegion != null);
-            CurrentReconRegion = sortedRecRegs.FirstOrDefault(
-                reg => !otherUnitAgents.Any(
-                    ua => ((CoarseReconGoal)ua.CurrentGoal).CurrentReconRegion == reg));
-            if (CurrentReconRegion == null)
-                Finish();
-        }
-
         protected override void OnUpdate()
         {
             if (CurrentReconRegion == null) return;
@@ -71,6 +50,27 @@ namespace MechWars.AI.Agents.Goals
                 currentMoveOrder = new MoveOrder(u, regCenter);
                 u.OrderQueue.Give(currentMoveOrder);
             }
+        }
+
+        void TakeNextReconRegion()
+        {
+            var recRegs = Agent.Recon.AllReconRegions;
+            var sortedRecRegs =
+                from reg in recRegs
+                where !visited.Contains(reg)
+                where reg.ExplorationPercentage < Agent.Brain.coarseReconRegionPercentage
+                orderby CalculateOrderBaseSelfSum(reg)
+                select reg;
+            var otherUnitAgents = Agent.Recon.ReconUnits
+                .SelectMany(kv => kv.Value.Ready)
+                .Where(ua => ua != UnitAgent)
+                .Where(ua => ua.CurrentGoal != null)
+                .Where(ua => ((CoarseReconGoal)ua.CurrentGoal).CurrentReconRegion != null);
+            CurrentReconRegion = sortedRecRegs.FirstOrDefault(
+                reg => !otherUnitAgents.Any(
+                    ua => ((CoarseReconGoal)ua.CurrentGoal).CurrentReconRegion == reg));
+            if (CurrentReconRegion == null)
+                Finish();
         }
 
         float CalculateOrderBaseOnly(ReconRegionBatch region)

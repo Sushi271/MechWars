@@ -56,7 +56,6 @@ namespace MechWars.AI.Agents
                     var creationMethod = Knowledge.CreationMethods[unitKind];
                     var creatorKind = creationMethod.Creator;
                     var cost = creationMethod.Cost;
-                    var time = creationMethod.Time;
                     // requirements are none, so we can ignore them
 
                     bool dontFinish = false;
