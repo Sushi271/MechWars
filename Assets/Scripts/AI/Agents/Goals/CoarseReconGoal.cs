@@ -90,7 +90,7 @@ namespace MechWars.AI.Agents.Goals
 
         float CalculateOrderBaseOnly(ReconRegionBatch region)
         {
-            var baseReg = Agent.Knowledge.MyBase.BaseRegion;
+            var baseReg = Agent.Knowledge.AllyBase.BaseRegion;
             var distToBase = (region.ConvexHull.Center - baseReg.ConvexHull.Center).magnitude;
             return distToBase;
         }

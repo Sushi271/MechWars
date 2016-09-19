@@ -25,6 +25,7 @@ namespace MechWars.AI.Agents
         public ReconAgent Recon { get { return MainAgent.Recon; } }
         public ConstructionAgent Construction { get { return MainAgent.Construction; } }
         public ProductionAgent Production { get { return MainAgent.Production; } }
+        public ResourceCollectorAgent ResourceCollector { get { return MainAgent.ResourceCollector; } }
 
         public bool Started { get; private set; }
         public bool Finished { get; private set; }

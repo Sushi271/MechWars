@@ -13,7 +13,7 @@ namespace MechWars.AI.Agents
         public UnitAgentDictionary UnitAgents { get; private set; }
 
         public ResourcesKnowledge Resources { get; private set; }
-        public AllyBaseKnowledge MyBase { get; private set; }
+        public AllyBaseKnowledge AllyBase { get; private set; }
 
         public KnowledgeAgent(AIBrain brain, MainAgent parent)
             : base("Knowledge", brain, parent)
@@ -29,7 +29,7 @@ namespace MechWars.AI.Agents
             UnitAgents = new UnitAgentDictionary(this);
 
             Resources = new ResourcesKnowledge(this);
-            MyBase = new AllyBaseKnowledge(this);
+            AllyBase = new AllyBaseKnowledge(this);
 
             foreach (var u in Army.Units)
                 UnitAgents.Add(new UnitAgent(Brain, this, u));
@@ -76,7 +76,7 @@ namespace MechWars.AI.Agents
             {
                 var b = (Building)mapElement;
                 if (b.Army == Army)
-                    MyBase.AddBuilding(new BuildingInfo(MapProxy, b));
+                    AllyBase.AddBuilding(new BuildingInfo(MapProxy, b));
             }
         }
 
@@ -89,7 +89,7 @@ namespace MechWars.AI.Agents
             {
                 var b = (Building)mapElement;
                 if (b.Army == Army)
-                    MyBase.RemoveBuilding(MyBase[tile]);
+                    AllyBase.RemoveBuilding(AllyBase[tile]);
             }
         }
     }

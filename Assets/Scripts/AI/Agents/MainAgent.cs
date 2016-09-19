@@ -8,8 +8,7 @@ namespace MechWars.AI.Agents
         public new ReconAgent Recon { get; private set; }
         public new ConstructionAgent Construction { get; private set; }
         public new ProductionAgent Production { get; private set; }
-
-        ResourceCollectorAgent resourceCollector;
+        public new ResourceCollectorAgent ResourceCollector { get; private set; }
 
         public MainAgent(AIBrain brain)
             : base("Main", brain, null)
@@ -22,8 +21,7 @@ namespace MechWars.AI.Agents
             Recon = new ReconAgent(Brain, this);
             Construction = new ConstructionAgent(Brain, this);
             Production = new ProductionAgent(Brain, this);
-
-            resourceCollector = new ResourceCollectorAgent(Brain, this);
+            ResourceCollector = new ResourceCollectorAgent(Brain, this);
         }
     }
 }

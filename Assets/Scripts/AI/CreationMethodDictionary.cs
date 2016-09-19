@@ -33,12 +33,12 @@ namespace MechWars.AI
 
             var refineryOA = constructionOAs.First(oa => oa.Building.mapElementName == AIName.Refinery);
             var refineryCM = new CreationMethod(meKinds[AIName.Refinery],
-                meKinds[AIName.ConstructionYard], refineryOA.Cost, refineryOA.ProductionTime);
+                meKinds[AIName.ConstructionYard], refineryOA.Cost, refineryOA.StartCost, refineryOA.ProductionTime);
             Add(refineryCM);
 
             var factoryOA = constructionOAs.First(oa => oa.Building.mapElementName == AIName.Factory);
             var factoryCM = new CreationMethod(meKinds[AIName.Factory],
-                meKinds[AIName.ConstructionYard], factoryOA.Cost, factoryOA.ProductionTime);
+                meKinds[AIName.ConstructionYard], factoryOA.Cost, factoryOA.StartCost, factoryOA.ProductionTime);
             factoryCM.BuildingRequirements.Add(meKinds[AIName.Refinery]);
             Add(factoryCM);
 
@@ -49,12 +49,12 @@ namespace MechWars.AI
             
             var scoutOA = productionOAs.First(oa => oa.unit.mapElementName == AIName.Scout);
             var scoutCM = new CreationMethod(meKinds[AIName.Scout],
-                meKinds[AIName.Factory], scoutOA.cost, scoutOA.productionTime);
+                meKinds[AIName.Factory], scoutOA.cost, 0, scoutOA.productionTime);
             Add(scoutCM);
 
             var harvesterOA = productionOAs.First(oa => oa.unit.mapElementName == AIName.Harvester);
             var harvesterCM = new CreationMethod(meKinds[AIName.Harvester],
-                meKinds[AIName.Factory], harvesterOA.cost, harvesterOA.productionTime);
+                meKinds[AIName.Factory], harvesterOA.cost, 0, harvesterOA.productionTime);
             Add(harvesterCM);
         }
 
