@@ -15,15 +15,11 @@ namespace MechWars.AI.Agents.Goals
         public ReconRegionBatch CurrentReconRegion { get; private set; }
 
         MoveOrder currentMoveOrder;
-
-        List<System.Action> Debuggg;
         
         public CoarseReconGoal(UnitAgent unitAgent)
             : base("Recon", unitAgent)
         {
             visited = new HashSet<ReconRegionBatch>();
-
-            Debuggg = new List<System.Action>();
         }
 
         protected override void OnStart()
@@ -38,19 +34,14 @@ namespace MechWars.AI.Agents.Goals
                 from reg in recRegs
                 where !visited.Contains(reg)
                 where reg.ExplorationPercentage < Agent.Brain.coarseReconRegionPercentage
-                let order1 = CalculateOrderBaseSelfSum(reg)
-                let order2 = CalculateOrderBaseSelfProductAndTilesToExplore(reg)
-                orderby order2
-                select new { reg = reg, o1 = order1, o2 = order2 };
-            Debuggg = new List<System.Action>(sortedRecRegs.Select(a =>
-                new System.Action(() => Debug.LogFormat("Center: {0}\nOrder1: {1}\nOrder2: {2}",
-                a.reg.ConvexHull.Center, a.o1, a.o2))));
+                orderby CalculateOrderBaseSelfSum(reg)
+                select reg;
             var otherUnitAgents = Agent.Recon.ReconUnits
                 .SelectMany(kv => kv.Value.Ready)
                 .Where(ua => ua != UnitAgent)
                 .Where(ua => ua.CurrentGoal != null)
                 .Where(ua => ((CoarseReconGoal)ua.CurrentGoal).CurrentReconRegion != null);
-            CurrentReconRegion = sortedRecRegs.Select(reg => reg.reg).FirstOrDefault(
+            CurrentReconRegion = sortedRecRegs.FirstOrDefault(
                 reg => !otherUnitAgents.Any(
                     ua => ((CoarseReconGoal)ua.CurrentGoal).CurrentReconRegion == reg));
             if (CurrentReconRegion == null)
@@ -79,12 +70,6 @@ namespace MechWars.AI.Agents.Goals
             {
                 currentMoveOrder = new MoveOrder(u, regCenter);
                 u.OrderQueue.Give(currentMoveOrder);
-            }
-
-            if (Input.GetKeyDown(KeyCode.F3))
-            {
-                foreach (var a in Debuggg)
-                    a();
             }
         }
 

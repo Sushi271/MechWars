@@ -89,7 +89,9 @@ namespace MechWars.Utils
             else
                 onLine = Mathf.Abs((point.x - a.x) / aToB.x - (point.y - a.y) / aToB.y) <= tolerance;
             if (!onLine) return false;
-            return point.x.IsBetweenOrEquals(a.x, b.x);
+            return
+                point.x.IsBetweenOrEquals(a.x, b.x) &&
+                point.y.IsBetweenOrEquals(a.y, b.y);
         }
 
         public static bool SegmentsIntersectOrCover(Vector2 start1, Vector2 end1, Vector2 start2, Vector2 end2)

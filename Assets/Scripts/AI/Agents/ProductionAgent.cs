@@ -4,7 +4,6 @@ using MechWars.MapElements.Orders.Actions;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace MechWars.AI.Agents
 {
@@ -37,7 +36,7 @@ namespace MechWars.AI.Agents
             Message message;
             while ((message = ReceiveMessage()) != null)
             {
-                if (message.Name == AIName.ProduceMeUnits)
+                if (message.Name == AIName.ProduceMeUnit)
                 {
                     requests.Add(new Request(message.Sender, message.Name, int.Parse(message.Arguments[0]), message));
                 }
@@ -50,7 +49,7 @@ namespace MechWars.AI.Agents
             var processed = new List<Request>();
             foreach (var r in requests)
             {
-                if (r.Name == AIName.ProduceMeUnits)
+                if (r.Name == AIName.ProduceMeUnit)
                 {
                     var unitName = r.InnerMessage.Arguments[1];
                     var unitKind = Knowledge.MapElementKinds[unitName];

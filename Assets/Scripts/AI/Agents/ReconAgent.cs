@@ -133,7 +133,7 @@ namespace MechWars.AI.Agents
             {
                 if (!waitingForAnyScout)
                 {
-                    SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Scout);
+                    SendMessage(Production, AIName.ProduceMeUnit, "1", AIName.Scout);
                     waitingForAnyScout = true;
                 }
                 return;
@@ -182,7 +182,7 @@ namespace MechWars.AI.Agents
                 {
                     if (!waitingForNonBusyScout)
                     {
-                        SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Scout);
+                        SendMessage(Production, AIName.ProduceMeUnit, "1", AIName.Scout);
                         waitingForNonBusyScout = true;
                     }
                     break;
@@ -269,7 +269,7 @@ namespace MechWars.AI.Agents
             }
             else
             {
-                SendMessage(agent.Owner, AIName.HandMeOnUnits, agent.Id.ToString());
+                SendMessage(agent.Owner, AIName.HandMeOnUnit, agent.Id.ToString());
                 uaSet.AddAgent(agent, true);
             }
         }

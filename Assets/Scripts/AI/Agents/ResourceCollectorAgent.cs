@@ -92,7 +92,7 @@ namespace MechWars.AI.Agents
                         refineryOnTheWay = true;
                     }
                 }
-                else if (message.Name == AIName.HandMeOnUnits)
+                else if (message.Name == AIName.HandMeOnUnit)
                 {
                     int id = int.Parse(message.Arguments[0]);
                     var harv = Harvesters.FirstOrDefault(h => h.Id == id);
@@ -136,7 +136,7 @@ namespace MechWars.AI.Agents
             int harvsNeededNow = HarvestersOverTime();
             int harvsShortage = harvsNeededNow - (harvsCount + harvsInProgress);
             for (int i = 0; i < harvsShortage; i++)
-                SendMessage(Production, AIName.ProduceMeUnits, "0", AIName.Harvester);
+                SendMessage(Production, AIName.ProduceMeUnit, "0", AIName.Harvester);
         }
 
         int HarvestersOverTime()
