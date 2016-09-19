@@ -1,4 +1,5 @@
 ﻿using MechWars.MapElements;
+using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -10,11 +11,27 @@ namespace MechWars.AI.Agents
     public class ConstructionAgent : Agent
     {
         List<Request> requests;
+        HashSet<Order> givenOrders;
 
         public ConstructionAgent(AIBrain brain, MainAgent parent)
             : base("Construction", brain, parent)
         {
             requests = new List<Request>();
+            givenOrders = new HashSet<Order>();
+        }
+
+        public bool HasGivenOrdersOfKind(MapElementKind buildingKind)
+        {
+            return givenOrders.OfType<BuildingConstructionOrder>().Any(o =>
+                o.ConstructedBuilding.mapElementName == buildingKind.Name);
+        }
+
+        public bool HasCurrentRequestOfKind(MapElementKind buildingKind)
+        {
+            return requests.Any(r =>
+            {
+                return r.InnerMessage.Arguments[1] == buildingKind.Name;
+            });
         }
 
         protected override void OnUpdate()
@@ -48,26 +65,70 @@ namespace MechWars.AI.Agents
                     var buildingKind = Knowledge.MapElementKinds[buildingName];
                     var creationMethod = Knowledge.CreationMethods[buildingKind];
                     var creatorKind = creationMethod.Creator;
-                    var cost = creationMethod.Cost;
-                    var time = creationMethod.Time;
-                    // requirements are none, so we can ignore them
+                    var startCost = creationMethod.StartCost;
+                    var requiredBuildings = creationMethod.BuildingRequirements;
+                    // technology requirements are none, so we can ignore them
 
-                    var creators = Army.Buildings.Where(b => b.mapElementName == creatorKind.Name);
+                    bool dontFinish = false;
+                    Building creator = null;
+                    BuildingConstructionOrderAction orderAction = null;
+
+                    var completeBuildings = Army.Buildings.Where(b => !b.UnderConstruction);
+                    var creators = completeBuildings.Where(b => b.mapElementName == creatorKind.Name);
                     if (creators.Empty())
-                        continue;
-                    var creator = creators.SelectMin(c => c.OrderQueue.OrderCount);
-                    var orderAction = creator.orderActions.OfType<BuildingConstructionOrderAction>().FirstOrDefault(
-                        oa => oa.Building.mapElementName == buildingKind.Name);
-                    if (Army.resources < orderAction.StartCost)
-                        continue;
+                    {
+                        if (!Construction.HasCurrentRequestOfKind(creatorKind) &&
+                            !HasGivenOrdersOfKind(creatorKind) &&
+                            !Army.Buildings.Any(_b => _b.mapElementName == creatorKind.Name))
+                            SendMessage(this, AIName.ConstructMeBuilding, r.Priority.ToString(), creatorKind.Name);
+                        dontFinish = true;
+                    }
+                    else
+                    {
+                        creator = creators.SelectMin(c => c.OrderQueue.OrderCount);
+                        orderAction = creator.orderActions.OfType<BuildingConstructionOrderAction>().FirstOrDefault(
+                            oa => oa.Building.mapElementName == buildingKind.Name);
+                        if (Army.resources < startCost)
+                        {
+                            var isRefinery = buildingName == AIName.Refinery;
+                            var hasRefineries = completeBuildings.Any(b => b.mapElementName == AIName.Refinery);
+                            if (isRefinery && !hasRefineries)
+                            {
+                                processed.Add(r);
+                                SendMessage(MainAgent, AIName.NoRefineriesAndNoResources);
+                            }
+                            else SendMessage(ResourceCollector, AIName.HarvestMore);
+                            dontFinish = true;
+                        }
+                    }
+
+                    var requiredBuildingsLeft = requiredBuildings.Where(
+                        b => !completeBuildings.Any(_b => _b.mapElementName == b.Name));
+                    if (!requiredBuildingsLeft.Empty())
+                    {
+                        foreach (var b in requiredBuildingsLeft)
+                            if (!Construction.HasCurrentRequestOfKind(b) &&
+                                !HasGivenOrdersOfKind(b) &&
+                                !Army.Buildings.Any(_b => _b.mapElementName == b.Name))
+                                SendMessage(this, AIName.ConstructMeBuilding, r.Priority.ToString(), b.Name);
+                        dontFinish = true;
+                    }
+
+                    if (dontFinish) continue;
 
                     var place = PickBuildingPlace(buildingKind);
                     if (place.CannotBuild)
                     {
-                        // send message to someone: "Halp, anybody, what to do? IDK O.o" or sth like that
+                        // handle the situation
+                        continue;
                     }
 
-                    orderAction.GiveOrder(creator, new AIOrderActionArgs(Brain.player, place));
+                    var givenOrder = (BuildingConstructionOrder)orderAction.GiveOrder(creator, new AIOrderActionArgs(Brain.player, place));
+                    if (givenOrder != null)
+                    {
+                        givenOrder.BuildingFinished += GivenOrder_BuildingFinished;
+                        givenOrders.Add(givenOrder);
+                    }
 
                     processed.Add(r);
                 }
@@ -75,7 +136,7 @@ namespace MechWars.AI.Agents
             foreach (var r in processed)
                 requests.Remove(r);
         }
-
+        
         AIBuildingPlacement PickBuildingPlace(MapElementKind kind)
         {
             Vector2? placement = null;
@@ -84,6 +145,7 @@ namespace MechWars.AI.Agents
             if (placements.Count > 0)
             {
                 bool closerToResources = kind == Knowledge.MapElementKinds[AIName.Refinery];
+                bool fartherFromRefinery = kind == Knowledge.MapElementKinds[AIName.Factory];
 
                 if (closerToResources)
                 {
@@ -103,6 +165,23 @@ namespace MechWars.AI.Agents
                             }
                         }
                 }
+                else if (fartherFromRefinery)
+                {
+                    var maxDistSum = float.MinValue;
+                    var refineries = Army.Buildings.Where(b => b.mapElementName == AIName.Refinery);
+                    if (refineries.Empty())
+                        placement = placements.First();
+                    else foreach (var p in placements)
+                        {
+                            float distSum = refineries.Sum(b => Vector2.Distance(p, b.Coords));
+                            if (distSum > maxDistSum)
+                            {
+                                maxDistSum = distSum;
+                                placement = p;
+                            }
+
+                        }
+                }
                 else placement = placements.First();
             }
 
@@ -118,7 +197,7 @@ namespace MechWars.AI.Agents
             var hRad = shapeW + 1;
             var vRad = shapeH + 1;
 
-            var region = Knowledge.MyBase.BaseRegion.Region;
+            var region = Knowledge.AllyBase.BaseRegion.Region;
             var left = region.Left - hRad;
             var right = region.Right + hRad;
             var bottom = region.CalculateVerticalStart() - vRad;
@@ -174,6 +253,12 @@ namespace MechWars.AI.Agents
                 }
 
             return placements;
+        }
+
+        void GivenOrder_BuildingFinished(BuildingConstructionOrder order, Building building)
+        {
+            givenOrders.Remove(order);
+            order.BuildingFinished -= GivenOrder_BuildingFinished;
         }
     }
 }

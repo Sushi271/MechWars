@@ -133,7 +133,7 @@ namespace MechWars.AI.Agents
             {
                 if (!waitingForAnyScout)
                 {
-                    SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Scout);
+                    SendMessage(Production, AIName.ProduceMeUnit, "1", AIName.Scout);
                     waitingForAnyScout = true;
                 }
                 return;
@@ -163,7 +163,7 @@ namespace MechWars.AI.Agents
             }
 
             // Get all UnitAgents not assigned to this Request and sort them by their Suitability
-            var unitAgentsSuitabilities =
+            var unitAgentsSuitabilities =(
                 from ua in Knowledge.UnitAgents.All
                 where !uaSet.All.Contains(ua)
                 let p = ua.Kind.GetPurposeValue(AIName.Scouting)
@@ -172,7 +172,7 @@ namespace MechWars.AI.Agents
                 where i < scoutsImportance
                 let s = CalcSuitability(i, p)
                 orderby s descending
-                select new { Agent = ua, Suitability = s };
+                select new { Agent = ua, Suitability = s }).ToList();
 
             // As long as there is not enough scouts assigned to this Request
             for (; scoutsNeededLeft > 0; scoutsNeededLeft--)
@@ -182,7 +182,7 @@ namespace MechWars.AI.Agents
                 {
                     if (!waitingForNonBusyScout)
                     {
-                        SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Scout);
+                        SendMessage(Production, AIName.ProduceMeUnit, "1", AIName.Scout);
                         waitingForNonBusyScout = true;
                     }
                     break;
@@ -251,7 +251,7 @@ namespace MechWars.AI.Agents
 
         public override bool MakeSureIfHandOn(UnitAgent unitAgent)
         {
-            return awaitingNoLongerNeededUnitAgents.Remove(unitAgent);
+            return !awaitingNoLongerNeededUnitAgents.Remove(unitAgent);
         }
 
         float CalcSuitability(float importance, float purpose)
@@ -269,7 +269,7 @@ namespace MechWars.AI.Agents
             }
             else
             {
-                SendMessage(agent.Owner, AIName.HandMeOnUnits, agent.Id.ToString());
+                SendMessage(agent.Owner, AIName.HandMeOnUnit, agent.Id.ToString());
                 uaSet.AddAgent(agent, true);
             }
         }

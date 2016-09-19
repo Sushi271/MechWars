@@ -131,7 +131,7 @@ namespace MechWars.PlayerInput
                     foreach (var me in SelectionMonitor.SelectedMapElements)
                     {
                         if (me.Army == Globals.HumanArmy)
-                            orderGiven = orderGiven || CarriedOrderAction.GiveOrder(me, OrderActionArgs);
+                            orderGiven = orderGiven || CarriedOrderAction.GiveOrder(me, OrderActionArgs) != null;
                     }
                     
                     if (orderGiven)

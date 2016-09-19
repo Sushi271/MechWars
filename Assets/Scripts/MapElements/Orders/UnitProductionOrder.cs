@@ -1,5 +1,4 @@
 ﻿using MechWars.MapElements.Orders.Products;
-using MechWars.MapElements.Statistics;
 using UnityEngine;
 
 namespace MechWars.MapElements.Orders
@@ -16,6 +15,8 @@ namespace MechWars.MapElements.Orders
 
         public Building ConstructingBuilding { get; private set; }
         public Unit ProducedUnit { get; private set; }
+
+        public event System.Action<UnitProductionOrder, Unit> UnitSpawned;
 
         public UnitProductionOrder(Building orderedBuilding, UnitProduct unitProduct)
             : base(orderedBuilding)
@@ -83,6 +84,10 @@ namespace MechWars.MapElements.Orders
             newUnit.resourceValue = productionOrder.Product.Cost;
             ConstructingBuilding.additionalResourceValue = 0;
             Debug.Log(string.Format("Production of {0} complete.", ProducedUnit));
+            
+            if (UnitSpawned != null)
+                UnitSpawned(this, newUnit);
+
             return true;
         }
 

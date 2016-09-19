@@ -32,7 +32,7 @@ namespace MechWars.AI.Regions
                     for (int j = 0; j < strip.Count; j++)
                     {
                         var stripPart = strip[j];
-                        for (int y = stripPart.Start; y <= strip.End; y++)
+                        for (int y = stripPart.Start; y <= stripPart.End; y++)
                             yield return new IVector2(x, y);
                     }
                 }
@@ -253,12 +253,12 @@ namespace MechWars.AI.Regions
 
         public int CalculateVerticalStart()
         {
-            return leftList.Concat(rightList).Min(s => s.Start);
+            return leftList.Concat(rightList).Where(rs => !rs.Empty).Min(s => s.Start);
         }
 
         public int CalculateVerticalEnd()
         {
-            return leftList.Concat(rightList).Max(s => s.End);
+            return leftList.Concat(rightList).Where(rs => !rs.Empty).Max(s => s.End);
         }
 
         public override string ToString()

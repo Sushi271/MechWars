@@ -17,6 +17,8 @@ namespace MechWars.MapElements.Orders
         public Building ConstructingBuilding { get; private set; }
         public Building ConstructedBuilding { get; private set; }
 
+        public event System.Action<BuildingConstructionOrder, Building> BuildingFinished;
+
         public BuildingConstructionOrder(Building orderedBuilding, BuildingProduct buildingProduct)
             : base(orderedBuilding)
         {
@@ -81,6 +83,9 @@ namespace MechWars.MapElements.Orders
         {
             ConstructedBuilding.FinishConstruction();
             Debug.Log(string.Format("Construction of {0} complete.", ConstructedBuilding));
+
+            if (BuildingFinished != null)
+                BuildingFinished(this, ConstructedBuilding);
         }
 
         protected override string SpecificsToStringCore()

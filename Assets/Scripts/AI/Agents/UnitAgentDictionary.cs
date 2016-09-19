@@ -64,5 +64,14 @@ namespace MechWars.AI.Agents
             unitDict.Remove(unitAgent.Unit);
         }
 
+        public void Remove(Unit unit)
+        {
+            UnitAgent agent;
+            if (!unitDict.TryGetValue(unit, out agent))
+                throw new System.Exception(string.Format("No UnitAgent to remove (Unit {0}).", unit));
+
+            Remove(agent);
+        }
+
     }
 }

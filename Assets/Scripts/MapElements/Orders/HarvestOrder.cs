@@ -19,8 +19,6 @@ namespace MechWars.MapElements.Orders
             {
                 if (resource == value) return;
                 resource = value;
-                if (resource != null)
-                    resourceCoords = Resource.Coords.Round();
             }
         }
         public Building Deposit { get; private set; }
@@ -43,6 +41,8 @@ namespace MechWars.MapElements.Orders
         public HarvestOrder(Unit unit, Resource resource)
             : base(unit)
         {
+            DebugHelper.BreakPoint(() => resource == null);
+
             Unit = unit;
             Resource = resource;
             mode = HarvestMode.Collect;
@@ -58,10 +58,13 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnStart()
         {
+            DebugHelper.BreakPoint(() => resource == null);
+
             TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.CarriedResource, out carriedResourceStat));
             if (Deposit != null) TryFail(OrderResultAsserts.AssertBuildingIsResourceDeposit(Deposit));
             if (Failed) return;
 
+            UpdateResourceCoords();
             GiveNewSubOrder();
         }
 
@@ -71,10 +74,18 @@ namespace MechWars.MapElements.Orders
             {
                 CorrectResource();
                 if (Resource.value == 0)
+                {
                     Resource = null;
+                    UpdateResourceCoords();
+                }
             }
             if (!Deposit.IsTrueNull() && Deposit.Dying)
                 Deposit = null;
+        }
+
+        void UpdateResourceCoords()
+        {
+            resourceCoords = Resource == null ? null : new IVector2?(Resource.Coords.Round());
         }
 
         void CorrectResource()
@@ -89,12 +100,16 @@ namespace MechWars.MapElements.Orders
                 var ghost = Resource.Ghosts[MapElement.Army];
                 if (ghost == null)
                     throw new System.Exception("Resource has no Ghost, though it CanHaveGhosts and it's not visible by harvesting Army.");
+
                 Resource = (Resource)ghost;
+                UpdateResourceCoords();
             }
             else
             {
                 if (!Resource.GhostRemoved) return;
+
                 Resource = (Resource)Resource.OriginalMapElement;
+                UpdateResourceCoords();
             }
         }
 
@@ -125,10 +140,13 @@ namespace MechWars.MapElements.Orders
                 {
                     Resource = null;
                     resourceCoords = null;
-                    Resource = MapElement.PickClosestResourceInRange(StatNames.ViewRange);
-                    if (Resource != null && Resource.value > 0 &&
-                        Unit.Coords.Round().IsNeighbourTo(Resource.Coords.Round()))
+                    var newResource = MapElement.PickClosestResourceInRange(StatNames.ViewRange);
+                    if (newResource != null &&
+                        Unit.Coords.Round().IsNeighbourTo(newResource.Coords.Round()))
                     {
+                        Resource = newResource;
+                        UpdateResourceCoords();
+
                         collectOrder = new CollectOrder(Unit, Resource);
                         GiveSubOrder(collectOrder);
                     }
@@ -143,6 +161,7 @@ namespace MechWars.MapElements.Orders
                         depositOrder = new DepositOrder(Unit, Deposit);
                         GiveSubOrder(depositOrder);
                     }
+                    else GiveNewSubOrder();
                 }
             }
             else if (SubOrder == collectOrder)
@@ -153,7 +172,10 @@ namespace MechWars.MapElements.Orders
                     resourceCoords = null;
                 }
                 else if (Resource.value == 0)
+                {
                     Resource = MapElement.PickClosestResourceInRange(StatNames.ViewRange);
+                    UpdateResourceCoords();
+                }
                 GiveNewSubOrder();
             }
             else if (SubOrder == depositOrder)
@@ -187,7 +209,9 @@ namespace MechWars.MapElements.Orders
                                 GiveNewSubOrder();
                             }
                             else Succeed();
+                            return;
                         }
+                        UpdateResourceCoords();
                     }
                     if (resourceCoords != null)
                     {
