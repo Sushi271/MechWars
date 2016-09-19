@@ -43,6 +43,8 @@ namespace MechWars.MapElements.Orders
         public HarvestOrder(Unit unit, Resource resource)
             : base(unit)
         {
+            DebugHelper.BreakPoint(() => resource == null);
+
             Unit = unit;
             Resource = resource;
             mode = HarvestMode.Collect;
@@ -58,6 +60,8 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnStart()
         {
+            DebugHelper.BreakPoint(() => resource == null);
+
             TryFail(OrderResultAsserts.AssertMapElementHasStat(MapElement, StatNames.CarriedResource, out carriedResourceStat));
             if (Deposit != null) TryFail(OrderResultAsserts.AssertBuildingIsResourceDeposit(Deposit));
             if (Failed) return;
@@ -67,6 +71,8 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnUpdate()
         {
+            DebugHelper.BreakPoint(() => resource == null);
+
             if (!Resource.IsTrueNull())
             {
                 CorrectResource();

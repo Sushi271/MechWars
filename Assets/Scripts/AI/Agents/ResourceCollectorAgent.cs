@@ -56,7 +56,7 @@ namespace MechWars.AI.Agents
             }
             else refineryOnTheWay = false;
 
-            PerformEvery(1, TryRequestForHarvesterProduction);
+            PerformEvery(1, RequestForHarvesterProduction);
             PerformEvery(1, TryRequestForResourceSearch);
 
             HarvestingImportance = CalcHarvestingImportance();
@@ -122,21 +122,26 @@ namespace MechWars.AI.Agents
             var resRegions = Knowledge.Resources.Regions;
             if (resRegions.Empty())
                 SendMessage(Recon, AIName.FindMeResources, "0");
-            else if (resRegions.HasAtLeast(1))
+            else if (resRegions.HasNoMoreThan(1))
                 SendMessage(Recon, AIName.FindMeResources, "1");
-            else if (resRegions.HasAtLeast(3))
+            else if (resRegions.HasNoMoreThan(3))
                 SendMessage(Recon, AIName.FindMeResources, "2");
         }
-
-        void TryRequestForHarvesterProduction()
+        
+        void RequestForHarvesterProduction()
         {
             var allHarvesters = Knowledge.UnitAgents[AIName.Harvester];
-            if (allHarvesters.Empty())
+            int harvsCount = allHarvesters.Count;
+            int harvsInProgress = Production.GetGivenOrdersCountOfKind(Knowledge.MapElementKinds[AIName.Harvester]);
+            int harvsNeededNow = HarvestersOverTime();
+            int harvsShortage = harvsNeededNow - (harvsCount + harvsInProgress);
+            for (int i = 0; i < harvsShortage; i++)
                 SendMessage(Production, AIName.ProduceMeUnits, "0", AIName.Harvester);
-            else if (allHarvesters.HasAtLeast(3))
-                SendMessage(Production, AIName.ProduceMeUnits, "1", AIName.Harvester);
-            else if (allHarvesters.HasAtLeast(10))
-                SendMessage(Production, AIName.ProduceMeUnits, "2", AIName.Harvester);
+        }
+
+        int HarvestersOverTime()
+        {
+            return (int)(Time.time / 60) + 3;
         }
 
         float CalcHarvestingImportance()

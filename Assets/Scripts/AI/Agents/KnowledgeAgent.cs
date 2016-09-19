@@ -78,6 +78,12 @@ namespace MechWars.AI.Agents
                 if (b.Army == Army)
                     AllyBase.AddBuilding(new BuildingInfo(MapProxy, b));
             }
+            else if (mapElement is Unit)
+            {
+                var u = (Unit)mapElement;
+                if (u.Army == Army)
+                    UnitAgents.Add(new UnitAgent(Brain, this, u));
+            }
         }
 
         void Army_OnVisibleMapElementDied(MapElement mapElement)
@@ -90,6 +96,12 @@ namespace MechWars.AI.Agents
                 var b = (Building)mapElement;
                 if (b.Army == Army)
                     AllyBase.RemoveBuilding(AllyBase[tile]);
+            }
+            else if (mapElement is Unit)
+            {
+                var u = (Unit)mapElement;
+                if (u.Army == Army)
+                    UnitAgents.Remove(u);
             }
         }
     }

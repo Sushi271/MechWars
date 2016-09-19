@@ -9,6 +9,7 @@
         public const string HandMeOnUnits = "Hand me on Units";
         public const string HarvestMore = "Harvest more";
         public const string NoRefineriesAndNoResources = "No Refineries and no resources";
+        public const string NoHarvestersAndNoResources = "No Harvesters and no resources";
         public const string Ok = "Ok";
 
         // MapElement: Building

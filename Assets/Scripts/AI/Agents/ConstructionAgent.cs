@@ -1,4 +1,5 @@
 ﻿using MechWars.MapElements;
+using MechWars.MapElements.Orders;
 using MechWars.MapElements.Orders.Actions;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -10,11 +11,27 @@ namespace MechWars.AI.Agents
     public class ConstructionAgent : Agent
     {
         List<Request> requests;
+        HashSet<Order> givenOrders;
 
         public ConstructionAgent(AIBrain brain, MainAgent parent)
             : base("Construction", brain, parent)
         {
             requests = new List<Request>();
+            givenOrders = new HashSet<Order>();
+        }
+
+        public bool HasGivenOrdersOfKind(MapElementKind buildingKind)
+        {
+            return givenOrders.OfType<BuildingConstructionOrder>().Any(o =>
+                o.ConstructedBuilding.mapElementName == buildingKind.Name);
+        }
+
+        public bool HasCurrentRequestOfKind(MapElementKind buildingKind)
+        {
+            return requests.Any(r =>
+            {
+                return r.InnerMessage.Arguments[1] == buildingKind.Name;
+            });
         }
 
         protected override void OnUpdate()
@@ -48,9 +65,7 @@ namespace MechWars.AI.Agents
                     var buildingKind = Knowledge.MapElementKinds[buildingName];
                     var creationMethod = Knowledge.CreationMethods[buildingKind];
                     var creatorKind = creationMethod.Creator;
-                    var cost = creationMethod.Cost;
                     var startCost = creationMethod.StartCost;
-                    var time = creationMethod.Time;
                     var requiredBuildings = creationMethod.BuildingRequirements;
                     // technology requirements are none, so we can ignore them
 
@@ -60,9 +75,12 @@ namespace MechWars.AI.Agents
 
                     var completeBuildings = Army.Buildings.Where(b => !b.UnderConstruction);
                     var creators = completeBuildings.Where(b => b.mapElementName == creatorKind.Name);
-                    if (creators.Empty() && !requests.Any(_r => _r.InnerMessage.Arguments[1] == creatorKind.Name))
+                    if (creators.Empty())
                     {
-                        SendMessage(this, AIName.ConstructMeBuilding, r.Priority.ToString(), creatorKind.Name);
+                        if (!Construction.HasCurrentRequestOfKind(creatorKind) &&
+                            !HasGivenOrdersOfKind(creatorKind) &&
+                            !Army.Buildings.Any(_b => _b.mapElementName == creatorKind.Name))
+                            SendMessage(this, AIName.ConstructMeBuilding, r.Priority.ToString(), creatorKind.Name);
                         dontFinish = true;
                     }
                     else
@@ -89,10 +107,10 @@ namespace MechWars.AI.Agents
                     if (!requiredBuildingsLeft.Empty())
                     {
                         foreach (var b in requiredBuildingsLeft)
-                        {
-                            if (!requests.Any(_r => _r.InnerMessage.Arguments[1] == b.Name))
+                            if (!Construction.HasCurrentRequestOfKind(b) &&
+                                !HasGivenOrdersOfKind(b) &&
+                                !Army.Buildings.Any(_b => _b.mapElementName == b.Name))
                                 SendMessage(this, AIName.ConstructMeBuilding, r.Priority.ToString(), b.Name);
-                        }
                         dontFinish = true;
                     }
 
@@ -105,14 +123,20 @@ namespace MechWars.AI.Agents
                         continue;
                     }
 
-                    orderAction.GiveOrder(creator, new AIOrderActionArgs(Brain.player, place));
+                    var givenOrder = (BuildingConstructionOrder)orderAction.GiveOrder(creator, new AIOrderActionArgs(Brain.player, place));
+                    if (givenOrder != null)
+                    {
+                        givenOrder.BuildingFinished += GivenOrder_BuildingFinished;
+                        givenOrders.Add(givenOrder);
+                    }
+
                     processed.Add(r);
                 }
             }
             foreach (var r in processed)
                 requests.Remove(r);
         }
-
+        
         AIBuildingPlacement PickBuildingPlace(MapElementKind kind)
         {
             Vector2? placement = null;
@@ -229,6 +253,12 @@ namespace MechWars.AI.Agents
                 }
 
             return placements;
+        }
+
+        void GivenOrder_BuildingFinished(BuildingConstructionOrder order, Building building)
+        {
+            givenOrders.Remove(order);
+            order.BuildingFinished -= GivenOrder_BuildingFinished;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace MechWars.AI.Regions
             if (region.Width == 0) return;
 
             var stripsTable = region.ToStripsTable();
-            var nonEmptyStrips = stripsTable.Where(rs => rs.Count > 0);
+            var nonEmptyStrips = stripsTable.Where(rs => !rs.Empty);
             if (nonEmptyStrips.Empty()) return;
 
             int minStart = nonEmptyStrips.Min(rs => rs.Start);

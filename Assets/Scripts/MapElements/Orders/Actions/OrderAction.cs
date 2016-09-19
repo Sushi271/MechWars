@@ -27,14 +27,15 @@ namespace MechWars.MapElements.Orders.Actions
                     "{0} cannot filter hover candidates - it does not allow hover at all.", GetType().Name));
         }
 
-        public bool GiveOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
+        public Order GiveOrder(MapElement orderExecutor, IOrderActionArgs orderActionArgs)
         {
             if (orderExecutor.OrderQueue.Enabled && CanCreateOrder(orderActionArgs))
             {
-                orderExecutor.OrderQueue.Give(CreateOrder(orderExecutor, orderActionArgs));
-                return true;
+                var order = CreateOrder(orderExecutor, orderActionArgs);
+                orderExecutor.OrderQueue.Give(order);
+                return order;
             }
-            return false;
+            return null;
         }
 
         protected virtual bool CanCreateOrder(IOrderActionArgs orderActionArgs)

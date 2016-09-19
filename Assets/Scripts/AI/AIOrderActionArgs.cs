@@ -23,6 +23,11 @@ namespace MechWars.AI
             BuildingPlacement = placement;
         }
 
+        public AIOrderActionArgs(Player aiPlayer)
+            : this(aiPlayer, default(IVector2), Enumerable.Empty<MapElement>(), null)
+        {
+        }
+
         public AIOrderActionArgs(Player aiPlayer, AIBuildingPlacement placement)
             : this(aiPlayer, default(IVector2), Enumerable.Empty<MapElement>(), placement)
         {
