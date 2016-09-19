@@ -421,15 +421,15 @@ namespace MechWars.MapElements
 
         public Resource PickClosestResourceInRange(string rangeStatName)
         {
-            return (Resource)PickClosestMapElementInRange<Resource>(rangeStatName, Army.ResourcesQuadTree);
+            return (Resource)PickClosestMapElementInRange<Resource>(rangeStatName, Army.ResourcesQuadTree, me => ((Resource)me).value > 0);
         }
 
         public MapElement PickClosestEnemyInRange(string rangeStatName, bool onlyAggressive = false)
         {
-            return PickClosestMapElementInRange<MapElement>(rangeStatName, Army.EnemiesQuadTree, onlyAggressive);
+            return PickClosestMapElementInRange<MapElement>(rangeStatName, Army.EnemiesQuadTree, me => me.CanAttack);
         }
 
-        MapElement PickClosestMapElementInRange<T>(string rangeStatName, QuadTree searchedQuadTree, bool onlyAggressive = false)
+        MapElement PickClosestMapElementInRange<T>(string rangeStatName, QuadTree searchedQuadTree, System.Func<MapElement, bool> condition = null)
             where T : MapElement
         {
             var rangeStat = Stats[rangeStatName];
@@ -441,7 +441,7 @@ namespace MechWars.MapElements
             var mapElements = (
                 from qtme in searchedQuadTree.QueryRange(bounds)
                 where !qtme.MapElement.Dying
-                where !onlyAggressive || qtme.MapElement.CanAttack
+                where condition == null || condition(qtme.MapElement)
                 select qtme.MapElement)
                 .Distinct();
 
