@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using MechWars.AI;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace MechWars.Editors
     [CustomEditor(typeof(ResearchHelper))]
     public class ResearchHelperEditor : Editor
     {
-        bool paused = true;
+        bool paused = false;
         string timestampText = "";
 
         bool gameRunning = false;
@@ -15,6 +16,17 @@ namespace MechWars.Editors
         public override void OnInspectorGUI()
         {
             var researchHelper = (ResearchHelper)target;
+
+            GUILayout.Label("AI Brain:");
+            researchHelper.AI = (AIBrain)EditorGUILayout.ObjectField(researchHelper.AI, typeof(AIBrain), true);
+
+            GUILayout.Label("Resources filename:");
+            researchHelper.resourcesFilename = GUILayout.TextField(researchHelper.resourcesFilename);
+            GUILayout.Label("Recon filename:");
+            researchHelper.reconFilename = GUILayout.TextField(researchHelper.reconFilename);
+
+            EditorGUILayout.Separator();
+            EditorGUILayout.BeginVertical();
 
             bool gameWasRunning = gameRunning;
             gameRunning = Application.isPlaying;
@@ -36,13 +48,12 @@ namespace MechWars.Editors
             GUI.enabled = Application.isPlaying;
 
             string pauseButtonText = paused ? "Unpause" : "Pause";
-            float pauseTimeScale = paused ? 1 : 0;
-
             if (GUILayout.Button(pauseButtonText))
             {
                 paused = !paused;
-                Time.timeScale = pauseTimeScale;
             }
+            float pauseTimeScale = paused ? 0 : 1;
+            Time.timeScale = pauseTimeScale;
 
             GUI.enabled = Application.isPlaying && paused &&
                 researchHelper.timestampsFilename != null &&
@@ -67,6 +78,8 @@ namespace MechWars.Editors
             }
 
             GUI.enabled = true;
+
+            EditorGUILayout.EndVertical();
         }
     }
 }   
