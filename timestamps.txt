@@ -1,0 +1,17 @@
+0:07 - Rafineria w trakcie konstrukcji, armia ma 318 RU, dwa Harvestery wysłane przez ResourceCollectorAgent do zbierania zasobów, trzeci zabrany przez ReconAgent wykonuje zwiad
+0:18 - Rafineria skonstruowana. Harvestery zbierające wracają odłożyć zasoby. ReconAgent potrzebuje więcej Scoutów, a ResourceCollectorAgent Harvesterów, więc ConstructionAgent rozpoczyna konstrukcję fabryki. Armiii zostaje 63 RU i liczba ta spada. Harvester zwiedzający eksploruje teren dookoła bazy.
+0:23 - Harvestery odkładają zasoby do rafinerii, następuje szybki wzrost RU, przewyższający ich spadek wynikający z trwającej konstrukcji fabryki. Po odłożeniu zasobów armia ma 209 RU.
+0:37 - Konstrukcja fabryki jest na wykończeniu, zwiedzony został cały teren najbliższy bazie, armia ma 133 RU
+0:45 - Fabryka zostaje ukończona, ale Harvester wciąż zwiedza. ProductionAgent zarządził konstrucję Scouta, armia ma 144 RU
+0:51 - Scout został wyprodukowany, ReconAgent wziął go i zwolnił Harvester - teraz Scout jedzie zwiedzać. Harvester do tej pory zwiedzający jedzie zbierać zasoby. Armia ma 215 RU
+1:00 - Fabryka rozpoczyna produkcję czwartego Harvestera. Szybki zwiadowca dotarł już do granic widzialnej części mapy i zaczyna eksplorować. Armia ma 310 RU.
+1:19 - Powstaje czwarty Harvester i natychmiast jedzie zbierać zasoby. Scout zwiedza sąsiedni narożnik planszy. Armia ma 419 RU.
+1:40 - Skierowanie dwóch nowych Harvesterów do zbierania zasobów znacznie przyspiesza ich przyrost w czasie - armia przekracza próg 1000 RU. Zasoby w pierwszym regionie się wyczerpały, Harvestery za chwilę będą jeździć w dalsze trasy. Scout eskploruje środek mapy.
+2:01 - Fabryka rozpoczyna produkcję piątego Harvestera, Scout zbliżył się do drugiego z sąsiednich narożników mapy, wyczerpany został jednoelementowy region zasobów po drugiej stronie fabryki. Armia ma 1271 RU.
+2:21 - Zakończona została produkcja piątego Harvestera. Harvestery zbierają zasoby z regionu ukrytego za przeszkodami. Scout zwiedza obszar przy do dolnej krawędzi mapy i zbliża się do narożnika z wrogą bazą. Armia ma 1494 RU.
+2:38 - Scout zwiedził 90% pól mapy i zatrzymał się. Harvestery kursują na trasie między rafinerią a zasobami. Armia ma 1849 RU.
+2:50 - Armia przekroczyła próg 2000 RU.
+3:00 - Rozpoczęła się produkcja szóstego Harvestera. Armia ma 2215 RU.
+3:18 - Szósty harvester wyprodukowany. Armia ma 2419 RU.
+3:29 - Trzeci region z zasobami wyczerpany. Armia ma 2607 RU.
+3:40 - Harvestery zaczynają kursować do dwóch regionów jednocześnie (3 do jednego, 3 do drugiego). Armia ma 2925 RU (niemal 3000).

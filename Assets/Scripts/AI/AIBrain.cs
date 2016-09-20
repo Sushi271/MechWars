@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MechWars.MapElements;
+using MechWars.AI.Regions.ReconRegionOrderCalculators;
 
 namespace MechWars.AI
 {
@@ -12,7 +13,8 @@ namespace MechWars.AI
         public float resourceRegionDistance = 2;
         public TextAsset harvestingImportanceFunction;
         public int reconRegionSize = 8;
-        public int coarseReconRegionPercentage = 90;
+        public int coarseReconPercentage = 90;
+        public ReconRegionOrderCalculator reconRegionOrderCalculator;
 
         HashSet<Agent> agentsToAdd;
         HashSet<Agent> agents;

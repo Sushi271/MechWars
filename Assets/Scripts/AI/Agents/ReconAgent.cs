@@ -235,7 +235,7 @@ namespace MechWars.AI.Agents
             float totalExplorationPercentage = sum / total;
 
             // If coarse is recon done, finish request and release all agents
-            if (totalExplorationPercentage >= Brain.coarseReconRegionPercentage)
+            if (totalExplorationPercentage >= Brain.coarseReconPercentage)
             {
                 processed.Add(r);
                 foreach (var ua in uaSet.Ready)

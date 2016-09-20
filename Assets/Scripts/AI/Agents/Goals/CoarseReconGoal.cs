@@ -1,11 +1,8 @@
 ﻿using MechWars.AI.Regions;
-using MechWars.FogOfWar;
 using MechWars.MapElements.Orders;
-using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace MechWars.AI.Agents.Goals
 {
@@ -31,7 +28,8 @@ namespace MechWars.AI.Agents.Goals
         {
             if (CurrentReconRegion == null) return;
 
-            if (CurrentReconRegion.ExplorationPercentage >= Agent.Brain.coarseReconRegionPercentage)
+            if (currentMoveOrder != null && 
+                CurrentReconRegion.ExplorationPercentage >= Agent.Brain.coarseReconPercentage)
                 currentMoveOrder.Stop();
             if (currentMoveOrder != null && currentMoveOrder.InFinalState)
                 currentMoveOrder = null;
@@ -40,6 +38,8 @@ namespace MechWars.AI.Agents.Goals
             {
                 visited.Add(CurrentReconRegion);
                 TakeNextReconRegion();
+
+                if (CurrentReconRegion == null) return;
             }
 
             var regCenter = CurrentReconRegion.ConvexHull.Center.Round();
@@ -54,12 +54,14 @@ namespace MechWars.AI.Agents.Goals
 
         void TakeNextReconRegion()
         {
+            var orderCalculator = Agent.Brain.reconRegionOrderCalculator;
+
             var recRegs = Agent.Recon.AllReconRegions;
             var sortedRecRegs =
                 from reg in recRegs
                 where !visited.Contains(reg)
-                where reg.ExplorationPercentage < Agent.Brain.coarseReconRegionPercentage
-                orderby CalculateOrderBaseSelfSum(reg)
+                where reg.ExplorationPercentage < Agent.Brain.coarseReconPercentage
+                orderby orderCalculator == null ? 0 : orderCalculator.Calculate(this, reg)
                 select reg;
             var otherUnitAgents = Agent.Recon.ReconUnits
                 .SelectMany(kv => kv.Value.Ready)
@@ -71,57 +73,6 @@ namespace MechWars.AI.Agents.Goals
                     ua => ((CoarseReconGoal)ua.CurrentGoal).CurrentReconRegion == reg));
             if (CurrentReconRegion == null)
                 Finish();
-        }
-
-        float CalculateOrderBaseOnly(ReconRegionBatch region)
-        {
-            var baseReg = Agent.Knowledge.AllyBase.BaseRegion;
-            var distToBase = (region.ConvexHull.Center - baseReg.ConvexHull.Center).magnitude;
-            return distToBase;
-        }
-
-        float CalculateOrderBaseSelfSum(ReconRegionBatch region)
-        {
-            var distToBase = CalculateOrderBaseOnly(region);
-            var distToSelf = (region.ConvexHull.Center - UnitAgent.Unit.Coords).magnitude;
-            return distToBase + distToSelf;
-        }
-
-        float CalculateOrderBaseSelfSqrSum(ReconRegionBatch region)
-        {
-            var distToBase = CalculateOrderBaseOnly(region);
-            var distToSelf = (region.ConvexHull.Center - UnitAgent.Unit.Coords).magnitude;
-            return distToBase * distToBase + distToSelf * distToSelf;
-        }
-
-        float CalculateOrderBaseSelfProductAndTilesToExplore(ReconRegionBatch region)
-        {
-            var orderBaseSelfProduct = CalculateOrderBaseSelfSum(region);
-
-            var uShape = UnitAgent.Unit.Shape;
-            var radiusStat = UnitAgent.Unit.Stats[StatNames.ViewRange];
-            if (radiusStat == null) return orderBaseSelfProduct;
-            var radius = radiusStat.Value;
-
-            var losShape = Globals.LOSShapeDatabase[radius, uShape];
-            var center = region.ConvexHull.Center.Round();
-            int x = center.X;
-            int y = center.Y;
-
-            int tilesInShape = 0;
-            int tilesToExploreInShape = 0;
-            for (int rx = losShape.GetXMin(x), i = 0; rx <= losShape.GetXMax(x); rx++, i++)
-                for (int ry = losShape.GetYMin(y), j = 0; ry <= losShape.GetYMax(y); ry++, j++)
-                {
-                    if (!losShape[i, j]) continue;
-                    tilesInShape++;
-                    if (Globals.Map.IsInBounds(rx, ry) &&
-                        Agent.Army.VisibilityTable[rx, ry] == Visibility.Unknown)
-                        tilesToExploreInShape++;
-                }
-            var tilesToExploreRatio = (float)tilesToExploreInShape / tilesInShape;
-
-            return orderBaseSelfProduct * Mathf.Pow(tilesToExploreRatio, 0.25f);
         }
     }
 }
