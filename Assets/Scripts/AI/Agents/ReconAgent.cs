@@ -206,8 +206,8 @@ namespace MechWars.AI.Agents
             do
             {
                 replaced = false;
-                if (requestUnitAgentsPurposes.Empty()) return;
-                if (unitAgentsSuitabilities.Empty()) return;
+                if (requestUnitAgentsPurposes.Empty()) break;
+                if (unitAgentsSuitabilities.Empty()) break;
 
                 var firstUAS = unitAgentsSuitabilities.First();
                 var lastRUAP = requestUnitAgentsPurposes.Last();

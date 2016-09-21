@@ -6,13 +6,15 @@ using UnityEngine;
 
 namespace MechWars.AI.Regions.ReconRegionOrderCalculators
 {
-    public class BaseSelfProductAndTilesToExploreOrderCalculator : ReconRegionOrderCalculator
+    public class BaseSelfProductAndTilesExploredOrderCalculator : ReconRegionOrderCalculator
     {
         public override float Calculate(CoarseReconGoal goal, ReconRegionBatch region)
         {
             var baseReg = goal.Agent.Knowledge.AllyBase.BaseRegion;
-            var distToBase = (region.ConvexHull.Center - baseReg.ConvexHull.Center).magnitude;
-            var distToSelf = (region.ConvexHull.Center - goal.UnitAgent.Unit.Coords).magnitude;
+            var dToBase = region.ConvexHull.Center - baseReg.ConvexHull.Center;
+            var distToBase = dToBase.magnitude;
+            var dToSelf = region.ConvexHull.Center - goal.UnitAgent.Unit.Coords;
+            var distToSelf = dToSelf.magnitude;
             var baseSelfProduct = distToBase * distToSelf;
 
             var uShape = goal.UnitAgent.Unit.Shape;
@@ -26,19 +28,23 @@ namespace MechWars.AI.Regions.ReconRegionOrderCalculators
             int y = center.Y;
 
             int tilesInShape = 0;
-            int tilesToExploreInShape = 0;
+            int tilesExploredInShape = 0;
             for (int rx = losShape.GetXMin(x), i = 0; rx <= losShape.GetXMax(x); rx++, i++)
                 for (int ry = losShape.GetYMin(y), j = 0; ry <= losShape.GetYMax(y); ry++, j++)
                 {
                     if (!losShape[i, j]) continue;
                     tilesInShape++;
                     if (Globals.Map.IsInBounds(rx, ry) &&
-                        goal.Agent.Army.VisibilityTable[rx, ry] == Visibility.Unknown)
-                        tilesToExploreInShape++;
+                        goal.Agent.Army.VisibilityTable[rx, ry] != Visibility.Unknown)
+                        tilesExploredInShape++;
                 }
-            var tilesToExploreRatio = (float)tilesToExploreInShape / tilesInShape;
+            var explorationRatio = (float)tilesExploredInShape / tilesInShape;
 
-            return baseSelfProduct * Mathf.Pow(tilesToExploreRatio, 0.25f);
+            float minVal = 0.1f;
+            float power = 0.78f;
+
+            var factor = minVal + (explorationRatio * (1 - minVal));
+            return baseSelfProduct * Mathf.Pow(factor, power);
         }
     }
 }

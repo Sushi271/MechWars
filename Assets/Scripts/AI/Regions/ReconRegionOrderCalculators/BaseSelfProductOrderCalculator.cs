@@ -2,7 +2,7 @@
 
 namespace MechWars.AI.Regions.ReconRegionOrderCalculators
 {
-    public class BaseSelfSumOrderCalculator : ReconRegionOrderCalculator
+    public class BaseSelfProductOrderCalculator : ReconRegionOrderCalculator
     {
         public override float Calculate(CoarseReconGoal goal, ReconRegionBatch region)
         {
@@ -11,7 +11,7 @@ namespace MechWars.AI.Regions.ReconRegionOrderCalculators
             var distToBase = dToBase.magnitude;
             var dToSelf = region.ConvexHull.Center - goal.UnitAgent.Unit.Coords;
             var distToSelf = dToSelf.magnitude;
-            return distToBase + distToSelf;
+            return distToBase * distToSelf;
         }
     }
 }

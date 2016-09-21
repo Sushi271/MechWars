@@ -13,7 +13,13 @@ namespace MechWars.AI.Agents
 
         public HashSet<UnitAgent> this[MapElementKind mapElementKind]
         {
-            get { return kindDict[mapElementKind]; }
+            get
+            {
+                HashSet<UnitAgent> set;
+                var success = kindDict.TryGetValue(mapElementKind, out set);
+                if (success) return set;
+                return new HashSet<UnitAgent>();
+            }
         }
 
         public HashSet<UnitAgent> this[string mapElementName]
@@ -23,7 +29,13 @@ namespace MechWars.AI.Agents
 
         public UnitAgent this[Unit unit]
         {
-            get { return unitDict[unit]; }
+            get
+            {
+                UnitAgent agent;
+                var success = unitDict.TryGetValue(unit, out agent);
+                if (success) return agent;
+                return null;
+            }
         }
 
         public IEnumerable<MapElementKind> Kinds { get { return kindDict.Keys; } }

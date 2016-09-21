@@ -28,20 +28,24 @@ namespace MechWars.Editors
             EditorGUILayout.Separator();
             EditorGUILayout.BeginVertical();
 
-            bool gameWasRunning = gameRunning;
-            gameRunning = Application.isPlaying;
-            if (!gameWasRunning && gameRunning && 
-                researchHelper.timestampsFilename != null &&
-                researchHelper.timestampsFilename != string.Empty)
-            {
-                var fs = new FileStream(researchHelper.timestampsFilename, FileMode.OpenOrCreate);
-                var sw = new StreamWriter(fs);
-                sw.WriteLine("---------------------------------------------------------------------\n");
-                fs.Close();
-            }
-
             GUI.enabled = !Application.isPlaying;
 
+            researchHelper.startPaused = GUILayout.Toggle(researchHelper.startPaused, "Start paused?");
+
+            bool gameWasRunning = gameRunning;
+            gameRunning = Application.isPlaying;
+            if (!gameWasRunning && gameRunning)
+            {
+                paused = researchHelper.startPaused;
+                if (researchHelper.timestampsFilename != null &&
+                    researchHelper.timestampsFilename != string.Empty)
+                {
+                    var fs = new FileStream(researchHelper.timestampsFilename, FileMode.OpenOrCreate);
+                    var sw = new StreamWriter(fs);
+                    sw.WriteLine("---------------------------------------------------------------------\n");
+                    fs.Close();
+                }
+            }
             GUILayout.Label("Timestamps filename:");
             researchHelper.timestampsFilename = GUILayout.TextField(researchHelper.timestampsFilename);
 
@@ -82,4 +86,4 @@ namespace MechWars.Editors
             EditorGUILayout.EndVertical();
         }
     }
-}   
+}

@@ -7,11 +7,13 @@ namespace MechWars
 {
     public class ResearchHelper : MonoBehaviour
     {
+        public AIBrain AI;
+
         public string timestampsFilename = "";
         public string resourcesFilename = "";
         public string reconFilename = "";
 
-        public AIBrain AI;
+        public bool startPaused = false;
 
         int lastTime = -1;
 
