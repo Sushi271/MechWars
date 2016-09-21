@@ -132,8 +132,12 @@ namespace MechWars
             DEBUG_counters = new List<Counter>();
             DEBUG_counters.Add(new Counter());
 
-            var fs = new FileStream(aiMessageLogFileName, FileMode.Create);
-            fs.Close();
+            if (aiMessageLogFileName != null &&
+                aiMessageLogFileName != "")
+            {
+                var fs = new FileStream(aiMessageLogFileName, FileMode.Create);
+                fs.Close();
+            }
         }
 
         void OnDestroy()

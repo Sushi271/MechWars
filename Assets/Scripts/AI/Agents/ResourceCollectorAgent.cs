@@ -67,9 +67,9 @@ namespace MechWars.AI.Agents
                 var freeHarvesters = Knowledge.UnitAgents[AIName.Harvester].Where(h => !h.Busy);
                 foreach (var h in freeHarvesters)
                 {
-                    //h.Take(this);
-                    //Harvesters.Add(h);
-                    //h.GiveGoal(new HarvestGoal(h, this), HarvestingImportance);
+                    h.Take(this);
+                    Harvesters.Add(h);
+                    h.GiveGoal(new HarvestGoal(h, this), HarvestingImportance);
                 }
             }
 
