@@ -104,12 +104,8 @@ namespace MechWars.PlayerInput
             bool cannotBuild = false;
             foreach (var c in allCoords) //dla każdego c we współrzędnych, które zajmie budynek
             {
-                if (Globals.Map[c] != null) // jeżeli choć jedno z pól jest zajete
-                {
-                    cannotBuild = true;
-                    break;
-                }
-                if (!inputController.ConstructionRange.FieldInRange(c)) // lub jest poza zasiegiem
+                if (Globals.Map[c] != null || // jeżeli choć jedno z pól jest zajete
+                    !inputController.ConstructionRange.FieldInRange(c)) // lub jest poza zasiegiem
                 {
                     cannotBuild = true;
                     break;

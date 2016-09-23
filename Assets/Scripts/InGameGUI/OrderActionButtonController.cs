@@ -65,23 +65,17 @@ namespace MechWars.InGameGUI
                 bool active = orderActionNames.Contains(b.orderAction.gameObject.name);
                 if (active)
                 {
-                    // oprocz tego sprawdzamy jeszcze czy spelnione sa wymagania
-                    if (b.orderAction is BuildingConstructionOrderAction)
-                    {
-                        var coa = (BuildingConstructionOrderAction)b.orderAction;
-                        active = coa.CheckRequirements(Globals.HumanArmy);
-                    }
-                    else if (b.orderAction is UnitProductionOrderAction)
-                    {
-                        var poa = (UnitProductionOrderAction)b.orderAction;
-                        active = poa.CheckRequirements(Globals.HumanArmy);
-                    }
-                    else if (b.orderAction is TechnologyDevelopmentOrderAction)
-                    {
-                        var doa = (TechnologyDevelopmentOrderAction)b.orderAction;
-                        active = doa.CheckRequirements(Globals.HumanArmy) &&
-                            Globals.HumanArmy.Technologies.CanDevelop(doa.technology);
-                    }
+            // oprocz tego sprawdzamy jeszcze czy spelnione sa wymagania
+            var coa = b.orderAction as BuildingConstructionOrderAction;
+            var poa = b.orderAction as UnitProductionOrderAction;
+            var doa = b.orderAction as TechnologyDevelopmentOrderAction;
+            if (coa != null)
+                active = coa.CheckRequirements(Globals.HumanArmy);
+            else if (poa != null)
+                active = poa.CheckRequirements(Globals.HumanArmy);
+            else if (doa != null)
+                active = doa.CheckRequirements(Globals.HumanArmy) &&
+                    Globals.HumanArmy.Technologies.CanDevelop(doa.technology);
                 }
                 // jesli tak, to guzik da sie kliknac
                 b.gameObject.SetActive(active);
