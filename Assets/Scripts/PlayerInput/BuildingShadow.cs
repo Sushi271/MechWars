@@ -55,64 +55,37 @@ namespace MechWars.PlayerInput
         {
             var coords = inputController.Mouse.MapRaycast.PreciseCoords;
             InsideMap = coords.HasValue;
-            if (!coords.HasValue)
-                return;
+            if (!coords.HasValue) return;
 
             var p = coords.Value;
             var shape = prefab.Shape;
             var W = shape.Width;
             var H = shape.Height;
 
-            //punkty do snapowania siem
-            float xSnap1, xSnap2;
-            if (W % 2 == 0)
-            {
-                xSnap1 = Mathf.Floor(p.x - 0.5f) + 0.5f;
-                xSnap2 = Mathf.Ceil(p.x - 0.5f) + 0.5f;
-            }
-            else
-            {
-                xSnap1 = Mathf.Floor(p.x);
-                xSnap2 = Mathf.Ceil(p.x);
-            }
-            float ySnap1, ySnap2;
-            if (H % 2 == 0)
-            {
-                ySnap1 = Mathf.Floor(p.y - 0.5f) + 0.5f;
-                ySnap2 = Mathf.Ceil(p.y - 0.5f) + 0.5f;
-            }
-            else
-            {
-                ySnap1 = Mathf.Floor(p.y);
-                ySnap2 = Mathf.Ceil(p.y);
-            }
+            // snapowanie siem:
 
-            float x, y;
-            if (Mathf.Abs(p.x - xSnap1) > Mathf.Abs(p.x - xSnap2))
-                x = xSnap2;
-            else
-                x = xSnap1;
-            if (Mathf.Abs(p.y - ySnap1) > Mathf.Abs(p.y - ySnap2))
-                y = ySnap2;
-            else
-                y = ySnap1;
+            // czy trzeba przesunąć w poziomie i w pionie na krawędź pola
+            //     (gdy rozmiar jest parzysty, to budynek leży między polami, na krawędzi)
+            float horizontalOffset = W % 2 == 0 ? 0.5f : 0;
+            float verticalOffset = H % 2 == 0 ? 0.5f : 0;
 
-            Position = new Vector2(x, y);
+            // snapowanie w jedną albo w drugą stronę, jeszcze nie wiemy w którą, dlatego Floor i Ceil
+            float xSnap1 = Mathf.Floor(p.x - horizontalOffset) + horizontalOffset;
+            float xSnap2 = Mathf.Ceil(p.x - horizontalOffset) + horizontalOffset;
+            float ySnap1 = Mathf.Floor(p.y - verticalOffset) + verticalOffset;
+            float ySnap2 = Mathf.Ceil(p.y - verticalOffset) + verticalOffset;
+
+            // wybieramy z Floor i Ceil bliższe snapowanie
+            float closerXSnap = Mathf.Min(Mathf.Abs(p.x - xSnap1), Mathf.Abs(p.x - xSnap2));
+            float closerYSnap = Mathf.Min(Mathf.Abs(p.y - ySnap1), Mathf.Abs(p.y - ySnap2));
+            Position = new Vector2(closerXSnap, closerYSnap);
 
             shadow.Coords = Position; //ustawienie shadowowi snapowane współrzędne
             var allCoords = shadow.AllCoords.ToList();
-            bool cannotBuild = false;
-            foreach (var c in allCoords) //dla każdego c we współrzędnych, które zajmie budynek
-            {
-                if (Globals.Map[c] != null || // jeżeli choć jedno z pól jest zajete
-                    !inputController.ConstructionRange.FieldInRange(c)) // lub jest poza zasiegiem
-                {
-                    cannotBuild = true;
-                    break;
-                }
-            }
-            // powyżej prosi się o Any() z lambdą z LInQ, ale to Twój kod :P - Sushi
-            
+            bool cannotBuild = allCoords.All(c => // dla każdego c we współrzędnych, które zajmie budynek sprawdzamy czy:
+                Globals.Map[c] == null &&         // każde pole c jest wolne
+                inputController.ConstructionRange.FieldInRange(c)); // i w zasięgu budowania
+
             CannotBuild = cannotBuild;
             shadow.transform.position = new Vector3(Position.x, 0, Position.y);
         }

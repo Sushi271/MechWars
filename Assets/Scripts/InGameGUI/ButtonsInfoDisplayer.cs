@@ -31,21 +31,10 @@ namespace MechWars.InGameGUI
 
             // podmieniamy tekst w ramce
             var text = GetComponent<Text>();
-            if (button == null)
-            {
-                // na pusty
-                text.text = "";
-            }
-            else
-            {
-                // albo na opis nowego buttona
-                var oaButton = button.GetComponent<OrderActionButton>();
-                var ouButton = button.GetComponent<OrderUtilityButton>();
-                if (oaButton != null) // jesli jest skrypt OrderActionButton na buttonie
-                    text.text = oaButton.description;
-                else if (ouButton != null) // lub jesli jest skrypt OrderUtilityButton na buttonie
-                    text.text = ouButton.description;
-            }
+            // na pusty, jeśli button niezaznaczony
+            if (button == null) text.text = "";
+            // albo na opis nowego buttona
+            else text.text = button.GetComponent<IDescriptionProvider>().Description;
         }
     }
 }

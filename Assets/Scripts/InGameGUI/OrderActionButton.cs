@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
 {
-    public class OrderActionButton : MonoBehaviour
+    public class OrderActionButton : MonoBehaviour, IDescriptionProvider
     {
         public CanvasScript canvasScript;
 
@@ -17,6 +17,7 @@ namespace MechWars.InGameGUI
 
         [TextArea(3, 15)]
         public string description;
+        public string Description { get { return description; } }
 
         public void OnClick_ChangeCarriedOrderAction()
         {

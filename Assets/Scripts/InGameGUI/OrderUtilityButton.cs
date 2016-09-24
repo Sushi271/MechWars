@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
 {
-    public class OrderUtilityButton : MonoBehaviour
+    public class OrderUtilityButton : MonoBehaviour, IDescriptionProvider
     {
         public CanvasScript canvasScript;
         
@@ -14,6 +14,7 @@ namespace MechWars.InGameGUI
 
         [TextArea(3, 15)]
         public string description;
+        public string Description { get { return description; } }
 
         // Guzik Cancel na ConstYard, Factory i Laboratory
         public void OnClick_CancelProduction()
