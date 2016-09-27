@@ -1,12 +1,20 @@
 ﻿using MechWars.Utils;
 using System.Linq;
+using System.Collections.Generic;
+using MechWars.PlayerInput;
 
 namespace MechWars.MapElements.Orders.Actions
 {
     public class HarvestResourceOrderAction : OrderAction
     {
+        public override bool AllowsHover { get { return true; } }
         public override bool CanBeCarried { get { return true; } }
-        
+
+        public override void FilterHoverCandidates(HashSet<MapElement> candidates)
+        {
+            HoverCandidatesFilter.HarvestResource(candidates);
+        }
+
         protected override bool CanCreateOrder(IOrderActionArgs orderActionArgs)
         {
             return orderActionArgs.Targets.HasExactly(1);

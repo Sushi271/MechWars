@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
 {
-    public class OrderActionButton : MonoBehaviour, IDescriptionProvider
+    public class OrderActionButton : MonoBehaviour, IOrderButton
     {
         public CanvasScript canvasScript;
 
@@ -14,6 +14,7 @@ namespace MechWars.InGameGUI
         public OrderAction orderAction;
 
         public KeyCode hotkey;
+        public KeyCode Hotkey { get { return hotkey; } }
 
         [TextArea(3, 15)]
         public string description;

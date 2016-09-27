@@ -1,4 +1,5 @@
-﻿using MechWars.MapElements.Statistics;
+﻿using MechWars.MapElements.Attacks;
+using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,8 @@ namespace MechWars.MapElements.Orders
         float nextAutoAttackScanIn;
         bool lostTrack;
 
+        bool civilianEscort;
+
         public EscortOrder(Unit unit, IEnumerable<Unit> targets)
             : base(unit)
         {
@@ -33,8 +36,7 @@ namespace MechWars.MapElements.Orders
 
         protected override void OnStart()
         {
-            TryFail(OrderResultAsserts.AssertMapElementHasAnyAttacks(MapElement));
-            if (Failed) return;
+            civilianEscort = !Unit.GetComponents<Attack>().Empty();
 
             UpdateEscortData();
             if (Succeeded) return;
@@ -128,10 +130,10 @@ namespace MechWars.MapElements.Orders
             AttackTarget = null;
             GiveNewSubOrder();
         }
-        
+
         void GiveNewSubOrder()
         {
-            if (DestinationInRange)
+            if (!civilianEscort && DestinationInRange)
             {
                 AttackTarget = MapElement.PickClosestEnemyInRange(StatNames.AttackRange, true);
                 if (AttackTarget != null)

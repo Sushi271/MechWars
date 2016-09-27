@@ -34,7 +34,7 @@ namespace MechWars.InGameGUI
             // na pusty, jeśli button niezaznaczony
             if (button == null) text.text = "";
             // albo na opis nowego buttona
-            else text.text = button.GetComponent<IDescriptionProvider>().Description;
+            else text.text = button.GetComponent<IOrderButton>().Description;
         }
     }
 }

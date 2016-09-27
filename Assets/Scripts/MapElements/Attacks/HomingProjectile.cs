@@ -1,4 +1,5 @@
-﻿using MechWars.FogOfWar;
+﻿using MechWars.Effects;
+using MechWars.FogOfWar;
 using MechWars.MapElements.Statistics;
 using MechWars.Utils;
 using System.Collections.Generic;
@@ -164,7 +165,6 @@ namespace MechWars.MapElements.Attacks
 
             var explosion = Instantiate(explosionPrefab);
             explosion.GetComponent<RocketExplosion>().radius = damageRadius;
-            explosion.transform.SetParent(transform.parent);
             explosion.transform.position = coords.AsHorizontalVector3();
             explosion.transform.localScale =
                 new Vector3(1, 0, 1) * damageRadius * 2 +

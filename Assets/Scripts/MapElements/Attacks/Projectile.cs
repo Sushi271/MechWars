@@ -77,6 +77,10 @@ namespace MechWars.MapElements.Attacks
                 }
             }
 
+            var explosion = Instantiate(Globals.Prefabs.normalHitEffect);
+            explosion.transform.position = transform.position;
+            explosion.transform.localScale = 2.5f * explosion.transform.localScale;
+
             Destroy(gameObject);
         }
     }

@@ -426,7 +426,7 @@ namespace MechWars.MapElements
 
         public MapElement PickClosestEnemyInRange(string rangeStatName, bool onlyAggressive = false)
         {
-            return PickClosestMapElementInRange<MapElement>(rangeStatName, Army.EnemiesQuadTree, me => me.CanAttack);
+            return PickClosestMapElementInRange<MapElement>(rangeStatName, Army.EnemiesQuadTree, me => !onlyAggressive || me.CanAttack);
         }
 
         MapElement PickClosestMapElementInRange<T>(string rangeStatName, QuadTree searchedQuadTree, System.Func<MapElement, bool> condition = null)
@@ -435,7 +435,7 @@ namespace MechWars.MapElements
             var rangeStat = Stats[rangeStatName];
             if (rangeStat == null) return null;
             var range = rangeStat.Value;
-
+            
             var roundRange = Mathf.RoundToInt(range);
             var bounds = new SquareBounds(Coords.Round() - new IVector2(roundRange, roundRange), roundRange * 2 + 1);
             var mapElements = (

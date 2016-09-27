@@ -84,7 +84,7 @@ namespace MechWars.MapElements.Orders
             }
             Targets.ExceptWith(toRemove);
             Targets.UnionWith(toAdd);
-            if (CurrentTarget == null)
+            if (CurrentTarget.IsTrueNull())
                 UpdateCurrentTarget();
         }
 

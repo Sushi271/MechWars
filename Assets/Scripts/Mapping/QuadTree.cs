@@ -178,6 +178,21 @@ namespace MechWars.Mapping
             return mapElements;
         }
 
+        public bool Check(IVector2 pos)
+        {
+            if (!bounds.ContainsPoint(pos)) return false;
+
+            if (!HasChildren)
+                return QuadTreeMapElement != null &&
+                    QuadTreeMapElement.Coords == pos;
+
+            if (x0y0.Check(pos)) return true;
+            if (x0y1.Check(pos)) return true;
+            if (x1y0.Check(pos)) return true;
+            if (x1y1.Check(pos)) return true;
+            return false;
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();

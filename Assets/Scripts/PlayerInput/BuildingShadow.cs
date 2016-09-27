@@ -76,15 +76,16 @@ namespace MechWars.PlayerInput
             float ySnap2 = Mathf.Ceil(p.y - verticalOffset) + verticalOffset;
 
             // wybieramy z Floor i Ceil bliższe snapowanie
-            float closerXSnap = Mathf.Min(Mathf.Abs(p.x - xSnap1), Mathf.Abs(p.x - xSnap2));
-            float closerYSnap = Mathf.Min(Mathf.Abs(p.y - ySnap1), Mathf.Abs(p.y - ySnap2));
+            float closerXSnap = Mathf.Abs(p.x - xSnap1) < Mathf.Abs(p.x - xSnap2) ? xSnap1 : xSnap2;
+            float closerYSnap = Mathf.Abs(p.y - ySnap1) < Mathf.Abs(p.y - ySnap2) ? ySnap1 : ySnap2;
             Position = new Vector2(closerXSnap, closerYSnap);
 
             shadow.Coords = Position; //ustawienie shadowowi snapowane współrzędne
             var allCoords = shadow.AllCoords.ToList();
-            bool cannotBuild = allCoords.All(c => // dla każdego c we współrzędnych, które zajmie budynek sprawdzamy czy:
-                Globals.Map[c] == null &&         // każde pole c jest wolne
-                inputController.ConstructionRange.FieldInRange(c)); // i w zasięgu budowania
+            bool cannotBuild = allCoords.Any(c => // dla każdego c we współrzędnych, które zajmie budynek sprawdzamy czy:
+                Globals.Map[c] != null ||         // którekolwiek pole c jest zajęte
+                !inputController.ConstructionRange.FieldInRange(c)); // lub jest poza zasięgiem budowania
+            // wtedy nie możemy tego zbudować
 
             CannotBuild = cannotBuild;
             shadow.transform.position = new Vector3(Position.x, 0, Position.y);

@@ -4,6 +4,7 @@ using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
 {
@@ -12,6 +13,16 @@ namespace MechWars.InGameGUI
         public OrderUtilityButton cancelSelectionButton;
         public OrderUtilityButton cancelProductionButton;
         public List<OrderActionButton> buttons;
+
+        public IEnumerable<IOrderButton> AllButtons
+        {
+            get
+            {
+                return buttons.Cast<IOrderButton>()
+                    .Concat(cancelSelectionButton.AsEnumerable<IOrderButton>())
+                    .Concat(cancelProductionButton.AsEnumerable<IOrderButton>());
+            }
+        }
 
         void Update()
         {
@@ -79,6 +90,21 @@ namespace MechWars.InGameGUI
                 }
                 // jesli tak, to guzik da sie kliknac
                 b.gameObject.SetActive(active);
+            }
+
+            HandleHotkeys();
+        }
+
+        void HandleHotkeys()
+        {
+            // pobieramy tylko te guziki, ktore sa widoczne
+            var possibleButtons = AllButtons.Where(b => b.gameObject.activeSelf);
+            foreach (var b in possibleButtons) // dla kazdej pary klucz-wartosc w slowniku
+            {
+                var button = b.gameObject.GetComponent<Button>();
+                // jesli wcisnieto klawisz hotkeya
+                if (Input.GetKeyDown(b.Hotkey))
+                    button.onClick.Invoke();
             }
         }
     }

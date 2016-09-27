@@ -17,16 +17,9 @@ namespace MechWars.InGameGUI
         public GameObject buttonsInfoBack;
 
         public ResourceCounter resourceCounter;
-
-        // lista wszystkich buttonow
-        List<Button> buttons;
-        public List<Button> Buttons { get { return buttons; } }
         
         void Start()
         {
-            // tworzymy liste buttonow
-            buttons = new List<Button>();
-
             // domyslnie chcemy by buttonsInfo nie bylo widoczne
             buttonsInfo.SetActive(false);
             buttonsInfoBack.SetActive(false);
@@ -38,16 +31,6 @@ namespace MechWars.InGameGUI
                 debugInfoActive = !debugInfoActive;
             debugInfo.SetActive(debugInfoActive);
             debugInfoBack.SetActive(debugInfoActive);
-
-            // pobieramy tylko te guziki, ktore sa widoczne
-            var possibleButtons = buttons.Where(b => b.gameObject.activeSelf);
-            foreach (var b in possibleButtons) // dla kazdej pary klucz-wartosc w slowniku
-            {
-                var orderActionButton = b.GetComponent<OrderActionButton>();
-                // jesli wcisnieto klawisz hotkeya
-                if (Input.GetKeyDown(orderActionButton.hotkey))
-                    b.onClick.Invoke();
-            }
         }
 
         public void SetHoveredButton(Button button)

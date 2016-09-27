@@ -1,16 +1,16 @@
 ﻿using MechWars.MapElements;
-using MechWars.MapElements.Orders.Actions;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MechWars.InGameGUI
 {
-    public class OrderUtilityButton : MonoBehaviour, IDescriptionProvider
+    public class OrderUtilityButton : MonoBehaviour, IOrderButton
     {
         public CanvasScript canvasScript;
         
         public KeyCode hotkey;
+        public KeyCode Hotkey { get { return hotkey; } }
 
         [TextArea(3, 15)]
         public string description;

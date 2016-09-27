@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace MechWars.MapElements.Attacks
+namespace MechWars.Effects
 {
     public class RocketExplosion : MonoBehaviour
     {
@@ -70,7 +70,8 @@ namespace MechWars.MapElements.Attacks
             VisibleToSpectator = Globals.Armies
                 .Where(a => a.actionsVisible)
                 .Any(a => fieldsInCircleDistinct
-                    .Any(f => a.VisibilityTable[f.X, f.Y] == Visibility.Visible));
+                    .Any(f => !Globals.Map.IsInBounds(f.X, f.Y) ||
+                        a.VisibilityTable[f.X, f.Y] == Visibility.Visible));
         }
     }
 }

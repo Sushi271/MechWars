@@ -1,4 +1,5 @@
 ﻿using MechWars.MapElements;
+using MechWars.MapElements.Orders.Actions;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,6 +123,18 @@ namespace MechWars.PlayerInput
             }
 
             candidates.RemoveWhere(me => !me.CanBeEscorted || me.Army != Globals.HumanArmy);
+        }
+        
+        public static void HarvestResource(HashSet<MapElement> candidates)
+        {
+            var selected = Globals.Spectator.InputController.SelectionMonitor.SelectedMapElements;
+            if (selected.None(me => me.orderActions.Any(oa => oa is HarvestResourceOrderAction)))
+            {
+                candidates.Clear();
+                return;
+            }
+
+            candidates.RemoveWhere(me => !(me is Resource));
         }
 
         internal static void LookAt(HashSet<MapElement> candidates)

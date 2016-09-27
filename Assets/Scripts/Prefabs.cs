@@ -1,4 +1,5 @@
 ﻿using MechWars.AI;
+using MechWars.Effects;
 using MechWars.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace MechWars
         public GameObject resource2;
         [PrefabType(PrefabType.Other)]
         public AIBrain aiBrain;
+        [PrefabType(PrefabType.Other)]
+        public NormalHit normalHitEffect;
 
         public List<GameObject> ResourcePrefabs { get { return GetPrefabByType(PrefabType.Resource); } }
         public GameObject RandomResourcePrefab { get { return random.Choice(ResourcePrefabs); } }
