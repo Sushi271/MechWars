@@ -8,6 +8,9 @@ using MechWars.Mapping;
 using MechWars.FogOfWar;
 using System.IO;
 using MechWars.AI.Regions;
+using MechWars.InGameGUI;
+using System.Linq;
+using MechWars.AI;
 
 namespace MechWars
 {
@@ -40,6 +43,8 @@ namespace MechWars
         public bool debugComplexOrderStrings;
         public string aiMessageLogFileName;
         public float autoAttackScanInterval = 1;
+
+        public CanvasScript canvasScript;
 
         List<Counter> DEBUG_counters;
         public static List<Counter> DEBUG_Counters { get { return Instance.DEBUG_counters; } }
@@ -138,6 +143,58 @@ namespace MechWars
                 var fs = new FileStream(aiMessageLogFileName, FileMode.Create);
                 fs.Close();
             }
+
+            SetupLevel();
+        }
+
+        void SetupLevel()
+        {
+            if (LevelLoadArgs.modeAIVsAI)
+            {
+                var p1 = MapSettings.players[0];
+                var p2 = MapSettings.players[1];
+
+                p1.army.actionsVisible = true;
+                p2.army.actionsVisible = true;
+
+                canvasScript.resourceCounter.army = p2.army;
+
+                Spectator.player = null;
+
+                var brain1 = Instantiate(Prefabs.aiBrain.gameObject);
+                brain1.transform.SetParent(this.transform);
+                brain1.transform.position = Vector3.zero;
+                brain1.GetComponent<AIBrain>().player = p1;
+
+                var brain2 = Instantiate(Prefabs.aiBrain.gameObject);
+                brain2.transform.SetParent(this.transform);
+                brain2.transform.position = Vector3.zero;
+                brain2.GetComponent<AIBrain>().player = p2;
+
+                var handle = MainCameraObject.GetComponent<CameraController>().handle;
+                handle.transform.position = new Vector3(61, 0, 61);
+            }
+            else if (LevelLoadArgs.modePlayerVsAI)
+            {
+                var p1 = MapSettings.players[0];
+                var p2 = MapSettings.players[1];
+
+                p1.army.actionsVisible = true;
+
+                canvasScript.resourceCounter.army = p1.army;
+
+                Spectator.player = p1;
+
+                var brain = Instantiate(Prefabs.aiBrain.gameObject);
+                brain.transform.SetParent(this.transform);
+                brain.transform.position = Vector3.zero;
+                brain.GetComponent<AIBrain>().player = p2;
+
+                var handle = MainCameraObject.GetComponent<CameraController>().handle;
+                handle.transform.position = new Vector3(2, 0, 2);
+            }
+            LevelLoadArgs.modeAIVsAI = false;
+            LevelLoadArgs.modePlayerVsAI = false;
         }
 
         void OnDestroy()

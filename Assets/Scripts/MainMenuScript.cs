@@ -70,12 +70,16 @@ namespace MechWars
 
                 if (GUI.Button(new Rect(289, Screen.height / 2 - 100, 229, 48), "", "AI Button Style"))
                 {
-                    SceneManager.LoadScene("Test");
+                    LevelLoadArgs.modeAIVsAI = true;
+                    LevelLoadArgs.modePlayerVsAI = false;
+                    SceneManager.LoadScene("Level");
                 }
 
                 if (GUI.Button(new Rect(289, Screen.height / 2 - 44, 229, 48), "", "Player Button Style"))
                 {
-                    SceneManager.LoadScene("Test");
+                    LevelLoadArgs.modeAIVsAI = false;
+                    LevelLoadArgs.modePlayerVsAI = true;
+                    SceneManager.LoadScene("Level");
                 }
             }
         }

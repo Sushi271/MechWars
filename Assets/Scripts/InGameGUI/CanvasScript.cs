@@ -16,6 +16,8 @@ namespace MechWars.InGameGUI
         public GameObject buttonsInfo;
         public GameObject buttonsInfoBack;
 
+        public ResourceCounter resourceCounter;
+
         // lista wszystkich buttonow
         List<Button> buttons;
         public List<Button> Buttons { get { return buttons; } }

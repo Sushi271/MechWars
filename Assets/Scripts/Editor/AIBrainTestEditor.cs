@@ -12,12 +12,16 @@ namespace MechWars.Editors
         public override void OnInspectorGUI()
         {
             var bt = (AIBrainTest)target;
-            var brain = bt.Brain;
+            GUILayout.Label("Brain:");
+            bt.brain = (AIBrain)EditorGUILayout.ObjectField(bt.brain, typeof(AIBrain), true);
+            var brain = bt.brain;
 
-            var mi = typeof(VisibilityTable).GetMethod("IncreaseVisibilityOfTile",
-                BindingFlags.Instance | BindingFlags.NonPublic);
+            GUI.enabled = Application.isPlaying && brain != null;
+
             if (GUILayout.Button("Reveal all"))
             {
+                var mi = typeof(VisibilityTable).GetMethod("IncreaseVisibilityOfTile",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
                 var vtable = brain.MainAgent.Army.VisibilityTable;
                 for (int x = 0; x < Globals.MapSettings.Size; x++)
                     for (int y = 0; y < Globals.MapSettings.Size; y++)
@@ -39,6 +43,8 @@ namespace MechWars.Editors
                 Debug.LogFormat("Total Regions: {0}", total);
                 Debug.LogFormat("Total Resources: {0}", totalRes);
             }
+
+            GUI.enabled = true;
         }
     }
 }
