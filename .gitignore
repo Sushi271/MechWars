@@ -20,4 +20,6 @@
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 /MessageLog.txt
-/~$aca magisterska - zmiany Sushiego.docx
+
+# So there were no zips with complete project
+*.7z
