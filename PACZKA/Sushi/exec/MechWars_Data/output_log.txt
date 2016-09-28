@@ -1,0 +1,2187 @@
+Initialize engine version: 5.3.4f1 (fdbb5133b820)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GT 750M         (ID=0xfe4)
+    Vendor:   NVIDIA
+    VRAM:     4029 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.078 seconds
+Platform assembly: D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.986577 ms
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: f78 -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.048585 ms
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Material:Internal_CreateWithShader (UnityEngine.Material,UnityEngine.Shader)
+  at UnityEngine.Material..ctor (UnityEngine.Shader shader) [0x00000] in <filename unknown>:0 
+  at MechWars.GLRendering.GLRenderer.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 17093.
+Total: 10.718493 ms (FindLiveObjects: 1.652848 ms CreateObjectMapping: 3.322374 ms MarkObjects: 5.601722 ms  DeleteObjects: 0.135563 ms)
+
+Platform assembly: D:\School\Magisterka\MechWars\Build\MechWars_Data\Managed\System.Xml.dll (this message is harmless)
+Construction of Refinery (301) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Refinery (302) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Factory (303) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Scout (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Factory (304) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Scout (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Refinery" [ Refinery (311) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Arms division" [ Arms division ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Refinery" [ Refinery (311) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Arms division" [ Arms division ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Arms division" [ Arms division ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Arms division" [ Arms division ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Arms division" [ Arms division ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Arms division" [ Arms division ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Not enough resources to start construction of building Laboratory (0).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Refinery (311) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Arms division" [ Arms division ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Arms division" [ Arms division ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Arms division" [ Arms division ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Arms division" [ Arms division ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Arms division" [ Arms division ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Arms division" [ Arms division ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Arms division" [ Arms division ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Arms division" [ Arms division ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "MechMachinegun" [ MechMachinegun (0) ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "MechMachinegun" [ MechMachinegun (0) ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Refinery" [ Refinery (312) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Refinery (312) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of MechMachinegun (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of MechMachinegun (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Laboratory" [ Laboratory (314) ] in ConstructionYard (69) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "MechMachinegun" [ MechMachinegun (0) ] in Factory (304) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Not enough resources to start construction of building Wall (0).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Laboratory" [ Laboratory (314) ] in ConstructionYard (69) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Laboratory (314) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "MechMachinegun" [ MechMachinegun (0) ] in Factory (304) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Construction of Wall (317) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (318) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of MechMachinegun (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (320) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (321) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (322) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (323) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (324) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (325) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (326) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (327) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (329) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (330) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (331) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (332) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (333) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (334) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (335) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (336) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Construction of Wall (337) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of MechFlamethrower (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of MechFlamethrower (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of MechFlamethrower (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Order Move of Harvester (313) terminated: MapElement Harvester (313) is Dying.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Resources depleted! Production of Product "Caterpillar tracks" [ Caterpillar tracks ] in Laboratory (314) on hold.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Product "Caterpillar tracks" [ Caterpillar tracks ] in Laboratory (314) resumed.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Order SingleMove of Harvester (350) terminated: MapElement Harvester (350) is Dying.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Order Collect of Harvester (354) terminated: MapElement Harvester (354) is Dying.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Tank (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Order Collect of Harvester (357) terminated: MapElement Harvester (357) is Dying.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Tank (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Tank (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of RocketLauncher (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of RocketLauncher (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Production of RocketLauncher (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Production of Harvester (0) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Building.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Building.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Construction of Factory (370) complete.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Building.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Unit.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.UpdateAlive () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Building.OnUpdate () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at MechWars.MapElements.MapElement.<TurnIntoResource>m__8D (UnityEngine.GameObject a) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1[UnityEngine.GameObject].MoveNext () [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.First[GameObject] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0 
+  at System.Linq.Enumerable.FirstOrDefault[GameObject] (IEnumerable`1 source) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.TurnIntoResource () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[MechWars.Army,System.Boolean].get_Item (MechWars.Army key) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.Resource.RemoveFromQuadTrees () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnLifeEnd () [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.set_Alive (Boolean value) [0x00000] in <filename unknown>:0 
+  at MechWars.MapElements.MapElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+

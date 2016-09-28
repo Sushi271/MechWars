@@ -1,8 +1,0 @@
-<Stats>
-    <Stat name="Hit points" value="500" max_value="500" />
-    <Stat name="Attack head rotation speed" value="1.5" />
-    <Stat name="Firepower" value="250" />
-    <Stat name="Attack speed" value="0.8" />
-    <Stat name="Attack range" value="6" />
-    <Stat name="View range" value="6" />
-</Stats>

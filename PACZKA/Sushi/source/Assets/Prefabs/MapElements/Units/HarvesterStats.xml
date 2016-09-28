@@ -1,9 +1,0 @@
-<Stats>
-    <Stat name="Movement speed" value="2.5" />
-    <Stat name="Rotation speed" value="2" />
-    <Stat name="Hit points" value="150" max_value="150" />
-    <Stat name="Collect rate" value="10" />
-    <Stat name="Deposit rate" value="50" />
-    <Stat name="Carried resource" value="0" max_value="100" />
-    <Stat name="View range" value="5" />
-</Stats>

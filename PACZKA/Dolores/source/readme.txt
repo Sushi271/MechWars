@@ -1,0 +1,1 @@
+Katalog MechWars stanowi kompletny projekt Unity. Aby go uruchomiæ, nale¿y wybraæ ten katalog otwieraj¹c projekt przy pomocy Unity w wersji przynajmniej 5.3.4f1. Wewn¹trz znajduj¹ siê dwie sceny: MainMenu i Level. Ta druga zawiera g³ówn¹ czêœæ gry. Ca³y kod Ÿród³owy znajduje siê w katalogu MechWars/Assets/Scripts
